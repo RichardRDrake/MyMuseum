@@ -7,11 +7,12 @@ public class GridManager : MonoBehaviour
     [SerializeField]
 
     //space between objects
-    private float size = 1f;
+    private float size = 1.0f;
 
     //public variables
 
     public float stateX;
+    public float stateY;
     public float stateZ; 
   
     public Vector3 GetNearestPointOnGrid(Vector3 position)   //takes the original position and devides it by the size
@@ -40,7 +41,7 @@ public class GridManager : MonoBehaviour
         {
             for (float  z = stateZ; z < (stateZ + 40); z += size)
             {
-                var point = GetNearestPointOnGrid(new Vector3(x, 0f, z));
+                var point = GetNearestPointOnGrid(new Vector3(x, stateY + 0, z));
                 Gizmos.DrawSphere(point, 0.1f);
             }
         }
