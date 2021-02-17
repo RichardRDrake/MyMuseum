@@ -7,7 +7,7 @@ public class GridManager : MonoBehaviour
     [SerializeField]
 
     //space between objects
-    private float size = 1f;
+    private float size = 1.0f;
 
     //public variables
 
