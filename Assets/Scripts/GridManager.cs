@@ -41,7 +41,7 @@ public class GridManager : MonoBehaviour
         {
             for (float  z = stateZ; z < (stateZ + 40); z += size)
             {
-                var point = GetNearestPointOnGrid(new Vector3(x, stateY, z));
+                var point = GetNearestPointOnGrid(new Vector3(x, stateY + 0, z));
                 Gizmos.DrawSphere(point, 0.1f);
             }
         }

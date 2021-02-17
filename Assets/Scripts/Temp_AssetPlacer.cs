@@ -6,11 +6,12 @@ public class Temp_AssetPlacer : MonoBehaviour
 {
     //creates a gridmanager object
     private GridManager grid;
+    private GameObject painting1;
     // Start is called before the first frame update
     private void Awake()
     {
-        
         grid = FindObjectOfType<GridManager>();
+        painting1 = GameObject.Find("painting1");
     }
 
     // Update is called once per frame
@@ -31,6 +32,9 @@ public class Temp_AssetPlacer : MonoBehaviour
     private void PlaceCubeNear(Vector3 clickPoint)
     {
         var finalPosition = grid.GetNearestPointOnGrid(clickPoint);
-        GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = finalPosition;
+        painting1.transform.position = finalPosition;
+        Instantiate(painting1);
+      
+
     }
 }
