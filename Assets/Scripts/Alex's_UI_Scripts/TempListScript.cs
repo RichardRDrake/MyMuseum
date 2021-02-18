@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class TempListScript : MonoBehaviour
 {
+    //Just a script will a well-known list in it, to distinguish between menus
     public List<string> readFrom = new List<string>();
 
-    // Start is called before the first frame update
-    void Awake()
+    /*void Awake()
     {
+        //Populates the script with a list of planets
         readFrom.Add("Mercury");
         readFrom.Add("Venus");
         readFrom.Add("Earth");
@@ -17,11 +18,5 @@ public class TempListScript : MonoBehaviour
         readFrom.Add("Saturn");
         readFrom.Add("Uranus");
         readFrom.Add("Neptune");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    }*/
 }

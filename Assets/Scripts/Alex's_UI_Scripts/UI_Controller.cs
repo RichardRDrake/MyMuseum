@@ -5,9 +5,20 @@ using UnityEngine.UI;
 
 public class UI_Controller : MonoBehaviour
 {
+    //Window showing list of placeable objects
     [SerializeField] private GameObject AssetRepository;
-    [SerializeField] private GameObject ObjectsHide;
-    [SerializeField] private GameObject PageCounter;
+
+    //Panel for detailed view/confirming selection
+    [SerializeField] private GameObject DetailPanel;
+
+    //List of buttons relating to each category
+    //(This form of sorting is for testing's sake and is definitely not considered final)
+    [SerializeField] private GameObject FloorBased;
+    [SerializeField] private GameObject FloorOrWall;
+    [SerializeField] private GameObject Planar;
+    [SerializeField] private GameObject Small;
+
+    //The six objects, and a list in which to contain them
     private List<Text> objectDisplay = new List<Text>();
     [SerializeField] private GameObject Object1;
     [SerializeField] private GameObject Object2;
@@ -15,19 +26,34 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject Object4;
     [SerializeField] private GameObject Object5;
     [SerializeField] private GameObject Object6;
-    private TempListScript Resources;
+
+    //Visual representation of the objects themselves
+    //So they can be hidden when loading a new page
+    [SerializeField] private GameObject ObjectsHide;
+
+    //Page number object
+    [SerializeField] private GameObject PageCounter;
+    //Page number text
     Text countText;
+
+    private TempListScript Resources;
+    //Length of Resources
     int listLength;
+
+    //Used to determine which list to read from
+    public int switchLists = 0;
+
+    //Signals whether a menu needs to be displayed
+    public bool displayMenu = false;
+
     int pageCount;
     int pageCurrent = 1;
-
-    public bool increment = false;
-    public bool decrement = false;
 
     // Start is called before the first frame update
     void Start()
     {
         #region set variables
+        //Gets the six inventory panes, and a resource list
         objectDisplay.Add(Object1.GetComponent<Text>());
         objectDisplay.Add(Object2.GetComponent<Text>());
         objectDisplay.Add(Object3.GetComponent<Text>());
@@ -35,6 +61,8 @@ public class UI_Controller : MonoBehaviour
         objectDisplay.Add(Object5.GetComponent<Text>());
         objectDisplay.Add(Object6.GetComponent<Text>());
         countText = PageCounter.GetComponent<Text>();
+
+        //This debug TempListScript is NECESSARY. 
         Resources = GetComponent<TempListScript>();
         if (!Resources)
         {
@@ -51,10 +79,37 @@ public class UI_Controller : MonoBehaviour
             MenuSetup();
         }
 
+        if(displayMenu == true)
+        {
+            displayMenu = false;
+            MenuSetup();
+        }
+
     }
 
     private void MenuSetup()
     {
+        //Hides listing and detail panel while values are refreshed
+        DetailPanel.SetActive(false);
+        AssetRepository.SetActive(false);
+
+        //Determines that it's reading from the correct Resources.readFrom
+        switch (switchLists)
+        {
+            case 0:
+                Resources = FloorBased.GetComponent<TempListScript>();
+                break;
+            case 1:
+                Resources = FloorOrWall.GetComponent<TempListScript>();
+                break;
+            case 2:
+                Resources = Planar.GetComponent<TempListScript>();
+                break;
+            case 3:
+                Resources = Small.GetComponent<TempListScript>();
+                break;
+        }
+
         //Creates a total page count based on number of objects in Resources.readFrom
         //Includes all full pages, plus a page for the remainder
         listLength = Resources.readFrom.Count;
@@ -65,6 +120,13 @@ public class UI_Controller : MonoBehaviour
             pageCount++;
         }
 
+        //Makes sure there is always one page
+        if(listLength == 0)
+        {
+            pageCount = 1;
+        }
+
+        pageCurrent = 1;
         DisplayPageDetails();
         
         //Displays the AssetsRepository
@@ -93,6 +155,7 @@ public class UI_Controller : MonoBehaviour
 
     public void IncrementPage()
     {
+        //Cycles pages upward
         pageCurrent++;
         pageCurrent = Mathf.Clamp(pageCurrent, 1, pageCount);
         ObjectsHide.SetActive(false);
@@ -102,10 +165,17 @@ public class UI_Controller : MonoBehaviour
 
     public void DecrementPage()
     {
+        //Cycles pages downward
         pageCurrent--;
         pageCurrent = Mathf.Clamp(pageCurrent, 1, pageCount);
         ObjectsHide.SetActive(false);
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
+    }
+
+    public void HideAll()
+    {
+        DetailPanel.SetActive(false);
+        AssetRepository.SetActive(false);
     }
 }
