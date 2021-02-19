@@ -7,13 +7,21 @@ public class CamMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        parent = transform.parent;
     }
 
     // Update is called once per frame
 
-    private float moveSpeed = 0.05f;
+    private float moveSpeed = 5.0f;
     private float rotation = 90.0f;
+
+    /* Hi Shaun, Joe here.
+     * I've made a couple of changes to your code here, main change being that we move the parent instead of the camera itself
+     * this is so the camera can be angled downwards
+     * I've also multiplied your translations by delta.Time so that the amount they move doesnt vary with frame rates
+    */
+
+    private Transform parent;
 
     void Update()
     {
@@ -25,43 +33,43 @@ public class CamMovement : MonoBehaviour
         {
 
             // Applys the translation based on the objects rotation.
-            transform.Translate(transform.forward * moveSpeed, Space.World);
+            parent.Translate(parent.forward * moveSpeed * Time.deltaTime, Space.World);
         }
 
         if (Input.GetKey("a"))
         {
-            transform.Translate(-transform.right * moveSpeed, Space.World);
+            parent.Translate(-parent.right * moveSpeed * Time.deltaTime, Space.World);
         }
 
         if (Input.GetKey("s"))
         {
-            transform.Translate(-transform.forward * moveSpeed, Space.World);
+            parent.Translate(-parent.forward * moveSpeed * Time.deltaTime, Space.World);
         }
 
         if (Input.GetKey("d"))
         {
-            transform.Translate(transform.right * moveSpeed, Space.World);
+            parent.Translate(parent.right * moveSpeed * Time.deltaTime, Space.World);
         }
 
         if (Input.GetKey("r"))
         {
-            transform.Translate(transform.up * moveSpeed, Space.World);
+            parent.Translate(parent.up * moveSpeed * Time.deltaTime, Space.World);
         }
 
         if (Input.GetKey("f"))
         {
-            transform.Translate(-transform.up * moveSpeed, Space.World);
+            parent.Translate(-parent.up * moveSpeed * Time.deltaTime, Space.World);
         }
 
         if (Input.GetKeyDown("q"))
         {
             // Applys a rotation of 90 degrees to the object
-            transform.Rotate(-Vector3.up * rotation, Space.World);
+            parent.Rotate(-Vector3.up * rotation, Space.World);
         }
 
         if (Input.GetKeyDown("e"))
         {
-            transform.Rotate(Vector3.up * rotation, Space.World);
+            parent.Rotate(Vector3.up * rotation, Space.World);
         }
     }
 }

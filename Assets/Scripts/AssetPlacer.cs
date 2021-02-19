@@ -10,6 +10,9 @@ public class AssetPlacer : MonoBehaviour
     //Active grid, since this relies on Artefact browser, we will temporary use 1-3 to select objects
     [SerializeField] GridManager activeGrid = null; //[PH] Assigned during run-time
 
+    [SerializeField] GameObject cameraObj = null; //[PH] Assigned during run-time
+    private Camera camera;
+
     private GameObject objectToBePlaced = null;
 
     //Example objects [PH]
@@ -24,6 +27,15 @@ public class AssetPlacer : MonoBehaviour
         if (exampleObject_1 == null)
         {
             Debug.Log("example placement objects not assigned!");
+        }
+
+        if (cameraObj)
+        {
+            camera = cameraObj.GetComponent<Camera>();
+        }
+        else
+        {
+            Debug.Log("Please assign camera Object");
         }
     }
 
@@ -81,7 +93,7 @@ public class AssetPlacer : MonoBehaviour
     {
         //Turns a raycast into the closest point on the active grid
         RaycastHit hitInfo;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //I forsee issues with using Camera.main
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hitInfo))
         {
