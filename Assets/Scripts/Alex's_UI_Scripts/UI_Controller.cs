@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class UI_Controller : MonoBehaviour
 {
+    //Window showing main menu options
+    [SerializeField] private GameObject HudDefault;
+
+    //Window showing asset categories
+    [SerializeField] private GameObject ArtefactCategories;
+
     //Window showing list of placeable objects
     [SerializeField] private GameObject AssetRepository;
 
@@ -177,5 +183,11 @@ public class UI_Controller : MonoBehaviour
     {
         DetailPanel.SetActive(false);
         AssetRepository.SetActive(false);
+    }
+
+    public void DefaultToCategories()
+    {
+        HudDefault.SetActive(false);
+        ArtefactCategories.SetActive(true);
     }
 }
