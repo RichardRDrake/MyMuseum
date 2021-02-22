@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UI_Controller : MonoBehaviour
 {
+    #region variables
     //Window showing main menu options
     [SerializeField] private GameObject HudDefault;
 
@@ -25,7 +27,8 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject Small;
 
     //The six objects, and a list in which to contain them
-    private List<Text> objectDisplay = new List<Text>();
+    //private List<Text> objectDisplay = new List<Text>();
+    private List<TextMeshProUGUI> objectDisplay = new List<TextMeshProUGUI>();
     [SerializeField] private GameObject Object1;
     [SerializeField] private GameObject Object2;
     [SerializeField] private GameObject Object3;
@@ -40,7 +43,8 @@ public class UI_Controller : MonoBehaviour
     //Page number object
     [SerializeField] private GameObject PageCounter;
     //Page number text
-    Text countText;
+    //Text countText;
+    private TextMeshProUGUI countText;
 
     private TempListScript Resources;
     //Length of Resources
@@ -55,18 +59,39 @@ public class UI_Controller : MonoBehaviour
     int pageCount;
     int pageCurrent = 1;
 
+    //Determines which UI page the user is on.
+    //0 = top layer, 1 = artefact menus, 2 = build menus, 3 = move menus, 4 = delete menus, 5 = main menu
+    //More will be added as appropriate
+    public int pageFinder;
+
+    private bool isOnCataloguePage;
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
-        #region set variables
+        #region initialise variables
         //Gets the six inventory panes, and a resource list
-        objectDisplay.Add(Object1.GetComponent<Text>());
+        #region depreciated
+        /*objectDisplay.Add(Object1.GetComponent<Text>());
         objectDisplay.Add(Object2.GetComponent<Text>());
         objectDisplay.Add(Object3.GetComponent<Text>());
         objectDisplay.Add(Object4.GetComponent<Text>());
         objectDisplay.Add(Object5.GetComponent<Text>());
-        objectDisplay.Add(Object6.GetComponent<Text>());
-        countText = PageCounter.GetComponent<Text>();
+        objectDisplay.Add(Object6.GetComponent<Text>());*/
+        //countText = PageCounter.GetComponent<Text>();
+        #endregion
+        objectDisplay.Add(Object1.GetComponent<TextMeshProUGUI>());
+        objectDisplay.Add(Object2.GetComponent<TextMeshProUGUI>());
+        objectDisplay.Add(Object3.GetComponent<TextMeshProUGUI>());
+        objectDisplay.Add(Object4.GetComponent<TextMeshProUGUI>());
+        objectDisplay.Add(Object5.GetComponent<TextMeshProUGUI>());
+        objectDisplay.Add(Object6.GetComponent<TextMeshProUGUI>());
+        countText = PageCounter.GetComponent<TextMeshProUGUI>();
+        if(!countText)
+        {
+            Debug.Log("countText is broken (again)");
+        }
 
         //This debug TempListScript is NECESSARY. 
         Resources = GetComponent<TempListScript>();
@@ -80,17 +105,50 @@ public class UI_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown("space"))
+        //Moves the player back up a menu level from wherever they were.
+        if(Input.GetKeyDown("escape"))
         {
-            MenuSetup();
+            //Fill this in with other pages as they're implemented
+            switch (pageFinder)
+            {
+                case 0:
+                    //
+                    break;
+                case 1:
+                    HideAllArtefact();
+                    break;
+                case 2:
+                    //
+                    break;
+                case 3:
+                    //
+                    break;
+                case 4:
+                    //
+                    break;
+                case 5:
+                    //
+                    break;
+            }
         }
 
+        //If the UI controller recieves a signal from any artefact category button
         if(displayMenu == true)
         {
             displayMenu = false;
             MenuSetup();
         }
 
+        //Pertaining to arrow keys for scrolling menus
+        if(Input.GetKeyDown("left") && isOnCataloguePage == true)
+        {
+            DecrementPage();
+        }
+        
+        if(Input.GetKeyDown("right") && isOnCataloguePage == true)
+        {
+            IncrementPage();
+        }
     }
 
     private void MenuSetup()
@@ -139,6 +197,9 @@ public class UI_Controller : MonoBehaviour
         //(And 6 assets panes, if they were independently set inactive for any reason)
         AssetRepository.SetActive(true);
         ObjectsHide.SetActive(true);
+
+        //Permits use of arrow keys to scroll menus
+        isOnCataloguePage = true;
     }
 
     private void DisplayPageDetails()
@@ -167,6 +228,7 @@ public class UI_Controller : MonoBehaviour
         ObjectsHide.SetActive(false);
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
+        Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
     }
 
     public void DecrementPage()
@@ -177,17 +239,25 @@ public class UI_Controller : MonoBehaviour
         ObjectsHide.SetActive(false);
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
+        Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
     }
 
-    public void HideAll()
+    public void HideAllArtefact()
     {
+        //Resets all relevant menus and variables associated with artefact placement.
         DetailPanel.SetActive(false);
         AssetRepository.SetActive(false);
+        ArtefactCategories.SetActive(false);
+        HudDefault.SetActive(true);
+        isOnCataloguePage = false;
+        pageFinder = 0;
     }
 
     public void DefaultToCategories()
     {
+        //Enters the asset placement menus.
         HudDefault.SetActive(false);
         ArtefactCategories.SetActive(true);
+        pageFinder = 1;
     }
 }

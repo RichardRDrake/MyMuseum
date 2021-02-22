@@ -999,6 +999,7 @@ MonoBehaviour:
   PageCounter: {fileID: 2032622409}
   switchLists: 0
   displayMenu: 0
+  pageFinder: 0
 --- !u!114 &197655954
 MonoBehaviour:
   m_ObjectHideFlags: 0
