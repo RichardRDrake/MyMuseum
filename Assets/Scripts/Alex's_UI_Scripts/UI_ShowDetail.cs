@@ -10,12 +10,14 @@ public class UI_ShowDetail : MonoBehaviour
     [SerializeField] private GameObject MyTextField;
     [SerializeField] private GameObject DetailPanel;
     [SerializeField] private GameObject DetailTextField;
+    [SerializeField] private GameObject UIControllerHost;
     private TextMeshProUGUI myText;
     private TextMeshProUGUI detailText;
+    private UI_Controller UI_Controller;
     // Start is called before the first frame update
     void Start()
     {
-        
+        UI_Controller = UIControllerHost.GetComponent<UI_Controller>();
     }
 
     // Update is called once per frame
@@ -31,5 +33,6 @@ public class UI_ShowDetail : MonoBehaviour
         detailText = DetailTextField.GetComponent<TextMeshProUGUI>();
         detailText.text = myText.text;
         DetailPanel.SetActive(true);
+        UI_Controller.windowCurrent = UI_Controller.windowFinder.Artefact_Detail;
     }
 }

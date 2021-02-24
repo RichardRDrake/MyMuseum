@@ -60,9 +60,11 @@ public class UI_Controller : MonoBehaviour
     int pageCurrent = 1;
 
     //Determines which UI page the user is on.
-    //0 = top layer, 1 = artefact menus, 2 = build menus, 3 = move menus, 4 = delete menus, 5 = main menu
+    //0 = top layer, 1 = artefact menu (top), 2 = artefact menu (6-panel), 3 = artefact menu (detail panel) 
+    //4 = build menus, 5 = move menus, 6 = delete menus, 7 = main menu
     //More will be added as appropriate
-    public int pageFinder;
+    public enum windowFinder { Menu_Top = 1, Artefact_Top = 2, Artefact_Mid = 3, Artefact_Detail = 4 };
+    public windowFinder windowCurrent = windowFinder.Menu_Top;
 
     private bool isOnCataloguePage;
     #endregion
@@ -72,15 +74,6 @@ public class UI_Controller : MonoBehaviour
     {
         #region initialise variables
         //Gets the six inventory panes, and a resource list
-        #region depreciated
-        /*objectDisplay.Add(Object1.GetComponent<Text>());
-        objectDisplay.Add(Object2.GetComponent<Text>());
-        objectDisplay.Add(Object3.GetComponent<Text>());
-        objectDisplay.Add(Object4.GetComponent<Text>());
-        objectDisplay.Add(Object5.GetComponent<Text>());
-        objectDisplay.Add(Object6.GetComponent<Text>());*/
-        //countText = PageCounter.GetComponent<Text>();
-        #endregion
         objectDisplay.Add(Object1.GetComponent<TextMeshProUGUI>());
         objectDisplay.Add(Object2.GetComponent<TextMeshProUGUI>());
         objectDisplay.Add(Object3.GetComponent<TextMeshProUGUI>());
@@ -99,6 +92,8 @@ public class UI_Controller : MonoBehaviour
         {
             Debug.Log("Something went wrong");
         }
+
+        
         #endregion
     }
 
@@ -108,28 +103,7 @@ public class UI_Controller : MonoBehaviour
         //Moves the player back up a menu level from wherever they were.
         if(Input.GetKeyDown("escape"))
         {
-            //Fill this in with other pages as they're implemented
-            switch (pageFinder)
-            {
-                case 0:
-                    //
-                    break;
-                case 1:
-                    HideAllArtefact();
-                    break;
-                case 2:
-                    //
-                    break;
-                case 3:
-                    //
-                    break;
-                case 4:
-                    //
-                    break;
-                case 5:
-                    //
-                    break;
-            }
+            BackUp();  
         }
 
         //If the UI controller recieves a signal from any artefact category button
@@ -176,7 +150,7 @@ public class UI_Controller : MonoBehaviour
 
         //Creates a total page count based on number of objects in Resources.readFrom
         //Includes all full pages, plus a page for the remainder
-        listLength = Resources.readFrom.Count;
+        listLength = Resources.readFrom.Count + 1;
         Debug.Log(listLength);
         pageCount = listLength / 6;
         if(listLength % 6 > 0)
@@ -198,7 +172,8 @@ public class UI_Controller : MonoBehaviour
         AssetRepository.SetActive(true);
         ObjectsHide.SetActive(true);
 
-        //Permits use of arrow keys to scroll menus
+        //Updates the player's current window. Permits use of arrow keys to scroll menus
+        windowCurrent = windowFinder.Artefact_Mid;
         isOnCataloguePage = true;
     }
 
@@ -209,7 +184,11 @@ public class UI_Controller : MonoBehaviour
         countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
         for (int i = 0; i <= 5; i++)
         {
-            if (((pageCurrent - 1) * 6) + i > (Resources.readFrom.Count - 1))
+            if (((pageCurrent - 1) * 6) + i == listLength - 1)
+            {
+                objectDisplay[i].text = "Download";
+            }
+            else if (((pageCurrent - 1) * 6) + i > (Resources.readFrom.Count - 1))
             {
                 objectDisplay[i].text = " ";
             }
@@ -250,7 +229,7 @@ public class UI_Controller : MonoBehaviour
         ArtefactCategories.SetActive(false);
         HudDefault.SetActive(true);
         isOnCataloguePage = false;
-        pageFinder = 0;
+        windowCurrent = windowFinder.Menu_Top;
     }
 
     public void DefaultToCategories()
@@ -258,6 +237,29 @@ public class UI_Controller : MonoBehaviour
         //Enters the asset placement menus.
         HudDefault.SetActive(false);
         ArtefactCategories.SetActive(true);
-        pageFinder = 1;
+        windowCurrent = windowFinder.Artefact_Top;
+    }
+
+    public void BackUp()
+    {
+        int windowInt = (int) windowCurrent;
+        if(windowInt >=2 && windowInt <= 4)
+        {
+            windowInt--;
+            switch (windowInt)
+            {
+                case 1:
+                    HideAllArtefact();
+                    break;
+                case 2:
+                    AssetRepository.SetActive(false);
+                    windowCurrent = (windowFinder) windowInt;
+                    break;
+                case 3:
+                    DetailPanel.SetActive(false);
+                    windowCurrent = (windowFinder) windowInt;
+                    break;
+            }
+        }
     }
 }
