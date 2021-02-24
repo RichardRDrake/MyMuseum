@@ -8,12 +8,13 @@ public class AssetPlacer : MonoBehaviour
     //Parts of this will be subject to change, denoted with [PH]
 
     //Active grid, since this relies on Artefact browser, we will temporary use 1-3 to select objects
-    [SerializeField] GridManager activeGrid = null; //[PH] Assigned during run-time
+    [SerializeField] PlacementGrid activeGrid = null; //[PH] Assigned during run-time
 
     [SerializeField] GameObject cameraObj = null; //[PH] Assigned during run-time
     private Camera camera;
 
     private GameObject objectToBePlaced = null;
+    private bool validPlacement = false;
 
     //Example objects [PH]
     public GameObject exampleObject_1 = null; //[PH] Assigned in inspector
@@ -23,7 +24,7 @@ public class AssetPlacer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        activeGrid = FindObjectOfType<GridManager>(); //[PH]
+        activeGrid = FindObjectOfType<PlacementGrid>(); //[PH]
         if (exampleObject_1 == null)
         {
             Debug.Log("example placement objects not assigned!");
@@ -52,11 +53,14 @@ public class AssetPlacer : MonoBehaviour
             if (validPosition != Vector3.zero)
             {
                 objectToBePlaced.transform.position = validPosition;
+                validPosition = Vector3.zero;
                 ChangeColour(objectToBePlaced, Color.green);
+                validPlacement = true;
             }
             else
             {
                 ChangeColour(objectToBePlaced, Color.red);
+                validPlacement = true;
             }
             
         }
@@ -64,11 +68,16 @@ public class AssetPlacer : MonoBehaviour
 
     private void ProcessInput()
     {
-        if (Input.GetMouseButtonDown(0) && objectToBePlaced != null)
+        if (Input.GetMouseButtonDown(0) && objectToBePlaced != null && validPlacement == true)
         {
             //Release selected object
             ChangeColour(objectToBePlaced, Color.white);
-            objectToBePlaced = null;            
+
+            //Let the grid know an object has been placed on it
+            activeGrid.OnObjectPlaced(objectToBePlaced.transform.position);
+
+            objectToBePlaced = null;
+            validPlacement = false;
         }
 
         //This whole section will be [PH]
@@ -97,8 +106,13 @@ public class AssetPlacer : MonoBehaviour
 
         if (Physics.Raycast(ray, out hitInfo))
         {
-            Vector3 gridPosition = activeGrid.GetNearestPointOnGrid(hitInfo.point);
-            return gridPosition;
+            GridPosition gridPosition = activeGrid.GetNearestPointOnGrid(hitInfo.point);
+            //Check to see is position is valid (not occupied)
+            if (gridPosition != null && gridPosition.occupied == false)
+            {
+                return gridPosition.position;
+            }
+            else return Vector3.zero;
         }
 
         return Vector3.zero;
