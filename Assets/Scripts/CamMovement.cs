@@ -31,7 +31,6 @@ public class CamMovement : MonoBehaviour
         // If "W" Is pressed,
         if (Input.GetKey("w"))
         {
-
             // Applys the translation based on the objects rotation.
             parent.Translate(parent.forward * moveSpeed * Time.deltaTime, Space.World);
         }
