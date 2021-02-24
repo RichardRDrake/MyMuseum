@@ -1557,6 +1557,7 @@ MonoBehaviour:
   MyTextField: {fileID: 1236752778}
   DetailPanel: {fileID: 92215368}
   DetailTextField: {fileID: 1214595510}
+  UIControllerHost: {fileID: 1513523209}
 --- !u!114 &517972524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2185,8 +2186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7271cdd0cc8a9f4cb91fd08c2b05ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam1: {fileID: 1552032560}
-  cam2: {fileID: 895985101}
+  cam1: {fileID: 895985101}
+  cam2: {fileID: 1552032560}
 --- !u!1 &728341638
 GameObject:
   m_ObjectHideFlags: 0
@@ -2915,6 +2916,7 @@ MonoBehaviour:
   MyTextField: {fileID: 265580948}
   DetailPanel: {fileID: 92215368}
   DetailTextField: {fileID: 1214595510}
+  UIControllerHost: {fileID: 1513523209}
 --- !u!114 &921034235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3236,6 +3238,7 @@ MonoBehaviour:
   MyTextField: {fileID: 74192616}
   DetailPanel: {fileID: 92215368}
   DetailTextField: {fileID: 1214595510}
+  UIControllerHost: {fileID: 1513523209}
 --- !u!114 &1042260846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5318,7 +5321,7 @@ MonoBehaviour:
   PageCounter: {fileID: 1070283847}
   switchLists: 0
   displayMenu: 0
-  pageFinder: 0
+  windowCurrent: 1
 --- !u!114 &1513523212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5953,6 +5956,7 @@ MonoBehaviour:
   MyTextField: {fileID: 1368775615}
   DetailPanel: {fileID: 92215368}
   DetailTextField: {fileID: 1214595510}
+  UIControllerHost: {fileID: 1513523209}
 --- !u!114 &1646891378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6368,6 +6372,7 @@ MonoBehaviour:
   MyTextField: {fileID: 2035677346}
   DetailPanel: {fileID: 92215368}
   DetailTextField: {fileID: 1214595510}
+  UIControllerHost: {fileID: 1513523209}
 --- !u!114 &1787445336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6722,6 +6727,7 @@ MonoBehaviour:
   MyTextField: {fileID: 217232340}
   DetailPanel: {fileID: 92215368}
   DetailTextField: {fileID: 1214595510}
+  UIControllerHost: {fileID: 1513523209}
 --- !u!114 &1922111119
 MonoBehaviour:
   m_ObjectHideFlags: 0
