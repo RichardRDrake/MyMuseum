@@ -7,24 +7,35 @@ using TMPro;
 public class UI_Controller : MonoBehaviour
 {
     #region variables
+
+    #region GameObjects and relevant components
     //Window showing main menu options
     [SerializeField] private GameObject HudDefault;
 
     //Window showing asset categories
     [SerializeField] private GameObject ArtefactCategories;
 
+    //Window showing build categories
+    [SerializeField] private GameObject BuildCategories;
+
     //Window showing list of placeable objects
     [SerializeField] private GameObject AssetRepository;
 
     //Panel for detailed view/confirming selection
     [SerializeField] private GameObject DetailPanel;
+    [SerializeField] private GameObject DetailTextField;
+    private TextMeshProUGUI detailText;
 
     //List of buttons relating to each category
     //(This form of sorting is for testing's sake and is definitely not considered final)
     [SerializeField] private GameObject FloorBased;
     [SerializeField] private GameObject FloorOrWall;
-    [SerializeField] private GameObject Planar;
     [SerializeField] private GameObject Small;
+    [SerializeField] private GameObject Planar;
+    [SerializeField] private GameObject Room;
+    [SerializeField] private GameObject Plinth;
+    [SerializeField] private GameObject Stand;
+    [SerializeField] private GameObject Frame;
 
     //The six objects, and a list in which to contain them
     //private List<Text> objectDisplay = new List<Text>();
@@ -40,11 +51,10 @@ public class UI_Controller : MonoBehaviour
     //So they can be hidden when loading a new page
     [SerializeField] private GameObject ObjectsHide;
 
-    //Page number object
+    //Page number object and text
     [SerializeField] private GameObject PageCounter;
-    //Page number text
-    //Text countText;
     private TextMeshProUGUI countText;
+    #endregion
 
     private TempListScript Resources;
     //Length of Resources
@@ -59,14 +69,31 @@ public class UI_Controller : MonoBehaviour
     int pageCount;
     int pageCurrent = 1;
 
+    #region menu enums
     //Determines which UI page the user is on.
-    //0 = top layer, 1 = artefact menu (top), 2 = artefact menu (6-panel), 3 = artefact menu (detail panel) 
-    //4 = build menus, 5 = move menus, 6 = delete menus, 7 = main menu
     //More will be added as appropriate
-    public enum windowFinder { Menu_Top = 1, Artefact_Top = 2, Artefact_Mid = 3, Artefact_Detail = 4 };
+    public enum windowFinder { Menu_Top = 1, Menu_Sub = 2, Catalogue = 3, Detail = 4 };
     public windowFinder windowCurrent = windowFinder.Menu_Top;
 
-    private bool isOnCataloguePage;
+    //Determines which main menu option the user is on.
+    public enum topFinder { Null = 0, Artefact = 1, Build = 2, Move = 3, Destroy = 4, Main = 5 };
+    public topFinder topCurrent = topFinder.Null;
+
+    //Determines which submenu the user is on.
+    public enum subFinder { Null = 0, FloorRoom = 1, MiscPlinth = 2, SmallFrames = 3, PlanarStands = 4};
+    public subFinder subCurrent = subFinder.Null;
+
+    //Determines which pane the user is on.
+    public int paneCurrent;
+
+    //Determines which detail options the user is on.
+    public enum detailFinder { Null = 0, RotateC = 1, RotateAC = 2, Select = 3};
+    public detailFinder detailCurrent = detailFinder.Null;
+    #endregion
+
+    //This determines whether the script should read from the artefact or build objects repositories
+    //true = artefact, false = build
+    private bool isArtefact = false;
     #endregion
 
     // Start is called before the first frame update
@@ -101,7 +128,7 @@ public class UI_Controller : MonoBehaviour
     void Update()
     {
         //Moves the player back up a menu level from wherever they were.
-        if(Input.GetKeyDown("escape"))
+        if(Input.GetKeyDown("escape") || Input.GetKeyDown("backspace"))
         {
             BackUp();  
         }
@@ -113,44 +140,88 @@ public class UI_Controller : MonoBehaviour
             MenuSetup();
         }
 
+
         //Pertaining to arrow keys for scrolling menus
-        if(Input.GetKeyDown("left") && isOnCataloguePage == true)
+        #region Catalogue Scrolling
+        if (Input.GetKeyDown("left") && windowCurrent == windowFinder.Catalogue)
         {
             DecrementPage();
         }
         
-        if(Input.GetKeyDown("right") && isOnCataloguePage == true)
+        if(Input.GetKeyDown("right") && windowCurrent == windowFinder.Catalogue)
         {
             IncrementPage();
+        }
+        #endregion
+
+        //Determines what to do if the player hits tab or down
+        if(Input.GetKeyDown("tab") || Input.GetKeyDown("down"))
+        {
+            CycleThrough();
+        }
+
+        //Determines what to do if the player hits left
+        if(Input.GetKeyDown("up"))
+        {
+            CycleBack();
+        }
+
+        //Determines what to do if the player hits enter or space
+        if(Input.GetKeyDown("space") || Input.GetKeyDown("enter") || Input.GetKeyDown("return"))
+        {
+            NavigateDown();
         }
     }
 
     private void MenuSetup()
     {
+        #region Sets up catalogue display
         //Hides listing and detail panel while values are refreshed
         DetailPanel.SetActive(false);
         AssetRepository.SetActive(false);
 
         //Determines that it's reading from the correct Resources.readFrom
-        switch (switchLists)
+        if (isArtefact == true)
         {
-            case 0:
-                Resources = FloorBased.GetComponent<TempListScript>();
-                break;
-            case 1:
-                Resources = FloorOrWall.GetComponent<TempListScript>();
-                break;
-            case 2:
-                Resources = Planar.GetComponent<TempListScript>();
-                break;
-            case 3:
-                Resources = Small.GetComponent<TempListScript>();
-                break;
+            switch (switchLists)
+            {
+                case 0:
+                    Resources = FloorBased.GetComponent<TempListScript>();
+                    break;
+                case 1:
+                    Resources = FloorOrWall.GetComponent<TempListScript>();
+                    break;
+                case 2:
+                    Resources = Small.GetComponent<TempListScript>();
+                    break;
+                case 3:
+                    Resources = Planar.GetComponent<TempListScript>();
+                    break;
+            }
+        }
+        else
+        {
+            switch (switchLists)
+            {
+                case 0:
+                    Resources = Room.GetComponent<TempListScript>();
+                    break;
+                case 1:
+                    Resources = Plinth.GetComponent<TempListScript>();
+                    break;
+                case 2:
+                    Resources = Stand.GetComponent<TempListScript>();
+                    break;
+                case 3:
+                    Resources = Frame.GetComponent<TempListScript>();
+                    break;
+            }
         }
 
-        //Creates a total page count based on number of objects in Resources.readFrom
-        //Includes all full pages, plus a page for the remainder
-        listLength = Resources.readFrom.Count + 1;
+
+            //Creates a total page count based on number of objects in Resources.readFrom
+            //Includes all full pages, plus a page for the remainder
+            listLength = Resources.readFrom.Count + 1;
         Debug.Log(listLength);
         pageCount = listLength / 6;
         if(listLength % 6 > 0)
@@ -173,8 +244,8 @@ public class UI_Controller : MonoBehaviour
         ObjectsHide.SetActive(true);
 
         //Updates the player's current window. Permits use of arrow keys to scroll menus
-        windowCurrent = windowFinder.Artefact_Mid;
-        isOnCataloguePage = true;
+        windowCurrent = windowFinder.Catalogue;
+        #endregion
     }
 
     private void DisplayPageDetails()
@@ -197,8 +268,10 @@ public class UI_Controller : MonoBehaviour
                 objectDisplay[i].text = Resources.readFrom[((pageCurrent - 1) * 6) + i];
             }
         }
+        paneCurrent = 0;
     }
 
+    #region Page cycling voids
     public void IncrementPage()
     {
         //Cycles pages upward
@@ -208,6 +281,8 @@ public class UI_Controller : MonoBehaviour
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
         Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
+        //Sets currently selected pane to 0
+        paneCurrent = 0;
     }
 
     public void DecrementPage()
@@ -219,7 +294,10 @@ public class UI_Controller : MonoBehaviour
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
         Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
+        //Sets currently selected pane to 0
+        paneCurrent = 0;
     }
+    #endregion
 
     public void HideAllArtefact()
     {
@@ -227,21 +305,96 @@ public class UI_Controller : MonoBehaviour
         DetailPanel.SetActive(false);
         AssetRepository.SetActive(false);
         ArtefactCategories.SetActive(false);
+        BuildCategories.SetActive(false);
+        topCurrent = topFinder.Null;
         HudDefault.SetActive(true);
-        isOnCataloguePage = false;
         windowCurrent = windowFinder.Menu_Top;
     }
 
-    public void DefaultToCategories()
+    public void DefaultToArtefacts()
     {
-        //Enters the asset placement menus.
+        //Enters the artefact placement menus.
         HudDefault.SetActive(false);
+        subCurrent = subFinder.Null;
         ArtefactCategories.SetActive(true);
-        windowCurrent = windowFinder.Artefact_Top;
+        windowCurrent = windowFinder.Menu_Sub;
+        isArtefact = true;
     }
 
+    public void DefaultToBuild()
+    {
+        //Enters the build menus.
+        HudDefault.SetActive(false);
+        subCurrent = subFinder.Null;
+        BuildCategories.SetActive(true);
+        windowCurrent = windowFinder.Menu_Sub;
+        isArtefact = false;
+    }
+
+    private void NavigateDown()
+    {
+        //Goes an additional level down the menu hierarchy
+        #region Down Hierarchy
+        int windowInt = (int)windowCurrent;
+        switch (windowInt)
+        {
+            //If the player is on the top level menu
+            case 1:
+                //Switches based on the option selected
+                int topInt = (int)topCurrent;
+                switch (topInt)
+                {
+                    case 1:
+                        DefaultToArtefacts();
+                        break;
+                    case 2:
+                        DefaultToBuild();
+                        break;
+                    case 3:
+                        //This should link to the move object function in future
+                        break;
+                    case 4:
+                        //This should link to the delete object function in future
+                        break;
+                    case 5:
+                        //This should link to the main menu in future
+                        break;
+                }
+                break;
+            //If the player is on a submenu
+            case 2:
+                //Sets MenuSetup to read from the selected submenu's contents
+                //If a submenu is not selected, ignores this function
+                int subInt = (int)subCurrent;
+                switchLists = subInt - 1;
+                if (switchLists >= 0)
+                {
+                    MenuSetup();
+                }
+                break;
+            //If the player is in the catalogue
+            case 3:
+                if (paneCurrent > 0)
+                {
+                    DetailPanel.SetActive(true);
+                    detailText = DetailTextField.GetComponent<TextMeshProUGUI>();
+                    detailText.text = Resources.readFrom[((pageCurrent - 1) * 6) + paneCurrent];
+                    windowCurrent = windowFinder.Detail;
+                    detailCurrent = detailFinder.Null;
+                }
+                break;
+            case 4:
+                //If the player is in the detail pane
+                break;
+            default:
+                break;
+        }
+        #endregion
+    }
     public void BackUp()
     {
+        //Moves the player back up the menu hierarchies
+        #region Backing up
         int windowInt = (int) windowCurrent;
         if(windowInt >=2 && windowInt <= 4)
         {
@@ -250,16 +403,111 @@ public class UI_Controller : MonoBehaviour
             {
                 case 1:
                     HideAllArtefact();
+                    subCurrent = subFinder.Null;
                     break;
                 case 2:
                     AssetRepository.SetActive(false);
-                    windowCurrent = (windowFinder) windowInt;
+                    paneCurrent = 0;
+                    windowCurrent = (windowFinder)windowInt;
                     break;
                 case 3:
                     DetailPanel.SetActive(false);
-                    windowCurrent = (windowFinder) windowInt;
+                    detailCurrent = detailFinder.Null;
+                    windowCurrent = (windowFinder)windowInt;
+                    break;
+                default:
                     break;
             }
         }
+        #endregion
     }
+
+    private void CycleThrough()
+    {
+        //Cycles forward through options in the currently displayed window
+        #region Forward Cycle
+        int windowInt = (int)windowCurrent;
+        switch (windowInt)
+        {
+            case 1:
+                int topInt = (int)topCurrent + 1;
+                if(topInt > 5)
+                {
+                    topInt = 1;
+                }
+                topCurrent = (topFinder)topInt;
+                break;
+            case 2:
+                int subInt = (int)subCurrent + 1;
+                if(subInt > 4)
+                {
+                    subInt = 1;
+                }
+                subCurrent = (subFinder)subInt;
+                break;
+            case 3:
+                paneCurrent++;
+                if(paneCurrent > 6)
+                {
+                    paneCurrent = 1;
+                }
+                break;
+            case 4:
+                int detailInt = (int)detailCurrent + 1;
+                if(detailInt > 3)
+                {
+                    detailInt = 1;
+                }
+                break;
+            default:
+                break;
+        }
+        #endregion
+    }
+
+    private void CycleBack()
+    {
+        //Cycles backward through options in the currently displayed window
+        #region Backward Cycle
+        int windowInt = (int)windowCurrent;
+        switch (windowInt)
+        {
+            case 1:
+                int topInt = (int)topCurrent - 1;
+                if (topInt > 1)
+                {
+                    topInt = 5;
+                }
+                topCurrent = (topFinder)topInt;
+                break;
+            case 2:
+                int subInt = (int)subCurrent - 1;
+                if (subInt > 1)
+                {
+                    subInt = 4;
+                }
+                subCurrent = (subFinder)subInt;
+                break;
+            case 3:
+                paneCurrent++;
+                if (paneCurrent > 1)
+                {
+                    paneCurrent = 6;
+                }
+                break;
+            case 4:
+                int detailInt = (int)detailCurrent - 1;
+                if (detailInt > 1)
+                {
+                    detailInt = 3;
+                }
+                detailCurrent = (detailFinder)detailInt;
+                break;
+            default:
+                break;
+        }
+        #endregion
+    }
+
+
 }

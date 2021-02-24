@@ -33,6 +33,7 @@ public class UI_ShowDetail : MonoBehaviour
         detailText = DetailTextField.GetComponent<TextMeshProUGUI>();
         detailText.text = myText.text;
         DetailPanel.SetActive(true);
-        UI_Controller.windowCurrent = UI_Controller.windowFinder.Artefact_Detail;
+        UI_Controller.windowCurrent = UI_Controller.windowFinder.Detail;
+        UI_Controller.detailCurrent = UI_Controller.detailFinder.Null;
     }
 }
