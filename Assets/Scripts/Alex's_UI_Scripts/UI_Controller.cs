@@ -36,9 +36,9 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject Plinth;
     [SerializeField] private GameObject Stand;
     [SerializeField] private GameObject Frame;
+    private List<Vector3> menuLocationList = new List<Vector3>();
 
     //The six objects, and a list in which to contain them
-    //private List<Text> objectDisplay = new List<Text>();
     private List<TextMeshProUGUI> objectDisplay = new List<TextMeshProUGUI>();
     [SerializeField] private GameObject Object1;
     [SerializeField] private GameObject Object2;
@@ -46,6 +46,7 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject Object4;
     [SerializeField] private GameObject Object5;
     [SerializeField] private GameObject Object6;
+    private List<Vector3> panelLocationList = new List<Vector3>();
 
     //Visual representation of the objects themselves
     //So they can be hidden when loading a new page
@@ -54,6 +55,11 @@ public class UI_Controller : MonoBehaviour
     //Page number object and text
     [SerializeField] private GameObject PageCounter;
     private TextMeshProUGUI countText;
+
+    //menu cycle icons
+    [SerializeField] private GameObject HighlightMenuTop;
+    [SerializeField] private GameObject HighlightMainMenu;
+    [SerializeField] private GameObject HighlightCatalogue;
     #endregion
 
     private TempListScript Resources;
@@ -117,10 +123,22 @@ public class UI_Controller : MonoBehaviour
         Resources = GetComponent<TempListScript>();
         if (!Resources)
         {
-            Debug.Log("Something went wrong");
+            Debug.Log("Resources - Something went wrong");
         }
 
-        
+        //Sets the locations the highlights can occupy
+        menuLocationList.Add(FloorBased.transform.position);
+        menuLocationList.Add(FloorOrWall.transform.position);
+        menuLocationList.Add(Small.transform.position);
+        menuLocationList.Add(Planar.transform.position);
+
+        panelLocationList.Add(Object1.transform.position);
+        panelLocationList.Add(Object2.transform.position);
+        panelLocationList.Add(Object3.transform.position);
+        panelLocationList.Add(Object4.transform.position);
+        panelLocationList.Add(Object5.transform.position);
+        panelLocationList.Add(Object6.transform.position);
+
         #endregion
     }
 
@@ -130,7 +148,7 @@ public class UI_Controller : MonoBehaviour
         //Moves the player back up a menu level from wherever they were.
         if(Input.GetKeyDown("escape") || Input.GetKeyDown("backspace"))
         {
-            BackUp();  
+            NavigateUp();  
         }
 
         //If the UI controller recieves a signal from any artefact category button
@@ -157,13 +175,13 @@ public class UI_Controller : MonoBehaviour
         //Determines what to do if the player hits tab or down
         if(Input.GetKeyDown("tab") || Input.GetKeyDown("down"))
         {
-            CycleThrough();
+            CycleThroughCatalogue();
         }
 
         //Determines what to do if the player hits left
         if(Input.GetKeyDown("up"))
         {
-            CycleBack();
+            CycleBackCatalogue();
         }
 
         //Determines what to do if the player hits enter or space
@@ -269,6 +287,8 @@ public class UI_Controller : MonoBehaviour
             }
         }
         paneCurrent = 0;
+        detailCurrent = detailFinder.Null;
+        HighlightCatalogue.SetActive(false);
     }
 
     #region Page cycling voids
@@ -282,6 +302,7 @@ public class UI_Controller : MonoBehaviour
         ObjectsHide.SetActive(true);
         Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
         //Sets currently selected pane to 0
+        HighlightCatalogue.SetActive(false);
         paneCurrent = 0;
     }
 
@@ -295,27 +316,30 @@ public class UI_Controller : MonoBehaviour
         ObjectsHide.SetActive(true);
         Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
         //Sets currently selected pane to 0
+        HighlightCatalogue.SetActive(false);
         paneCurrent = 0;
     }
     #endregion
 
     public void HideAllArtefact()
     {
+        //Hides existing highlights
+        ResetHighlight();
         //Resets all relevant menus and variables associated with artefact placement.
         DetailPanel.SetActive(false);
         AssetRepository.SetActive(false);
         ArtefactCategories.SetActive(false);
         BuildCategories.SetActive(false);
-        topCurrent = topFinder.Null;
         HudDefault.SetActive(true);
         windowCurrent = windowFinder.Menu_Top;
     }
 
     public void DefaultToArtefacts()
     {
+        //Hides existing highlights
+        ResetHighlight();
         //Enters the artefact placement menus.
         HudDefault.SetActive(false);
-        subCurrent = subFinder.Null;
         ArtefactCategories.SetActive(true);
         windowCurrent = windowFinder.Menu_Sub;
         isArtefact = true;
@@ -323,12 +347,25 @@ public class UI_Controller : MonoBehaviour
 
     public void DefaultToBuild()
     {
+        //Hides existing highlights
+        ResetHighlight();
         //Enters the build menus.
         HudDefault.SetActive(false);
-        subCurrent = subFinder.Null;
         BuildCategories.SetActive(true);
         windowCurrent = windowFinder.Menu_Sub;
         isArtefact = false;
+    }
+
+    private void ResetHighlight()
+    {
+        //Disables and resets all highlights
+        HighlightMainMenu.SetActive(false);
+        HighlightMenuTop.SetActive(false);
+        HighlightCatalogue.SetActive(false);
+        topCurrent = topFinder.Null;
+        subCurrent = subFinder.Null;
+        paneCurrent = 0;
+        detailCurrent = detailFinder.Null;
     }
 
     private void NavigateDown()
@@ -378,9 +415,16 @@ public class UI_Controller : MonoBehaviour
                 {
                     DetailPanel.SetActive(true);
                     detailText = DetailTextField.GetComponent<TextMeshProUGUI>();
-                    detailText.text = Resources.readFrom[((pageCurrent - 1) * 6) + paneCurrent];
+                    //Displays "Download" if the player presses on an icon beyond the length of the asset list
+                    if (((pageCurrent - 1) * 6) + paneCurrent > Resources.readFrom.Count)
+                    {
+                        detailText.text = "Download";
+                    }
+                    else
+                    {
+                        detailText.text = Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)];
+                    }
                     windowCurrent = windowFinder.Detail;
-                    detailCurrent = detailFinder.Null;
                 }
                 break;
             case 4:
@@ -391,7 +435,7 @@ public class UI_Controller : MonoBehaviour
         }
         #endregion
     }
-    public void BackUp()
+    public void NavigateUp()
     {
         //Moves the player back up the menu hierarchies
         #region Backing up
@@ -403,11 +447,13 @@ public class UI_Controller : MonoBehaviour
             {
                 case 1:
                     HideAllArtefact();
-                    subCurrent = subFinder.Null;
+                    ResetHighlight();
+                    windowCurrent = (windowFinder)windowInt;
                     break;
                 case 2:
                     AssetRepository.SetActive(false);
                     paneCurrent = 0;
+                    HighlightCatalogue.SetActive(false);
                     windowCurrent = (windowFinder)windowInt;
                     break;
                 case 3:
@@ -422,7 +468,7 @@ public class UI_Controller : MonoBehaviour
         #endregion
     }
 
-    private void CycleThrough()
+    private void CycleThroughCatalogue()
     {
         //Cycles forward through options in the currently displayed window
         #region Forward Cycle
@@ -430,27 +476,49 @@ public class UI_Controller : MonoBehaviour
         switch (windowInt)
         {
             case 1:
+                //Cycles through the enum of available menu options
                 int topInt = (int)topCurrent + 1;
+                //If it goes beyond the limit of this enum, resets to the start.
                 if(topInt > 5)
                 {
                     topInt = 1;
                 }
                 topCurrent = (topFinder)topInt;
+                //If it's within the list but not the main menu, moves the highlight over the appropriate icon
+                if(topInt < 5)
+                {
+                    HighlightMainMenu.SetActive(false);
+                    HighlightMenuTop.SetActive(true);
+                    HighlightMenuTop.transform.position = menuLocationList[topInt - 1];
+                }
+                //Otherwise, hides the generic highlight and puts a unique highlight over the main menu icon
+                else
+                {
+                    HighlightMenuTop.SetActive(false);
+                    HighlightMainMenu.SetActive(true);
+                }
                 break;
             case 2:
+                //Much the same as the high-level menu above, only without the unique highlight.
                 int subInt = (int)subCurrent + 1;
                 if(subInt > 4)
                 {
                     subInt = 1;
                 }
                 subCurrent = (subFinder)subInt;
+                HighlightMenuTop.SetActive(true);
+                HighlightMenuTop.transform.position = menuLocationList[subInt - 1];
                 break;
             case 3:
                 paneCurrent++;
-                if(paneCurrent > 6)
+                //Checks that the next pane cycled to isn't greater than 6, or empty
+                if(paneCurrent > 6 || ((pageCurrent - 1) * 6) + (paneCurrent - 1) > Resources.readFrom.Count)
                 {
                     paneCurrent = 1;
                 }
+                //Moves the highlight over the appropriate pane
+                HighlightCatalogue.SetActive(true);
+                HighlightCatalogue.transform.position = panelLocationList[paneCurrent - 1];
                 break;
             case 4:
                 int detailInt = (int)detailCurrent + 1;
@@ -465,7 +533,7 @@ public class UI_Controller : MonoBehaviour
         #endregion
     }
 
-    private void CycleBack()
+    private void CycleBackCatalogue()
     {
         //Cycles backward through options in the currently displayed window
         #region Backward Cycle
@@ -473,31 +541,59 @@ public class UI_Controller : MonoBehaviour
         switch (windowInt)
         {
             case 1:
+                //Cycles through the enum of available menu options
                 int topInt = (int)topCurrent - 1;
-                if (topInt > 1)
+                //If it goes beyond the limit of this enum, resets to the end.
+                if (topInt < 1)
                 {
                     topInt = 5;
                 }
                 topCurrent = (topFinder)topInt;
+                //If it's within the list but not the main menu, moves the highlight over the appropriate icon
+                if (topInt < 5)
+                {
+                    HighlightMainMenu.SetActive(false);
+                    HighlightMenuTop.SetActive(true);
+                    HighlightMenuTop.transform.position = menuLocationList[topInt - 1];
+                }
+                //Otherwise, hides the generic highlight and puts a unique highlight over the main menu icon
+                else
+                {
+                    HighlightMenuTop.SetActive(false);
+                    HighlightMainMenu.SetActive(true);
+                }
                 break;
             case 2:
+                //Much the same as the high-level menu above, only without the unique highlight.
                 int subInt = (int)subCurrent - 1;
-                if (subInt > 1)
+                if (subInt < 1)
                 {
                     subInt = 4;
                 }
                 subCurrent = (subFinder)subInt;
+                HighlightMenuTop.SetActive(true);
+                HighlightMenuTop.transform.position = menuLocationList[subInt - 1];
                 break;
             case 3:
-                paneCurrent++;
-                if (paneCurrent > 1)
+                paneCurrent--;
+                //Checks that the next pane cycled to isn't less than 1
+                if (paneCurrent < 1)
                 {
                     paneCurrent = 6;
+                    //Checks that the next pane cycled to isn't empty
+                    if(((pageCurrent - 1) * 6) + (paneCurrent - 1) > Resources.readFrom.Count)
+                    {
+                        //If it is, cycles to the pane one higher than the remainder of the asset list divided by the number of full pages
+                        paneCurrent = (Resources.readFrom.Count % ((pageCurrent - 1) * 6)) + 1;
+                    }
                 }
+                //Moves the highlight over the appropriate pane
+                HighlightCatalogue.SetActive(true);
+                HighlightCatalogue.transform.position = panelLocationList[paneCurrent - 1];
                 break;
             case 4:
                 int detailInt = (int)detailCurrent - 1;
-                if (detailInt > 1)
+                if (detailInt < 1)
                 {
                     detailInt = 3;
                 }

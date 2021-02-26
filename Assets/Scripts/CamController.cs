@@ -7,6 +7,12 @@ public class CamController : MonoBehaviour
 
     public GameObject cam1;
     public GameObject cam2;
+    
+    //Top object in each UI hierarchy
+    [SerializeField] private GameObject UiBuild;
+    [SerializeField] private GameObject UiView;
+
+    bool UiToggle = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +31,9 @@ public class CamController : MonoBehaviour
             // Flips active states on cameras (e.g. if cam1 is active, cam1 is now inactive and cam2 is now active, after pressing "k")
             cam1.SetActive(!cam1.activeSelf);
             cam2.SetActive(!cam2.activeSelf);
+            UiBuild.SetActive(!UiBuild.activeSelf);
+            UiView.SetActive(!UiBuild.activeSelf);
+            UiToggle = !UiToggle;
         }
     }
 }
