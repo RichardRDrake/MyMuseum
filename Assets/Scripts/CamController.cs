@@ -11,6 +11,7 @@ public class CamController : MonoBehaviour
     //Top object in each UI hierarchy
     [SerializeField] private GameObject UiBuild;
     [SerializeField] private GameObject UiView;
+    private UI_Controller UI_Controller;
 
     bool UiToggle = false;
 
@@ -20,6 +21,7 @@ public class CamController : MonoBehaviour
         // By default, the game begins using the third person cam
         cam1.SetActive(true);
         cam2.SetActive(false);
+        UI_Controller = UiBuild.GetComponent<UI_Controller>();
     }
 
     // Update is called once per frame
@@ -31,6 +33,7 @@ public class CamController : MonoBehaviour
             // Flips active states on cameras (e.g. if cam1 is active, cam1 is now inactive and cam2 is now active, after pressing "k")
             cam1.SetActive(!cam1.activeSelf);
             cam2.SetActive(!cam2.activeSelf);
+            UI_Controller.ResetBuildUI();
             UiBuild.SetActive(!UiBuild.activeSelf);
             UiView.SetActive(!UiBuild.activeSelf);
             UiToggle = !UiToggle;

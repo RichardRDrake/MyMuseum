@@ -28,12 +28,6 @@ public class UI_ListCreator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void WasPressed()
     {
         //Tells UI_Controller to read from this specific instance

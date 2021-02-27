@@ -56,10 +56,15 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject PageCounter;
     private TextMeshProUGUI countText;
 
-    //menu cycle icons
+    //menu highlight icons
     [SerializeField] private GameObject HighlightMenuTop;
     [SerializeField] private GameObject HighlightMainMenu;
     [SerializeField] private GameObject HighlightCatalogue;
+
+    //hover highlight icons
+    //Note that these are here to be disabled, not utilised
+    [SerializeField] private GameObject HighlightMenuTopHover;
+    [SerializeField] private GameObject HighlightCatalogueHover;
     #endregion
 
     private TempListScript Resources;
@@ -89,7 +94,7 @@ public class UI_Controller : MonoBehaviour
     public enum subFinder { Null = 0, FloorRoom = 1, MiscPlinth = 2, SmallFrames = 3, PlanarStands = 4};
     public subFinder subCurrent = subFinder.Null;
 
-    //Determines which pane the user is on.
+    //Determines which catalogue pane the user is on.
     public int paneCurrent;
 
     //Determines which detail options the user is on.
@@ -193,10 +198,16 @@ public class UI_Controller : MonoBehaviour
 
     private void MenuSetup()
     {
+        //Loads details for the asset placement submenus
         #region Sets up catalogue display
         //Hides listing and detail panel while values are refreshed
         DetailPanel.SetActive(false);
         AssetRepository.SetActive(false);
+
+        //Ensures the highlight is active (if navigated to with mouse)
+        //Then moves it to the correct location
+        HighlightMenuTop.SetActive(true);
+        HighlightMenuTop.transform.position = menuLocationList[switchLists];
 
         //Determines that it's reading from the correct Resources.readFrom
         if (isArtefact == true)
@@ -237,9 +248,9 @@ public class UI_Controller : MonoBehaviour
         }
 
 
-            //Creates a total page count based on number of objects in Resources.readFrom
-            //Includes all full pages, plus a page for the remainder
-            listLength = Resources.readFrom.Count + 1;
+        //Creates a total page count based on number of objects in Resources.readFrom
+        //Includes all full pages, plus a page for the remainder
+        listLength = Resources.readFrom.Count + 1;
         Debug.Log(listLength);
         pageCount = listLength / 6;
         if(listLength % 6 > 0)
@@ -270,6 +281,7 @@ public class UI_Controller : MonoBehaviour
     {
         //Displays values in Resources.readFrom, in objectDisplay
         //Starts at the relevant point for each page, should scale indefinitely.
+        #region Display catalogue per page
         countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
         for (int i = 0; i <= 5; i++)
         {
@@ -289,6 +301,7 @@ public class UI_Controller : MonoBehaviour
         paneCurrent = 0;
         detailCurrent = detailFinder.Null;
         HighlightCatalogue.SetActive(false);
+        #endregion
     }
 
     #region Page cycling voids
@@ -605,5 +618,32 @@ public class UI_Controller : MonoBehaviour
         #endregion
     }
 
+    public void CataloguePaneHighlight()
+    {
+        //Called by UI_Showdetail
+        //Leaves the highlight in the appropriate place if it was selected by mouse
+        #region Highlight
+        HighlightCatalogue.SetActive(true);
+        HighlightCatalogue.transform.position = panelLocationList[paneCurrent - 1];
+        #endregion
+    }
 
+    public void ResetBuildUI()
+    {
+        //Resets HUD to default
+        #region Resets UI
+        HudDefault.SetActive(true);
+        ArtefactCategories.SetActive(false);
+        BuildCategories.SetActive(false);
+        AssetRepository.SetActive(false);
+        DetailPanel.SetActive(false);
+        HighlightMainMenu.SetActive(false);
+        HighlightMenuTop.SetActive(false);
+        HighlightCatalogue.SetActive(false);
+        HighlightMenuTopHover.SetActive(false);
+        HighlightCatalogueHover.SetActive(false);
+        windowCurrent = windowFinder.Menu_Top;
+        topCurrent = topFinder.Null;
+        #endregion
+    }
 }
