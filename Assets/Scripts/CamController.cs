@@ -12,6 +12,11 @@ public class CamController : MonoBehaviour
     [SerializeField] private GameObject UiBuild;
     [SerializeField] private GameObject UiView;
     private UI_Controller UI_Controller;
+    private UI_ViewController UI_ViewController;
+
+    //Main menu object and script
+    [SerializeField] private GameObject UiMain;
+    private UI_MenuController UI_MenuController;
 
     bool UiToggle = false;
 
@@ -22,6 +27,8 @@ public class CamController : MonoBehaviour
         cam1.SetActive(true);
         cam2.SetActive(false);
         UI_Controller = UiBuild.GetComponent<UI_Controller>();
+        UI_MenuController = UiMain.GetComponent<UI_MenuController>();
+        UI_ViewController = UiView.GetComponent<UI_ViewController>();
     }
 
     // Update is called once per frame
@@ -31,12 +38,24 @@ public class CamController : MonoBehaviour
         if (Input.GetKeyUp("k"))
         {
             // Flips active states on cameras (e.g. if cam1 is active, cam1 is now inactive and cam2 is now active, after pressing "k")
+            UI_MenuController = UiMain.GetComponent<UI_MenuController>();
             cam1.SetActive(!cam1.activeSelf);
             cam2.SetActive(!cam2.activeSelf);
             UI_Controller.ResetBuildUI();
-            UiBuild.SetActive(!UiBuild.activeSelf);
-            UiView.SetActive(!UiBuild.activeSelf);
             UiToggle = !UiToggle;
+            if(UiToggle == false)
+            {
+                UiView.SetActive(false);
+                UiBuild.SetActive(true);
+                UI_MenuController.buildMode = true;
+            }
+            else
+            {
+                UiView.SetActive(true);
+                UiBuild.SetActive(false);
+                UI_MenuController.buildMode = false;
+            }
+            UiMain.SetActive(false);
         }
     }
 }

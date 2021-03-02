@@ -9,6 +9,10 @@ public class UI_Controller : MonoBehaviour
     #region variables
 
     #region GameObjects and relevant components
+    //Main menu
+    [SerializeField] private GameObject MainMenu;
+    private UI_MenuController UI_MenuController;
+
     //Window showing main menu options
     [SerializeField] private GameObject HudDefault;
 
@@ -26,6 +30,7 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject DetailTextField;
     private TextMeshProUGUI detailText;
 
+    #region submenu objects
     //List of buttons relating to each category
     //(This form of sorting is for testing's sake and is definitely not considered final)
     [SerializeField] private GameObject FloorBased;
@@ -37,8 +42,10 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject Stand;
     [SerializeField] private GameObject Frame;
     private List<Vector3> menuLocationList = new List<Vector3>();
+    #endregion
 
-    //The six objects, and a list in which to contain them
+    #region catalogue objects
+    //The six objects, and a list in which to contain their locations
     private List<TextMeshProUGUI> objectDisplay = new List<TextMeshProUGUI>();
     [SerializeField] private GameObject Object1;
     [SerializeField] private GameObject Object2;
@@ -47,6 +54,14 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject Object5;
     [SerializeField] private GameObject Object6;
     private List<Vector3> panelLocationList = new List<Vector3>();
+    #endregion
+
+    #region detail objects
+    //The detail rotate buttons, and a list in which to contain their locations
+    [SerializeField] private GameObject RotateLeft;
+    [SerializeField] private GameObject RotateRight;
+    private List<Vector3> rotateLocationList = new List<Vector3>();
+    #endregion
 
     //Visual representation of the objects themselves
     //So they can be hidden when loading a new page
@@ -60,6 +75,8 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject HighlightMenuTop;
     [SerializeField] private GameObject HighlightMainMenu;
     [SerializeField] private GameObject HighlightCatalogue;
+    [SerializeField] private GameObject HighlightDetail;
+    [SerializeField] private GameObject HighlightAccept;
 
     //hover highlight icons
     //Note that these are here to be disabled, not utilised
@@ -111,6 +128,9 @@ public class UI_Controller : MonoBehaviour
     void Start()
     {
         #region initialise variables
+        //Finds the main menu's associated controller
+        UI_MenuController = MainMenu.GetComponent<UI_MenuController>();
+
         //Gets the six inventory panes, and a resource list
         objectDisplay.Add(Object1.GetComponent<TextMeshProUGUI>());
         objectDisplay.Add(Object2.GetComponent<TextMeshProUGUI>());
@@ -143,6 +163,9 @@ public class UI_Controller : MonoBehaviour
         panelLocationList.Add(Object4.transform.position);
         panelLocationList.Add(Object5.transform.position);
         panelLocationList.Add(Object6.transform.position);
+
+        rotateLocationList.Add(RotateLeft.transform.position);
+        rotateLocationList.Add(RotateRight.transform.position);
 
         #endregion
     }
@@ -407,7 +430,7 @@ public class UI_Controller : MonoBehaviour
                         //This should link to the delete object function in future
                         break;
                     case 5:
-                        //This should link to the main menu in future
+                        SwitchToMain();
                         break;
                 }
                 break;
@@ -478,6 +501,10 @@ public class UI_Controller : MonoBehaviour
                     break;
             }
         }
+        else if(windowInt == 1)
+        {
+            SwitchToMain();
+        }
         #endregion
     }
 
@@ -534,10 +561,26 @@ public class UI_Controller : MonoBehaviour
                 HighlightCatalogue.transform.position = panelLocationList[paneCurrent - 1];
                 break;
             case 4:
+                //Cycles through options in the detail menu
+                //Similar to the top level menu.
+                //Int 1 or 2 correlates to the rotation buttons
+                //If it's 3, it correlates to the accept button
                 int detailInt = (int)detailCurrent + 1;
                 if(detailInt > 3)
                 {
                     detailInt = 1;
+                }
+                detailCurrent = (detailFinder)detailInt;
+                if (detailInt < 3)
+                {
+                    HighlightAccept.SetActive(false);
+                    HighlightDetail.SetActive(true);
+                    HighlightDetail.transform.position = rotateLocationList[detailInt - 1];
+                }
+                else
+                {
+                    HighlightDetail.SetActive(false);
+                    HighlightAccept.SetActive(true);
                 }
                 break;
             default:
@@ -605,12 +648,27 @@ public class UI_Controller : MonoBehaviour
                 HighlightCatalogue.transform.position = panelLocationList[paneCurrent - 1];
                 break;
             case 4:
+                //Cycles through options in the detail menu
+                //Similar to the top level menu.
+                //Int 1 or 2 correlates to the rotation buttons
+                //If it's 3, it correlates to the accept button
                 int detailInt = (int)detailCurrent - 1;
                 if (detailInt < 1)
                 {
                     detailInt = 3;
                 }
                 detailCurrent = (detailFinder)detailInt;
+                if (detailInt < 3)
+                {
+                    HighlightAccept.SetActive(false);
+                    HighlightDetail.SetActive(true);
+                    HighlightDetail.transform.position = rotateLocationList[detailInt - 1];
+                }
+                else
+                {
+                    HighlightDetail.SetActive(false);
+                    HighlightAccept.SetActive(true);
+                }
                 break;
             default:
                 break;
@@ -642,8 +700,20 @@ public class UI_Controller : MonoBehaviour
         HighlightCatalogue.SetActive(false);
         HighlightMenuTopHover.SetActive(false);
         HighlightCatalogueHover.SetActive(false);
+        HighlightAccept.SetActive(false);
+        HighlightDetail.SetActive(false);
         windowCurrent = windowFinder.Menu_Top;
         topCurrent = topFinder.Null;
+        MainMenu.SetActive(false);
+        #endregion
+    }
+
+    public void SwitchToMain()
+    {
+        //Sets the main menu active, then instructs the main menu to disable this menu
+        #region Switch to main menu
+        MainMenu.SetActive(true);
+        UI_MenuController.Activate();
         #endregion
     }
 }
