@@ -55,6 +55,13 @@ public class UI_MenuController : MonoBehaviour
     //Save is false, load is true
     public bool saveOrLoad = false;
 
+    //Integers determining page count
+    private int listLength;
+    private int pageCount;
+
+    //Current page
+    private int pageCurrent;
+
     //List of Save/Load options
     [SerializeField] private GameObject SaveLoad1;
     [SerializeField] private GameObject SaveLoad2;
@@ -82,6 +89,17 @@ public class UI_MenuController : MonoBehaviour
     [SerializeField] private GameObject SaveNew2;
     [SerializeField] private GameObject SaveNew3;
     private List<TextMeshProUGUI> saveNews = new List<TextMeshProUGUI>();
+
+    //Save display highlights
+    [SerializeField] private GameObject HightlightSave;
+    [SerializeField] private GameObject HighlightSaveHover;
+
+    #endregion
+
+    #region Options contents
+    //Options display highlights
+    [SerializeField] private GameObject HighlightOptions;
+    [SerializeField] private GameObject HighlightOptionsHover;
     #endregion
 
     #region enums
@@ -143,6 +161,12 @@ public class UI_MenuController : MonoBehaviour
         {
             NavigateUp();
         }
+
+        //Determines what to do if the player hits enter or space
+        if (Input.GetKeyDown("space") || Input.GetKeyDown("enter") || Input.GetKeyDown("return"))
+        {
+            NavigateDown();
+        }
     }
 
     public void Activate()
@@ -186,13 +210,112 @@ public class UI_MenuController : MonoBehaviour
         #endregion
     }
 
+    private void NavigateDown()
+    {
+        //Moves into/further down submenus
+        #region down hierarchy
+        int windowInt = (int)windowCurrent;
+        switch (windowInt)
+        {
+            case 1:
+                int mainInt = (int)mainCurrent;
+                if (mainInt > 0)
+                {
+                    DisableMainMenu();
+                }
+                switch (mainInt)
+                {
+                    case 1:
+                        saveOrLoad = false;
+                        break;
+                    case 2:
+                        saveOrLoad = true;
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        break;
+                }
+                break;
+        }
+
+
+        #endregion
+    }
+
     public void DisableSubmenus()
     {
+        //Disables menus lower than the main menu in the heirarchy
+        //Resets variables therein
+        #region disable submenus
+        SaveLoad.SetActive(false);
+        paneCurrent = 0;
+        HighlightSaveHover.SetActive(false);
+        HightlightSave.SetActive(false);
 
+        Options.SetActive(false);
+        optionsCurrent = OptionsFinder.Null;
+        HighlightOptions.SetActive(false);
+        HighlightOptionsHover.SetActive(false);
+        #endregion
+    }
+
+    private void DisableMainMenu()
+    {
+        //Disables the main menu
+        //Resets variables therein
+        #region disable mainmenu
+        Main.SetActive(false);
+        mainCurrent = MainFinder.Null;
+        HighlightTop.SetActive(false);
+        HighlightTopHover.SetActive(false);
+        #endregion
     }
 
     public void DisableConfirmation()
     {
         
     }
+
+    private void MenuSetup()
+    {
+        //Loads details for save file display
+        #region sets up saves display
+        //Hides display while loading data
+        ObjectsHide.SetActive(false);
+
+        //Creates a total list length based on number of existing saves
+        //Includes all full pages, plus a page for the remainder
+        listLength = Saves.SavesList.Count + 1;
+        pageCount = listLength / 6;
+        if (listLength % 6 > 0)
+        {
+            pageCount++;
+        }
+
+        //Makes sure there is always one page
+        if (listLength == 0)
+        {
+            pageCount = 1;
+        }
+
+        pageCurrent = 1;
+        DisplayPageDetails();
+
+
+        ObjectsHide.SetActive(true);
+
+        windowCurrent = WindowFinder.MenuSaveLoad;
+
+        #endregion
+    }
+
+    private void DisplayPageDetails()
+    {
+        //Displays save data read from the save file list
+    }
+
+
 }
