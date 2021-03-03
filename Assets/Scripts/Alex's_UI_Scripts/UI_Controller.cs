@@ -465,6 +465,9 @@ public class UI_Controller : MonoBehaviour
                 break;
             case 4:
                 //If the player is in the detail pane
+                //Joe does something if detailCurrent  is 3, or "select"
+                //Should redirect to a public void, so the button can be connected, too.
+                //ResetBuildUI (resets but does not disable UI)
                 break;
             default:
                 break;

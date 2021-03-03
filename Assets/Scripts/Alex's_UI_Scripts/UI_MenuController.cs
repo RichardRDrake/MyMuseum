@@ -48,6 +48,7 @@ public class UI_MenuController : MonoBehaviour
     #region Save/load contents
     //The text field at the top of that window
     [SerializeField] private GameObject SaveLoadText;
+    private TextMeshProUGUI SaveLoadTitle;
 
     //Allows save files to be independently hidden when loading a new page
     [SerializeField] private GameObject ObjectsHide;
@@ -91,7 +92,7 @@ public class UI_MenuController : MonoBehaviour
     private List<TextMeshProUGUI> saveNews = new List<TextMeshProUGUI>();
 
     //Save display highlights
-    [SerializeField] private GameObject HightlightSave;
+    [SerializeField] private GameObject HighlightSave;
     [SerializeField] private GameObject HighlightSaveHover;
 
     #endregion
@@ -128,9 +129,14 @@ public class UI_MenuController : MonoBehaviour
         UI_Controller = BuildMenu.GetComponent<UI_Controller>();
         UI_ViewController = ViewMenu.GetComponent<UI_ViewController>();
         Saves = SaveObject.GetComponent<TempSavesScript>();
+        if(Saves != null)
+        {
+             Debug.Log(Saves.SavesList.Count);
+        }
 
         //Save/Load variables
         saveTexts.Add(SaveTitle1.GetComponent<TextMeshProUGUI>());
+        //if(saveTexts[0] !=)
         saveTexts.Add(SaveTitle2.GetComponent<TextMeshProUGUI>());
         saveTexts.Add(SaveTitle3.GetComponent<TextMeshProUGUI>());
         saveDates.Add(SaveDate1.GetComponent<TextMeshProUGUI>());
@@ -140,6 +146,7 @@ public class UI_MenuController : MonoBehaviour
         saveNews.Add(SaveNew2.GetComponent<TextMeshProUGUI>());
         saveNews.Add(SaveNew3.GetComponent<TextMeshProUGUI>());
         countText = PageCounter.GetComponent<TextMeshProUGUI>();
+        SaveLoadTitle = SaveLoadText.GetComponent<TextMeshProUGUI>();
 
         //Sets the locations the highlights can occupy
         MainLocations.Add(SaveButton.transform.position);
@@ -167,6 +174,19 @@ public class UI_MenuController : MonoBehaviour
         {
             NavigateDown();
         }
+
+        //Determines what to do if the player hits tab or down
+        if (Input.GetKeyDown("tab") || Input.GetKeyDown("down"))
+        {
+            CycleThrough();
+        }
+
+        //Determines what to do if the player hits up
+        if (Input.GetKeyDown("up"))
+        {
+            CycleBack();
+        }
+
     }
 
     public void Activate()
@@ -186,6 +206,7 @@ public class UI_MenuController : MonoBehaviour
             //Handles navigation from the save, load or options menus
             windowCurrent = (WindowFinder)1;
             DisableSubmenus();
+            Main.SetActive(true);
         }
         else if (windowInt == 4)
         {
@@ -227,9 +248,11 @@ public class UI_MenuController : MonoBehaviour
                 {
                     case 1:
                         saveOrLoad = false;
+                        MenuSetup();
                         break;
                     case 2:
                         saveOrLoad = true;
+                        MenuSetup();
                         break;
                     case 3:
                         break;
@@ -253,7 +276,7 @@ public class UI_MenuController : MonoBehaviour
         SaveLoad.SetActive(false);
         paneCurrent = 0;
         HighlightSaveHover.SetActive(false);
-        HightlightSave.SetActive(false);
+        HighlightSave.SetActive(false);
 
         Options.SetActive(false);
         optionsCurrent = OptionsFinder.Null;
@@ -284,13 +307,24 @@ public class UI_MenuController : MonoBehaviour
         //Loads details for save file display
         #region sets up saves display
         //Hides display while loading data
+        SaveLoad.SetActive(true);
         ObjectsHide.SetActive(false);
+
+        //Titles the page based on the appropriate function
+        if (saveOrLoad == false)
+        {
+            SaveLoadTitle.text = "SAVE";
+        }
+        else
+        {
+            SaveLoadTitle.text = "LOAD";
+        }
 
         //Creates a total list length based on number of existing saves
         //Includes all full pages, plus a page for the remainder
         listLength = Saves.SavesList.Count + 1;
-        pageCount = listLength / 6;
-        if (listLength % 6 > 0)
+        pageCount = listLength / 3;
+        if (listLength % 3 > 0)
         {
             pageCount++;
         }
@@ -315,7 +349,86 @@ public class UI_MenuController : MonoBehaviour
     private void DisplayPageDetails()
     {
         //Displays save data read from the save file list
+        #region display save data per page
+        countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
+        for(int i = 0; i <= 2; i++)
+        {
+            if (((pageCurrent - 1) * 3) + i == listLength - 1)
+            {
+                Debug.Log("New save");
+                saveTexts[i].text = "SAVE NEW FILE?";
+                saveDates[i].text = "--/--/----";
+                saveNews[i].text = "+";
+            }
+            else if (((pageCurrent - 1) * 3) + i > (Saves.SavesList.Count - 1))
+            {
+                Debug.Log("Empty save");
+                saveTexts[i].text = "NO DATA";
+                saveDates[i].text = "--/--/----";
+                saveNews[i].text = " ";
+            }
+            else
+            {
+                Debug.Log("Existing save");
+                Debug.Log(SaveTitle1);
+                Debug.Log(saveTexts);
+                Debug.Log(saveTexts[0]);
+                saveTexts[i].text = Saves.SavesList[i];
+                saveDates[i].text = Saves.DatesList[i];
+                saveNews[i].text = " ";
+            }
+            paneCurrent = 0;
+
+        }
+        #endregion
     }
 
+    private void CycleThrough()
+    {
+        //Cycles forward through options in currently active window
+        #region forward cycle
+        int windowInt = (int)windowCurrent;
+        switch (windowInt)
+        {
+            case 1:
+                //Cycles through the enum of available main menu options
+                int mainInt = (int)mainCurrent + 1;
+                //Checks this isn't out of range
+                if(mainInt > 4)
+                {
+                    mainInt = 1;
+                }
+                mainCurrent = (MainFinder)mainInt;
+                HighlightTop.SetActive(true);
+                HighlightTop.transform.position = MainLocations[mainInt - 1];
+                break;
+            case 2:
+                //Cycles through the enum of available save files per page
+                paneCurrent++;
+                if(paneCurrent > 3)
+                {
+                    paneCurrent = 1;
+                }
+                HighlightSave.SetActive(true);
+                HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
+                break;
+            case 3:
+                //Cycles through the enum of options on the options page
+                int optionsInt = (int)optionsCurrent + 1;
+                //checks this isn't out of range
+                if(optionsInt > 2)
+                {
+                    optionsInt = 1;
+                }
+                break;
+
+        }
+        #endregion
+    }
+
+    private void CycleBack()
+    {
+
+    }
 
 }
