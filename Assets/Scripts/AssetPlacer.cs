@@ -74,7 +74,7 @@ public class AssetPlacer : MonoBehaviour
             ChangeColour(objectToBePlaced, Color.white);
 
             //Let the grid know an object has been placed on it
-            activeGrid.OnObjectPlaced(objectToBePlaced.transform.position);
+            activeGrid.OnObjectPlaced(objectToBePlaced.transform.position, objectToBePlaced);
 
             objectToBePlaced = null;
             validPlacement = false;
@@ -108,7 +108,7 @@ public class AssetPlacer : MonoBehaviour
         {
             GridPosition gridPosition = activeGrid.GetNearestPointOnGrid(hitInfo.point);
             //Check to see is position is valid (not occupied)
-            if (gridPosition != null && gridPosition.occupied == false)
+            if (gridPosition != null && gridPosition.occupied == null)
             {
                 return gridPosition.position;
             }
