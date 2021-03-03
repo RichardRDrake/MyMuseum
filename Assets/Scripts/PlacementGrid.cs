@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlacementGrid : MonoBehaviour
 {
     //space between objects
-    [SerializeField] private float size = 1.0f; //Probably a poor name choice. This represents the density of points on the grid
-
+    [SerializeField] private float size = 1.0f; //Space between points
     //public variables    
 
     // Grid Bounds
@@ -43,6 +42,19 @@ public class PlacementGrid : MonoBehaviour
         int yCount = Mathf.FloorToInt(boundsY / size);
         int zCount = Mathf.FloorToInt(boundsZ / size);
 
+        if (xCount < 1)
+        {
+            xCount = 1;
+        }
+        if (yCount < 1)
+        {
+            yCount = 1;
+        }
+        if (zCount < 1)
+        {
+            zCount = 1;
+        }
+
         //Now we know how many points are in each axis, we can build a 3D array to contain them
         gridPositions = new GridPosition[xCount, yCount, zCount];
 
@@ -55,11 +67,23 @@ public class PlacementGrid : MonoBehaviour
             {
                 for (int z = 0; z < zCount; z++)
                 {
-                    //Work out the position of this point
-                    // Position per axis = (Count * Size + offset + object position) - (bounds/2 - 0.5)
-                    float _gridPosX = ((x * size) + offsetX + GridObjectPosition.x) - ((boundsX / 2) - 0.5f);
-                    float _gridPosY = ((y * size) + offsetY + GridObjectPosition.y) - ((boundsY / 2) - 0.5f);
-                    float _gridPosZ = ((z * size) + offsetZ + GridObjectPosition.z) - ((boundsZ / 2) - 0.5f);
+                    // Position per axis = (x - xCount/2) + offsetX + GridObjectPosition
+                    // if there are an even number of points in this axis, additional offset is needed
+                    float _gridPosX = ((x * size) - (xCount / 2) * size) + offsetX + GridObjectPosition.x;
+                    if (xCount % 2 == 0)
+                    {
+                        _gridPosX = _gridPosX + (size / 2);
+                    }
+                    float _gridPosY = ((y * size) - (yCount / 2) * size) + offsetY + GridObjectPosition.y;
+                    if (yCount % 2 == 0)
+                    {
+                        _gridPosY = _gridPosY + (size / 2);
+                    }
+                    float _gridPosZ = ((z * size) - (zCount / 2) * size) + offsetZ + GridObjectPosition.z;
+                    if (zCount % 2 == 0)
+                    {
+                        _gridPosZ = _gridPosZ + (size / 2);
+                    }
 
                     //Add to array
                     Vector3 _gridPos = new Vector3(_gridPosX, _gridPosY, _gridPosZ);
@@ -105,11 +129,11 @@ public class PlacementGrid : MonoBehaviour
         //We return the whole GridPosition because some functions care about if the point is occupied, but future functions may not.
     }
 
-    public void OnObjectPlaced(Vector3 placedAt)
+    public void OnObjectPlaced(Vector3 placedAt, GameObject placedObject)
     {
         //Object has been placed at given position on grid.
         //Find point and set it to occupied
-        GetNearestPointOnGrid(placedAt).occupied = true;
+        GetNearestPointOnGrid(placedAt).occupied = placedObject;
     }
 
     private void OnDrawGizmos()
@@ -140,7 +164,7 @@ public class GridPosition
 {
     // Small container class to hold data on a grid position
     public Vector3 position { get; private set; }
-    public bool occupied = false;
+    public GameObject occupied = null;
 
     public GridPosition(Vector3 _position)
     {
