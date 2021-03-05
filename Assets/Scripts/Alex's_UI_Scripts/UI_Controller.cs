@@ -187,7 +187,7 @@ public class UI_Controller : MonoBehaviour
         }
 
 
-        //Pertaining to arrow keys for scrolling menus
+        //Pertaining to use of arrow keys to change pages in catalogue
         #region Catalogue Scrolling
         if (Input.GetKeyDown("left") && windowCurrent == windowFinder.Catalogue)
         {
@@ -327,7 +327,7 @@ public class UI_Controller : MonoBehaviour
         #endregion
     }
 
-    #region Page cycling voids
+    #region Catalogue page voids
     public void IncrementPage()
     {
         //Cycles pages upward

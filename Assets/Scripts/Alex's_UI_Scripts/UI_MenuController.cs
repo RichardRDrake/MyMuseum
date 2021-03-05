@@ -97,6 +97,19 @@ public class UI_MenuController : MonoBehaviour
 
     #endregion
 
+    #region Confirm contents
+    [SerializeField] private GameObject Confirm;
+    [SerializeField] private GameObject ConfirmField;
+    private TextMeshProUGUI ConfirmText;
+
+    [SerializeField] private GameObject YesButton;
+    [SerializeField] private GameObject NoButton;
+    private List<Vector3> ConfirmButtonLocations = new List<Vector3>();
+
+    [SerializeField] private GameObject HighlightConfirm;
+    [SerializeField] private GameObject HighlightConfirmHover;
+    #endregion
+
     #region Options contents
     //Options display highlights
     [SerializeField] private GameObject HighlightOptions;
@@ -118,6 +131,10 @@ public class UI_MenuController : MonoBehaviour
     //Tracks which object in the Options window the user is on
     public enum OptionsFinder { Null = 0, SFX = 1, Music = 2}
     public OptionsFinder optionsCurrent = OptionsFinder.Null;
+
+    //Tracks which object in the confirm window the user is on
+    public enum ConfirmFinder { Null = 0, Confirm = 1, Cancel = 2}
+    public ConfirmFinder confirmCurrent = ConfirmFinder.Null;
     #endregion
 
     #endregion
@@ -125,6 +142,7 @@ public class UI_MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        #region set variables
         //UI controller script attached to build menu
         UI_Controller = BuildMenu.GetComponent<UI_Controller>();
         UI_ViewController = ViewMenu.GetComponent<UI_ViewController>();
@@ -136,7 +154,6 @@ public class UI_MenuController : MonoBehaviour
 
         //Save/Load variables
         saveTexts.Add(SaveTitle1.GetComponent<TextMeshProUGUI>());
-        //if(saveTexts[0] !=)
         saveTexts.Add(SaveTitle2.GetComponent<TextMeshProUGUI>());
         saveTexts.Add(SaveTitle3.GetComponent<TextMeshProUGUI>());
         saveDates.Add(SaveDate1.GetComponent<TextMeshProUGUI>());
@@ -158,6 +175,12 @@ public class UI_MenuController : MonoBehaviour
         SaveLoadLocations.Add(SaveLoad2.transform.position);
         SaveLoadLocations.Add(SaveLoad3.transform.position);
 
+        ConfirmButtonLocations.Add(YesButton.transform.position);
+        ConfirmButtonLocations.Add(NoButton.transform.position);
+
+        //Gets the text component of the save/load confirm menus
+        ConfirmText = ConfirmField.GetComponent<TextMeshProUGUI>();
+        #endregion
     }
 
     // Update is called once per frame
@@ -175,6 +198,19 @@ public class UI_MenuController : MonoBehaviour
             NavigateDown();
         }
 
+        //Pertaining to use of arrow keys to change pages in catalogue
+        #region Catalogue Scrolling
+        if (Input.GetKeyDown("left") && windowCurrent == WindowFinder.MenuSaveLoad)
+        {
+            DecrementPage();
+        }
+
+        if (Input.GetKeyDown("right") && windowCurrent == WindowFinder.MenuSaveLoad)
+        {
+            IncrementPage();
+        }
+        #endregion
+
         //Determines what to do if the player hits tab or down
         if (Input.GetKeyDown("tab") || Input.GetKeyDown("down"))
         {
@@ -188,6 +224,34 @@ public class UI_MenuController : MonoBehaviour
         }
 
     }
+
+    #region Catalogue page voids
+    public void IncrementPage()
+    {
+        pageCurrent++;
+        pageCurrent = Mathf.Clamp(pageCurrent, 1, pageCount);
+        ObjectsHide.SetActive(false);
+        DisplayPageDetails();
+        ObjectsHide.SetActive(true);
+        Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
+        //Sets highlighted pane to 0
+        HighlightSave.SetActive(false);
+        paneCurrent = 0;
+    }
+
+    public void DecrementPage()
+    {
+        pageCurrent--;
+        pageCurrent = Mathf.Clamp(paneCurrent, 1, pageCount);
+        ObjectsHide.SetActive(false);
+        DisplayPageDetails();
+        ObjectsHide.SetActive(true);
+        Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
+        //Sets highlighted pane to 0
+        HighlightSave.SetActive(false);
+        paneCurrent = 0;
+    }
+    #endregion
 
     public void Activate()
     {
@@ -213,6 +277,8 @@ public class UI_MenuController : MonoBehaviour
             //Handles navigation from a confirmation popup in the save or load menus
             windowCurrent = (WindowFinder)2;
             DisableConfirmation();
+            HighlightConfirm.SetActive(false);
+            HighlightConfirmHover.SetActive(false);
         }
         else if (windowInt == 1)
         {
@@ -255,11 +321,30 @@ public class UI_MenuController : MonoBehaviour
                         MenuSetup();
                         break;
                     case 3:
+
                         break;
                     case 4:
                         break;
                     default:
                         break;
+                }
+                break;
+            case 2:
+                ShowConfirmation();
+                break;
+            case 4:
+                int confirmInt = (int)confirmCurrent;
+                if(confirmInt == 1)
+                {
+                    //Write to appropriate save file
+                }
+                else if (confirmInt == 2)
+                {
+                    //Disables popup
+                    windowCurrent = (WindowFinder)2;
+                    DisableConfirmation();
+                    HighlightConfirm.SetActive(false);
+                    HighlightConfirmHover.SetActive(false);
                 }
                 break;
         }
@@ -297,9 +382,41 @@ public class UI_MenuController : MonoBehaviour
         #endregion
     }
 
+    public void ShowConfirmation()
+    {
+        //Displays confirm menu for save/load data
+        #region show confirm menu
+        if (saveOrLoad == true)
+        {
+            if (paneCurrent + ((pageCurrent - 1) * 3) < listLength)
+            {
+                ConfirmText.text = "Unsaved progress will be lost. Continue?";
+                windowCurrent = WindowFinder.Confirm;
+                confirmCurrent = ConfirmFinder.Null;
+                Confirm.SetActive(true);
+            }
+        }
+        else
+        {
+            if (paneCurrent + ((pageCurrent - 1) * 3) >= listLength)
+            {
+                ConfirmText.text = "Create new save file?";
+            }
+            else
+            {
+                ConfirmText.text = "Overwrite save file?";
+            }
+            windowCurrent = WindowFinder.Confirm;
+            confirmCurrent = ConfirmFinder.Null;
+            Confirm.SetActive(true);
+        }
+        #endregion
+    }
+
     public void DisableConfirmation()
     {
-        
+        Confirm.SetActive(false);
+        windowCurrent = WindowFinder.MenuSaveLoad;
     }
 
     private void MenuSetup()
@@ -351,34 +468,63 @@ public class UI_MenuController : MonoBehaviour
         //Displays save data read from the save file list
         #region display save data per page
         countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
-        for(int i = 0; i <= 2; i++)
+        if (saveOrLoad == false)
         {
-            if (((pageCurrent - 1) * 3) + i == listLength - 1)
+            for (int i = 0; i <= 2; i++)
             {
-                Debug.Log("New save");
-                saveTexts[i].text = "SAVE NEW FILE?";
-                saveDates[i].text = "--/--/----";
-                saveNews[i].text = "+";
-            }
-            else if (((pageCurrent - 1) * 3) + i > (Saves.SavesList.Count - 1))
-            {
-                Debug.Log("Empty save");
-                saveTexts[i].text = "NO DATA";
-                saveDates[i].text = "--/--/----";
-                saveNews[i].text = " ";
-            }
-            else
-            {
-                Debug.Log("Existing save");
-                Debug.Log(SaveTitle1);
-                Debug.Log(saveTexts);
-                Debug.Log(saveTexts[0]);
-                saveTexts[i].text = Saves.SavesList[i];
-                saveDates[i].text = Saves.DatesList[i];
-                saveNews[i].text = " ";
-            }
-            paneCurrent = 0;
+                if (((pageCurrent - 1) * 3) + i == listLength - 1)
+                {
+                    Debug.Log("New save");
+                    saveTexts[i].text = "SAVE NEW FILE?";
+                    saveDates[i].text = "--/--/----";
+                    saveNews[i].text = "+";
+                }
+                else if (((pageCurrent - 1) * 3) + i > (listLength - 2))
+                {
+                    Debug.Log("Empty save");
+                    saveTexts[i].text = "NO DATA";
+                    saveDates[i].text = "--/--/----";
+                    saveNews[i].text = " ";
+                }
+                else
+                {
+                    Debug.Log("Existing save");
+                    Debug.Log(SaveTitle1);
+                    Debug.Log(saveTexts);
+                    Debug.Log(saveTexts[0]);
+                    saveTexts[i].text = Saves.SavesList[((pageCurrent - 1) * 3) + i];
+                    saveDates[i].text = Saves.DatesList[((pageCurrent - 1) * 3) + i];
+                    saveNews[i].text = " ";
+                }
+                paneCurrent = 0;
 
+            }
+        }
+        else
+        {
+
+            for (int i = 0; i <= 2; i++)
+            {
+                if (((pageCurrent - 1) * 3) + i > (listLength - 2))
+                {
+                    Debug.Log("Empty save");
+                    saveTexts[i].text = "NO DATA";
+                    saveDates[i].text = "--/--/----";
+                    saveNews[i].text = " ";
+                }
+                else
+                {
+                    Debug.Log("Existing save");
+                    Debug.Log(SaveTitle1);
+                    Debug.Log(saveTexts);
+                    Debug.Log(saveTexts[0]);
+                    saveTexts[i].text = Saves.SavesList[i];
+                    saveDates[i].text = Saves.DatesList[i];
+                    saveNews[i].text = " ";
+                }
+                paneCurrent = 0;
+
+            }
         }
         #endregion
     }
@@ -405,9 +551,19 @@ public class UI_MenuController : MonoBehaviour
             case 2:
                 //Cycles through the enum of available save files per page
                 paneCurrent++;
-                if(paneCurrent > 3)
+                if (saveOrLoad == true)
                 {
-                    paneCurrent = 1;
+                    if (paneCurrent > 3 || ((pageCurrent - 1) * 3) + (paneCurrent - 1) > (listLength - 2))
+                    {
+                        paneCurrent = 1;
+                    }
+                }
+                else
+                {
+                    if (paneCurrent > 3 || ((pageCurrent - 1) * 3) + (paneCurrent - 1) > (listLength - 1))
+                    {
+                        paneCurrent = 1;
+                    }
                 }
                 HighlightSave.SetActive(true);
                 HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
@@ -421,14 +577,87 @@ public class UI_MenuController : MonoBehaviour
                     optionsInt = 1;
                 }
                 break;
-
+            case 4:
+                //Cycles through options on the confirm page
+                int confirmInt = (int)confirmCurrent + 1;
+                //checks this isn't out of range
+                if(confirmInt > 2)
+                {
+                    confirmInt = 1;
+                }
+                //Sets highlight over appropriate pane
+                confirmCurrent = (ConfirmFinder)confirmInt;
+                HighlightConfirm.transform.position = ConfirmButtonLocations[confirmInt - 1];
+                HighlightConfirm.SetActive(true);
+                break;
         }
         #endregion
     }
 
     private void CycleBack()
     {
-
+        //Cycles backwards through options in currently selected window
+        #region Backward cycle
+        int windowInt = (int)windowCurrent;
+        switch (windowInt)
+        {
+            case 1:
+                //Cycles through the enum of available main menu options
+                int mainInt = (int)mainCurrent - 1;
+                //Checks this isn't out of range
+                if (mainInt < 1)
+                {
+                    mainInt = 4;
+                }
+                mainCurrent = (MainFinder)mainInt;
+                HighlightTop.SetActive(true);
+                HighlightTop.transform.position = MainLocations[mainInt - 1];
+                break;
+            case 2:
+                paneCurrent--;
+                if(paneCurrent < 1)
+                {
+                    paneCurrent = 3;
+                }
+                //Checks that the next pane isn't less than 1, or empty
+                if (saveOrLoad == true)
+                {
+                        //Checks that the last option isn't out of range
+                        if (((pageCurrent - 1) * 3) + (paneCurrent) > (listLength - 1))
+                        {
+                            //If it is, cycles to the pane one higher than the remainder of the asset list divided by the number of full pages
+                            paneCurrent = ((listLength - 1) % ((pageCurrent - 1) * 3));
+                        }
+                }
+                else
+                {
+                        //Checks that the last option isn't out of range
+                        if (((pageCurrent - 1) * 3) + (paneCurrent) > listLength)
+                        {
+                            //If it is, cycles to the pane one higher than the remainder of the asset list divided by the number of full pages
+                            paneCurrent = ((listLength - 1) % ((pageCurrent - 1) * 3)) + 1;
+                        }
+                    Debug.Log(paneCurrent);
+                }
+                //Moves the highlight over the appropriate pane
+                HighlightSave.SetActive(true);
+                HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
+                break;
+            case 4:
+                //Cycles through options on the confirm page
+                int confirmInt = (int)confirmCurrent - 1;
+                //checks this isn't out of range
+                if (confirmInt < 1)
+                {
+                    confirmInt = 2;
+                }
+                //Sets highlight over appropriate pane
+                confirmCurrent = (ConfirmFinder)confirmInt;
+                HighlightConfirm.transform.position = ConfirmButtonLocations[confirmInt - 1];
+                HighlightConfirm.SetActive(true);
+                break;
+        }
+        #endregion
     }
 
 }
