@@ -94,7 +94,14 @@ public class UI_MenuController : MonoBehaviour
     //Save display highlights
     [SerializeField] private GameObject HighlightSave;
     [SerializeField] private GameObject HighlightSaveHover;
+    [SerializeField] private GameObject HighlightSaveNavHover;
 
+    //Int changed by UI_SaveLoad. Mimics functionality of paneCurrent without overwriting it
+    public int saveLoadIdentity = 0;
+
+    //Int determining which save file is currently selected
+    //Begins at 0
+    private int saveFileSelected;
     #endregion
 
     #region Confirm contents
@@ -112,8 +119,16 @@ public class UI_MenuController : MonoBehaviour
 
     #region Options contents
     //Options display highlights
-    [SerializeField] private GameObject HighlightOptions;
-    [SerializeField] private GameObject HighlightOptionsHover;
+    [SerializeField] private GameObject HighlightOptionsMusic;
+    [SerializeField] private GameObject HighlightOptionsMusicHover;
+    [SerializeField] private GameObject HighlightOptionsSfx;
+    [SerializeField] private GameObject HighlightOptionsSfxHover;
+    [SerializeField] private GameObject HighlightOptionsCloseHover;
+
+    [SerializeField] private GameObject MusicSliderObject;
+    private Slider musicSlider;
+    [SerializeField] private GameObject SfxSliderObject;
+    private Slider sfxSlider;
     #endregion
 
     #region enums
@@ -129,7 +144,7 @@ public class UI_MenuController : MonoBehaviour
     public int paneCurrent = 0;
 
     //Tracks which object in the Options window the user is on
-    public enum OptionsFinder { Null = 0, SFX = 1, Music = 2}
+    public enum OptionsFinder { Null = 0, Music = 1, SFX = 2}
     public OptionsFinder optionsCurrent = OptionsFinder.Null;
 
     //Tracks which object in the confirm window the user is on
@@ -149,7 +164,7 @@ public class UI_MenuController : MonoBehaviour
         Saves = SaveObject.GetComponent<TempSavesScript>();
         if(Saves != null)
         {
-             Debug.Log(Saves.SavesList.Count);
+             //Debug.Log(Saves.SavesList.Count);
         }
 
         //Save/Load variables
@@ -180,6 +195,10 @@ public class UI_MenuController : MonoBehaviour
 
         //Gets the text component of the save/load confirm menus
         ConfirmText = ConfirmField.GetComponent<TextMeshProUGUI>();
+
+        //Gets the slider components of the music and sfx slider objects
+        musicSlider = MusicSliderObject.GetComponent<Slider>();
+        sfxSlider = SfxSliderObject.GetComponent<Slider>();
         #endregion
     }
 
@@ -204,10 +223,33 @@ public class UI_MenuController : MonoBehaviour
         {
             DecrementPage();
         }
+        //Or adjust volume sliders
+        else if (Input.GetKey("left") && windowCurrent == WindowFinder.MenuOptions)
+        {
+            if(optionsCurrent == OptionsFinder.Music)
+            {
+                musicSlider.value -= 0.6f * Time.deltaTime;
+            }
+            else if(optionsCurrent == OptionsFinder.SFX)
+            {
+                sfxSlider.value -= 0.6f * Time.deltaTime;
+            }
+        }
 
         if (Input.GetKeyDown("right") && windowCurrent == WindowFinder.MenuSaveLoad)
         {
             IncrementPage();
+        }
+        else if (Input.GetKey("right") && windowCurrent == WindowFinder.MenuOptions)
+        {
+            if (optionsCurrent == OptionsFinder.Music)
+            {
+                musicSlider.value += 0.6f * Time.deltaTime;
+            }
+            else if (optionsCurrent == OptionsFinder.SFX)
+            {
+                sfxSlider.value += 0.6f * Time.deltaTime;
+            }
         }
         #endregion
 
@@ -233,7 +275,7 @@ public class UI_MenuController : MonoBehaviour
         ObjectsHide.SetActive(false);
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
-        Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
+        //Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
         //Sets highlighted pane to 0
         HighlightSave.SetActive(false);
         paneCurrent = 0;
@@ -246,7 +288,7 @@ public class UI_MenuController : MonoBehaviour
         ObjectsHide.SetActive(false);
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
-        Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
+        //Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
         //Sets highlighted pane to 0
         HighlightSave.SetActive(false);
         paneCurrent = 0;
@@ -321,7 +363,7 @@ public class UI_MenuController : MonoBehaviour
                         MenuSetup();
                         break;
                     case 3:
-
+                        OptionsSetup();
                         break;
                     case 4:
                         break;
@@ -362,11 +404,15 @@ public class UI_MenuController : MonoBehaviour
         paneCurrent = 0;
         HighlightSaveHover.SetActive(false);
         HighlightSave.SetActive(false);
+        HighlightSaveNavHover.SetActive(false);
 
         Options.SetActive(false);
         optionsCurrent = OptionsFinder.Null;
-        HighlightOptions.SetActive(false);
-        HighlightOptionsHover.SetActive(false);
+        HighlightOptionsMusic.SetActive(false);
+        HighlightOptionsMusicHover.SetActive(false);
+        HighlightOptionsSfx.SetActive(false);
+        HighlightOptionsSfxHover.SetActive(false);
+        HighlightOptionsCloseHover.SetActive(false);
         #endregion
     }
 
@@ -386,11 +432,33 @@ public class UI_MenuController : MonoBehaviour
     {
         //Displays confirm menu for save/load data
         #region show confirm menu
-        if (saveOrLoad == true)
+        //if accessed by UI_SaveLoad
+        if (saveLoadIdentity != 0)
         {
-            if (paneCurrent + ((pageCurrent - 1) * 3) < listLength)
+            if (saveOrLoad == true)
             {
-                ConfirmText.text = "Unsaved progress will be lost. Continue?";
+                if (saveLoadIdentity + ((pageCurrent - 1) * 3) < listLength)
+                {
+                    ConfirmText.text = "Unsaved progress will be lost. Continue?";
+                    windowCurrent = WindowFinder.Confirm;
+                    confirmCurrent = ConfirmFinder.Null;
+                    Confirm.SetActive(true);
+                    saveFileSelected = saveLoadIdentity - 1 + ((pageCurrent - 1) * 3);
+                }
+            }
+            else
+            {
+                if (saveLoadIdentity + ((pageCurrent - 1) * 3) >= listLength)
+                {
+                    ConfirmText.text = "Create new save file?";
+
+                    saveFileSelected = listLength - 1;
+                }
+                else
+                {
+                    ConfirmText.text = "Overwrite save file?";
+                    saveFileSelected = saveLoadIdentity - 1 + ((pageCurrent - 1) * 3);
+                }
                 windowCurrent = WindowFinder.Confirm;
                 confirmCurrent = ConfirmFinder.Null;
                 Confirm.SetActive(true);
@@ -398,18 +466,35 @@ public class UI_MenuController : MonoBehaviour
         }
         else
         {
-            if (paneCurrent + ((pageCurrent - 1) * 3) >= listLength)
+            if (saveOrLoad == true)
             {
-                ConfirmText.text = "Create new save file?";
+                if (paneCurrent + ((pageCurrent - 1) * 3) < listLength)
+                {
+                    ConfirmText.text = "Unsaved progress will be lost. Continue?";
+                    windowCurrent = WindowFinder.Confirm;
+                    confirmCurrent = ConfirmFinder.Null;
+                    Confirm.SetActive(true);
+                    saveFileSelected = paneCurrent - 1 + ((pageCurrent - 1) * 3);
+                }
             }
             else
             {
-                ConfirmText.text = "Overwrite save file?";
+                if (paneCurrent + ((pageCurrent - 1) * 3) >= listLength)
+                {
+                    ConfirmText.text = "Create new save file?";
+                    saveFileSelected = listLength - 1;
+                }
+                else
+                {
+                    ConfirmText.text = "Overwrite save file?";
+                    saveFileSelected = paneCurrent - 1 + ((pageCurrent - 1) * 3);
+                }
+                windowCurrent = WindowFinder.Confirm;
+                confirmCurrent = ConfirmFinder.Null;
+                Confirm.SetActive(true);
             }
-            windowCurrent = WindowFinder.Confirm;
-            confirmCurrent = ConfirmFinder.Null;
-            Confirm.SetActive(true);
         }
+        saveLoadIdentity = 0;
         #endregion
     }
 
@@ -419,7 +504,7 @@ public class UI_MenuController : MonoBehaviour
         windowCurrent = WindowFinder.MenuSaveLoad;
     }
 
-    private void MenuSetup()
+    public void MenuSetup()
     {
         //Loads details for save file display
         #region sets up saves display
@@ -463,6 +548,12 @@ public class UI_MenuController : MonoBehaviour
         #endregion
     }
 
+    public void OptionsSetup()
+    {
+        windowCurrent = WindowFinder.MenuOptions;
+        Options.SetActive(true);
+    }
+
     private void DisplayPageDetails()
     {
         //Displays save data read from the save file list
@@ -474,24 +565,27 @@ public class UI_MenuController : MonoBehaviour
             {
                 if (((pageCurrent - 1) * 3) + i == listLength - 1)
                 {
-                    Debug.Log("New save");
-                    saveTexts[i].text = "SAVE NEW FILE?";
+                    //This is separate for future use
+                    //Allows the first empty save slot to display different detail
+                    //Or the others to be hidden
+                    //Debug.Log("New save");
+                    saveTexts[i].text = "NO DATA";
                     saveDates[i].text = "--/--/----";
-                    saveNews[i].text = "+";
+                    saveNews[i].text = " ";
                 }
                 else if (((pageCurrent - 1) * 3) + i > (listLength - 2))
                 {
-                    Debug.Log("Empty save");
+                    //Debug.Log("Empty save");
                     saveTexts[i].text = "NO DATA";
                     saveDates[i].text = "--/--/----";
                     saveNews[i].text = " ";
                 }
                 else
                 {
-                    Debug.Log("Existing save");
-                    Debug.Log(SaveTitle1);
-                    Debug.Log(saveTexts);
-                    Debug.Log(saveTexts[0]);
+                    //Debug.Log("Existing save");
+                    //Debug.Log(SaveTitle1);
+                    //Debug.Log(saveTexts);
+                    //Debug.Log(saveTexts[0]);
                     saveTexts[i].text = Saves.SavesList[((pageCurrent - 1) * 3) + i];
                     saveDates[i].text = Saves.DatesList[((pageCurrent - 1) * 3) + i];
                     saveNews[i].text = " ";
@@ -507,17 +601,17 @@ public class UI_MenuController : MonoBehaviour
             {
                 if (((pageCurrent - 1) * 3) + i > (listLength - 2))
                 {
-                    Debug.Log("Empty save");
+                    //Debug.Log("Empty save");
                     saveTexts[i].text = "NO DATA";
                     saveDates[i].text = "--/--/----";
                     saveNews[i].text = " ";
                 }
                 else
                 {
-                    Debug.Log("Existing save");
-                    Debug.Log(SaveTitle1);
-                    Debug.Log(saveTexts);
-                    Debug.Log(saveTexts[0]);
+                    //Debug.Log("Existing save");
+                    //Debug.Log(SaveTitle1);
+                    //Debug.Log(saveTexts);
+                    //Debug.Log(saveTexts[0]);
                     saveTexts[i].text = Saves.SavesList[i];
                     saveDates[i].text = Saves.DatesList[i];
                     saveNews[i].text = " ";
@@ -576,6 +670,18 @@ public class UI_MenuController : MonoBehaviour
                 {
                     optionsInt = 1;
                 }
+                //Sets highlight accordingly
+                if(optionsInt == 1)
+                {
+                    HighlightOptionsMusic.SetActive(true);
+                    HighlightOptionsSfx.SetActive(false);
+                }
+                else
+                {
+                    HighlightOptionsMusic.SetActive(false);
+                    HighlightOptionsSfx.SetActive(true);
+                }
+                optionsCurrent = (OptionsFinder)optionsInt;
                 break;
             case 4:
                 //Cycles through options on the confirm page
@@ -637,11 +743,32 @@ public class UI_MenuController : MonoBehaviour
                             //If it is, cycles to the pane one higher than the remainder of the asset list divided by the number of full pages
                             paneCurrent = ((listLength - 1) % ((pageCurrent - 1) * 3)) + 1;
                         }
-                    Debug.Log(paneCurrent);
+                    //Debug.Log(paneCurrent);
                 }
                 //Moves the highlight over the appropriate pane
                 HighlightSave.SetActive(true);
                 HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
+                break;
+            case 3:
+                //Cycles through the enum of options on the options page
+                int optionsInt = (int)optionsCurrent - 1;
+                //checks this isn't out of range
+                if (optionsInt < 1)
+                {
+                    optionsInt = 2;
+                }
+                //Sets highlight accordingly
+                if (optionsInt == 1)
+                {
+                    HighlightOptionsMusic.SetActive(true);
+                    HighlightOptionsSfx.SetActive(false);
+                }
+                else
+                {
+                    HighlightOptionsMusic.SetActive(false);
+                    HighlightOptionsSfx.SetActive(true);
+                }
+                optionsCurrent = (OptionsFinder)optionsInt;
                 break;
             case 4:
                 //Cycles through options on the confirm page
@@ -660,4 +787,58 @@ public class UI_MenuController : MonoBehaviour
         #endregion
     }
 
+    #region button voids
+    //Used by the save button
+    public void SavePressed()
+    {
+        saveOrLoad = false;
+        DisableMainMenu();
+        MenuSetup();
+    }
+
+    //Used by the load button
+    public void LoadPressed()
+    {
+        saveOrLoad = true;
+        DisableMainMenu();
+        MenuSetup();
+    }
+
+    //Used by the options button
+    public void OptionsPressed()
+    {
+        DisableMainMenu();
+        OptionsSetup();
+    }
+
+    //Used by the confirm save button
+    public void ConfirmSave()
+    {
+        //if the game is set to save
+        if(saveOrLoad==false)
+        {
+            //use the integer saveFileSelected to determine which save slot is currently being accessed
+            //Currently, the list of save files is attached to a game object called "SAVES PLACEHOLDER"
+            //To make this functional, create a script following the format of TempSavesScript to write save details to
+            //And replace lines 22, 23 and 164 to pull data from that script, leaving variable names intact.
+            Debug.Log(saveFileSelected);
+            windowCurrent = (WindowFinder)1;
+            DisableSubmenus();
+            Confirm.SetActive(false);
+            Main.SetActive(true);
+        }
+        //if the game is set to load
+        else
+        {
+            if (saveFileSelected < listLength)
+            {
+                Debug.Log(saveFileSelected);
+                windowCurrent = (WindowFinder)1;
+                DisableSubmenus();
+                Confirm.SetActive(false);
+                Main.SetActive(true);
+            }
+        }
+    }
+    #endregion
 }
