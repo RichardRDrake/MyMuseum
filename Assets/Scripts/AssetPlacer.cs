@@ -7,7 +7,9 @@ public class AssetPlacer : MonoBehaviour
     //Component that recives objects selected in the Artefact Browser and allow the user to place them on a grid
     //Parts of this will be subject to change, denoted with [PH]
 
-    //Active grid, since this relies on Artefact browser, we will temporary use 1-3 to select objects
+    [SerializeField] GridManager gridManager = null; //Assigned in Inspector
+        
+        //Active grid, since this relies on Artefact browser, we will temporary use 1-3 to select objects
     [SerializeField] PlacementGrid activeGrid = null; //[PH] Assigned during run-time
 
     [SerializeField] GameObject cameraObj = null; //[PH] Assigned during run-time
@@ -24,7 +26,12 @@ public class AssetPlacer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        activeGrid = FindObjectOfType<PlacementGrid>(); //[PH]
+        gridManager = FindObjectOfType<GridManager>();
+        if (gridManager == null)
+        {
+            Debug.LogError("Asset Placer does not have a Grid Manager assigned.");
+        }
+        //activeGrid = FindObjectOfType<PlacementGrid>(); //[PH]
         if (exampleObject_1 == null)
         {
             Debug.Log("example placement objects not assigned!");
@@ -46,10 +53,11 @@ public class AssetPlacer : MonoBehaviour
         //Look to see if the user is giving any inputs
         ProcessInput();
 
+        Vector3 validPosition = RayToGrid();
         //If we're in the process of placing an object, show where the object will go
-        if (objectToBePlaced != null)
+        if (objectToBePlaced != null && activeGrid != null)
         {
-            Vector3 validPosition = RayToGrid();
+            //Debug.Log("TEST");
             if (validPosition != Vector3.zero)
             {
                 objectToBePlaced.transform.position = validPosition;
@@ -106,11 +114,17 @@ public class AssetPlacer : MonoBehaviour
 
         if (Physics.Raycast(ray, out hitInfo))
         {
-            GridPosition gridPosition = activeGrid.GetNearestPointOnGrid(hitInfo.point);
-            //Check to see is position is valid (not occupied)
-            if (gridPosition != null && gridPosition.occupied == null)
+            NearestPointResponse nearestPoint = gridManager.GetPointOnNearestGrid(hitInfo);
+            if (nearestPoint == null)
             {
-                return gridPosition.position;
+                return Vector3.zero;
+            }
+
+            activeGrid = nearestPoint.grid;
+            //Check to see is position is valid (not occupied)
+            if (nearestPoint != null && nearestPoint.gridPosition.occupied == null)
+            {
+                return nearestPoint.gridPosition.position;
             }
             else return Vector3.zero;
         }

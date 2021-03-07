@@ -24,6 +24,11 @@ public class PlacementGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GridManager gridManager = FindObjectOfType<GridManager>();
+        if (gridManager)
+        {
+            gridManager.RegisterNewGrid(this);
+        }
         BuildGrid();
     }
 
@@ -95,7 +100,7 @@ public class PlacementGrid : MonoBehaviour
         }
     }
 
-    public GridPosition GetNearestPointOnGrid(Vector3 position)
+    public NearestPointResponse GetNearestPointOnGrid(Vector3 position)
     {
         //Find the closest grid position to the given position
         //Since the order we process them doesn't really matter, I'm going to do it as a big foreach loop
@@ -119,7 +124,7 @@ public class PlacementGrid : MonoBehaviour
         //Check to make sure the point is close to *something* on the grid
         if (closestDistance <= size*0.6)
         {
-            return closestPoint;
+            return new NearestPointResponse(closestPoint, closestDistance, this);
         }
         else
         {
@@ -133,7 +138,7 @@ public class PlacementGrid : MonoBehaviour
     {
         //Object has been placed at given position on grid.
         //Find point and set it to occupied
-        GetNearestPointOnGrid(placedAt).occupied = placedObject;
+        GetNearestPointOnGrid(placedAt).gridPosition.occupied = placedObject;
     }
 
     private void OnDrawGizmos()
@@ -169,6 +174,20 @@ public class GridPosition
     public GridPosition(Vector3 _position)
     {
         position = _position;
+    }
+}
+
+public class NearestPointResponse
+{
+    public GridPosition gridPosition { get; private set; }
+    public float distance;
+    public PlacementGrid grid;
+
+    public NearestPointResponse(GridPosition responcePos, float responceDist, PlacementGrid parentGrid )
+    {
+        gridPosition = responcePos;
+        distance = responceDist;
+        grid = parentGrid;
     }
 }
 

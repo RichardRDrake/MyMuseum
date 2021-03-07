@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+   //Lars' previous code, I'm keeping it here In case he wants it for portfolio stuff
+    /*
     [SerializeField]
 
     //space between objects
@@ -46,5 +48,41 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+    */
    
-}
+
+   //Actual Grid manager stuff...
+
+    //Grid Manager tracks all active grids as Asset placer was designed for single grids
+    private List<PlacementGrid> GridList = new List<PlacementGrid>(); 
+
+    public void RegisterNewGrid(PlacementGrid newGrid)
+    {
+        //New Grid has been created Register it here
+        GridList.Add(newGrid);
+    }
+
+    public NearestPointResponse GetPointOnNearestGrid(RaycastHit hitInfo)
+    {
+        float closestDistance = 1000;
+        NearestPointResponse closestPos = null;
+
+        foreach (PlacementGrid grid in GridList)
+        {
+            NearestPointResponse npr = grid.GetNearestPointOnGrid(hitInfo.point);
+            if (npr != null)
+            {
+                if (npr.distance < closestDistance)
+                {
+                    closestDistance = npr.distance;
+                    closestPos = npr;
+                }
+            }
+            
+        }
+
+        return closestPos;
+    }
+} // TODO
+
+//Assign active grid somewhere
