@@ -17,7 +17,7 @@ public class CamController : MonoBehaviour
 
     bool UiToggle = false;
     bool cameraToggle = false;
-
+   
     //camera movement variables
 
     private Transform parent;
@@ -84,7 +84,7 @@ public class CamController : MonoBehaviour
         }
         else
         {
-            firstPersonCameraUpdate();
+           firstPersonCameraUpdate();
         }
     }
 
