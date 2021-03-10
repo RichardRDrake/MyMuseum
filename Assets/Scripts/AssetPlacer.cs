@@ -68,7 +68,7 @@ public class AssetPlacer : MonoBehaviour
             else
             {
                 ChangeColour(objectToBePlaced, Color.red);
-                validPlacement = true;
+                validPlacement = false;
             }
             
         }
