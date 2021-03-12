@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CamController : MonoBehaviour
 {
-    
+
     //Top object in each UI hierarchy
     [SerializeField] private GameObject UiBuild;
     [SerializeField] private GameObject UiView;
@@ -17,18 +17,28 @@ public class CamController : MonoBehaviour
 
     bool UiToggle = false;
     bool cameraToggle = false;
-   
+
     //camera movement variables
 
     private Transform parent;
     private float moveSpeed = 5.0f;
     private float rotation = 90.0f;
-
+    private Vector3 firstPersonPosition;
+    private Vector3 thirdPersonRotation;
     public float horSensitivity = 1.0f;
     public float verSensitivity = 1.0f;
 
     private float xRotation = 0.0f;
     private float yRotation = 0.0f;
+
+    public void rotateLeft()
+    {
+        parent.Rotate(-Vector3.up * rotation, Space.World);
+    }
+    public void rotateRight()
+    {
+        parent.Rotate(Vector3.up * rotation, Space.World);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +50,9 @@ public class CamController : MonoBehaviour
         UI_ViewController = UiView.GetComponent<UI_ViewController>();
 
         parent = transform.parent;
+        firstPersonPosition.x = 0.0f;
+        firstPersonPosition.y = 3.0f;
+        firstPersonPosition.z = 0.0f;
     }
 
     // Update is called once per frame
@@ -80,11 +93,13 @@ public class CamController : MonoBehaviour
 
         if(cameraToggle == false)
         {
+            parent.transform.position = new Vector3(0.0f, 10.0f, -15.0f);
             thirdPersonCameraUpdate();
         }
         else
         {
-           firstPersonCameraUpdate();
+            parent.transform.position = firstPersonPosition;
+            firstPersonCameraUpdate();
         }
     }
 
@@ -131,18 +146,20 @@ public class CamController : MonoBehaviour
         }
 
         MouseControl();
+
+        firstPersonPosition = parent.transform.position;
     }
     void thirdPersonCameraUpdate()
     {
         if (Input.GetKeyDown("q"))
         {
             // Applys a rotation of 90 degrees to the object
-            parent.Rotate(-Vector3.up * rotation, Space.World);
+            rotateLeft();
         }
 
         if (Input.GetKeyDown("e"))
         {
-            parent.Rotate(Vector3.up * rotation, Space.World);
+            rotateRight();
         }
     }
 }
