@@ -30,6 +30,10 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject DetailTextField;
     private TextMeshProUGUI detailText;
 
+    //Camera object
+    [SerializeField] private GameObject Camera;
+    private CamController camController;
+
     #region submenu objects
     //List of buttons relating to each category
     //(This form of sorting is for testing's sake and is definitely not considered final)
@@ -77,6 +81,7 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject HighlightCatalogue;
     [SerializeField] private GameObject HighlightDetail;
     [SerializeField] private GameObject HighlightAccept;
+    [SerializeField] private GameObject HighlightFirst;
 
     //hover highlight icons
     //Note that these are here to be disabled, not utilised
@@ -104,7 +109,7 @@ public class UI_Controller : MonoBehaviour
     public windowFinder windowCurrent = windowFinder.Menu_Top;
 
     //Determines which main menu option the user is on.
-    public enum topFinder { Null = 0, Artefact = 1, Build = 2, Move = 3, Destroy = 4, Main = 5 };
+    public enum topFinder { Null = 0, Artefact = 1, Build = 2, Move = 3, Destroy = 4, Main = 5, First = 6 };
     public topFinder topCurrent = topFinder.Null;
 
     //Determines which submenu the user is on.
@@ -167,6 +172,8 @@ public class UI_Controller : MonoBehaviour
         rotateLocationList.Add(RotateLeft.transform.position);
         rotateLocationList.Add(RotateRight.transform.position);
 
+        //Gets the camera controller
+        camController = Camera.GetComponent<CamController>();
         #endregion
     }
 
@@ -432,6 +439,10 @@ public class UI_Controller : MonoBehaviour
                     case 5:
                         SwitchToMain();
                         break;
+                    case 6:
+                        //This should refer to the camera controller
+                        //camController.yourcodehere();
+                        break;
                 }
                 break;
             //If the player is on a submenu
@@ -522,7 +533,7 @@ public class UI_Controller : MonoBehaviour
                 //Cycles through the enum of available menu options
                 int topInt = (int)topCurrent + 1;
                 //If it goes beyond the limit of this enum, resets to the start.
-                if(topInt > 5)
+                if(topInt > 6)
                 {
                     topInt = 1;
                 }
@@ -530,15 +541,21 @@ public class UI_Controller : MonoBehaviour
                 //If it's within the list but not the main menu, moves the highlight over the appropriate icon
                 if(topInt < 5)
                 {
-                    HighlightMainMenu.SetActive(false);
+                    HighlightFirst.SetActive(false);
                     HighlightMenuTop.SetActive(true);
                     HighlightMenuTop.transform.position = menuLocationList[topInt - 1];
                 }
                 //Otherwise, hides the generic highlight and puts a unique highlight over the main menu icon
-                else
+                else if(topInt == 5)
                 {
                     HighlightMenuTop.SetActive(false);
                     HighlightMainMenu.SetActive(true);
+                }
+                //The last option is the first person camera
+                else
+                {
+                    HighlightMainMenu.SetActive(false);
+                    HighlightFirst.SetActive(true);
                 }
                 break;
             case 2:
@@ -605,11 +622,17 @@ public class UI_Controller : MonoBehaviour
                 //If it goes beyond the limit of this enum, resets to the end.
                 if (topInt < 1)
                 {
-                    topInt = 5;
+                    topInt = 6;
                 }
                 topCurrent = (topFinder)topInt;
+                //If that's the first person button, highlights it appropriately
+                if(topInt == 6)
+                {
+                    HighlightMenuTop.SetActive(false);
+                    HighlightFirst.SetActive(true);
+                }
                 //If it's within the list but not the main menu, moves the highlight over the appropriate icon
-                if (topInt < 5)
+                else if (topInt < 5)
                 {
                     HighlightMainMenu.SetActive(false);
                     HighlightMenuTop.SetActive(true);
@@ -618,7 +641,7 @@ public class UI_Controller : MonoBehaviour
                 //Otherwise, hides the generic highlight and puts a unique highlight over the main menu icon
                 else
                 {
-                    HighlightMenuTop.SetActive(false);
+                    HighlightFirst.SetActive(false);
                     HighlightMainMenu.SetActive(true);
                 }
                 break;

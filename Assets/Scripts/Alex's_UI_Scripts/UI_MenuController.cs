@@ -110,11 +110,21 @@ public class UI_MenuController : MonoBehaviour
     private TextMeshProUGUI ConfirmText;
 
     [SerializeField] private GameObject YesButton;
+    //Text object child of the yes button
+    [SerializeField] private GameObject YesChild;
+    private TextMeshProUGUI ChildText;
     [SerializeField] private GameObject NoButton;
     private List<Vector3> ConfirmButtonLocations = new List<Vector3>();
 
     [SerializeField] private GameObject HighlightConfirm;
     [SerializeField] private GameObject HighlightConfirmHover;
+
+    [SerializeField] private GameObject InputObject;
+    private TMP_InputField inputField;
+
+    //Determines whether the user has confirmed they wish to save
+    //Used to bring up the text input
+    private bool isSaving = false;
     #endregion
 
     #region Options contents
@@ -148,7 +158,7 @@ public class UI_MenuController : MonoBehaviour
     public OptionsFinder optionsCurrent = OptionsFinder.Null;
 
     //Tracks which object in the confirm window the user is on
-    public enum ConfirmFinder { Null = 0, Confirm = 1, Cancel = 2}
+    public enum ConfirmFinder { Null = 0, Confirm = 1, Cancel = 2, Text = 3}
     public ConfirmFinder confirmCurrent = ConfirmFinder.Null;
     #endregion
 
@@ -195,6 +205,10 @@ public class UI_MenuController : MonoBehaviour
 
         //Gets the text component of the save/load confirm menus
         ConfirmText = ConfirmField.GetComponent<TextMeshProUGUI>();
+        ChildText = YesChild.GetComponent<TextMeshProUGUI>();
+
+        //Gets the input field from the confirm menu
+        inputField = InputObject.GetComponent<TMP_InputField>();
 
         //Gets the slider components of the music and sfx slider objects
         musicSlider = MusicSliderObject.GetComponent<Slider>();
@@ -206,13 +220,23 @@ public class UI_MenuController : MonoBehaviour
     void Update()
     {
         //Moves the player back up a menu level from wherever they were.
-        if (Input.GetKeyDown("escape") || Input.GetKeyDown("backspace"))
+        if (Input.GetKeyDown("escape"))
+        {
+            NavigateUp();
+        }
+        //Ensures the backspace button won't create save file naming issues
+        else if (Input.GetKeyDown("backspace") && confirmCurrent != ConfirmFinder.Text)
         {
             NavigateUp();
         }
 
         //Determines what to do if the player hits enter or space
-        if (Input.GetKeyDown("space") || Input.GetKeyDown("enter") || Input.GetKeyDown("return"))
+        if (Input.GetKeyDown("enter") || Input.GetKeyDown("return"))
+        {
+            NavigateDown();
+        }
+        //Ensures the space button won't create save file naming issues
+        else if (Input.GetKeyDown("space") && confirmCurrent != ConfirmFinder.Text)
         {
             NavigateDown();
         }
@@ -299,6 +323,8 @@ public class UI_MenuController : MonoBehaviour
     {
         //Sets other UI menus inactive once activated
         BuildMenu.SetActive(false);
+        mainCurrent = MainFinder.Null;
+        HighlightTop.SetActive(false);
     }
 
     public void NavigateUp()
@@ -379,6 +405,7 @@ public class UI_MenuController : MonoBehaviour
                 if(confirmInt == 1)
                 {
                     //Write to appropriate save file
+                    ConfirmSave();
                 }
                 else if (confirmInt == 2)
                 {
@@ -413,6 +440,10 @@ public class UI_MenuController : MonoBehaviour
         HighlightOptionsSfx.SetActive(false);
         HighlightOptionsSfxHover.SetActive(false);
         HighlightOptionsCloseHover.SetActive(false);
+
+        confirmCurrent = ConfirmFinder.Null;
+        HighlightConfirm.SetActive(false);
+        HighlightConfirmHover.SetActive(false);
         #endregion
     }
 
@@ -432,6 +463,18 @@ public class UI_MenuController : MonoBehaviour
     {
         //Displays confirm menu for save/load data
         #region show confirm menu
+
+        //Resets saving variables
+        inputField.text = "";
+        InputObject.SetActive(false);
+        ChildText.text = "Confirm";
+        isSaving = false;
+        windowCurrent = WindowFinder.Confirm;
+        confirmCurrent = ConfirmFinder.Null;
+        HighlightConfirm.SetActive(false);
+        HighlightConfirmHover.SetActive(false);
+        Confirm.SetActive(true);
+
         //if accessed by UI_SaveLoad
         if (saveLoadIdentity != 0)
         {
@@ -440,9 +483,6 @@ public class UI_MenuController : MonoBehaviour
                 if (saveLoadIdentity + ((pageCurrent - 1) * 3) < listLength)
                 {
                     ConfirmText.text = "Unsaved progress will be lost. Continue?";
-                    windowCurrent = WindowFinder.Confirm;
-                    confirmCurrent = ConfirmFinder.Null;
-                    Confirm.SetActive(true);
                     saveFileSelected = saveLoadIdentity - 1 + ((pageCurrent - 1) * 3);
                 }
             }
@@ -459,9 +499,6 @@ public class UI_MenuController : MonoBehaviour
                     ConfirmText.text = "Overwrite save file?";
                     saveFileSelected = saveLoadIdentity - 1 + ((pageCurrent - 1) * 3);
                 }
-                windowCurrent = WindowFinder.Confirm;
-                confirmCurrent = ConfirmFinder.Null;
-                Confirm.SetActive(true);
             }
         }
         else
@@ -471,9 +508,6 @@ public class UI_MenuController : MonoBehaviour
                 if (paneCurrent + ((pageCurrent - 1) * 3) < listLength)
                 {
                     ConfirmText.text = "Unsaved progress will be lost. Continue?";
-                    windowCurrent = WindowFinder.Confirm;
-                    confirmCurrent = ConfirmFinder.Null;
-                    Confirm.SetActive(true);
                     saveFileSelected = paneCurrent - 1 + ((pageCurrent - 1) * 3);
                 }
             }
@@ -489,9 +523,6 @@ public class UI_MenuController : MonoBehaviour
                     ConfirmText.text = "Overwrite save file?";
                     saveFileSelected = paneCurrent - 1 + ((pageCurrent - 1) * 3);
                 }
-                windowCurrent = WindowFinder.Confirm;
-                confirmCurrent = ConfirmFinder.Null;
-                Confirm.SetActive(true);
             }
         }
         saveLoadIdentity = 0;
@@ -686,15 +717,42 @@ public class UI_MenuController : MonoBehaviour
             case 4:
                 //Cycles through options on the confirm page
                 int confirmInt = (int)confirmCurrent + 1;
-                //checks this isn't out of range
-                if(confirmInt > 2)
+                //Checks whether text can be input
+                if (isSaving == false)
                 {
-                    confirmInt = 1;
+                    //If it isn't, assumes the text field to be out of range
+                    if (confirmInt > 2)
+                    {
+                        confirmInt = 1;
+                    }
+                    //Sets highlight over appropriate pane
+                    confirmCurrent = (ConfirmFinder)confirmInt;
+                    HighlightConfirm.transform.position = ConfirmButtonLocations[confirmInt - 1];
+                    HighlightConfirm.SetActive(true);
                 }
-                //Sets highlight over appropriate pane
-                confirmCurrent = (ConfirmFinder)confirmInt;
-                HighlightConfirm.transform.position = ConfirmButtonLocations[confirmInt - 1];
-                HighlightConfirm.SetActive(true);
+                else
+                {
+                    //Same as above, but now the text field is in range
+                    if (confirmInt > 3)
+                    {
+                        confirmInt = 1;
+                    }
+                    confirmCurrent = (ConfirmFinder)confirmInt;
+                    //Sets highlight over appropriate pane, if the text field is not selected
+                    if (confirmInt < 3)
+                    {
+                        HighlightConfirm.transform.position = ConfirmButtonLocations[confirmInt - 1];
+                        HighlightConfirm.SetActive(true);
+                        inputField.DeactivateInputField();
+                    }
+                    //If the text field is selected, allows for input
+                    else
+                    {
+                        HighlightConfirm.SetActive(false);
+                        inputField.ActivateInputField();
+                    }
+
+                }
                 break;
         }
         #endregion
@@ -817,15 +875,33 @@ public class UI_MenuController : MonoBehaviour
         //if the game is set to save
         if(saveOrLoad==false)
         {
+            if (!isSaving)
+            {
+                InputObject.SetActive(true);
+                inputField.ActivateInputField();
+                ChildText.text = "Save";
+                isSaving = true;
+                ConfirmText.text = "Name your room";
+                confirmCurrent = ConfirmFinder.Text;
+                HighlightConfirm.SetActive(false);
+            }
             //use the integer saveFileSelected to determine which save slot is currently being accessed
             //Currently, the list of save files is attached to a game object called "SAVES PLACEHOLDER"
             //To make this functional, create a script following the format of TempSavesScript to write save details to
-            //And replace lines 22, 23 and 164 to pull data from that script, leaving variable names intact.
-            Debug.Log(saveFileSelected);
-            windowCurrent = (WindowFinder)1;
-            DisableSubmenus();
-            Confirm.SetActive(false);
-            Main.SetActive(true);
+            //And replace lines refering to its components to pull data from that script, leaving variable names intact.
+            else
+            {
+                inputField = InputObject.GetComponent<TMP_InputField>();
+                if (inputField.text != "")
+                {
+                    Debug.Log(saveFileSelected);
+                    windowCurrent = (WindowFinder)1;
+                    DisableSubmenus();
+                    Confirm.SetActive(false);
+                    Main.SetActive(true);
+                    isSaving = false;
+                }
+            }
         }
         //if the game is set to load
         else
