@@ -23,6 +23,8 @@ public class CamController : MonoBehaviour
     private Transform parent;
     private float moveSpeed = 5.0f;
     private float rotation = 90.0f;
+
+
     private Vector3 firstPersonPosition;
     private Vector3 thirdPersonRotation;
     public float horSensitivity = 1.0f;
@@ -50,25 +52,39 @@ public class CamController : MonoBehaviour
         UI_ViewController = UiView.GetComponent<UI_ViewController>();
 
         parent = transform.parent;
+        Debug.Log(parent);
         firstPersonPosition.x = 0.0f;
-        firstPersonPosition.y = 3.0f;
+        firstPersonPosition.y = 1.1f;
         firstPersonPosition.z = 0.0f;
+        gameObject.transform.position = new Vector3(0.0f, 10.0f, -15.0f);
+      
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
         // If "k" is pressed,
         if (Input.GetKeyUp("k"))
         {
-            if(cameraToggle == false)
+          
+            if(cameraToggle == false)  //switch to first person mode
             {
+
+                thirdPersonRotation = gameObject.transform.forward; //saves the forward-facing direction of the rotation
+                Debug.Log(thirdPersonRotation);
+                gameObject.transform.localPosition = firstPersonPosition; 
+
+       
                 cameraToggle = true;
+                Debug.Log(cameraToggle);
             }
-            else
+            else // switch to third person mode
             {
+                parent.transform.rotation = Quaternion.LookRotation(thirdPersonRotation,new Vector3(0,1,0));
+                gameObject.transform.localPosition = new Vector3(0.0f, 10.0f, -15.0f);
                 cameraToggle = false;
+                Debug.Log(cameraToggle);
             }
 
             // Flips active states on cameras (e.g. if cam1 is active, cam1 is now inactive and cam2 is now active, after pressing "k")
@@ -89,18 +105,20 @@ public class CamController : MonoBehaviour
                 UI_MenuController.buildMode = false;
             }
             UiMain.SetActive(false);
-        }
 
-        if(cameraToggle == false)
+           
+        }
+        if (cameraToggle == false)
         {
-            parent.transform.position = new Vector3(0.0f, 10.0f, -15.0f);
-            thirdPersonCameraUpdate();
+           
+            thirdPersonCameraUpdate(); //third person mode
         }
         else
         {
-            parent.transform.position = firstPersonPosition;
-            firstPersonCameraUpdate();
+           
+            firstPersonCameraUpdate(); // first person mode
         }
+
     }
 
    
