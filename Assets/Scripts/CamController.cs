@@ -28,6 +28,7 @@ public class CamController : MonoBehaviour
     private Vector3 firstPersonPosition;
     private Vector3 thirdPersonPosition;
     private Vector3 thirdPersonRotation;
+    private Vector3 startFirstPersonRotation = new Vector3(0.0f,0.0f,1.0f);
     private Vector3 startThirdPersonRotation = new Vector3(0.0f,-0.3f,1f).normalized; 
     private Vector3 resetParent = new Vector3(0.0f, 0.0f, 0.0f);
     public float horSensitivity = 1.0f;
@@ -47,7 +48,8 @@ public class CamController : MonoBehaviour
     }
     public void switchToFirstPerson()
     {
-        parent.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
+        gameObject.transform.rotation = Quaternion.LookRotation(startFirstPersonRotation, new Vector3(0, 1, 0));
+       // parent.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
         thirdPersonRotation = gameObject.transform.forward; //saves the forward-facing direction of the rotation
         Debug.Log(thirdPersonRotation);
         gameObject.transform.localPosition = firstPersonPosition;
@@ -60,7 +62,8 @@ public class CamController : MonoBehaviour
     }
     public void switchToThirdPerson()
     {
-        parent.transform.rotation = Quaternion.LookRotation(startThirdPersonRotation, new Vector3(0, 1, 0));
+       // parent.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
+        gameObject.transform.rotation = Quaternion.LookRotation(startThirdPersonRotation, new Vector3(0, 1, 0));
         gameObject.transform.localPosition = thirdPersonPosition;
 
         cameraToggle = false;
