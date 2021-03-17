@@ -7,12 +7,12 @@ using UnityEngine;
 public class LevelData
 {
 
-    public int placeholder;
+    public string date;
 
     public LevelData (Level level)
     {
 
-        placeholder = level.placeholder;
+        date = level.date;
     }
 
 }
