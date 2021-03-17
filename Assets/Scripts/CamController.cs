@@ -26,6 +26,7 @@ public class CamController : MonoBehaviour
 
 
     private Vector3 firstPersonPosition;
+    private Vector3 movementPosition;
     private Vector3 thirdPersonPosition;
     private Vector3 thirdPersonRotation;
     private Vector3 startFirstPersonRotation = new Vector3(0.0f,0.0f,1.0f);
@@ -36,6 +37,21 @@ public class CamController : MonoBehaviour
 
     private float xRotation = 0.0f;
     private float yRotation = 0.0f;
+
+    //headbob variables
+    private float movementCounter;
+    private float idleCounter;
+    private Vector3 headBobMovement;
+    private void idleHeadBobber()
+    {
+            HeadBob(idleCounter, 0.025f, 0.025f);
+            idleCounter += Time.deltaTime;   
+    }
+    private void movementHeadBobber()
+    {
+            HeadBob(movementCounter, 0.05f, 0.05f);
+            movementCounter += Time.deltaTime;
+    }
 
     private void UI_SwitchPerson()
     {
@@ -60,6 +76,14 @@ public class CamController : MonoBehaviour
         UiMain.SetActive(false);
 
     }
+
+    //Special movement functions
+    private void HeadBob(float z, float xIntensity, float yIntensity)
+    {
+        //this is a modular function that simulates the player's body movements
+        headBobMovement = new Vector3(Mathf.Cos(z) * xIntensity, Mathf.Sin(z * 4f) * yIntensity, 0.0f);
+
+    }
     //button functions
     public void rotateLeft()
     {
@@ -72,7 +96,8 @@ public class CamController : MonoBehaviour
     public void switchToFirstPerson()
     {
         parent.transform.rotation = Quaternion.LookRotation(startFirstPersonRotation, new Vector3(0, 1, 0));
-       // parent.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
+
+        // parent.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
         thirdPersonRotation = gameObject.transform.forward; //saves the forward-facing direction of the rotation
         Debug.Log(thirdPersonRotation);
         gameObject.transform.localPosition = firstPersonPosition;
@@ -88,6 +113,7 @@ public class CamController : MonoBehaviour
     {
        // parent.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
         parent.transform.rotation = Quaternion.LookRotation(startThirdPersonRotation, new Vector3(0, 1, 0));
+       
         gameObject.transform.localPosition = thirdPersonPosition;
 
         cameraToggle = false;
@@ -128,6 +154,7 @@ public class CamController : MonoBehaviour
             {
 
                 switchToFirstPerson();
+                
             }
             else // switch to third person mode
             {
@@ -165,38 +192,56 @@ public class CamController : MonoBehaviour
     }
     void firstPersonCameraUpdate()
     {
-        if (Input.GetKey("w"))
+        if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
         {
-            // Sets y value to 0 so the player won't move based on tilt.
-            var forward = parent.forward;
-            forward.y = 0;
-
-            // Applys the translation based on the objects rotation.
-            parent.Translate(forward * moveSpeed * Time.deltaTime, Space.World);
+            HeadBob(idleCounter, 0.025f, 0.025f);
+            idleCounter += Time.deltaTime;
+            parent.localPosition = movementPosition + headBobMovement;
         }
-
-        if (Input.GetKey("a"))
+        else
         {
-            parent.Translate(-transform.right * moveSpeed * Time.deltaTime, Space.World);
-        }
+            HeadBob(movementCounter, 0.05f, 0.05f);
+            movementCounter += Time.deltaTime;
+            if (Input.GetKey("w"))
+            {
+                // Sets y value to 0 so the player won't move based on tilt.
+                var forward = parent.forward;
+                forward.y = 0;
+                
+                // Applys the translation based on the objects rotation.
+                parent.Translate((forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+            }
 
-        if (Input.GetKey("s"))
-        {
-            var forward = parent.forward;
-            forward.y = 0;
-            parent.Translate(-forward * moveSpeed * Time.deltaTime, Space.World);
-        }
+            if (Input.GetKey("a"))
+            {
+                parent.Translate((-transform.right + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+            }
 
-        if (Input.GetKey("d"))
-        {
-            parent.Translate(transform.right * moveSpeed * Time.deltaTime, Space.World);
+            if (Input.GetKey("s"))
+            {
+                var forward = parent.forward;
+                forward.y = 0;
+                parent.Translate((-forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+            }
+
+            if (Input.GetKey("d"))
+            {
+                
+                parent.Translate((transform.right + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+            }
+            movementPosition = parent.localPosition;
+          
         }
 
         MouseControl();
 
-        firstPersonPosition.x = parent.transform.position.x;
+        //headBob
+
+        firstPersonPosition.x = gameObject.transform.localPosition.x;
         firstPersonPosition.y = 1.1f;
-        firstPersonPosition.z = parent.transform.position.z;
+        firstPersonPosition.z = gameObject.transform.localPosition.z;
+
+        
     }
     void thirdPersonCameraUpdate()
     {
