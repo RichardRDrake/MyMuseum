@@ -157,7 +157,7 @@ public class UI_Controller : MonoBehaviour
         if (!Resources)
         {
             Debug.Log("Resources - Something went wrong");
-        }
+        }        
 
         //Sets the locations the highlights can occupy
         menuLocationList.Add(FloorBased.transform.position);
@@ -325,6 +325,10 @@ public class UI_Controller : MonoBehaviour
         countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
         for (int i = 0; i <= 5; i++)
         {
+            if (Resources.readFrom[((pageCurrent - 1) * 6) + i] == null)
+            {
+                continue;
+            }
             if (((pageCurrent - 1) * 6) + i == listLength - 1)
             {
                 objectDisplay[i].text = "Download";
@@ -335,7 +339,8 @@ public class UI_Controller : MonoBehaviour
             }
             else
             {
-                objectDisplay[i].text = Resources.readFrom[((pageCurrent - 1) * 6) + i];
+                Debug.Log(Resources);
+                objectDisplay[i].text = Resources.readFrom[((pageCurrent - 1) * 6) + i].name;
             }
         }
         paneCurrent = 0;
@@ -479,7 +484,7 @@ public class UI_Controller : MonoBehaviour
                     }
                     else
                     {
-                        detailText.text = Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)];
+                        detailText.text = Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].name;
                     }
                     windowCurrent = windowFinder.Detail;
                 }
@@ -758,8 +763,9 @@ public class UI_Controller : MonoBehaviour
         //Take the gameObject "referenced" from Alex's lists
         //Debug.Log(assetPlacer);
         //Need to work out where we are in the panels
-        Debug.Log(Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)]);
-        assetPlacer.ReceiveFromUI(null);
+        GameObject newAsset = Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)];
+        Debug.Log(newAsset.name);
+        assetPlacer.ReceiveFromUI(newAsset);
 
         ResetBuildUI();
     }

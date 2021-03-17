@@ -6604,7 +6604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writeTo: []
   MenuNumber: 3
   Controller: {fileID: 5315955195148336184}
 --- !u!114 &5315955194702503493
@@ -6620,13 +6619,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - 7
-  - 6
-  - 5
-  - 4
-  - 3
-  - 2
-  - 1
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5315955194702503499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7093,7 +7092,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writeTo: []
   MenuNumber: 1
   Controller: {fileID: 5315955195148336184}
 --- !u!114 &5315955194763378030
@@ -7109,21 +7107,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - 15
-  - 14
-  - 13
-  - 12
-  - 11
-  - 10
-  - 9
-  - 8
-  - 7
-  - 6
-  - 5
-  - 4
-  - 3
-  - 2
-  - 1
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5315955194763378003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9802,7 +9800,8 @@ MonoBehaviour:
   AssetRepository: {fileID: 5315955196138484844}
   DetailPanel: {fileID: 5315955195941547129}
   DetailTextField: {fileID: 5315955194916681095}
-  FirstPerson: {fileID: 2960892001532396495}
+  Camera: {fileID: 0}
+  assetPlacer: {fileID: 0}
   FloorBased: {fileID: 5315955195592372226}
   FloorOrWall: {fileID: 5315955194763378027}
   Small: {fileID: 5315955195176714895}
@@ -9998,7 +9997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writeTo: []
   MenuNumber: 2
   Controller: {fileID: 5315955195148336184}
 --- !u!114 &5315955195176714994
@@ -10014,15 +10012,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - Dasher
-  - Dancer
-  - Prancer
-  - Vixen
-  - Comet
-  - Cupid
-  - Donner
-  - Blitzen
-  - Rudolph
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5315955195176714999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13452,7 +13450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writeTo: []
   MenuNumber: 0
   Controller: {fileID: 5315955195148336184}
 --- !u!114 &5315955195592372233
@@ -13468,14 +13465,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - Mercury
-  - Venus
-  - Earth
-  - Mars
-  - Jupiter
-  - Saturn
-  - Uranus
-  - Neptune
+  - {fileID: 2875126943764973093, guid: c9d2ba9d2b94f9e4b82c28ce7f0271f7, type: 3}
+  - {fileID: 6289632936873538494, guid: 60f3941eb96e809459474fbaf5377c8e, type: 3}
+  - {fileID: 8771277248276906005, guid: 853dbf9c3b3378b4a81798268cc3b374, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5315955195592372234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15184,7 +15181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writeTo: []
   MenuNumber: 2
   Controller: {fileID: 5315955195148336184}
 --- !u!114 &5315955195827513889
@@ -15200,15 +15196,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - 9
-  - 8
-  - 7
-  - 6
-  - 5
-  - 4
-  - 3
-  - 2
-  - 1
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5315955195827513895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15932,7 +15928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writeTo: []
   MenuNumber: 3
   Controller: {fileID: 5315955195148336184}
 --- !u!114 &5315955195846177900
@@ -15948,13 +15943,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - Happy
-  - Bashful
-  - Grumpy
-  - Sneezy
-  - Sleepy
-  - Dopey
-  - Doc
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5315955195846177873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19027,7 +19022,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writeTo: []
   MenuNumber: 0
   Controller: {fileID: 5315955195148336184}
 --- !u!114 &5315955196176531828
@@ -19043,26 +19037,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - 20
-  - 19
-  - 18
-  - 17
-  - 16
-  - 15
-  - 14
-  - 13
-  - 12
-  - 11
-  - 10
-  - 9
-  - 8
-  - 7
-  - 6
-  - 5
-  - 4
-  - 3
-  - 2
-  - 1
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5315955196176531834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19549,7 +19543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writeTo: []
   MenuNumber: 1
   Controller: {fileID: 5315955195148336184}
 --- !u!114 &5315955196234456251
@@ -19565,18 +19558,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - 12
-  - 11
-  - 10
-  - 9
-  - 8
-  - 7
-  - 6
-  - 5
-  - 4
-  - 3
-  - 2
-  - 1
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5315955196234456225
 MonoBehaviour:
   m_ObjectHideFlags: 0
