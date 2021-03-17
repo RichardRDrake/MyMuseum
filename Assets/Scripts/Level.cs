@@ -12,11 +12,11 @@ public class Level : MonoBehaviour
     public List<string> DatesList = new List<string>();
 
     public string name;
-    public string date = System.DateTime.Now.ToString("dd-MM-yyyy");
+    public string date = System.DateTime.Now.ToString("dd/MM/yyyy");
 
     void Start()
     {
-        date = System.DateTime.Now.ToString("dd-MM-yyyy");
+        date = System.DateTime.Now.ToString("dd/MM/yyyy");
         string filepath = Application.persistentDataPath;
         DirectoryInfo dir = new DirectoryInfo(filepath);
         FileInfo[] info = dir.GetFiles("*.save");
@@ -53,7 +53,7 @@ public class Level : MonoBehaviour
         // The date value of the file will then be logged to console, to confirm load was successful.
         if (Input.GetKeyDown("h"))
         {
-            LevelData data = SaveLevel.LoadLevel(name + ".save");
+            LevelData data = SaveLevel.LoadLevel(name);
            
             Debug.Log(data.date);
         }
@@ -61,8 +61,9 @@ public class Level : MonoBehaviour
 
     public void SaveNewLevel(string name)
     {
-        SaveLevel.CreateLevel(this, name);
+        SaveLevel.CreateLevel(this, name + ".save");
         SavesList.Add(name + ".save");
+        DatesList.Add(date);
     }
 
     public void LoadNewLevel(string name)

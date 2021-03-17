@@ -848,6 +848,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CamController, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 4857975878232858225, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 876706179}
+    - target: {fileID: 5315955195148336186, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 876706179}
+    - target: {fileID: 5315955195459877973, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
+      propertyPath: SaveObject
+      value: 
+      objectReference: {fileID: 800551736}
     - target: {fileID: 5315955195843076179, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -862,7 +874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5315955195843076183, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5315955195843076183, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: m_AnchorMax.x
@@ -936,6 +948,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8677625197142932363, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 876706179}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
 --- !u!1 &1523497088
@@ -1031,7 +1047,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1638514278
 GameObject:

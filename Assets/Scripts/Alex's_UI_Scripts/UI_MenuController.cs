@@ -20,7 +20,7 @@ public class UI_MenuController : MonoBehaviour
 
     //Object with saves
     [SerializeField] private GameObject SaveObject;
-    private TempSavesScript Saves;
+    private Level Saves;
 
     //Menu main display
     [SerializeField] private GameObject Main;
@@ -171,10 +171,14 @@ public class UI_MenuController : MonoBehaviour
         //UI controller script attached to build menu
         UI_Controller = BuildMenu.GetComponent<UI_Controller>();
         UI_ViewController = ViewMenu.GetComponent<UI_ViewController>();
-        Saves = SaveObject.GetComponent<TempSavesScript>();
+        Saves = SaveObject.GetComponent<Level>();
         if(Saves != null)
         {
-             //Debug.Log(Saves.SavesList.Count);
+             Debug.Log(Saves.SavesList.Count);
+        }
+        else 
+        {
+            Debug.Log("Saves broken AGAIN");
         }
 
         //Save/Load variables
@@ -885,10 +889,6 @@ public class UI_MenuController : MonoBehaviour
                 confirmCurrent = ConfirmFinder.Text;
                 HighlightConfirm.SetActive(false);
             }
-            //use the integer saveFileSelected to determine which save slot is currently being accessed
-            //Currently, the list of save files is attached to a game object called "SAVES PLACEHOLDER"
-            //To make this functional, create a script following the format of TempSavesScript to write save details to
-            //And replace lines refering to its components to pull data from that script, leaving variable names intact.
             else
             {
                 inputField = InputObject.GetComponent<TMP_InputField>();
@@ -896,6 +896,7 @@ public class UI_MenuController : MonoBehaviour
                 {
                     Debug.Log(saveFileSelected);
                     windowCurrent = (WindowFinder)1;
+                    Saves.SaveNewLevel(inputField.text);
                     DisableSubmenus();
                     Confirm.SetActive(false);
                     Main.SetActive(true);
@@ -908,8 +909,9 @@ public class UI_MenuController : MonoBehaviour
         {
             if (saveFileSelected < listLength)
             {
-                Debug.Log(saveFileSelected);
                 windowCurrent = (WindowFinder)1;
+                Saves.LoadNewLevel(saveTexts[(int)windowCurrent - 1].text);
+                Debug.Log(saveTexts[(int)windowCurrent - 1].text);
                 DisableSubmenus();
                 Confirm.SetActive(false);
                 Main.SetActive(true);

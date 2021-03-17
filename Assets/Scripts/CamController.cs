@@ -211,8 +211,8 @@ public class CamController : MonoBehaviour
             rotateRight();
         }
         thirdPersonPosition.x = 0.0f;
-        Debug.Log(parent.transform.position.x);
-        Debug.Log(parent.transform.position.y);
+        //Debug.Log(parent.transform.position.x);
+        //Debug.Log(parent.transform.position.y);
         thirdPersonPosition.y = 10.0f;
         thirdPersonPosition.z = -15.0f;
     }
