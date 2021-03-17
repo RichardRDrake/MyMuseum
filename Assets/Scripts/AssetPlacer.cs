@@ -74,6 +74,16 @@ public class AssetPlacer : MonoBehaviour
         }
     }
 
+    public void ReceiveFromUI(GameObject artefact)
+    {
+        if (artefact == null)
+        {
+            artefact = exampleObject_1;
+        }
+
+        objectToBePlaced = Instantiate(artefact);
+    }
+
     private void ProcessInput()
     {
         if (Input.GetMouseButtonDown(0) && objectToBePlaced != null && validPlacement == true)
@@ -88,6 +98,7 @@ public class AssetPlacer : MonoBehaviour
             validPlacement = false;
         }
 
+        /*
         //This whole section will be [PH]
         if (Input.GetKeyDown(KeyCode.Alpha1) && objectToBePlaced == null)
         {
@@ -104,6 +115,7 @@ public class AssetPlacer : MonoBehaviour
             //Queue ex_obj_3 
             objectToBePlaced = Instantiate(exampleObject_3);
         }
+        */
     }
 
     private Vector3 RayToGrid()
