@@ -5,7 +5,7 @@ using UnityEngine;
 public class TempListScript : MonoBehaviour
 {
     //Just a script will a well-known list in it, to distinguish between menus
-    public List<string> readFrom = new List<string>();
+    public List<GameObject> readFrom = new List<GameObject>();
 
     /*void Awake()
     {
