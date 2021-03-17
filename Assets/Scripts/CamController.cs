@@ -37,6 +37,29 @@ public class CamController : MonoBehaviour
     private float xRotation = 0.0f;
     private float yRotation = 0.0f;
 
+    private void UI_SwitchPerson()
+    {
+
+        // Flips active states on cameras (e.g. if cam1 is active, cam1 is now inactive and cam2 is now active, after pressing "k")
+        UI_MenuController = UiMain.GetComponent<UI_MenuController>();
+        //  cam2.SetActive(!cam2.activeSelf);
+        UI_Controller.ResetBuildUI();
+        UiToggle = !UiToggle;
+        if (UiToggle == false)
+        {
+            UiView.SetActive(false);
+            UiBuild.SetActive(true);
+            UI_MenuController.buildMode = true;
+        }
+        else
+        {
+            UiView.SetActive(true);
+            UiBuild.SetActive(false);
+            UI_MenuController.buildMode = false;
+        }
+        UiMain.SetActive(false);
+
+    }
     //button functions
     public void rotateLeft()
     {
@@ -48,7 +71,7 @@ public class CamController : MonoBehaviour
     }
     public void switchToFirstPerson()
     {
-        gameObject.transform.rotation = Quaternion.LookRotation(startFirstPersonRotation, new Vector3(0, 1, 0));
+        parent.transform.rotation = Quaternion.LookRotation(startFirstPersonRotation, new Vector3(0, 1, 0));
        // parent.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
         thirdPersonRotation = gameObject.transform.forward; //saves the forward-facing direction of the rotation
         Debug.Log(thirdPersonRotation);
@@ -59,16 +82,18 @@ public class CamController : MonoBehaviour
         Debug.Log(cameraToggle);
 
         parent.transform.position = resetParent;
+        UI_SwitchPerson();
     }
     public void switchToThirdPerson()
     {
        // parent.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
-        gameObject.transform.rotation = Quaternion.LookRotation(startThirdPersonRotation, new Vector3(0, 1, 0));
+        parent.transform.rotation = Quaternion.LookRotation(startThirdPersonRotation, new Vector3(0, 1, 0));
         gameObject.transform.localPosition = thirdPersonPosition;
 
         cameraToggle = false;
         Debug.Log(cameraToggle);
         parent.transform.position = resetParent;
+        UI_SwitchPerson();
     }
     // Start is called before the first frame update
     void Start()
@@ -109,28 +134,9 @@ public class CamController : MonoBehaviour
 
                 switchToThirdPerson();
             }
-
-            // Flips active states on cameras (e.g. if cam1 is active, cam1 is now inactive and cam2 is now active, after pressing "k")
-            UI_MenuController = UiMain.GetComponent<UI_MenuController>();
-            //  cam2.SetActive(!cam2.activeSelf);
-            UI_Controller.ResetBuildUI();
-            UiToggle = !UiToggle;
-            if(UiToggle == false)
-            {
-                UiView.SetActive(false);
-                UiBuild.SetActive(true);
-                UI_MenuController.buildMode = true;
-            }
-            else
-            {
-                UiView.SetActive(true);
-                UiBuild.SetActive(false);
-                UI_MenuController.buildMode = false;
-            }
-            UiMain.SetActive(false);
-
            
         }
+
         if (cameraToggle == false)
         {
            

@@ -839,10 +839,14 @@ PrefabInstance:
     - target: {fileID: 3237405781199066440, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 876706179}
+      objectReference: {fileID: 876706183}
     - target: {fileID: 3237405781199066440, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: switchToFirstPerson
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237405781199066440, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CamController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5315955195843076179, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: m_Name
