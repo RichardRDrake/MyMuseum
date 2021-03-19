@@ -494,6 +494,7 @@ public class UI_Controller : MonoBehaviour
                 //Joe does something if detailCurrent  is 3, or "select"
                 //Should redirect to a public void, so the button can be connected, too.
                 //ResetBuildUI (resets but does not disable UI)
+                SendToAssetPlacer();
                 break;
             default:
                 break;
