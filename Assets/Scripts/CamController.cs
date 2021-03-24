@@ -81,7 +81,7 @@ public class CamController : MonoBehaviour
     private void HeadBob(float z, float xIntensity, float yIntensity)
     {
         //this is a modular function that simulates the player's body movements
-        headBobMovement = new Vector3(Mathf.Cos(z) * xIntensity, Mathf.Sin(z * 4f) * yIntensity, 0.0f);
+        headBobMovement = new Vector3(Mathf.Cos(z) * xIntensity, Mathf.Sin(z * 2f) * yIntensity, 0.0f);
 
     }
     //button functions
