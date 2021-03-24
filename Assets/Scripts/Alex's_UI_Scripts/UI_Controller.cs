@@ -764,7 +764,8 @@ public class UI_Controller : MonoBehaviour
         //Take the gameObject "referenced" from Alex's lists
         //Debug.Log(assetPlacer);
         //Need to work out where we are in the panels
-        GameObject newAsset = Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)];
+        AssetPlacerScriptableObject newArtefact = Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)];
+        GameObject newAsset = newArtefact.GetArtefact();
         Debug.Log(newAsset.name);
         assetPlacer.ReceiveFromUI(newAsset);
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,10 @@ public class PlacementGrid : MonoBehaviour
     //space between objects
     [SerializeField] private float size = 1.0f; //Space between points
     //public variables    
+    //Grid GUID
+    public string GUID = Guid.NewGuid().ToString();
+    //Parent GameObject this might be useful for saving/loading*
+    public GameObject parent;
 
     // Grid Bounds
     public float boundsX;
@@ -24,6 +29,8 @@ public class PlacementGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        parent = this.gameObject;
+
         GridManager gridManager = FindObjectOfType<GridManager>();
         if (gridManager)
         {

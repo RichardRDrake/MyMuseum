@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1992
+  m_EditorClassIdentifier: 
+  ArtefactName: DMA_1992
+  ArtefactPrefab: {fileID: 7382294158197964469, guid: 5af220c373af3dc459009eed08c440ca, type: 3}
+  PreviewImages:
+  - {fileID: 2800000, guid: eb12d1417d2587745905e8535525e341, type: 3}
+  - {fileID: 2800000, guid: 887bd694e8cc7cc40970371a0629dcf3, type: 3}
+  - {fileID: 2800000, guid: 90ca7d985ac8de140a8ccf6292e1788c, type: 3}
+  - {fileID: 2800000, guid: 86f31a8c10656324795dc77e4823812c, type: 3}
+  PlacementType: 0

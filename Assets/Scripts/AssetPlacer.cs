@@ -146,6 +146,11 @@ public class AssetPlacer : MonoBehaviour
 
     private void ChangeColour(GameObject target, Color newColor) //At this stage this is simple enough, but I anticipate it will get more compicated as more things are completed
     {
-        target.GetComponent<MeshRenderer>().material.color = newColor;
+        MeshRenderer mr = target.GetComponent<MeshRenderer>();
+
+        if (mr)
+        {
+            mr.material.color = newColor;
+        }       
     }
 }

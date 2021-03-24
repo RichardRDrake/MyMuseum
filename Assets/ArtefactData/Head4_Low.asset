@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: Head4_Low
+  m_EditorClassIdentifier: 
+  ArtefactName: Head4_Low
+  ArtefactPrefab: {fileID: 8760804867532352197, guid: 86330487c695bb347b01390f048b5036, type: 3}
+  PreviewImages:
+  - {fileID: 2800000, guid: f696bf82aebe5c54c990b22676d1bb5d, type: 3}
+  - {fileID: 2800000, guid: 2614c44070ac4e342a668537fb361805, type: 3}
+  - {fileID: 2800000, guid: d3219082f77abdc42913f3aca10d062c, type: 3}
+  - {fileID: 2800000, guid: 9a9d234e3d01cfa4a8ae38fb1b4fd313, type: 3}
+  PlacementType: 0
