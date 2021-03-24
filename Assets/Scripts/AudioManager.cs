@@ -11,14 +11,16 @@ public class AudioManager : MonoBehaviour
 
     // create clip variables
 
-    [SerializeField] AudioClip backgroundMusic; 
+    [SerializeField] AudioClip backgroundMusicFirst;
+    [SerializeField] AudioClip backgroundMusicThird;
 
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>(); //add all clips to dictionary
 
     void Awake()
     {
         Instance = this;
-        _audioClips.Add("happy-music", backgroundMusic); //load clips
+        _audioClips.Add("background_1st_person", backgroundMusicFirst);
+        _audioClips.Add("background_3d_person", backgroundMusicThird);
 
     }
 
