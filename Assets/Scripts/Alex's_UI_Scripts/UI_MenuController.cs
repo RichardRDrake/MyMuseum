@@ -351,6 +351,7 @@ public class UI_MenuController : MonoBehaviour
             DisableConfirmation();
             HighlightConfirm.SetActive(false);
             HighlightConfirmHover.SetActive(false);
+            saveLoadIdentity = 0;
         }
         else if (windowInt == 1)
         {
@@ -529,7 +530,7 @@ public class UI_MenuController : MonoBehaviour
                 }
             }
         }
-        saveLoadIdentity = 0;
+        //saveLoadIdentity = 0;
         #endregion
     }
 
@@ -907,15 +908,23 @@ public class UI_MenuController : MonoBehaviour
         //if the game is set to load
         else
         {
-            if (saveFileSelected < listLength)
+            if (saveLoadIdentity != 0)
             {
-                windowCurrent = (WindowFinder)1;
-                Saves.LoadNewLevel(saveTexts[(int)windowCurrent - 1].text);
-                Debug.Log(saveTexts[(int)windowCurrent - 1].text);
-                DisableSubmenus();
-                Confirm.SetActive(false);
-                Main.SetActive(true);
+                paneCurrent = saveLoadIdentity;
             }
+                Debug.Log("Wrong spot");
+                if (saveFileSelected < listLength)
+                {
+                    Debug.Log(paneCurrent);
+                    Debug.Log(paneCurrent - 1 + (pageCurrent - 1) * 3);
+                    windowCurrent = (WindowFinder)1;
+                    Saves.LoadNewLevel(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+                    Debug.Log(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+                    DisableSubmenus();
+                    Confirm.SetActive(false);
+                    Main.SetActive(true);
+                }
+            saveLoadIdentity = 0;
         }
     }
     #endregion

@@ -22,11 +22,16 @@ public class UI_SaveLoad : MonoBehaviour
     void Start()
     {
         mainMenuController = MainMenu.GetComponent<UI_MenuController>();
+        if(!mainMenuController)
+        {
+            Debug.Log("Couldn't find mainMenuController");
+        }
     }
 
     public void OnPressed()
     {
         mainMenuController.saveLoadIdentity = identifier;
+        Debug.Log("Changed to" + mainMenuController.saveLoadIdentity);
         mainMenuController.ShowConfirmation();
     }
 }
