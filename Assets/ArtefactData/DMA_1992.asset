@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DMA_1992
   m_EditorClassIdentifier: 
   ArtefactName: DMA_1992
-  ArtefactPrefab: {fileID: 7382294158197964469, guid: 5af220c373af3dc459009eed08c440ca, type: 3}
+  ArtefactPrefab: {fileID: 343574712253182686, guid: 8a06bed5b28efd543aad57370c22cd4e, type: 3}
   PreviewImages:
   - {fileID: 2800000, guid: eb12d1417d2587745905e8535525e341, type: 3}
   - {fileID: 2800000, guid: 887bd694e8cc7cc40970371a0629dcf3, type: 3}

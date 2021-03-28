@@ -3255,6 +3255,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0dc2cde417235dd4d9594131436967d0, type: 3}
   m_PrefabInstance: {fileID: 130168603}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &133361186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 133361187}
+  - component: {fileID: 133361188}
+  m_Layer: 0
+  m_Name: FloorCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &133361187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133361186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1989484875}
+  m_RootOrder: 33
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &133361188
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133361186}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 33, y: 0.5, z: 22}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &134851272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37344,19 +37388,19 @@ PrefabInstance:
     - target: {fileID: 5315955195592372233, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: readFrom.Array.data[0]
       value: 
-      objectReference: {fileID: 2875126943764973093, guid: c9d2ba9d2b94f9e4b82c28ce7f0271f7, type: 3}
+      objectReference: {fileID: 11400000, guid: f4001a0b392ab3e419d2f87618b51391, type: 2}
     - target: {fileID: 5315955195592372233, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: readFrom.Array.data[1]
       value: 
-      objectReference: {fileID: 6289632936873538494, guid: 60f3941eb96e809459474fbaf5377c8e, type: 3}
+      objectReference: {fileID: 11400000, guid: 59796ded7a46aea4cb3fdfa06aad89e4, type: 2}
     - target: {fileID: 5315955195592372233, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: readFrom.Array.data[2]
       value: 
-      objectReference: {fileID: 8771277248276906005, guid: 853dbf9c3b3378b4a81798268cc3b374, type: 3}
+      objectReference: {fileID: 11400000, guid: 4f208d69b28060e4487943ef0dc1e8dd, type: 2}
     - target: {fileID: 5315955195592372233, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: readFrom.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: c525209b649df24448d2dbf1d5250303, type: 2}
     - target: {fileID: 5315955195843076179, guid: d28fadd4ffcafeb46a8d9ffe00dfc721, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -55055,6 +55099,7 @@ Transform:
   - {fileID: 572064418}
   - {fileID: 1805049025}
   - {fileID: 106300588}
+  - {fileID: 133361187}
   m_Father: {fileID: 216449783}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

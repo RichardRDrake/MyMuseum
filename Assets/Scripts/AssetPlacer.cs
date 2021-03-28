@@ -50,11 +50,14 @@ public class AssetPlacer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 validPosition = RayToGrid();
+
         //Look to see if the user is giving any inputs
         ProcessInput();
-
-        Vector3 validPosition = RayToGrid();
+        
         //If we're in the process of placing an object, show where the object will go
+        //Debug.Log(objectToBePlaced + " and " + activeGrid);
+
         if (objectToBePlaced != null && activeGrid != null)
         {
             //Debug.Log("TEST");
@@ -82,6 +85,8 @@ public class AssetPlacer : MonoBehaviour
         }
 
         objectToBePlaced = Instantiate(artefact);
+
+        //Debug.Log("test");
     }
 
     private void ProcessInput()
@@ -133,6 +138,7 @@ public class AssetPlacer : MonoBehaviour
             }
 
             activeGrid = nearestPoint.grid;
+            //Debug.Log(activeGrid);
             //Check to see is position is valid (not occupied)
             if (nearestPoint != null && nearestPoint.gridPosition.occupied == null)
             {
