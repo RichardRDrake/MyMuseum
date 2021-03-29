@@ -45,10 +45,10 @@ public class PlacementGrid : MonoBehaviour
         //BuildGrid();
     }
 
-    private void BuildGrid()
+    public void BuildGrid()
     {
         //Build the grid
-        //Debug.Log("Building new grid");
+        gridPositions = null;
 
         // Number of points on a grid axis = (bounds/size rounded down)
         int xCount = Mathf.FloorToInt(boundsX / size);
@@ -72,6 +72,7 @@ public class PlacementGrid : MonoBehaviour
         gridPositions = new GridPosition[xCount, yCount, zCount];
 
         Vector3 GridObjectPosition = transform.position;
+        Debug.Log(GridObjectPosition);
 
         //For each position on the grid, assign a gridPosition for it [WARNING - THIS IS A DECEPTIVELY MASSIVE FOR-LOOP]
         for (int x = 0; x < xCount; x++)
@@ -106,6 +107,8 @@ public class PlacementGrid : MonoBehaviour
                 }
             }
         }
+
+        //Debug.Log(gridPositions.Length);
     }
 
     public NearestPointResponse GetNearestPointOnGrid(Vector3 position)

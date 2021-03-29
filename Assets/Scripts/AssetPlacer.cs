@@ -91,13 +91,24 @@ public class AssetPlacer : MonoBehaviour
 
     private void ProcessInput()
     {
-        if (Input.GetMouseButtonDown(0) && objectToBePlaced != null && validPlacement == true)
+        if (Input.GetMouseButton(0) && objectToBePlaced != null && validPlacement == true)
         {
             //Release selected object
             ChangeColour(objectToBePlaced, Color.white);
 
             //Let the grid know an object has been placed on it
             activeGrid.OnObjectPlaced(objectToBePlaced.transform.position, objectToBePlaced);
+
+            //if there are grids on the object, they must be (re)built here
+            PlacementGrid[] childrenGrids;
+
+            
+
+            childrenGrids = objectToBePlaced.GetComponentsInChildren<PlacementGrid>();
+            foreach (PlacementGrid grid in childrenGrids)
+            {
+                grid.BuildGrid();
+            }
 
             objectToBePlaced = null;
             validPlacement = false;
