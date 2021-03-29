@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     {
         Instance = this;
         _audioClips.Add("background_1st_person", backgroundMusicFirst);
-        _audioClips.Add("background_3d_person", backgroundMusicThird);
+      //  _audioClips.Add("background_3d_person", backgroundMusicThird);
 
     }
 
