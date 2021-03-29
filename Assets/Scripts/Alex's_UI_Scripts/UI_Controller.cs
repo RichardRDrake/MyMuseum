@@ -325,12 +325,10 @@ public class UI_Controller : MonoBehaviour
         countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
         for (int i = 0; i <= 5; i++)
         {
-            if (Resources.readFrom[((pageCurrent - 1) * 6) + i] == null)
+            Debug.Log(pageCurrent);
+            if ((((pageCurrent - 1) * 6) + i) == (listLength - 1))
             {
-                continue;
-            }
-            if (((pageCurrent - 1) * 6) + i == listLength - 1)
-            {
+                Debug.Log("Reached here on loop " + (i + 1).ToString());
                 objectDisplay[i].text = "Download";
             }
             else if (((pageCurrent - 1) * 6) + i > (Resources.readFrom.Count - 1))
@@ -339,7 +337,10 @@ public class UI_Controller : MonoBehaviour
             }
             else
             {
-                Debug.Log(Resources);
+                if (Resources.readFrom[((pageCurrent - 1) * 6) + i] == null)
+                {
+                    continue;
+                }    
                 objectDisplay[i].text = Resources.readFrom[((pageCurrent - 1) * 6) + i].name;
             }
         }
