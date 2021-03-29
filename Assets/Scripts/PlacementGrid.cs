@@ -48,6 +48,7 @@ public class PlacementGrid : MonoBehaviour
     private void BuildGrid()
     {
         //Build the grid
+        //Debug.Log("Building new grid");
 
         // Number of points on a grid axis = (bounds/size rounded down)
         int xCount = Mathf.FloorToInt(boundsX / size);
