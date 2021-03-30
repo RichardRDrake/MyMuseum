@@ -133,7 +133,7 @@ public class CamController : MonoBehaviour
         parent = transform.parent;
         Debug.Log(parent);
         firstPersonPosition.x = 0.0f;
-        firstPersonPosition.y = 1.1f;
+        firstPersonPosition.y = 2.1f;
         firstPersonPosition.z = 0.0f;
         gameObject.transform.position = new Vector3(0.0f, 10.0f, -15.0f);
         thirdPersonPosition.x = 0.0f;
@@ -238,7 +238,7 @@ public class CamController : MonoBehaviour
         //headBob
 
         firstPersonPosition.x = gameObject.transform.localPosition.x;
-        firstPersonPosition.y = 1.1f;
+        firstPersonPosition.y = 2.1f;
         firstPersonPosition.z = gameObject.transform.localPosition.z;
 
         
