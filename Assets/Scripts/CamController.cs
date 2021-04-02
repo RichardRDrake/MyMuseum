@@ -52,6 +52,13 @@ public class CamController : MonoBehaviour
             HeadBob(movementCounter, 0.05f, 0.05f);
             movementCounter += Time.deltaTime;
     }
+    private void doubleDisplacement()
+    {
+        if (Input.GetAxis("Vertical") != 0 && Input.GetAxis("Horizontal") != 0)
+        {
+            moveSpeed = 2.5f;
+        }
+    }
 
     private void UI_SwitchPerson()
     {
@@ -198,12 +205,14 @@ public class CamController : MonoBehaviour
             idleCounter += Time.deltaTime;
             parent.localPosition = movementPosition + headBobMovement;
         }
-        else
+        else 
         {
             HeadBob(movementCounter, 0.05f, 0.05f);
             movementCounter += Time.deltaTime;
+           
             if (Input.GetKey("w"))
             {
+                doubleDisplacement();
                 // Sets y value to 0 so the player won't move based on tilt.
                 var forward = parent.forward;
                 forward.y = 0;
@@ -214,11 +223,13 @@ public class CamController : MonoBehaviour
 
             if (Input.GetKey("a"))
             {
+                doubleDisplacement();
                 parent.Translate((-transform.right + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
             }
 
             if (Input.GetKey("s"))
             {
+                doubleDisplacement();
                 var forward = parent.forward;
                 forward.y = 0;
                 parent.Translate((-forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
@@ -226,7 +237,8 @@ public class CamController : MonoBehaviour
 
             if (Input.GetKey("d"))
             {
-                
+                doubleDisplacement();
+
                 parent.Translate((transform.right + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
             }
             movementPosition = parent.localPosition;
