@@ -63,14 +63,14 @@ public class GridManager : MonoBehaviour
         GridList.Add(newGrid);
     }
 
-    public NearestPointResponse GetPointOnNearestGrid(RaycastHit hitInfo)
+    public NearestPointResponse GetPointOnNearestGrid(Vector3 point)
     {
         float closestDistance = 1000;
         NearestPointResponse closestPos = null;
 
         foreach (PlacementGrid grid in GridList)
         {
-            NearestPointResponse npr = grid.GetNearestPointOnGrid(hitInfo.point);
+            NearestPointResponse npr = grid.GetNearestPointOnGrid(point);
             if (npr != null)
             {
                 if (npr.distance < closestDistance)

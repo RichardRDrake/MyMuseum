@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4186051866839925376}
   m_Layer: 0
   m_Name: Moa_skeleton
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -18,11 +18,6 @@ public class AssetPlacer : MonoBehaviour
     private GameObject objectToBePlaced = null;
     private bool validPlacement = false;
 
-    //Example objects [PH]
-    public GameObject exampleObject_1 = null; //[PH] Assigned in inspector
-    public GameObject exampleObject_2 = null; //[PH] Assigned in inspector
-    public GameObject exampleObject_3 = null; //[PH] Assigned in inspector
-
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +26,6 @@ public class AssetPlacer : MonoBehaviour
         {
             Debug.LogError("Asset Placer does not have a Grid Manager assigned.");
         }
-        //activeGrid = FindObjectOfType<PlacementGrid>(); //[PH]
-        if (exampleObject_1 == null)
-        {
-            Debug.Log("example placement objects not assigned!");
-        }
-
         if (cameraObj)
         {
             camera = cameraObj.GetComponent<Camera>();
@@ -81,7 +70,8 @@ public class AssetPlacer : MonoBehaviour
     {
         if (artefact == null)
         {
-            artefact = exampleObject_1;
+            Debug.Log("Missing Artefact");
+            //artefact = exampleObject_1;
         }
 
         objectToBePlaced = Instantiate(artefact);
@@ -142,7 +132,7 @@ public class AssetPlacer : MonoBehaviour
 
         if (Physics.Raycast(ray, out hitInfo))
         {
-            NearestPointResponse nearestPoint = gridManager.GetPointOnNearestGrid(hitInfo);
+            NearestPointResponse nearestPoint = gridManager.GetPointOnNearestGrid(hitInfo.point);
             if (nearestPoint == null)
             {
                 return Vector3.zero;
@@ -159,6 +149,25 @@ public class AssetPlacer : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    public void PointToGrid(Vector3 point, GameObject artefact) //Place object on Gridpoint at saved position (used by loading utility)
+    {
+        NearestPointResponse nearestPoint = gridManager.GetPointOnNearestGrid(point);
+        if (nearestPoint == null)
+        {
+            return;
+        }
+
+        activeGrid = nearestPoint.grid;
+        //Debug.Log(activeGrid);
+        //Check to see is position is valid (not occupied)
+        if (nearestPoint != null && nearestPoint.gridPosition.occupied == null)
+        {
+            nearestPoint.gridPosition.occupied = artefact;
+            return;
+        }
+        else return;
     }
 
     private void ChangeColour(GameObject target, Color newColor) //At this stage this is simple enough, but I anticipate it will get more compicated as more things are completed
