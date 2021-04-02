@@ -42,5 +42,10 @@ public static class SaveLevel
         }
 
     }
+
+    public static void DeleteLevel(string name)
+    {
+        File.Delete(Application.persistentDataPath + "/" + name);
+    }
 }
  
