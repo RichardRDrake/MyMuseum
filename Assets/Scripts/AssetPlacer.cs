@@ -151,23 +151,15 @@ public class AssetPlacer : MonoBehaviour
         return Vector3.zero;
     }
 
-    public void PointToGrid(Vector3 point, GameObject artefact) //Place object on Gridpoint at saved position (used by loading utility)
+    public NearestPointResponse PointToGrid(Vector3 point, GameObject artefact) //Place object on Gridpoint at saved position (used by loading utility)
     {
         NearestPointResponse nearestPoint = gridManager.GetPointOnNearestGrid(point);
         if (nearestPoint == null)
         {
-            return;
+            return null;
         }
 
-        activeGrid = nearestPoint.grid;
-        //Debug.Log(activeGrid);
-        //Check to see is position is valid (not occupied)
-        if (nearestPoint != null && nearestPoint.gridPosition.occupied == null)
-        {
-            nearestPoint.gridPosition.occupied = artefact;
-            return;
-        }
-        else return;
+        return nearestPoint;
     }
 
     private void ChangeColour(GameObject target, Color newColor) //At this stage this is simple enough, but I anticipate it will get more compicated as more things are completed
