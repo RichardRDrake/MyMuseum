@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
     // create clip variables
 
     [SerializeField] AudioClip backgroundMusicFirst;
-    [SerializeField] AudioClip backgroundMusicThird;
+   // [SerializeField] AudioClip backgroundMusicThird;
 
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>(); //add all clips to dictionary
 
