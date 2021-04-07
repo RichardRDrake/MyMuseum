@@ -28,8 +28,24 @@ public class UI_Options : MonoBehaviour
         MusicTextDisplay = MusicText.GetComponent<TextMeshProUGUI>();
         SfxTextDisplay = SfxText.GetComponent<TextMeshProUGUI>();
         //These need to read from wherever audio settings are being stored
-        MusicTextDisplay.text = "80";
-        SfxTextDisplay.text = "80";
+        if (PlayerPrefs.HasKey("BGM"))
+        {
+            Debug.Log("PlayerPrefs loaded BGM");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("BGM", 0.8f);
+        }
+        if (PlayerPrefs.HasKey("SFX"))
+        {
+            Debug.Log("PlayerPrefs loaded SFX");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("SFX", 0.8f);
+        }
+        MusicTextDisplay.text = Mathf.RoundToInt(PlayerPrefs.GetFloat("BGM") * 100).ToString();
+        SfxTextDisplay.text = Mathf.RoundToInt(PlayerPrefs.GetFloat("SFX") * 100).ToString();
     }
 
     // Update is called once per frame
@@ -56,7 +72,7 @@ public class UI_Options : MonoBehaviour
         }
     }
 
-    //These connect to UI_MenuController and the sliders for music and SFX, respectively
+    //These connect to the sliders for music and SFX, respectively
     public void Music(float sliderMusic)
     {
         musicVolume = sliderMusic;

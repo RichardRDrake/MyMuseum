@@ -129,6 +129,8 @@ public class UI_MenuController : MonoBehaviour
 
     #region Options contents
     //Options display highlights
+    private UI_Options uiOptions;
+    [SerializeField] private GameObject SlidersParent;
     [SerializeField] private GameObject HighlightOptionsMusic;
     [SerializeField] private GameObject HighlightOptionsMusicHover;
     [SerializeField] private GameObject HighlightOptionsSfx;
@@ -215,8 +217,25 @@ public class UI_MenuController : MonoBehaviour
         inputField = InputObject.GetComponent<TMP_InputField>();
 
         //Gets the slider components of the music and sfx slider objects
+        //Then sets the slider starting values to either the value in PlayerPrefs or, if it does not exist, 0.8f
         musicSlider = MusicSliderObject.GetComponent<Slider>();
         sfxSlider = SfxSliderObject.GetComponent<Slider>();
+        if (PlayerPrefs.HasKey("BGM"))
+        {
+            musicSlider.value = PlayerPrefs.GetFloat("BGM");
+        }
+        else
+        {
+            musicSlider.value = 0.8f;
+        }
+        if (PlayerPrefs.HasKey("SFX"))
+        {
+            sfxSlider.value = PlayerPrefs.GetFloat("SFX");
+        }
+        else
+        {
+            sfxSlider.value = 0.8f;
+        }
         #endregion
     }
 
@@ -340,6 +359,15 @@ public class UI_MenuController : MonoBehaviour
         if (windowInt <4 && windowInt >1)
         {
             //Handles navigation from the save, load or options menus
+            if(windowInt == 3)
+            {
+                //Gets BGM/SFX script, so its values can be saved when that menu is closed
+                uiOptions = SlidersParent.GetComponent<UI_Options>();
+
+                PlayerPrefs.SetFloat("BGM", uiOptions.musicVolume);
+                Debug.Log("BGM set to " + uiOptions.musicVolume);
+                PlayerPrefs.SetFloat("SFX", uiOptions.sfxVolume);
+            }
             windowCurrent = (WindowFinder)1;
             DisableSubmenus();
             Main.SetActive(true);
