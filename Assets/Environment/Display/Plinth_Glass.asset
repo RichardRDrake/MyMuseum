@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Plinth_Glass
   m_EditorClassIdentifier: 
   ArtefactName: Plinth with glass
-  ArtefactPrefab: {fileID: 8888855923295174825, guid: a1423f99da9435f4fafe3060fe147417, type: 3}
+  ArtefactPrefab:
+    m_AssetGUID: a1423f99da9435f4fafe3060fe147417
+    m_SubObjectName: 
+    m_SubObjectType: 
   PreviewImages:
   - {fileID: 0}
   - {fileID: 0}

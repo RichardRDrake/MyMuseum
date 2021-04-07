@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 [CreateAssetMenu(fileName = "ArtefactData", menuName = "ScriptableObjects/ArtefactData")]
+[Serializable]
 public class AssetPlacerScriptableObject : ScriptableObject
 {
     public string ArtefactName;

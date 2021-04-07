@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Head4_Low
   m_EditorClassIdentifier: 
   ArtefactName: Head4_Low
-  ArtefactPrefab: {fileID: 4632070925695801234, guid: 86330487c695bb347b01390f048b5036, type: 3}
+  ArtefactPrefab:
+    m_AssetGUID: 86330487c695bb347b01390f048b5036
+    m_SubObjectName: 
+    m_SubObjectType: 
   PreviewImages:
   - {fileID: 2800000, guid: f696bf82aebe5c54c990b22676d1bb5d, type: 3}
   - {fileID: 2800000, guid: 2614c44070ac4e342a668537fb361805, type: 3}

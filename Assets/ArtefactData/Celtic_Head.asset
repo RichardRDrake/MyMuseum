@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Celtic_Head
   m_EditorClassIdentifier: 
   ArtefactName: Celtic_Head
-  ArtefactPrefab: {fileID: 8049617933670321143, guid: 0d55d2041e69304489c25e8c13354a78, type: 3}
+  ArtefactPrefab:
+    m_AssetGUID: 0d55d2041e69304489c25e8c13354a78
+    m_SubObjectName: 
+    m_SubObjectType: 
   PreviewImages:
   - {fileID: 2800000, guid: 1389e6b773dd2fa4099297b3698246a6, type: 3}
   - {fileID: 2800000, guid: 2bd79e2beb27f2349b59ac568a0b160b, type: 3}

@@ -10,14 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Packed Assets
+  m_Name: ArtefactPrefabs
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets
+  m_GroupName: ArtefactPrefabs
   m_Data:
     m_SerializedData: []
   m_GUID: d2b5f5a2d2932184dbe2677a772ed6e7
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 0d55d2041e69304489c25e8c13354a78
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/Celtic_Head.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8a06bed5b28efd543aad57370c22cd4e
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1992.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 86330487c695bb347b01390f048b5036
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/Head4_Low.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 2de3197c414bd0143ba77270b2d39cf4
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/Moa_skeleton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:
-    m_Schemas: []
+    m_Schemas:
+    - {fileID: 11400000, guid: d0272fc3b27741e46acc621e8e3020bf, type: 2}
+    - {fileID: 11400000, guid: 36ec174e513ab2345b0234c4f5f7e59c, type: 2}

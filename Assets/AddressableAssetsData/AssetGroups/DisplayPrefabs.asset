@@ -10,14 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Packed Assets
+  m_Name: DisplayPrefabs
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets
+  m_GroupName: DisplayPrefabs
   m_Data:
     m_SerializedData: []
   m_GUID: cc23c6da28c79fb4db06a88e8d410ede
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: b35fb21c23866214caa16fb1eff69816
+    m_Address: Assets/Environment/Display/DisplayPrefabs/Plinth_No_Glass.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a1423f99da9435f4fafe3060fe147417
+    m_Address: Assets/Environment/Display/DisplayPrefabs/Plinth_Glass.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 2c3fdc602d05db44aaff27ee2ed36f45
+    m_Address: Assets/Environment/Display/DisplayPrefabs/Display_Case.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:
-    m_Schemas: []
+    m_Schemas:
+    - {fileID: 11400000, guid: 25234fd8d1074084cbcfd89b319572ad, type: 2}
+    - {fileID: 11400000, guid: 0a577eefb7de7e347bd70809ae6ab995, type: 2}

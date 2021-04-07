@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Moa
   m_EditorClassIdentifier: 
   ArtefactName: Moa
-  ArtefactPrefab: {fileID: 886179007922541425, guid: 2de3197c414bd0143ba77270b2d39cf4, type: 3}
+  ArtefactPrefab:
+    m_AssetGUID: 2de3197c414bd0143ba77270b2d39cf4
+    m_SubObjectName: 
+    m_SubObjectType: 
   PreviewImages:
   - {fileID: 2800000, guid: c7ea8fa4a81850b4b92ea25d222dbec4, type: 3}
   - {fileID: 2800000, guid: c1f50010cdbc9c1498ea07011432e6a6, type: 3}

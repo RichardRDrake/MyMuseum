@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Display_Case
   m_EditorClassIdentifier: 
   ArtefactName: Large Display Case
-  ArtefactPrefab: {fileID: 6387388853527731036, guid: 2c3fdc602d05db44aaff27ee2ed36f45, type: 3}
+  ArtefactPrefab:
+    m_AssetGUID: 2c3fdc602d05db44aaff27ee2ed36f45
+    m_SubObjectName: 
+    m_SubObjectType: 
   PreviewImages:
   - {fileID: 0}
   - {fileID: 0}
