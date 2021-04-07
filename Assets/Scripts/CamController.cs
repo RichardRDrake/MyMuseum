@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CamController : MonoBehaviour
 {
-
+    #region variables
     //Top object in each UI hierarchy
     [SerializeField] private GameObject UiBuild;
     [SerializeField] private GameObject UiView;
@@ -17,6 +17,7 @@ public class CamController : MonoBehaviour
 
     bool UiToggle = false;
     bool cameraToggle = false;
+    public bool canHotkey = true;
 
     //camera movement variables
 
@@ -42,6 +43,8 @@ public class CamController : MonoBehaviour
     private float movementCounter;
     private float idleCounter;
     private Vector3 headBobMovement;
+    #endregion
+
     private void idleHeadBobber()
     {
             HeadBob(idleCounter, 0.025f, 0.025f);
@@ -154,21 +157,19 @@ public class CamController : MonoBehaviour
     {
         
         // If "k" is pressed,
-        if (Input.GetKeyUp("k"))
+        if (Input.GetKeyUp("k") && canHotkey)
         {
-          
-            if(cameraToggle == false)  //switch to first person mode
-            {
+                if (cameraToggle == false)  //switch to first person mode
+                {
 
-                switchToFirstPerson();
-                
-            }
-            else // switch to third person mode
-            {
+                    switchToFirstPerson();
 
-                switchToThirdPerson();
-            }
-           
+                }
+                else // switch to third person mode
+                {
+
+                    switchToThirdPerson();
+                }
         }
 
         if (cameraToggle == false)
@@ -190,11 +191,14 @@ public class CamController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * horSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * verSensitivity;
 
-        yRotation += mouseX;
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -60, 60);
+        if (canHotkey)
+        {
+            yRotation += mouseX;
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -60, 60);
 
-        parent.eulerAngles = new Vector3(xRotation, yRotation, 0.0f);
+            parent.eulerAngles = new Vector3(xRotation, yRotation, 0.0f);
+        }
 
     }
     void firstPersonCameraUpdate()
@@ -210,7 +214,7 @@ public class CamController : MonoBehaviour
             HeadBob(movementCounter, 0.05f, 0.05f);
             movementCounter += Time.deltaTime;
            
-            if (Input.GetKey("w"))
+            if (Input.GetKey("w") && canHotkey)
             {
                 doubleDisplacement();
                 // Sets y value to 0 so the player won't move based on tilt.
@@ -221,13 +225,13 @@ public class CamController : MonoBehaviour
                 parent.Translate((forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
             }
 
-            if (Input.GetKey("a"))
+            if (Input.GetKey("a") && canHotkey)
             {
                 doubleDisplacement();
                 parent.Translate((-transform.right + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
             }
 
-            if (Input.GetKey("s"))
+            if (Input.GetKey("s") && canHotkey)
             {
                 doubleDisplacement();
                 var forward = parent.forward;
@@ -235,7 +239,7 @@ public class CamController : MonoBehaviour
                 parent.Translate((-forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
             }
 
-            if (Input.GetKey("d"))
+            if (Input.GetKey("d") && canHotkey)
             {
                 doubleDisplacement();
 
@@ -257,13 +261,13 @@ public class CamController : MonoBehaviour
     }
     void thirdPersonCameraUpdate()
     {
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("q") && canHotkey)
         {
             // Applys a rotation of 90 degrees to the object
             rotateLeft();
         }
 
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown("e") && canHotkey)
         {
             rotateRight();
         }

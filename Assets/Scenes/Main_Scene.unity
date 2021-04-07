@@ -24480,6 +24480,7 @@ MonoBehaviour:
   UiBuild: {fileID: 5315955196195339578}
   UiView: {fileID: 5315955196085896704}
   UiMain: {fileID: 5315955194279705937}
+  canHotkey: 1
   horSensitivity: 1
   verSensitivity: 1
 --- !u!1001 &879559350
@@ -61705,6 +61706,10 @@ PrefabInstance:
       value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 3130083135883750011, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 876706179}
+    - target: {fileID: 3130083135883750011, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
       propertyPath: SaveObject
       value: 
       objectReference: {fileID: 800551736}
@@ -61712,6 +61717,10 @@ PrefabInstance:
       propertyPath: SlidersParent
       value: 
       objectReference: {fileID: 7112972797351401261}
+    - target: {fileID: 3130083136083464490, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 876706179}
     - target: {fileID: 3130083136092301844, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
       propertyPath: Camera
       value: 

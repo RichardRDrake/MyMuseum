@@ -45,6 +45,9 @@ public class Level : MonoBehaviour
 
     void Update()
     {
+        //We're not using update for anything right now - Alex
+        #region Hide Update
+        /*
         // Temporary functions for demonstrating functionality/testing
 
         // Pressing "J" will create a file with the currently set name (editable during runtime as a public variable)
@@ -63,6 +66,8 @@ public class Level : MonoBehaviour
             LoadNewLevel(name);
 
         }
+        */
+        #endregion
     }
 
 

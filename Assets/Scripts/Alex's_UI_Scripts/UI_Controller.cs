@@ -757,6 +757,7 @@ public class UI_Controller : MonoBehaviour
         #region Switch to main menu
         MainMenu.SetActive(true);
         UI_MenuController.Activate();
+        camController.canHotkey = false;
         #endregion
     }
 

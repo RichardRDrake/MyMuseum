@@ -1472,6 +1472,8 @@ GameObject:
   - component: {fileID: 323468561}
   - component: {fileID: 323468560}
   - component: {fileID: 323468559}
+  - component: {fileID: 323468564}
+  - component: {fileID: 323468563}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1562,6 +1564,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &323468563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323468558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d1db645b6a9824db48a736717f32b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MenuMain: {fileID: 188234733}
+  MenuOptions: {fileID: 83511618}
+  LoadBuild: {fileID: 165861374}
+  LoadExplore: {fileID: 955980108}
+  MusicSliderObject: {fileID: 935000414}
+  SfxSliderObject: {fileID: 2031082901}
+--- !u!114 &323468564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323468558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700c923c493e5f448a72fa4d8366bf91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &493154609
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,6 +2526,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927642588}
   m_CullTransparentMesh: 0
+--- !u!1 &935000414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7598899047818106905, guid: 0a8d12bd1ed66db4a88959dcf77e39ea, type: 3}
+  m_PrefabInstance: {fileID: 1632394652}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &937197089
 GameObject:
   m_ObjectHideFlags: 0
@@ -5254,6 +5291,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007621463}
   m_CullTransparentMesh: 0
+--- !u!1 &2031082901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7598899046390036557, guid: 0a8d12bd1ed66db4a88959dcf77e39ea, type: 3}
+  m_PrefabInstance: {fileID: 1632394652}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2039624978
 GameObject:
   m_ObjectHideFlags: 0

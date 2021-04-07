@@ -15,6 +15,9 @@ public class UI_MenuController : MonoBehaviour
     [SerializeField] private GameObject ViewMenu;
     private UI_ViewController UI_ViewController;
 
+    [SerializeField] private GameObject Camera;
+    private CamController CamController;
+
     //Determines whether it should return to build or view mode UI when dismissed
     public bool buildMode = true;
 
@@ -173,6 +176,7 @@ public class UI_MenuController : MonoBehaviour
         //UI controller script attached to build menu
         UI_Controller = BuildMenu.GetComponent<UI_Controller>();
         UI_ViewController = ViewMenu.GetComponent<UI_ViewController>();
+        CamController = Camera.GetComponent<CamController>();
         Saves = SaveObject.GetComponent<Level>();
         if(Saves != null)
         {
@@ -217,23 +221,17 @@ public class UI_MenuController : MonoBehaviour
         inputField = InputObject.GetComponent<TMP_InputField>();
 
         //Gets the slider components of the music and sfx slider objects
-        //Then sets the slider starting values to either the value in PlayerPrefs or, if it does not exist, 0.8f
+        //Then sets the slider starting values to either the value in PlayerPrefs or, if those do not exist, 0.8f
         musicSlider = MusicSliderObject.GetComponent<Slider>();
         sfxSlider = SfxSliderObject.GetComponent<Slider>();
         if (PlayerPrefs.HasKey("BGM"))
         {
             musicSlider.value = PlayerPrefs.GetFloat("BGM");
-        }
-        else
-        {
-            musicSlider.value = 0.8f;
-        }
-        if (PlayerPrefs.HasKey("SFX"))
-        {
             sfxSlider.value = PlayerPrefs.GetFloat("SFX");
         }
         else
         {
+            musicSlider.value = 0.8f;
             sfxSlider.value = 0.8f;
         }
         #endregion
@@ -394,6 +392,7 @@ public class UI_MenuController : MonoBehaviour
                 ViewMenu.SetActive(true);
                 UI_ViewController.DisableMain();
             }
+            CamController.canHotkey = true;
         }
         #endregion
     }

@@ -7,11 +7,14 @@ public class UI_ViewController : MonoBehaviour
     //Gameobjects and relevant components
     [SerializeField] private GameObject MainMenu;
     private UI_MenuController UI_MenuController;
+    [SerializeField] private GameObject Camera;
+    private CamController CamController;
 
     // Start is called before the first frame update
     void Start()
     {
         UI_MenuController = MainMenu.GetComponent<UI_MenuController>();
+        CamController = Camera.GetComponent<CamController>();
     }
 
     // Update is called once per frame
@@ -21,6 +24,7 @@ public class UI_ViewController : MonoBehaviour
         if (Input.GetKeyDown("escape") || Input.GetKeyDown("backspace"))
         {
             MainMenu.SetActive(true);
+            CamController.canHotkey = false;
         }
     }
 
