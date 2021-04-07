@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class AssetPlacer : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class AssetPlacer : MonoBehaviour
     private Camera camera;
 
     private GameObject objectToBePlaced = null;
+    private AssetPlacerScriptableObject SOref = null;
     private bool validPlacement = false;
 
     // Start is called before the first frame update
@@ -66,7 +68,7 @@ public class AssetPlacer : MonoBehaviour
         }
     }
 
-    public void ReceiveFromUI(GameObject artefact)
+    public void ReceiveFromUI(AssetPlacerScriptableObject artefact)
     {
         if (artefact == null)
         {
@@ -74,7 +76,18 @@ public class AssetPlacer : MonoBehaviour
             //artefact = exampleObject_1;
         }
 
-        objectToBePlaced = Instantiate(artefact);
+        //Confused on Addressables? Go here: https://www.youtube.com/watch?v=Zb9WchxZhvM
+
+        //The Addressable pathway to the asset (found on its scriptable object)
+        AssetReference newAsset = artefact.GetArtefact();
+
+        //Spawn the object. If you don't want to do anything to the object after it's spawned, ignore .Completed and everything after
+        Addressables.InstantiateAsync(newAsset, Vector3.zero, Quaternion.identity).Completed += (asyncOperationHandle) =>
+        {
+            //Async functions don't finish until the next frame, so this event runs the following code once the computer's ready
+            objectToBePlaced = asyncOperationHandle.Result;
+            SOref = artefact;
+        };
 
         //Debug.Log("test");
     }
@@ -87,7 +100,7 @@ public class AssetPlacer : MonoBehaviour
             ChangeColour(objectToBePlaced, Color.white);
 
             //Let the grid know an object has been placed on it
-            activeGrid.OnObjectPlaced(objectToBePlaced.transform.position, objectToBePlaced);
+            activeGrid.OnObjectPlaced(objectToBePlaced.transform.position, SOref);
 
             //if there are grids on the object, they must be (re)built here
             PlacementGrid[] childrenGrids;
@@ -101,6 +114,7 @@ public class AssetPlacer : MonoBehaviour
             }
 
             objectToBePlaced = null;
+            SOref = null;
             validPlacement = false;
         }
 

@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 [CreateAssetMenu(fileName = "ArtefactData", menuName = "ScriptableObjects/ArtefactData")]
 public class AssetPlacerScriptableObject : ScriptableObject
 {
     public string ArtefactName;
 
-    [SerializeField] private GameObject ArtefactPrefab; //I didn't want to use preabs, but it appears to be needed*
+    [SerializeField] private AssetReference ArtefactPrefab; //AddressableReference (Assigned in Inspector)
 
     [SerializeField] private Texture2D[] PreviewImages = new Texture2D[4];
 
@@ -22,10 +23,10 @@ public class AssetPlacerScriptableObject : ScriptableObject
 
     [SerializeField] ArtefactPlacementType PlacementType = ArtefactPlacementType.Misc; //Overriden in Inspector
 
-    public GameObject GetArtefact()
+    public AssetReference GetArtefact()
     {
 
-        if (!ArtefactPrefab)
+        if (ArtefactPrefab.RuntimeKey == null)
         {
             Debug.Log("Artefact missing content!");
             return null;

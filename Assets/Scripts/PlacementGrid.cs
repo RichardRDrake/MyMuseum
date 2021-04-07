@@ -145,9 +145,10 @@ public class PlacementGrid : MonoBehaviour
         //We return the whole GridPosition because some functions care about if the point is occupied, but future functions may not.
     }
 
-    public void OnObjectPlaced(Vector3 placedAt, GameObject placedObject)
+    public void OnObjectPlaced(Vector3 placedAt, AssetPlacerScriptableObject placedObject)
     {
         //Object has been placed at given position on grid.
+        //The actual object doesn matter, so I'm going to pass the Scriptable objec reference, since that can be cached easier
         //Find point and set it to occupied
         GetNearestPointOnGrid(placedAt).gridPosition.occupied = placedObject;
     }
@@ -180,7 +181,7 @@ public class GridPosition
 {
     // Small container class to hold data on a grid position
     public Vector3 position { get; private set; }
-    public GameObject occupied = null;
+    public AssetPlacerScriptableObject occupied = null;
 
     public GridPosition(Vector3 _position)
     {
