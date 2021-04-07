@@ -12,7 +12,7 @@ public class UI_StartMenu : MonoBehaviour
     #endregion
 
     #region highlights
-
+    #endregion
 
     private MainMenu sceneNavigation;
 
