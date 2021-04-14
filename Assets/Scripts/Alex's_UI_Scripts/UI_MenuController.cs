@@ -280,11 +280,12 @@ public class UI_MenuController : MonoBehaviour
                 sfxSlider.value -= 0.6f * Time.deltaTime;
             }
         }
-
+        //Catalogue again
         if (Input.GetKeyDown("right") && windowCurrent == WindowFinder.MenuSaveLoad)
         {
             IncrementPage();
         }
+        //And volume sliders
         else if (Input.GetKey("right") && windowCurrent == WindowFinder.MenuOptions)
         {
             if (optionsCurrent == OptionsFinder.Music)

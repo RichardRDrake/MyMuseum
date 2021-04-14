@@ -29,6 +29,7 @@ public class UI_Highlight : MonoBehaviour
         //If the user hovers over a button, moves the highlight there
         //UI_Controller = Controller.GetComponent<UI_Controller>();
         //int windowInt = (int)UI_Controller.windowCurrent;
+        Debug.Log("Highlight sensed");
         Highlight.SetActive(true);
         Highlight.transform.position = transform.position;
         
