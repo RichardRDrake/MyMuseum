@@ -263,6 +263,7 @@ public class UI_MenuController : MonoBehaviour
         }
 
         //Pertaining to use of arrow keys to change pages in catalogue
+        //Or the values of sliders
         #region Catalogue Scrolling
         if (Input.GetKeyDown("left") && windowCurrent == WindowFinder.MenuSaveLoad)
         {
@@ -536,6 +537,11 @@ public class UI_MenuController : MonoBehaviour
         }
         else
         {
+            //Ensures a valid save file is always selected
+            if (paneCurrent == 0)
+            {
+                paneCurrent = 1;
+            }
             if (saveOrLoad == true)
             {
                 if (paneCurrent + ((pageCurrent - 1) * 3) < listLength)
@@ -623,6 +629,7 @@ public class UI_MenuController : MonoBehaviour
         //Displays save data read from the save file list
         #region display save data per page
         countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
+        //If saving
         if (saveOrLoad == false)
         {
             for (int i = 0; i <= 2; i++)
@@ -658,6 +665,7 @@ public class UI_MenuController : MonoBehaviour
 
             }
         }
+        //if loading
         else
         {
 
@@ -711,14 +719,14 @@ public class UI_MenuController : MonoBehaviour
                 paneCurrent++;
                 if (saveOrLoad == true)
                 {
-                    if (paneCurrent > 3 || ((pageCurrent - 1) * 3) + (paneCurrent - 1) > (listLength - 2))
+                    if (paneCurrent > 3 || ((pageCurrent - 1) * 3) + paneCurrent > (listLength - 1))
                     {
                         paneCurrent = 1;
                     }
                 }
                 else
                 {
-                    if (paneCurrent > 3 || ((pageCurrent - 1) * 3) + (paneCurrent - 1) > (listLength - 1))
+                    if (paneCurrent > 3 || ((pageCurrent - 1) * 3) + paneCurrent > listLength)
                     {
                         paneCurrent = 1;
                     }
@@ -819,26 +827,50 @@ public class UI_MenuController : MonoBehaviour
                 //Checks that the next pane isn't less than 1, or empty
                 if (saveOrLoad == true)
                 {
-                        //Checks that the last option isn't out of range
-                        if (((pageCurrent - 1) * 3) + (paneCurrent) > (listLength - 1))
+                    //Checks that the last option isn't out of range
+                    if (((pageCurrent - 1) * 3) + (paneCurrent) > (listLength - 1))
+                    {
+                        //If it is, cycles to the last populated list entry if there's less than one full page
+                        if (pageCount - 1 < 1)
                         {
-                            //If it is, cycles to the pane one higher than the remainder of the asset list divided by the number of full pages
+                            paneCurrent = listLength - 1;
+                        }
+                        else
+                        {
+                            //or one higher than the remainder of the asset list divided by the number of full pages
                             paneCurrent = ((listLength - 1) % ((pageCurrent - 1) * 3));
                         }
+                    }
                 }
                 else
                 {
-                        //Checks that the last option isn't out of range
-                        if (((pageCurrent - 1) * 3) + (paneCurrent) > listLength)
+                    //Checks that the last option isn't out of range
+                    if (((pageCurrent - 1) * 3) + (paneCurrent) > listLength)
+                    {
+                        //If it is, cycles to the last populated list entry if there's less than one full page
+                        if (pageCount - 1 < 1)
                         {
-                            //If it is, cycles to the pane one higher than the remainder of the asset list divided by the number of full pages
-                            paneCurrent = ((listLength - 1) % ((pageCurrent - 1) * 3)) + 1;
+                            paneCurrent = listLength;
                         }
+                        else
+                        {
+                            //or one higher than the remainder of the asset list divided by the number of full pages
+                            paneCurrent = ((listLength - 1) % ((pageCount - 1) * 3));
+                        }
+                    }
                     //Debug.Log(paneCurrent);
                 }
                 //Moves the highlight over the appropriate pane
-                HighlightSave.SetActive(true);
-                HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
+                if (paneCurrent != 0)
+                {
+                    HighlightSave.SetActive(true);
+                    HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
+                }
+                else
+                {
+                    //Or disables it, if there's no saves
+                    HighlightSave.SetActive(false);
+                }
                 break;
             case 3:
                 //Cycles through the enum of options on the options page
@@ -940,7 +972,6 @@ public class UI_MenuController : MonoBehaviour
             {
                 paneCurrent = saveLoadIdentity;
             }
-                Debug.Log("Wrong spot");
                 if (saveFileSelected < listLength)
                 {
                     Debug.Log(paneCurrent);

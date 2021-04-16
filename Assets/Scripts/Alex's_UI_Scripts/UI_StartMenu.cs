@@ -40,6 +40,9 @@ public class UI_StartMenu : MonoBehaviour
     //Current page
     private int pageCurrent;
 
+    //The back button
+    [SerializeField] private GameObject SaveBack;
+
     //List of Save/Load options
     [SerializeField] private GameObject SaveLoad1;
     [SerializeField] private GameObject SaveLoad2;
@@ -88,6 +91,11 @@ public class UI_StartMenu : MonoBehaviour
     [SerializeField] private GameObject ConfirmButton;
     [SerializeField] private GameObject CancelButton;
     [SerializeField] private TextMeshProUGUI ConfirmText;
+    private Vector3 confirmText1;
+    private Vector3 confirmText2;
+
+    [SerializeField] private GameObject InputObject;
+    private TMP_InputField inputField;
     #endregion
 
     #region Highlights
@@ -100,6 +108,8 @@ public class UI_StartMenu : MonoBehaviour
     [SerializeField] private GameObject HighlightOptionsSlider;
     [SerializeField] private GameObject HighlightOptionsBack;
     [SerializeField] private GameObject HighlightOptionsBackHover;
+    [SerializeField] private GameObject HighlightSaveBack;
+    [SerializeField] private GameObject HighlightSaveBackHover;
     #endregion
 
     //For loading the game in edit vs view mode
@@ -118,6 +128,7 @@ public class UI_StartMenu : MonoBehaviour
     public MainFinder mainCurrent = MainFinder.Null;
 
     //Tracks which object in the Save/Load window the user is on
+    //Note that, opposed to other instances of paneCurrent, pane 4 is the back button and not outside the acceptable range
     public int paneCurrent = 0;
 
     //Tracks which object in the Options window the user is on
@@ -125,7 +136,7 @@ public class UI_StartMenu : MonoBehaviour
     public OptionsFinder optionsCurrent = OptionsFinder.Null;
 
     //Tracks which object in the confirm window the user is on
-    public enum ConfirmFinder { Null = 0, Confirm = 1, Cancel = 2 }
+    public enum ConfirmFinder { Null = 0, Confirm = 1, Cancel = 2, Text = 3 }
     public ConfirmFinder confirmCurrent = ConfirmFinder.Null;
     #endregion
 
@@ -161,6 +172,8 @@ public class UI_StartMenu : MonoBehaviour
         MainLocations.Add(LoadViewButton.transform.position);
         MainLocations.Add(OptionsButton.transform.position);
         MainLocations.Add(QuitButton.transform.position);
+        confirmText1 = new Vector3(ConfirmText.transform.position.x, ConfirmText.transform.position.y, ConfirmText.transform.position.z);
+        confirmText2 = new Vector3(ConfirmText.transform.position.x, ConfirmText.transform.position.y + 15, ConfirmText.transform.position.z);
         #endregion
 
         #region Variables and lists involved with save file management
@@ -177,6 +190,7 @@ public class UI_StartMenu : MonoBehaviour
         saveNews.Add(SaveNew1.GetComponent<TextMeshProUGUI>());
         saveNews.Add(SaveNew2.GetComponent<TextMeshProUGUI>());
         saveNews.Add(SaveNew3.GetComponent<TextMeshProUGUI>());
+        inputField = InputObject.GetComponent<TMP_InputField>();
         #endregion
         #endregion
     }
@@ -208,8 +222,8 @@ public class UI_StartMenu : MonoBehaviour
             CycleBack();
         }
 
-        //Pertaining to use of arrow keys to change pages in catalogue
         #region Catalogue Scrolling
+        //Pertaining to use of arrow keys to change pages in catalogue
         if (Input.GetKeyDown("left") && windowCurrent == WindowFinder.MenuLoad)
         {
             DecrementPage();
@@ -248,12 +262,22 @@ public class UI_StartMenu : MonoBehaviour
     #region catalogue page voids
     public void IncrementPage()
     {
-
+        pageCurrent = Mathf.Clamp(pageCurrent++, 1, pageCount);
+        ObjectsHide.SetActive(false);
+        DisplayPageDetails();
+        ObjectsHide.SetActive(true);
+        HighlightSave.SetActive(false);
+        paneCurrent = 0;
     }
 
     public void DecrementPage()
     {
-
+        pageCurrent = Mathf.Clamp(pageCurrent--, 1, pageCount);
+        ObjectsHide.SetActive(false);
+        DisplayPageDetails();
+        ObjectsHide.SetActive(true);
+        HighlightSave.SetActive(false);
+        paneCurrent = 0;
     }
     #endregion
 
@@ -268,6 +292,16 @@ public class UI_StartMenu : MonoBehaviour
                 //if the player is on the main menu, brings up the quit game popup
                 isLoading = false;
                 DisplayConfirmation();
+                break;
+            case 2:
+                //If the player is in a load menu, returns them to the main menu
+                DisableHovers();
+                windowCurrent = WindowFinder.MenuTop;
+                mainCurrent = MainFinder.Null;
+                paneCurrent = 0;
+                MenuMain.SetActive(true);
+                LoadRoom.SetActive(false);
+                isLoading = false;
                 break;
             case 3:
                 //If the player is in the options menu, returns them to the main menu
@@ -332,6 +366,16 @@ public class UI_StartMenu : MonoBehaviour
                         break;
                 }
                 break;
+            case 2:
+                if (paneCurrent < 4)
+                {
+                    DisplayConfirmation();
+                }
+                else
+                {
+                    NavigateUp();
+                }
+                break;
             case 3:
                 //Navigates back to the main menu from the options menu
                 int optionsInt = (int)optionsCurrent;
@@ -373,6 +417,7 @@ public class UI_StartMenu : MonoBehaviour
         switch (windowInt)
         {
             case 1:
+                #region top menu cycling
                 //cycles through available options in the top level menu
                 //sets the highlight over the current target
                 int mainInt = (int)mainCurrent;
@@ -395,7 +440,50 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 mainCurrent = (MainFinder)mainInt;
                 break;
+            #endregion
+            case 2:
+                #region load menu cycling
+                //Cycles through available options in the load menu
+                //sets the highlight over the current target
+                paneCurrent++;
+
+                if (paneCurrent > 4)
+                {
+                    paneCurrent = 1;
+                }
+                //If the player attempts to select an option beyond the available save files...
+                else if (isEditable && ((pageCurrent - 1) * 3) + paneCurrent > listLength)
+                {
+                    paneCurrent = 4;
+                }
+                //The value of available options is one fewer when attempting to view a room
+                else if (!isEditable && ((pageCurrent - 1) * 3) + paneCurrent > (listLength - 1))
+                {
+                    paneCurrent = 4;
+                }
+
+                //If the player attempts to view a room when none exist, "back" is the only option
+                if (!isEditable && 1 == listLength)
+                {
+                    paneCurrent = 4;
+                }
+
+                if (paneCurrent < 4)
+                {
+                    HighlightSave.SetActive(true);
+                    HighlightSaveBack.SetActive(false);
+                    HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
+                }
+                else
+                {
+                    HighlightSave.SetActive(false);
+                    HighlightSaveBack.SetActive(true);
+                    HighlightSaveBack.transform.position = SaveBack.transform.position;
+                }
+                break;
+            #endregion
             case 3:
+                #region options menu cycling
                 //Cycles through available options in the options menu
                 //sets the highlight over the current target
                 int optionsInt = (int)optionsCurrent;
@@ -424,7 +512,9 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 optionsCurrent = (OptionsFinder)optionsInt;
                 break;
+            #endregion
             case 4:
+                #region confirm popup cycling
                 //Cycles through available options in the confirm menu
                 //sets the highlight over the current target
                 int confirmInt = (int)confirmCurrent;
@@ -445,6 +535,7 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 confirmCurrent = (ConfirmFinder)confirmInt;
                 break;
+                #endregion
         }
         #endregion
     }
@@ -457,6 +548,7 @@ public class UI_StartMenu : MonoBehaviour
         switch (windowInt)
         {
             case 1:
+                #region top menu cycling
                 //Cycles backwards through available options in the top level menu
                 //sets the highlight over the current target
                 int mainInt = (int)mainCurrent;
@@ -479,7 +571,61 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 mainCurrent = (MainFinder)mainInt;
                 break;
+            #endregion
+            case 2:
+                #region load menu cycling
+                //Cycles backwards through available options in the load menu
+                //sets highlight over the current target
+                paneCurrent--;
+                if(paneCurrent < 1)
+                {
+                    paneCurrent = 4;
+                }
+
+                //Checks that the last option isn't out of range (if the last selected pane was 4)
+                if (((pageCurrent - 1) * 3) + (paneCurrent) > (listLength - 1) && paneCurrent != 4)
+                {
+                    //If it is, cycles to the last populated list entry if there's less than one full page
+                    //Or the back button/create new save option
+                    if (pageCount - 1 < 1)
+                    {
+                        paneCurrent = listLength - 1;
+                        if(paneCurrent == 0)
+                        {
+                            if (isEditable)
+                            {
+                                paneCurrent = 1;
+                            }
+                            else
+                            {
+                                paneCurrent = 4;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //or higher than the remainder of the asset list divided by the number of full pages
+                        paneCurrent = ((listLength - 1) % ((pageCount - 1) * 3));
+                    }
+                }
+
+                if(paneCurrent < 4)
+                {
+                    HighlightSave.SetActive(true);
+                    HighlightSaveBack.SetActive(false);
+                    HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
+                }
+                else
+                {
+                    HighlightSave.SetActive(false);
+                    HighlightSaveBack.SetActive(true);
+                    HighlightSaveBack.transform.position = SaveBack.transform.position;
+                }
+
+                break;
+            #endregion
             case 3:
+                #region options menu cycling
                 //Cycles backwards through available options in the options menu
                 //sets the highlight over the current target
                 int optionsInt = (int)optionsCurrent;
@@ -508,7 +654,9 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 optionsCurrent = (OptionsFinder)optionsInt;
                 break;
+            #endregion
             case 4:
+                #region confirm popup cycling
                 //Cycles backwards through available options in the confirm menu
                 //sets the highlight over the current target
                 int confirmInt = (int)mainCurrent;
@@ -529,43 +677,116 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 confirmCurrent = (ConfirmFinder)confirmInt;
                 break;
+                #endregion
+        }
+        #endregion
+    }
+
+
+    public void MenuSetup()
+    {
+        #region Determines the data displayed in the load game menus
+
+        //Hides display while loading menus
+        MenuMain.SetActive(false);
+        LoadRoom.SetActive(true);
+        windowCurrent = WindowFinder.MenuLoad;
+
+        //Creates a total list length based on number of existing saves (plus 1)
+        //Includes all full pages, plus a page for the remainder
+        listLength = saves.SavesList.Count + 1;
+        pageCount = listLength / 3;
+        if (listLength % 3 > 0)
+        {
+            pageCount++;
+        }
+
+
+        //Makes sure there is always one page
+        if (listLength == 0)
+        {
+            pageCount = 1;
+        }
+
+        pageCurrent = 1;
+        DisplayPageDetails();
+
+        ObjectsHide.SetActive(true);
+        #endregion
+    }
+
+    private void DisplayPageDetails()
+    {
+        //Displays save data read from the save file list
+        #region display save data per page
+        countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
+
+        for (int i = 0; i <= 2; i++)
+        {
+            if (((pageCurrent - 1) * 3) + i > (listLength - 2))
+            {
+                //Populates the last entry on the list in edit mode with the option to create a new save
+                if (((pageCurrent - 1) * 3) + i == (listLength - 1) && isEditable == true)
+                {
+                    saveTexts[i].text = "Create new room";
+                    saveDates[i].text = "--/--/----";
+                    saveNews[i].text = " ";
+                }
+                else
+                {
+                    //Debug.Log("Empty save");
+                    saveTexts[i].text = "NO DATA";
+                    saveDates[i].text = "--/--/----";
+                    saveNews[i].text = " ";
+                }
+            }
+            else
+            {
+                //Debug.Log("Existing save");
+                //Debug.Log(SaveTitle1);
+                //Debug.Log(saveTexts);
+                //Debug.Log(saveTexts[0]);
+                saveTexts[i].text = saves.SavesList[i];
+                saveDates[i].text = saves.DatesList[i];
+                saveNews[i].text = " ";
+            }
+            paneCurrent = 0;
 
         }
         #endregion
     }
 
     #region Button voids
-    public void LoadEdit()
-    {
-        #region Activates the load menu in edit mode
-        windowCurrent = WindowFinder.MenuLoad;
-        DisableHovers();
-        isEditable = true;
-        MenuMain.SetActive(false);
-        LoadRoom.SetActive(true);
-        #endregion
-    }
-
-    public void MenuSetup()
-    {
-        #region Determines the data displayed in the load game menus
-        /*
-        //Hides display while loading menus
-        MenuMain.SetActive(false);
-        LoadRoom.SetActive(true);
-        windowCurrent = WindowFinder.MenuLoad;
-        */
-        #endregion
-    }
 
     public void LoadView()
     {
         #region Activates the load menu in view mode
         windowCurrent = WindowFinder.MenuLoad;
         DisableHovers();
+        
+        //Confirms that it is loading the room in a non-editable form
         isEditable = false;
+        isLoading = true;
+
         MenuMain.SetActive(false);
         LoadRoom.SetActive(true);
+        MenuSetup();
+        #endregion
+    }
+
+    public void LoadEdit()
+    {
+        #region Activates the load menu in edit mode
+        windowCurrent = WindowFinder.MenuLoad;
+        DisableHovers();
+
+        //Confirms that it is loading the room in an editable form
+        isEditable = true;
+        isLoading = true;
+
+        MenuMain.SetActive(false);
+        LoadRoom.SetActive(true);
+        MenuSetup();
         #endregion
     }
 
@@ -582,20 +803,40 @@ public class UI_StartMenu : MonoBehaviour
     public void DisplayConfirmation()
     {
         #region Displays the confirmation menu
-        windowCurrent = WindowFinder.Confirm;
-        if(!isLoading)
+        //The Mathf.Clamps are to prevent negative values
+        //Does nothing if attempting to load an empty save
+        if (!isLoading || (saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text != "NO DATA"))
         {
-            ConfirmText.text = "Quit MyMuseum?";
+            windowCurrent = WindowFinder.Confirm;
+            //If the player presses the "Create new room" option
+            if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Create new room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Create new room")
+            {
+                Debug.Log("Got here");
+                ConfirmText.text = "Name your new room";
+                inputField.text = "";
+                InputObject.SetActive(true);
+                confirmCurrent = ConfirmFinder.Text;
+                ConfirmText.transform.position = confirmText2;
+            }
+            else
+            {
+                InputObject.SetActive(false);
+                if (!isLoading)
+                {
+                    ConfirmText.text = "Quit MyMuseum?";
+                }
+                else if (isEditable)
+                {
+                    ConfirmText.text = "Load this room in edit mode?";
+                }
+                else
+                {
+                    ConfirmText.text = "Load this room in view mode?";
+                }
+                ConfirmText.transform.position = confirmText1;
+            }
+            Confirm.SetActive(true);
         }
-        else if(isEditable)
-        {
-            ConfirmText.text = "Load this room in edit mode?";
-        }
-        else
-        {
-            ConfirmText.text = "Load this room in view mode?";
-        }
-        Confirm.SetActive(true);
         #endregion
     }
 
@@ -615,5 +856,7 @@ public class UI_StartMenu : MonoBehaviour
         HighlightSave.SetActive(false);
         HighlightSaveHover.SetActive(false);
         HighlightSaveNavHover.SetActive(false);
+        HighlightSaveBack.SetActive(false);
+        HighlightSaveBackHover.SetActive(false);
     }
 }
