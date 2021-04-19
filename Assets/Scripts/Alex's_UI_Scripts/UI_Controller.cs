@@ -27,8 +27,9 @@ public class UI_Controller : MonoBehaviour
 
     //Panel for detailed view/confirming selection
     [SerializeField] private GameObject DetailPanel;
-    [SerializeField] private GameObject DetailTextField;
-    private TextMeshProUGUI detailText;
+    [SerializeField] private GameObject DetailImageField;
+    private Image detailImage;
+    private int detailImageCounter = 0;
 
     //Camera object
     [SerializeField] private GameObject Camera;
@@ -53,7 +54,7 @@ public class UI_Controller : MonoBehaviour
 
     #region catalogue objects
     //The six objects, and a list in which to contain their locations
-    private List<TextMeshProUGUI> objectDisplay = new List<TextMeshProUGUI>();
+    private List<Image> objectDisplay = new List<Image>();
     [SerializeField] private GameObject Object1;
     [SerializeField] private GameObject Object2;
     [SerializeField] private GameObject Object3;
@@ -104,6 +105,7 @@ public class UI_Controller : MonoBehaviour
 
     int pageCount;
     int pageCurrent = 1;
+    int pageNumber;
 
     #region menu enums
     //Determines which UI page the user is on.
@@ -140,12 +142,12 @@ public class UI_Controller : MonoBehaviour
         UI_MenuController = MainMenu.GetComponent<UI_MenuController>();
 
         //Gets the six inventory panes, and a resource list
-        objectDisplay.Add(Object1.GetComponent<TextMeshProUGUI>());
-        objectDisplay.Add(Object2.GetComponent<TextMeshProUGUI>());
-        objectDisplay.Add(Object3.GetComponent<TextMeshProUGUI>());
-        objectDisplay.Add(Object4.GetComponent<TextMeshProUGUI>());
-        objectDisplay.Add(Object5.GetComponent<TextMeshProUGUI>());
-        objectDisplay.Add(Object6.GetComponent<TextMeshProUGUI>());
+        objectDisplay.Add(Object1.GetComponent<Image>());
+        objectDisplay.Add(Object2.GetComponent<Image>());
+        objectDisplay.Add(Object3.GetComponent<Image>());
+        objectDisplay.Add(Object4.GetComponent<Image>());
+        objectDisplay.Add(Object5.GetComponent<Image>());
+        objectDisplay.Add(Object6.GetComponent<Image>());
         countText = PageCounter.GetComponent<TextMeshProUGUI>();
         if(!countText)
         {
@@ -326,22 +328,23 @@ public class UI_Controller : MonoBehaviour
         for (int i = 0; i <= 5; i++)
         {
             Debug.Log(pageCurrent);
-            if ((((pageCurrent - 1) * 6) + i) == (listLength - 1))
+            pageNumber = ((pageCurrent - 1) * 6) + i;
+            if (pageNumber == (listLength - 1))
             {
-                Debug.Log("Reached here on loop " + (i + 1).ToString());
-                objectDisplay[i].text = "Download";
+                //objectDisplay[i].sprite = null;
             }
-            else if (((pageCurrent - 1) * 6) + i > (Resources.readFrom.Count - 1))
+            else if (pageNumber > (Resources.readFrom.Count - 1))
             {
-                objectDisplay[i].text = " ";
+                //objectDisplay[i].sprite = null;
             }
             else
             {
-                if (Resources.readFrom[((pageCurrent - 1) * 6) + i] == null)
+                if (Resources.readFrom[pageNumber] == null)
                 {
                     continue;
-                }    
-                objectDisplay[i].text = Resources.readFrom[((pageCurrent - 1) * 6) + i].name;
+                }
+                Debug.Log(Resources.readFrom[pageNumber].ArtefactName);
+                objectDisplay[i].sprite = Sprite.Create(Resources.readFrom[pageNumber].PreviewImages[0], new Rect(0.0f, 0.0f, Resources.readFrom[pageNumber].PreviewImages[0].width, Resources.readFrom[pageNumber].PreviewImages[0].height), new Vector2(0.0f, 0.0f));
             }
         }
         paneCurrent = 0;
@@ -421,6 +424,8 @@ public class UI_Controller : MonoBehaviour
         HighlightMainMenu.SetActive(false);
         HighlightMenuTop.SetActive(false);
         HighlightCatalogue.SetActive(false);
+        HighlightDetail.SetActive(false);
+        HighlightAccept.SetActive(false);
         topCurrent = topFinder.Null;
         subCurrent = subFinder.Null;
         paneCurrent = 0;
@@ -477,15 +482,15 @@ public class UI_Controller : MonoBehaviour
                 if (paneCurrent > 0)
                 {
                     DetailPanel.SetActive(true);
-                    detailText = DetailTextField.GetComponent<TextMeshProUGUI>();
+                    detailImage = DetailImageField.GetComponent<Image>();
                     //Displays "Download" if the player presses on an icon beyond the length of the asset list
                     if (((pageCurrent - 1) * 6) + paneCurrent > Resources.readFrom.Count)
                     {
-                        detailText.text = "Download";
+                        detailImage.sprite = null;
                     }
                     else
                     {
-                        detailText.text = Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].name;
+                        detailImage.sprite = Sprite.Create(Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[0], new Rect(0.0f, 0.0f, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[0].width, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[0].height), new Vector2(0.0f, 0.0f));
                     }
                     windowCurrent = windowFinder.Detail;
                 }
@@ -495,7 +500,21 @@ public class UI_Controller : MonoBehaviour
                 //Joe does something if detailCurrent  is 3, or "select"
                 //Should redirect to a public void, so the button can be connected, too.
                 //ResetBuildUI (resets but does not disable UI)
-                SendToAssetPlacer();
+                int detailInt = (int)detailCurrent;
+                switch(detailInt)
+                {
+                    case 1:
+                        DetailCycle();
+                        break;
+                    case 2:
+                        DetailBack();
+                        break;
+                    case 3:
+                        SendToAssetPlacer();
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;
@@ -525,6 +544,9 @@ public class UI_Controller : MonoBehaviour
                     break;
                 case 3:
                     DetailPanel.SetActive(false);
+                    detailImageCounter = 0;
+                    HighlightDetail.SetActive(false);
+                    HighlightAccept.SetActive(false);
                     detailCurrent = detailFinder.Null;
                     windowCurrent = (windowFinder)windowInt;
                     break;
@@ -683,6 +705,7 @@ public class UI_Controller : MonoBehaviour
                     if(((pageCurrent - 1) * 6) + (paneCurrent - 1) > Resources.readFrom.Count)
                     {
                         //If it is, cycles to the pane one higher than the remainder of the asset list divided by the number of full pages
+                        Debug.Log(pageCurrent);
                         paneCurrent = (Resources.readFrom.Count % ((pageCurrent - 1) * 6)) + 1;
                     }
                 }
@@ -774,5 +797,29 @@ public class UI_Controller : MonoBehaviour
         ResetBuildUI();
     }
 
-    
+    public void DetailCycle()
+    {
+        #region Cycles through list of images of the currently selected artefact
+        detailImageCounter++;
+        if (detailImageCounter > 3)
+        {
+            detailImageCounter = 0;
+        }
+
+        detailImage.sprite = Sprite.Create(Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter], new Rect(0.0f, 0.0f, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].width, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].height), new Vector2(0.0f, 0.0f));
+        #endregion
+    }
+
+    public void DetailBack()
+    {
+        #region Cycles backwards through list of images of the currently selected artefact
+        detailImageCounter--;
+        if(detailImageCounter < 0)
+        {
+            detailImageCounter = 3;
+        }
+
+        detailImage.sprite = Sprite.Create(Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter], new Rect(0.0f, 0.0f, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].width, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].height), new Vector2(0.0f, 0.0f));
+        #endregion
+    }
 }
