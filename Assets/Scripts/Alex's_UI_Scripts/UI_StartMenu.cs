@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class UI_StartMenu : MonoBehaviour
 {
@@ -76,17 +75,6 @@ public class UI_StartMenu : MonoBehaviour
     [SerializeField] private GameObject HighlightSave;
     [SerializeField] private GameObject HighlightSaveHover;
     [SerializeField] private GameObject HighlightSaveNavHover;
-    [SerializeField] private GameObject HighlightDelete;
-    [SerializeField] private GameObject HighlightDeleteHover;
-    [SerializeField] private GameObject HighlightUploadHover;
-
-    //Variables pertaining to the delete save files button
-    private bool deleteSaveFiles = false;
-    [SerializeField] private GameObject DeleteButton;
-    private UI_Highlight ui_Highlight;
-    private bool uploadSaveFiles = false;
-    [SerializeField] private GameObject UploadButton;
-    private UI_Highlight ui_Highlight2;
     #endregion
 
     #region Options Contents
@@ -203,8 +191,6 @@ public class UI_StartMenu : MonoBehaviour
         saveNews.Add(SaveNew2.GetComponent<TextMeshProUGUI>());
         saveNews.Add(SaveNew3.GetComponent<TextMeshProUGUI>());
         inputField = InputObject.GetComponent<TMP_InputField>();
-        ui_Highlight = DeleteButton.GetComponent<UI_Highlight>();
-        ui_Highlight2 = UploadButton.GetComponent<UI_Highlight>();
         #endregion
         #endregion
     }
@@ -212,7 +198,6 @@ public class UI_StartMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        #region Menu navigation
         //Moves the player back up a menu level from wherever they were.
         if (Input.GetKeyDown("escape") || Input.GetKeyDown("backspace"))
         {
@@ -236,7 +221,6 @@ public class UI_StartMenu : MonoBehaviour
         {
             CycleBack();
         }
-        #endregion
 
         #region Catalogue Scrolling
         //Pertaining to use of arrow keys to change pages in catalogue
@@ -389,18 +373,7 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 else
                 {
-                    switch(paneCurrent)
-                    {
-                        case 4:
-                            NavigateUp();
-                            break;
-                        case 5:
-                            SetToUpload();
-                            break;
-                        case 6:
-                            SetToDelete();
-                            break;
-                    }
+                    NavigateUp();
                 }
                 break;
             case 3:
@@ -417,7 +390,14 @@ public class UI_StartMenu : MonoBehaviour
                 //checks whether the confirm menu is being accessed from the main or load menus
                 //and reacts accordingly
                 {
-                    ConfirmPressed();
+                    if (isLoading == true)
+                    {
+
+                    }
+                    else
+                    {
+                        sceneNavigation.QuitGame();
+                    }
                 }
                 if(confirmInt == 2)
                 //Otherwise, closes the confirm menu
@@ -467,50 +447,38 @@ public class UI_StartMenu : MonoBehaviour
                 //sets the highlight over the current target
                 paneCurrent++;
 
-                if (paneCurrent > 6)
+                if (paneCurrent > 4)
                 {
                     paneCurrent = 1;
                 }
                 //If the player attempts to select an option beyond the available save files...
                 else if (isEditable && ((pageCurrent - 1) * 3) + paneCurrent > listLength)
                 {
-                    paneCurrent = Mathf.Clamp(paneCurrent, 4, 6);
+                    paneCurrent = 4;
                 }
                 //The value of available options is one fewer when attempting to view a room
                 else if (!isEditable && ((pageCurrent - 1) * 3) + paneCurrent > (listLength - 1))
                 {
-                    paneCurrent = Mathf.Clamp(paneCurrent, 4, 6);
+                    paneCurrent = 4;
                 }
 
-                Debug.Log(paneCurrent);
-
-                HighlightSave.SetActive(false);
-                HighlightSaveBack.SetActive(false);
-                HighlightDelete.SetActive(false);
+                //If the player attempts to view a room when none exist, "back" is the only option
+                if (!isEditable && 1 == listLength)
+                {
+                    paneCurrent = 4;
+                }
 
                 if (paneCurrent < 4)
                 {
                     HighlightSave.SetActive(true);
+                    HighlightSaveBack.SetActive(false);
                     HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
                 }
                 else
                 {
-                    switch (paneCurrent)
-                    {
-                        case 4:
-                            HighlightSaveBack.SetActive(true);
-                            HighlightSaveBack.transform.position = SaveBack.transform.position;
-                            break;
-                        case 5:
-                            Debug.Log("Set paneCurrent to " + paneCurrent );
-                            HighlightDelete.SetActive(true);
-                            HighlightDelete.transform.position = UploadButton.transform.position;
-                            break;
-                        case 6:
-                            HighlightDelete.SetActive(true);
-                            HighlightDelete.transform.position = DeleteButton.transform.position;
-                            break;
-                    }
+                    HighlightSave.SetActive(false);
+                    HighlightSaveBack.SetActive(true);
+                    HighlightSaveBack.transform.position = SaveBack.transform.position;
                 }
                 break;
             #endregion
@@ -611,23 +579,27 @@ public class UI_StartMenu : MonoBehaviour
                 paneCurrent--;
                 if(paneCurrent < 1)
                 {
-                    paneCurrent = 6;
+                    paneCurrent = 4;
                 }
 
                 //Checks that the last option isn't out of range (if the last selected pane was 4)
-                if (((pageCurrent - 1) * 3) + (paneCurrent) > (listLength - 1) && paneCurrent < 4)
+                if (((pageCurrent - 1) * 3) + (paneCurrent) > (listLength - 1) && paneCurrent != 4)
                 {
                     //If it is, cycles to the last populated list entry if there's less than one full page
-                    //Or the delete saves button
+                    //Or the back button/create new save option
                     if (pageCount - 1 < 1)
                     {
-                        if (isEditable)
+                        paneCurrent = listLength - 1;
+                        if(paneCurrent == 0)
                         {
-                            paneCurrent = listLength;
-                        }
-                        else
-                        {
-                            paneCurrent = listLength - 1;
+                            if (isEditable)
+                            {
+                                paneCurrent = 1;
+                            }
+                            else
+                            {
+                                paneCurrent = 4;
+                            }
                         }
                     }
                     else
@@ -637,32 +609,17 @@ public class UI_StartMenu : MonoBehaviour
                     }
                 }
 
-                HighlightSave.SetActive(false);
-                HighlightSaveBack.SetActive(false);
-                HighlightDelete.SetActive(false);
-
                 if(paneCurrent < 4)
                 {
                     HighlightSave.SetActive(true);
+                    HighlightSaveBack.SetActive(false);
                     HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
                 }
                 else
                 {
-                    switch(paneCurrent)
-                    {
-                        case 4:
-                            HighlightSaveBack.SetActive(true);
-                            HighlightSaveBack.transform.position = SaveBack.transform.position;
-                            break;
-                        case 5:
-                            HighlightDelete.SetActive(true);
-                            HighlightDelete.transform.position = UploadButton.transform.position;
-                            break;
-                        case 6:
-                            HighlightDelete.SetActive(true);
-                            HighlightDelete.transform.position = DeleteButton.transform.position;
-                            break;
-                    }
+                    HighlightSave.SetActive(false);
+                    HighlightSaveBack.SetActive(true);
+                    HighlightSaveBack.transform.position = SaveBack.transform.position;
                 }
 
                 break;
@@ -737,7 +694,7 @@ public class UI_StartMenu : MonoBehaviour
 
         //Creates a total list length based on number of existing saves (plus 1)
         //Includes all full pages, plus a page for the remainder
-        listLength = saves.SavesList.Count + 2;
+        listLength = saves.SavesList.Count + 1;
         pageCount = listLength / 3;
         if (listLength % 3 > 0)
         {
@@ -766,14 +723,7 @@ public class UI_StartMenu : MonoBehaviour
 
         for (int i = 0; i <= 2; i++)
         {
-            if (((pageCurrent - 1) * 3) + i == listLength - 2)
-            {
-                //Populates the second-last entry on the list with the option to download a room from an online repository
-                saveTexts[i].text = "Download room";
-                saveDates[i].text = " ";
-                saveNews[i].text = " ";
-            }
-            else if (((pageCurrent - 1) * 3) + i > (listLength - 2))
+            if (((pageCurrent - 1) * 3) + i > (listLength - 2))
             {
                 //Populates the last entry on the list in edit mode with the option to create a new save
                 if (((pageCurrent - 1) * 3) + i == (listLength - 1) && isEditable == true)
@@ -796,8 +746,8 @@ public class UI_StartMenu : MonoBehaviour
                 //Debug.Log(SaveTitle1);
                 //Debug.Log(saveTexts);
                 //Debug.Log(saveTexts[0]);
-                saveTexts[i].text = saves.SavesList[((pageCurrent - 1) * 3) + i];
-                saveDates[i].text = saves.DatesList[((pageCurrent - 1) * 3) + i];
+                saveTexts[i].text = saves.SavesList[i];
+                saveDates[i].text = saves.DatesList[i];
                 saveNews[i].text = " ";
             }
             paneCurrent = 0;
@@ -858,99 +808,34 @@ public class UI_StartMenu : MonoBehaviour
         if (!isLoading || (saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text != "NO DATA"))
         {
             windowCurrent = WindowFinder.Confirm;
-            #region Quit game
-            if (!isLoading)
+            //If the player presses the "Create new room" option
+            if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Create new room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Create new room")
             {
-                ConfirmText.text = "Quit MyMuseum?";
-            }
-            #endregion
-            #region Create new room
-            else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Create new room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Create new room")
-            {
+                Debug.Log("Got here");
                 ConfirmText.text = "Name your new room";
                 inputField.text = "";
                 InputObject.SetActive(true);
                 confirmCurrent = ConfirmFinder.Text;
                 ConfirmText.transform.position = confirmText2;
             }
-            #endregion
-            #region Download room
-            else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Download room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Download new room")
-            {
-                ConfirmText.text = "Browse rooms online?";
-                InputObject.SetActive(false);
-            }
-            #endregion
-            #region Delete or load room
             else
             {
                 InputObject.SetActive(false);
-                if (deleteSaveFiles)
+                if (!isLoading)
                 {
-                    ConfirmText.text = "Delete this save file?";
+                    ConfirmText.text = "Quit MyMuseum?";
+                }
+                else if (isEditable)
+                {
+                    ConfirmText.text = "Load this room in edit mode?";
                 }
                 else
                 {
-                    if (isEditable)
-                    {
-                        ConfirmText.text = "Load this room in edit mode?";
-                    }
-                    else
-                    {
-                        ConfirmText.text = "Load this room in view mode?";
-                    }
+                    ConfirmText.text = "Load this room in view mode?";
                 }
                 ConfirmText.transform.position = confirmText1;
             }
-            #endregion
             Confirm.SetActive(true);
-        }
-        #endregion
-    }
-
-    public void RemoveDeleteHover()
-    {
-        #region Removes highlight over the delete save button, if deleteSaveFiles is false
-        if (deleteSaveFiles == false)
-        {
-            ui_Highlight.HoverOut();
-        }
-        #endregion
-    }
-
-    public void RemoveUploadHover()
-    {
-        #region Removes highlight over the upload save button, if uploadSaveFiles is false
-        if (uploadSaveFiles == false)
-        {
-            ui_Highlight2.HoverOut();
-        }
-        #endregion
-    }
-
-    public void ConfirmPressed()
-    {
-        #region When the confirm button is pressed
-        if (!isLoading)
-        {
-            //If the confirm menu is active outside the context of the load menus
-            Application.Quit();
-        }
-        else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Create new room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Create new room")
-        {
-            //If this is selected, the player is attempting to create a new save
-        }
-        else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Download room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Download new room")
-        {
-            //If this is selected, the player is attempting to download a room
-        }
-        else
-        {
-            //If this is selected, the player is attempting to load an existing room
-            if(deleteSaveFiles)
-            {
-                //Or attempting to delete one
-            }
         }
         #endregion
     }
@@ -959,7 +844,6 @@ public class UI_StartMenu : MonoBehaviour
 
     public void DisableHovers()
     {
-        #region Disables all hovers while switching between window panes
         HighlightTop1.SetActive(false);
         HighlightTop2.SetActive(false);
         HighlightTopHover1.SetActive(false);
@@ -974,50 +858,5 @@ public class UI_StartMenu : MonoBehaviour
         HighlightSaveNavHover.SetActive(false);
         HighlightSaveBack.SetActive(false);
         HighlightSaveBackHover.SetActive(false);
-        HighlightDelete.SetActive(false);
-        HighlightDeleteHover.SetActive(false);
-        //Also disables save file delete mode, and disables the text input field
-        deleteSaveFiles = false;
-        uploadSaveFiles = false;
-        InputObject.SetActive(false);
-        #endregion
-    }
-
-    public void SetToDelete()
-    {
-        #region Sets the save files to a delete-able state. Also, locks down the highlight over that icon so it always shows as highlighted
-        if (!deleteSaveFiles)
-        {
-            deleteSaveFiles = true;
-            uploadSaveFiles = false;
-            HighlightDeleteHover.SetActive(true);
-            HighlightDeleteHover.transform.position = DeleteButton.transform.position;
-            HighlightUploadHover.SetActive(false);
-        }
-        else
-        {
-            deleteSaveFiles = false;
-            HighlightDeleteHover.SetActive(false);
-        }
-        #endregion
-    }
-
-    public void SetToUpload()
-    {
-        #region Sets the save files to an uploadable state. Also, locks down the highlight over that icon so it always shows as highlighted
-        if(!uploadSaveFiles)
-        {
-            deleteSaveFiles = false;
-            uploadSaveFiles = true;
-            HighlightUploadHover.SetActive(true);
-            HighlightUploadHover.transform.position = UploadButton.transform.position;
-            HighlightDeleteHover.SetActive(false);
-        }
-        else
-        {
-            uploadSaveFiles = false;
-            HighlightUploadHover.SetActive(false);
-        }
-        #endregion
     }
 }

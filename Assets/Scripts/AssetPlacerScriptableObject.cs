@@ -12,7 +12,7 @@ public class AssetPlacerScriptableObject : ScriptableObject
 
     [SerializeField] private AssetReference ArtefactPrefab; //AddressableReference (Assigned in Inspector)
 
-    public Texture2D[] PreviewImages = new Texture2D[4];
+    [SerializeField] private Texture2D[] PreviewImages = new Texture2D[4];
 
     public enum ArtefactPlacementType
     {
