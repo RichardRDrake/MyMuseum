@@ -67,7 +67,6 @@ public class UI_Controller : MonoBehaviour
     //The detail rotate buttons, and a list in which to contain their locations
     [SerializeField] private GameObject RotateLeft;
     [SerializeField] private GameObject RotateRight;
-    [SerializeField] private GameObject ConfirmButton;
     private List<Vector3> rotateLocationList = new List<Vector3>();
     #endregion
 
@@ -207,28 +206,14 @@ public class UI_Controller : MonoBehaviour
 
         //Pertaining to use of arrow keys to change pages in catalogue
         #region Catalogue Scrolling
-        if (Input.GetKeyDown("left"))
+        if (Input.GetKeyDown("left") && windowCurrent == windowFinder.Catalogue)
         {
-            if (windowCurrent == windowFinder.Catalogue)
-            {
-                DecrementPage();
-            }
-            else if (windowCurrent == windowFinder.Detail)
-            {
-                DetailBack();
-            }
+            DecrementPage();
         }
         
-        if(Input.GetKeyDown("right"))
+        if(Input.GetKeyDown("right") && windowCurrent == windowFinder.Catalogue)
         {
-            if (windowCurrent == windowFinder.Catalogue)
-            {
-                IncrementPage();
-            }
-            else if (windowCurrent == windowFinder.Detail)
-            {
-                DetailCycle();
-            }
+            IncrementPage();
         }
         #endregion
 
@@ -633,7 +618,6 @@ public class UI_Controller : MonoBehaviour
                 {
                     HighlightDetail.SetActive(false);
                     HighlightAccept.SetActive(true);
-                    HighlightAccept.transform.position = ConfirmButton.transform.position;
                 }
                 break;
             default:
@@ -727,7 +711,6 @@ public class UI_Controller : MonoBehaviour
                 {
                     HighlightDetail.SetActive(false);
                     HighlightAccept.SetActive(true);
-                    HighlightAccept.transform.position = ConfirmButton.transform.position;
                 }
                 break;
             default:

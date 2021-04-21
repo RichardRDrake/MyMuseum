@@ -56192,11 +56192,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0dc2cde417235dd4d9594131436967d0, type: 3}
   m_PrefabInstance: {fileID: 440223217}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1984235240 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3130083136700684617, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-  m_PrefabInstance: {fileID: 7112972797351401260}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1987533503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61726,10 +61721,6 @@ PrefabInstance:
       propertyPath: SlidersParent
       value: 
       objectReference: {fileID: 7112972797351401261}
-    - target: {fileID: 3130083135883750013, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3130083136083464490, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
       propertyPath: Camera
       value: 
@@ -61738,53 +61729,6 @@ PrefabInstance:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 876706179}
-<<<<<<< Updated upstream
-=======
-    - target: {fileID: 3130083136092301844, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: Object1
-      value: 
-      objectReference: {fileID: 93832009}
-    - target: {fileID: 3130083136092301844, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: Object2
-      value: 
-      objectReference: {fileID: 1678546217}
-    - target: {fileID: 3130083136092301844, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: Object3
-      value: 
-      objectReference: {fileID: 962707998}
-    - target: {fileID: 3130083136092301844, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: Object4
-      value: 
-      objectReference: {fileID: 97458121}
-    - target: {fileID: 3130083136092301844, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: Object5
-      value: 
-      objectReference: {fileID: 1896367654}
-    - target: {fileID: 3130083136092301844, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: Object6
-      value: 
-      objectReference: {fileID: 210010196}
-    - target: {fileID: 3130083136092301844, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: ConfirmButton
-      value: 
-      objectReference: {fileID: 1984235240}
-    - target: {fileID: 3130083136092301844, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: DetailImageField
-      value: 
-      objectReference: {fileID: 979201338}
-    - target: {fileID: 3130083136711853097, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3314908025616157919, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4236795247260463603, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
->>>>>>> Stashed changes
     - target: {fileID: 4904750417393772483, guid: 7def6129f134b5d4caed91fc3b0ef5f0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
