@@ -1,6 +1,6 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib TempA_ThickWall_02.mtl
+mtllib ThickWall_02.mtl
 g default
 v -1.000000 0.000000 0.000000
 v 0.000000 0.000000 0.000000
@@ -49,7 +49,7 @@ vn -1.000000 0.000000 0.000000
 vn -1.000000 0.000000 0.000000
 vn -1.000000 0.000000 0.000000
 s off
-g TempA_ThickWall_02
+g ThickWall_02
 usemtl lambert29SG
 f 1/11/1 2/12/2 4/13/3 3/3/4
 f 3/3/5 4/13/6 6/14/7 5/5/8
