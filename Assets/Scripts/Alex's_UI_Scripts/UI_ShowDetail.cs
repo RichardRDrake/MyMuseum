@@ -7,12 +7,9 @@ using TMPro;
 public class UI_ShowDetail : MonoBehaviour
 {
     //Gets its relevant text field, the detail panel, and the text field within
-    [SerializeField] private GameObject MyTextField;
-    [SerializeField] private GameObject DetailPanel;
-    [SerializeField] private GameObject DetailTextField;
+    [SerializeField] private GameObject MyIcon;
+    private Image iconImage;
     [SerializeField] private GameObject UIControllerHost;
-    private TextMeshProUGUI myText;
-    private TextMeshProUGUI detailText;
     private UI_Controller UI_Controller;
 
     //The number of the detail panel, from 1-6 (because the useage in UI_Controller considers 0 "null")
@@ -23,36 +20,25 @@ public class UI_ShowDetail : MonoBehaviour
     void Start()
     {
         UI_Controller = UIControllerHost.GetComponent<UI_Controller>();
-        myText = MyTextField.GetComponent<TextMeshProUGUI>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void OnPress()
     {
-        //Hides panel while resetting variables
-        DetailPanel.SetActive(false);
-        detailText = DetailTextField.GetComponent<TextMeshProUGUI>();
-
+        Debug.Log("Pressed!");
+        iconImage = MyIcon.GetComponent<Image>();
         //First, checks that this panel contains details
         //If it doesn't, clicking this does nothing.
-        if (myText.text != " ")
+        if (iconImage.sprite != null)
         {
-            detailText.text = myText.text;
-
-            //Sets correct variables in the UI controller
-            UI_Controller.windowCurrent = UI_Controller.windowFinder.Detail;
-            UI_Controller.detailCurrent = UI_Controller.detailFinder.Null;
+            UI_Controller = UIControllerHost.GetComponent<UI_Controller>();
+            //Sets the current window to "Catalogue" to allow NavigateDown to function correctly.
+            UI_Controller.windowCurrent = UI_Controller.windowFinder.Catalogue;
+            //Sets paneCurrent to the button's identifier
             UI_Controller.paneCurrent = panelNumber;
-
-            //Then prompts it to place the highlight in the correct place
+            //Then sets the highlight over this object
             UI_Controller.CataloguePaneHighlight();
-
-            DetailPanel.SetActive(true);
+            //Then prompts UI_Controller to behave as if this button was selected by keyboard command
+            UI_Controller.NavigateDown();
         }
         else
         {
