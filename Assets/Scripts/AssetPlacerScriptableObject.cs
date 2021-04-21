@@ -12,17 +12,9 @@ public class AssetPlacerScriptableObject : ScriptableObject
 
     [SerializeField] private AssetReference ArtefactPrefab; //AddressableReference (Assigned in Inspector)
 
-    public Texture2D[] PreviewImages = new Texture2D[4];
+    public Texture2D[] PreviewImages = new Texture2D[4];    
 
-    public enum ArtefactPlacementType
-    {
-        FloorGrid, //Placed on the floor grid
-        PlinthGrid,
-        WallGrid,
-        Misc        
-    }
-
-    [SerializeField] ArtefactPlacementType PlacementType = ArtefactPlacementType.Misc; //Overriden in Inspector
+    [SerializeField] private ArtefactPlacementType PlacementType = ArtefactPlacementType.Misc; //Overriden in Inspector
 
     public AssetReference GetArtefact()
     {
@@ -34,5 +26,39 @@ public class AssetPlacerScriptableObject : ScriptableObject
         }
 
         return ArtefactPrefab;
+    }
+
+    public AssetReference GetAssetReference()
+    {
+        return ArtefactPrefab;
+    }
+
+    public ArtefactPlacementType GetPlacementType()
+    {
+        return PlacementType;
+    }
+}
+
+public enum ArtefactPlacementType
+{
+    FloorGrid, //Placed on the floor grid
+    PlinthGrid,
+    WallGrid,
+    Misc
+}
+
+public class Asset
+{
+    public string Name;
+    public string AssRef;
+    public ArtefactPlacementType placementType;
+
+    public GameObject asset;
+
+    public Asset(string name, string ar, ArtefactPlacementType apt)
+    {
+        Name = name;
+        AssRef = ar;
+        placementType = apt;
     }
 }

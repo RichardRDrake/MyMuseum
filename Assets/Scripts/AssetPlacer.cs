@@ -17,7 +17,7 @@ public class AssetPlacer : MonoBehaviour
     private Camera camera;
 
     private GameObject objectToBePlaced = null;
-    private AssetPlacerScriptableObject SOref = null;
+    private Asset asset = null;
     private bool validPlacement = false;
 
     // Start is called before the first frame update
@@ -77,6 +77,7 @@ public class AssetPlacer : MonoBehaviour
         }
 
         //Confused on Addressables? Go here: https://www.youtube.com/watch?v=Zb9WchxZhvM
+        asset = new Asset(artefact.ArtefactName, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType());
 
         //The Addressable pathway to the asset (found on its scriptable object)
         AssetReference newAsset = artefact.GetArtefact();
@@ -86,7 +87,8 @@ public class AssetPlacer : MonoBehaviour
         {
             //Async functions don't finish until the next frame, so this event runs the following code once the computer's ready
             objectToBePlaced = asyncOperationHandle.Result;
-            SOref = artefact;
+            asset.asset = objectToBePlaced;
+            //SOref = artefact;
         };
 
         //Debug.Log("test");
@@ -100,7 +102,7 @@ public class AssetPlacer : MonoBehaviour
             ChangeColour(objectToBePlaced, Color.white);
 
             //Let the grid know an object has been placed on it
-            activeGrid.OnObjectPlaced(objectToBePlaced.transform.position, SOref);
+            activeGrid.OnObjectPlaced(objectToBePlaced.transform.position, asset);
 
             //if there are grids on the object, they must be (re)built here
             PlacementGrid[] childrenGrids;
@@ -114,7 +116,7 @@ public class AssetPlacer : MonoBehaviour
             }
 
             objectToBePlaced = null;
-            SOref = null;
+            asset = null;
             validPlacement = false;
         }
 
@@ -174,7 +176,7 @@ public class AssetPlacer : MonoBehaviour
         }
 
         return nearestPoint;
-    }
+    }    
 
     private void ChangeColour(GameObject target, Color newColor) //At this stage this is simple enough, but I anticipate it will get more compicated as more things are completed
     {
