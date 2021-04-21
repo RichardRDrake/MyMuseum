@@ -105,6 +105,9 @@ public class UI_MenuController : MonoBehaviour
     //Int determining which save file is currently selected
     //Begins at 0
     private int saveFileSelected;
+
+    //Records the last save file accessed, in order to upload the current room to the online repo when this option is selected
+    public int lastSaved;
     #endregion
 
     #region Confirm contents
@@ -233,6 +236,16 @@ public class UI_MenuController : MonoBehaviour
         {
             musicSlider.value = 0.8f;
             sfxSlider.value = 0.8f;
+        }
+
+        //Sets lastSaved to the value stored upon leaving the main menu
+        if (PlayerPrefs.HasKey("CurrentSave"))
+        {
+            lastSaved = PlayerPrefs.GetInt("CurrentSave");
+        }
+        else
+        {
+            Debug.Log("Failed to load room identity");
         }
         #endregion
     }
@@ -980,6 +993,7 @@ public class UI_MenuController : MonoBehaviour
                     windowCurrent = (WindowFinder)1;
                     Saves.Load(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
                     Debug.Log(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+                    lastSaved = (paneCurrent - 1) + (pageCurrent - 1) * 3;
                     DisableSubmenus();
                     Confirm.SetActive(false);
                     Main.SetActive(true);

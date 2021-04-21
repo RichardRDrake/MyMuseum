@@ -98,6 +98,9 @@ public class UI_Controller : MonoBehaviour
     //Length of Resources
     int listLength;
 
+    //Used for first-time initialisation
+    bool RoomSetup = false;
+
     //Used to determine which list to read from
     public int switchLists = 0;
 
@@ -187,6 +190,20 @@ public class UI_Controller : MonoBehaviour
         {
             Debug.LogError("no assetPlacer present in scene");
         }
+
+        //Checks whether the currently loaded scene has a loaded room prefab
+        if (PlayerPrefs.HasKey("RoomSetup"))
+        {
+            if(PlayerPrefs.GetInt("RoomSetup") == 1)
+            {
+                RoomSetup = true;
+                RoomInitialisation();
+            }
+        }
+        else
+        {
+            Debug.Log("RoomSetup not initialised when scene was loaded.");
+        }
         #endregion
     }
 
@@ -267,7 +284,11 @@ public class UI_Controller : MonoBehaviour
         HighlightMenuTop.transform.position = menuLocationList[switchLists];
 
         //Determines that it's reading from the correct Resources.readFrom
-        if (isArtefact == true)
+        if (RoomSetup == true)
+        {
+            //Resources = Wherever the room prefabs are stored.GetComponent<TempListScript>();
+        }
+        else if (isArtefact == true)
         {
             switch (switchLists)
             {
@@ -525,7 +546,14 @@ public class UI_Controller : MonoBehaviour
                         DetailBack();
                         break;
                     case 3:
-                        SendToAssetPlacer();
+                        if (RoomSetup == false)
+                        {
+                            SendToAssetPlacer();
+                        }
+                        else
+                        {
+                            //Places the new room
+                        }
                         break;
                     default:
                         break;
@@ -552,10 +580,13 @@ public class UI_Controller : MonoBehaviour
                     windowCurrent = (windowFinder)windowInt;
                     break;
                 case 2:
-                    AssetRepository.SetActive(false);
-                    paneCurrent = 0;
-                    HighlightCatalogue.SetActive(false);
-                    windowCurrent = (windowFinder)windowInt;
+                    if (RoomSetup == false)
+                    {
+                        AssetRepository.SetActive(false);
+                        paneCurrent = 0;
+                        HighlightCatalogue.SetActive(false);
+                        windowCurrent = (windowFinder)windowInt;
+                    }
                     break;
                 case 3:
                     DetailPanel.SetActive(false);
@@ -788,6 +819,7 @@ public class UI_Controller : MonoBehaviour
         windowCurrent = windowFinder.Menu_Top;
         topCurrent = topFinder.Null;
         MainMenu.SetActive(false);
+        RoomSetup = false;
         #endregion
     }
 
@@ -838,5 +870,14 @@ public class UI_Controller : MonoBehaviour
 
         detailImage.sprite = Sprite.Create(Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter], new Rect(0.0f, 0.0f, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].width, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].height), new Vector2(0.0f, 0.0f));
         #endregion
+    }
+
+    private void RoomInitialisation()
+    {
+        //Room initialisation needs to read the object containing serialised room prefabs.
+        //These must be serialised in the same list structure as artefacts
+        //And include Texture2D details in similar form to artefacts
+
+        //MenuSetup();
     }
 }

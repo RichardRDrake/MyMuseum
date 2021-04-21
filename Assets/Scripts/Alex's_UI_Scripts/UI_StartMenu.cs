@@ -9,6 +9,7 @@ public class UI_StartMenu : MonoBehaviour
 {
     //Script controlling inputs on the start menu
     //Should be very familiar to anyone who's seen UI_Controller or UI_MenuController, as the latter has very similar functionality
+    #region Initialising variables
     #region Menus
     [SerializeField] private GameObject MenuMain;
     [SerializeField] private GameObject MenuOptions;
@@ -33,6 +34,9 @@ public class UI_StartMenu : MonoBehaviour
 
     //Script managing save files
     private Level saves;
+
+    //The last accessed save's position in saves.savesList
+    public int lastSaved;
 
     //Integers determining page count
     private int listLength;
@@ -153,6 +157,7 @@ public class UI_StartMenu : MonoBehaviour
     #endregion
 
     private MainMenu sceneNavigation;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -939,6 +944,12 @@ public class UI_StartMenu : MonoBehaviour
         else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Create new room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Create new room")
         {
             //If this is selected, the player is attempting to create a new save
+            //The player will need to load an initial room template.
+            PlayerPrefs.SetInt("RoomSetup", 1);
+
+            //The player will need to record the list position of the save file, and write to PlayerPrefs
+            PlayerPrefs.SetInt("CurrentSave", lastSaved);
+            //Commented out for now
         }
         else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Download room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Download new room")
         {
@@ -950,6 +961,25 @@ public class UI_StartMenu : MonoBehaviour
             if(deleteSaveFiles)
             {
                 //Or attempting to delete one
+            }
+            else if(uploadSaveFiles)
+            {
+                //Or uploading one to the online repo
+            }
+            else
+            {
+                //Vanilla loading
+                PlayerPrefs.SetInt("RoomSetup", 0);
+
+                if (isEditable)
+                {
+                    //The edit mode has an additional entry in the save file lists
+                    PlayerPrefs.SetInt("CurrentSave", (paneCurrent - 3) + (pageCurrent - 1) * 3);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("CurrentSave", (paneCurrent - 2) + (pageCurrent - 1) * 3);
+                }
             }
         }
         #endregion
