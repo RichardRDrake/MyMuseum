@@ -68,6 +68,7 @@ public class UI_Controller : MonoBehaviour
     //The detail rotate buttons, and a list in which to contain their locations
     [SerializeField] private GameObject RotateLeft;
     [SerializeField] private GameObject RotateRight;
+    [SerializeField] private GameObject ConfirmButton;
     private List<Vector3> rotateLocationList = new List<Vector3>();
     #endregion
 
@@ -208,27 +209,41 @@ public class UI_Controller : MonoBehaviour
 
         //Pertaining to use of arrow keys to change pages in catalogue
         #region Catalogue Scrolling
-        if (Input.GetKeyDown("left") && windowCurrent == windowFinder.Catalogue)
+        if (Input.GetKeyDown("left"))
         {
-            DecrementPage();
+            if (windowCurrent == windowFinder.Catalogue)
+            {
+                DecrementPage();
+            }
+            else if (windowCurrent == windowFinder.Detail)
+            {
+                DetailBack();
+            }
         }
         
-        if(Input.GetKeyDown("right") && windowCurrent == windowFinder.Catalogue)
+        if(Input.GetKeyDown("right"))
         {
-            IncrementPage();
+            if (windowCurrent == windowFinder.Catalogue)
+            {
+                IncrementPage();
+            }
+            else if (windowCurrent == windowFinder.Detail)
+            {
+                DetailCycle();
+            }
         }
         #endregion
 
         //Determines what to do if the player hits tab or down
         if(Input.GetKeyDown("tab") || Input.GetKeyDown("down"))
         {
-            CycleThroughCatalogue();
+            CycleThrough();
         }
 
         //Determines what to do if the player hits left
         if(Input.GetKeyDown("up"))
         {
-            CycleBackCatalogue();
+            CycleBack();
         }
 
         //Determines what to do if the player hits enter or space
@@ -432,7 +447,7 @@ public class UI_Controller : MonoBehaviour
         detailCurrent = detailFinder.Null;
     }
 
-    private void NavigateDown()
+    public void NavigateDown()
     {
         //Goes an additional level down the menu hierarchy
         #region Down Hierarchy
@@ -461,8 +476,8 @@ public class UI_Controller : MonoBehaviour
                         SwitchToMain();
                         break;
                     case 6:
-                        //This should refer to the camera controller
-                        //camController.yourcodehere();
+                        camController.switchToFirstPerson();
+                        HighlightFirst.SetActive(false);
                         break;
                 }
                 break;
@@ -561,7 +576,7 @@ public class UI_Controller : MonoBehaviour
         #endregion
     }
 
-    private void CycleThroughCatalogue()
+    private void CycleThrough()
     {
         //Cycles forward through options in the currently displayed window
         #region Forward Cycle
@@ -640,6 +655,7 @@ public class UI_Controller : MonoBehaviour
                 {
                     HighlightDetail.SetActive(false);
                     HighlightAccept.SetActive(true);
+                    HighlightAccept.transform.position = ConfirmButton.transform.position;
                 }
                 break;
             default:
@@ -648,7 +664,7 @@ public class UI_Controller : MonoBehaviour
         #endregion
     }
 
-    private void CycleBackCatalogue()
+    private void CycleBack()
     {
         //Cycles backward through options in the currently displayed window
         #region Backward Cycle
@@ -734,6 +750,7 @@ public class UI_Controller : MonoBehaviour
                 {
                     HighlightDetail.SetActive(false);
                     HighlightAccept.SetActive(true);
+                    HighlightAccept.transform.position = ConfirmButton.transform.position;
                 }
                 break;
             default:

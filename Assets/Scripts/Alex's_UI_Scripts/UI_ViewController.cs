@@ -25,6 +25,7 @@ public class UI_ViewController : MonoBehaviour
         {
             MainMenu.SetActive(true);
             CamController.canHotkey = false;
+            Cursor.visible = true;
         }
     }
 

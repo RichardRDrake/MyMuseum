@@ -75,12 +75,14 @@ public class CamController : MonoBehaviour
         {
             UiView.SetActive(false);
             UiBuild.SetActive(true);
+            Cursor.visible = true;
             UI_MenuController.buildMode = true;
         }
         else
         {
             UiView.SetActive(true);
             UiBuild.SetActive(false);
+            Cursor.visible = false;
             UI_MenuController.buildMode = false;
         }
         UiMain.SetActive(false);
