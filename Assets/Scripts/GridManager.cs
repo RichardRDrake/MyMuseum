@@ -84,6 +84,24 @@ public class GridManager : MonoBehaviour
 
         return closestPos;
     }
+
+    public int GetGridCount()
+    {
+        return GridList.Count;
+    }
+
+    public PlacementGrid GetGrid(int i)
+    {
+        return GridList[i];
+    }
+
+    public void ClearGrids()
+    {
+        foreach (PlacementGrid grid in GridList)
+        {
+            grid.ClearGrid();
+        }
+    }
 } // TODO
 
 //Assign active grid somewhere
