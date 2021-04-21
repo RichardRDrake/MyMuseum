@@ -23,7 +23,7 @@ public class UI_MenuController : MonoBehaviour
 
     //Object with saves
     [SerializeField] private GameObject SaveObject;
-    private SaveLoadRoom Saves;
+    private Level Saves;
 
     //Menu main display
     [SerializeField] private GameObject Main;
@@ -177,10 +177,10 @@ public class UI_MenuController : MonoBehaviour
         UI_Controller = BuildMenu.GetComponent<UI_Controller>();
         UI_ViewController = ViewMenu.GetComponent<UI_ViewController>();
         CamController = Camera.GetComponent<CamController>();
-        Saves = SaveObject.GetComponent<SaveLoadRoom>();
+        Saves = SaveObject.GetComponent<Level>();
         if(Saves != null)
         {
-             Debug.Log(Saves.savesList.Count);
+             Debug.Log(Saves.SavesList.Count);
         }
         else 
         {
@@ -392,7 +392,6 @@ public class UI_MenuController : MonoBehaviour
             else
             {
                 ViewMenu.SetActive(true);
-                Cursor.visible = false;
                 UI_ViewController.DisableMain();
             }
             CamController.canHotkey = true;
@@ -595,7 +594,7 @@ public class UI_MenuController : MonoBehaviour
 
         //Creates a total list length based on number of existing saves
         //Includes all full pages, plus a page for the remainder
-        listLength = Saves.savesList.Count + 1;
+        listLength = Saves.SavesList.Count + 1;
         pageCount = listLength / 3;
         if (listLength % 3 > 0)
         {
@@ -658,8 +657,8 @@ public class UI_MenuController : MonoBehaviour
                     //Debug.Log(SaveTitle1);
                     //Debug.Log(saveTexts);
                     //Debug.Log(saveTexts[0]);
-                    saveTexts[i].text = Saves.savesList[((pageCurrent - 1) * 3) + i];
-                    //saveDates[i].text = Saves.DatesList[((pageCurrent - 1) * 3) + i]; TEMP IGNORING DATES
+                    saveTexts[i].text = Saves.SavesList[((pageCurrent - 1) * 3) + i];
+                    saveDates[i].text = Saves.DatesList[((pageCurrent - 1) * 3) + i];
                     saveNews[i].text = " ";
                 }
                 paneCurrent = 0;
@@ -685,8 +684,8 @@ public class UI_MenuController : MonoBehaviour
                     //Debug.Log(SaveTitle1);
                     //Debug.Log(saveTexts);
                     //Debug.Log(saveTexts[0]);
-                    saveTexts[i].text = Saves.savesList[i];
-                    //saveDates[i].text = Saves.DatesList[i];       TEMP IGNORING DATES
+                    saveTexts[i].text = Saves.SavesList[i];
+                    saveDates[i].text = Saves.DatesList[i];
                     saveNews[i].text = " ";
                 }
                 paneCurrent = 0;
@@ -958,7 +957,7 @@ public class UI_MenuController : MonoBehaviour
                 {
                     Debug.Log(saveFileSelected);
                     windowCurrent = (WindowFinder)1;
-                    Saves.Save(inputField.text);
+                    Saves.SaveNewLevel(inputField.text);
                     DisableSubmenus();
                     Confirm.SetActive(false);
                     Main.SetActive(true);
@@ -978,7 +977,7 @@ public class UI_MenuController : MonoBehaviour
                     Debug.Log(paneCurrent);
                     Debug.Log(paneCurrent - 1 + (pageCurrent - 1) * 3);
                     windowCurrent = (WindowFinder)1;
-                    Saves.Load(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+                    Saves.LoadNewLevel(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
                     Debug.Log(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
                     DisableSubmenus();
                     Confirm.SetActive(false);

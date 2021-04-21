@@ -24,7 +24,7 @@ public class PlacementGrid : MonoBehaviour
     public float offsetZ;
 
     // The Grid
-    public GridPosition[,,] gridPositions;
+    private GridPosition[,,] gridPositions;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +72,7 @@ public class PlacementGrid : MonoBehaviour
         gridPositions = new GridPosition[xCount, yCount, zCount];
 
         Vector3 GridObjectPosition = transform.position;
-        //Debug.Log(GridObjectPosition);
+        Debug.Log(GridObjectPosition);
 
         //For each position on the grid, assign a gridPosition for it [WARNING - THIS IS A DECEPTIVELY MASSIVE FOR-LOOP]
         for (int x = 0; x < xCount; x++)
@@ -145,24 +145,12 @@ public class PlacementGrid : MonoBehaviour
         //We return the whole GridPosition because some functions care about if the point is occupied, but future functions may not.
     }
 
-    public void OnObjectPlaced(Vector3 placedAt, Asset placedObject)
+    public void OnObjectPlaced(Vector3 placedAt, AssetPlacerScriptableObject placedObject)
     {
         //Object has been placed at given position on grid.
         //The actual object doesn matter, so I'm going to pass the Scriptable objec reference, since that can be cached easier
         //Find point and set it to occupied
         GetNearestPointOnGrid(placedAt).gridPosition.occupied = placedObject;
-    }
-
-    public void ClearGrid()
-    {
-        foreach (GridPosition point in gridPositions)
-        {
-            if (point.occupied != null)
-            {
-                Destroy(point.occupied.asset);
-                point.occupied = null;
-            }            
-        }
     }
 
     private void OnDrawGizmos()
@@ -193,7 +181,7 @@ public class GridPosition
 {
     // Small container class to hold data on a grid position
     public Vector3 position { get; private set; }
-    public Asset occupied = null;
+    public AssetPlacerScriptableObject occupied = null;
 
     public GridPosition(Vector3 _position)
     {

@@ -2673,18 +2673,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - 12
+  - 11
+  - 10
+  - 9
+  - 8
+  - 7
+  - 6
+  - 5
+  - 4
+  - 3
+  - 2
+  - 1
 --- !u!114 &195262055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2697,6 +2697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  writeTo: []
   MenuNumber: 1
   Controller: {fileID: 1513523209}
 --- !u!114 &195262056
@@ -4957,14 +4958,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - Mercury
+  - Venus
+  - Earth
+  - Mars
+  - Jupiter
+  - Saturn
+  - Uranus
+  - Neptune
 --- !u!114 &556012773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4977,6 +4978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  writeTo: []
   MenuNumber: 0
   Controller: {fileID: 1513523209}
 --- !u!114 &556012774
@@ -5131,6 +5133,9 @@ MonoBehaviour:
   gridManager: {fileID: 0}
   activeGrid: {fileID: 0}
   cameraObj: {fileID: 1979519983}
+  exampleObject_1: {fileID: 2875126943764973093, guid: c9d2ba9d2b94f9e4b82c28ce7f0271f7, type: 3}
+  exampleObject_2: {fileID: 6289632936873538494, guid: 60f3941eb96e809459474fbaf5377c8e, type: 3}
+  exampleObject_3: {fileID: 8771277248276906005, guid: 853dbf9c3b3378b4a81798268cc3b374, type: 3}
 --- !u!1 &580585555
 GameObject:
   m_ObjectHideFlags: 0
@@ -6463,12 +6468,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7271cdd0cc8a9f4cb91fd08c2b05ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam1: {fileID: 895985101}
+  cam2: {fileID: 1552032560}
   UiBuild: {fileID: 1513523209}
   UiView: {fileID: 1572631347}
   UiMain: {fileID: 700762210}
-  canHotkey: 1
-  horSensitivity: 1
-  verSensitivity: 1
 --- !u!1 &684483188
 GameObject:
   m_ObjectHideFlags: 0
@@ -6626,7 +6630,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuildMenu: {fileID: 1513523209}
   ViewMenu: {fileID: 1572631347}
-  Camera: {fileID: 0}
   buildMode: 1
   SaveObject: {fileID: 608260614}
   Main: {fileID: 2021647861}
@@ -6661,12 +6664,9 @@ MonoBehaviour:
   Confirm: {fileID: 758040419}
   ConfirmField: {fileID: 1573304934}
   YesButton: {fileID: 322835845}
-  YesChild: {fileID: 0}
   NoButton: {fileID: 626144514}
   HighlightConfirm: {fileID: 1615251514}
   HighlightConfirmHover: {fileID: 2032996438}
-  InputObject: {fileID: 0}
-  SlidersParent: {fileID: 0}
   HighlightOptionsMusic: {fileID: 1049506810}
   HighlightOptionsMusicHover: {fileID: 1836900540}
   HighlightOptionsSfx: {fileID: 111607051}
@@ -7188,13 +7188,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - 7
+  - 6
+  - 5
+  - 4
+  - 3
+  - 2
+  - 1
 --- !u!114 &718948232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7207,6 +7207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  writeTo: []
   MenuNumber: 3
   Controller: {fileID: 1513523209}
 --- !u!114 &718948233
@@ -8843,7 +8844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &895985102
 Transform:
   m_ObjectHideFlags: 0
@@ -8905,6 +8906,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fcdcfad22f0784c9d27044922896ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horSensitivity: 1
+  verSensitivity: 1
 --- !u!81 &977966560
 AudioListener:
   m_ObjectHideFlags: 0
@@ -9696,26 +9699,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - 20
+  - 19
+  - 18
+  - 17
+  - 16
+  - 15
+  - 14
+  - 13
+  - 12
+  - 11
+  - 10
+  - 9
+  - 8
+  - 7
+  - 6
+  - 5
+  - 4
+  - 3
+  - 2
+  - 1
 --- !u!114 &1040286359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9728,6 +9731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  writeTo: []
   MenuNumber: 0
   Controller: {fileID: 1513523209}
 --- !u!114 &1040286360
@@ -11330,7 +11334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1200062199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13679,7 +13683,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1455996981}
   - component: {fileID: 1455996980}
-  - component: {fileID: 1455996982}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -13694,20 +13697,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455996979}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c31c052f30be92468765c873a81b2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SavesList: []
-  DatesList: []
-  objects: []
-  objPositionList: []
-  objRotationList: []
-  objNameList: []
-  objTextDesc: []
-  name: 
-  date: 21/04/2021
+  placeholder: 5
 --- !u!4 &1455996981
 Transform:
   m_ObjectHideFlags: 0
@@ -13722,22 +13717,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1455996982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455996979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 522289abd60a53741bbc8a5ec7edcec6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  savedRoom:
-    m_AssetGUID: d94b37ac3c9111a40bcd3a9305f8ba0b
-    m_SubObjectName: 
-    m_SubObjectType: 
 --- !u!1 &1459484524
 GameObject:
   m_ObjectHideFlags: 0
@@ -13866,15 +13845,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - Dasher
+  - Dancer
+  - Prancer
+  - Vixen
+  - Comet
+  - Cupid
+  - Donner
+  - Blitzen
+  - Rudolph
 --- !u!114 &1459484530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13887,6 +13866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  writeTo: []
   MenuNumber: 2
   Controller: {fileID: 1513523209}
 --- !u!114 &1459484531
@@ -14295,9 +14275,7 @@ MonoBehaviour:
   BuildCategories: {fileID: 1984689157}
   AssetRepository: {fileID: 1661065485}
   DetailPanel: {fileID: 1675597191}
-  DetailImageField: {fileID: 0}
-  Camera: {fileID: 0}
-  assetPlacer: {fileID: 0}
+  DetailTextField: {fileID: 611366880}
   FloorBased: {fileID: 556012768}
   FloorOrWall: {fileID: 1974853761}
   Small: {fileID: 1459484524}
@@ -14321,7 +14299,6 @@ MonoBehaviour:
   HighlightCatalogue: {fileID: 1774465948}
   HighlightDetail: {fileID: 2111806913}
   HighlightAccept: {fileID: 2034949147}
-  HighlightFirst: {fileID: 0}
   HighlightMenuTopHover: {fileID: 1190306841}
   HighlightCatalogueHover: {fileID: 989188071}
   switchLists: 0
@@ -14911,7 +14888,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainMenu: {fileID: 700762210}
-  Camera: {fileID: 0}
 --- !u!224 &1572631349
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17327,15 +17303,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - 9
+  - 8
+  - 7
+  - 6
+  - 5
+  - 4
+  - 3
+  - 2
+  - 1
 --- !u!114 &1888836384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17348,6 +17324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  writeTo: []
   MenuNumber: 2
   Controller: {fileID: 1513523209}
 --- !u!114 &1888836385
@@ -17939,21 +17916,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - 15
+  - 14
+  - 13
+  - 12
+  - 11
+  - 10
+  - 9
+  - 8
+  - 7
+  - 6
+  - 5
+  - 4
+  - 3
+  - 2
+  - 1
 --- !u!114 &1974853766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17966,6 +17943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  writeTo: []
   MenuNumber: 1
   Controller: {fileID: 1513523209}
 --- !u!114 &1974853767
@@ -19884,13 +19862,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - Happy
+  - Bashful
+  - Grumpy
+  - Sneezy
+  - Sleepy
+  - Dopey
+  - Doc
 --- !u!114 &2140868169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19903,6 +19881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507d3f5a86c47e428830652d2e336ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  writeTo: []
   MenuNumber: 3
   Controller: {fileID: 1513523209}
 --- !u!114 &2140868170
@@ -20248,10 +20227,6 @@ PrefabInstance:
     - target: {fileID: 8025808728030328071, guid: 6b7a5b26edcd4ad4fa98c1952d26d725, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8025808728030328071, guid: 6b7a5b26edcd4ad4fa98c1952d26d725, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b7a5b26edcd4ad4fa98c1952d26d725, type: 3}
