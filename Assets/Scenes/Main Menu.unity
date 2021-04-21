@@ -399,7 +399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &165861375
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2874,7 +2874,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 323468563}
           m_TargetAssemblyTypeName: UI_StartMenu, Assembly-CSharp
-          m_MethodName: RemoveHover
+          m_MethodName: RemoveDeleteHover
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
