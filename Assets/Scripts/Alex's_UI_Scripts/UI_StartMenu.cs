@@ -280,7 +280,7 @@ public class UI_StartMenu : MonoBehaviour
         #endregion
     }
 
-    #region catalogue page voids
+    #region Catalogue scrolling
     public void IncrementPage()
     {
         pageCurrent = Mathf.Clamp(pageCurrent++, 1, pageCount);
@@ -302,6 +302,7 @@ public class UI_StartMenu : MonoBehaviour
     }
     #endregion
 
+    #region Menu navigation
     public void NavigateUp()
     {
         #region Move up the hierarchy
@@ -310,12 +311,13 @@ public class UI_StartMenu : MonoBehaviour
         switch (windowInt)
         {
             case 1:
-                //if the player is on the main menu, brings up the quit game popup
+                #region if the player is on the main menu, brings up the quit game popup
                 isLoading = false;
                 DisplayConfirmation();
                 break;
+                #endregion
             case 2:
-                //If the player is in a load menu, returns them to the main menu
+                #region If the player is in a load menu, returns them to the main menu
                 DisableHovers();
                 windowCurrent = WindowFinder.MenuTop;
                 mainCurrent = MainFinder.Null;
@@ -324,8 +326,9 @@ public class UI_StartMenu : MonoBehaviour
                 LoadRoom.SetActive(false);
                 isLoading = false;
                 break;
+                #endregion
             case 3:
-                //If the player is in the options menu, returns them to the main menu
+                #region If the player is in the options menu, returns them to the main menu
                 //after saving the data in the options sliders to PlayerPrefs
                 uiOptions = SlidersParent.GetComponent<UI_Options>();
                 PlayerPrefs.SetFloat("BGM", uiOptions.musicVolume);
@@ -338,8 +341,9 @@ public class UI_StartMenu : MonoBehaviour
                 MenuMain.SetActive(true);
                 MenuOptions.SetActive(false);
                 break;
+                #endregion
             case 4:
-                //If the player is in a confirm menu
+                #region If the player is in a confirm menu
                 //derermines where the confirm menu is, then reverts to the prior menu
                 if (isLoading == false)
                 {
@@ -354,8 +358,9 @@ public class UI_StartMenu : MonoBehaviour
                 HighlightConfirmHover.SetActive(false);
                 Confirm.SetActive(false);
                 break;
+                #endregion
         }
-        #endregion
+    #endregion
     }
 
     public void NavigateDown()
@@ -366,7 +371,7 @@ public class UI_StartMenu : MonoBehaviour
         switch (windowInt)
         {
             case 1:
-                //navigates to other menus from the top level menu
+                #region navigates to other menus from the top level menu
                 int mainInt = (int)mainCurrent;
                 switch (mainInt)
                 {
@@ -387,7 +392,9 @@ public class UI_StartMenu : MonoBehaviour
                         break;
                 }
                 break;
+                #endregion
             case 2:
+                #region nagivates to other menus from the load menus
                 if (paneCurrent < 4)
                 {
                     DisplayConfirmation();
@@ -408,15 +415,18 @@ public class UI_StartMenu : MonoBehaviour
                     }
                 }
                 break;
+                #endregion
             case 3:
-                //Navigates back to the main menu from the options menu
+                #region navigates back to the main menu from the options menu
                 int optionsInt = (int)optionsCurrent;
                 if(optionsInt == 3)
                 {
                     NavigateUp();
                 }
                 break;
+                #endregion
             case 4:
+                #region navigates from the confirmation popup
                 int confirmInt = (int)confirmCurrent;
                 if(confirmInt == 1)
                 //checks whether the confirm menu is being accessed from the main or load menus
@@ -430,10 +440,10 @@ public class UI_StartMenu : MonoBehaviour
                     NavigateUp();
                 }
                 break;
+                #endregion
         }
         #endregion
     }
-
     public void CycleThrough()
     {
         #region Cycles through options on a given page
@@ -447,11 +457,11 @@ public class UI_StartMenu : MonoBehaviour
                 //sets the highlight over the current target
                 int mainInt = (int)mainCurrent;
                 mainInt++;
-                if(mainInt > 4)
+                if (mainInt > 4)
                 {
                     mainInt = 1;
                 }
-                if(mainInt > 2)
+                if (mainInt > 2)
                 {
                     HighlightTop1.transform.position = MainLocations[mainInt - 1];
                     HighlightTop1.SetActive(true);
@@ -465,7 +475,7 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 mainCurrent = (MainFinder)mainInt;
                 break;
-            #endregion
+                #endregion
             case 2:
                 #region load menu cycling
                 //Cycles through available options in the load menu
@@ -507,7 +517,7 @@ public class UI_StartMenu : MonoBehaviour
                             HighlightSaveBack.transform.position = SaveBack.transform.position;
                             break;
                         case 5:
-                            Debug.Log("Set paneCurrent to " + paneCurrent );
+                            Debug.Log("Set paneCurrent to " + paneCurrent);
                             HighlightDelete.SetActive(true);
                             HighlightDelete.transform.position = UploadButton.transform.position;
                             break;
@@ -518,24 +528,24 @@ public class UI_StartMenu : MonoBehaviour
                     }
                 }
                 break;
-            #endregion
+                #endregion
             case 3:
                 #region options menu cycling
                 //Cycles through available options in the options menu
                 //sets the highlight over the current target
                 int optionsInt = (int)optionsCurrent;
                 optionsInt++;
-                if(optionsInt > 3)
+                if (optionsInt > 3)
                 {
                     optionsInt = 1;
                 }
-                if(optionsInt == 1)
+                if (optionsInt == 1)
                 {
                     HighlightOptionsSlider.transform.position = MusicSliderObject.transform.position;
                     HighlightOptionsSlider.SetActive(true);
                     HighlightOptionsBack.SetActive(false);
                 }
-                else if(optionsInt == 2)
+                else if (optionsInt == 2)
                 {
                     HighlightOptionsSlider.transform.position = SfxSliderObject.transform.position;
                     HighlightOptionsSlider.SetActive(true);
@@ -549,18 +559,18 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 optionsCurrent = (OptionsFinder)optionsInt;
                 break;
-            #endregion
+                #endregion
             case 4:
                 #region confirm popup cycling
                 //Cycles through available options in the confirm menu
                 //sets the highlight over the current target
                 int confirmInt = (int)confirmCurrent;
                 confirmInt++;
-                if(confirmInt > 2)
+                if (confirmInt > 2)
                 {
                     confirmInt = 1;
                 }
-                if(confirmInt == 1)
+                if (confirmInt == 1)
                 {
                     HighlightConfirm.transform.position = ConfirmButton.transform.position;
                     HighlightConfirm.SetActive(true);
@@ -590,11 +600,11 @@ public class UI_StartMenu : MonoBehaviour
                 //sets the highlight over the current target
                 int mainInt = (int)mainCurrent;
                 mainInt--;
-                if(mainInt < 1)
+                if (mainInt < 1)
                 {
                     mainInt = 4;
                 }
-                if(mainInt > 3)
+                if (mainInt > 3)
                 {
                     HighlightTop1.transform.position = MainLocations[mainInt - 1];
                     HighlightTop1.SetActive(true);
@@ -608,13 +618,13 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 mainCurrent = (MainFinder)mainInt;
                 break;
-            #endregion
+                #endregion
             case 2:
                 #region load menu cycling
                 //Cycles backwards through available options in the load menu
                 //sets highlight over the current target
                 paneCurrent--;
-                if(paneCurrent < 1)
+                if (paneCurrent < 1)
                 {
                     paneCurrent = 6;
                 }
@@ -646,14 +656,14 @@ public class UI_StartMenu : MonoBehaviour
                 HighlightSaveBack.SetActive(false);
                 HighlightDelete.SetActive(false);
 
-                if(paneCurrent < 4)
+                if (paneCurrent < 4)
                 {
                     HighlightSave.SetActive(true);
                     HighlightSave.transform.position = SaveLoadLocations[paneCurrent - 1];
                 }
                 else
                 {
-                    switch(paneCurrent)
+                    switch (paneCurrent)
                     {
                         case 4:
                             HighlightSaveBack.SetActive(true);
@@ -671,14 +681,14 @@ public class UI_StartMenu : MonoBehaviour
                 }
 
                 break;
-            #endregion
+                #endregion
             case 3:
                 #region options menu cycling
                 //Cycles backwards through available options in the options menu
                 //sets the highlight over the current target
                 int optionsInt = (int)optionsCurrent;
                 optionsInt--;
-                if(optionsInt < 1)
+                if (optionsInt < 1)
                 {
                     optionsInt = 3;
                 }
@@ -702,18 +712,18 @@ public class UI_StartMenu : MonoBehaviour
                 }
                 optionsCurrent = (OptionsFinder)optionsInt;
                 break;
-            #endregion
+                #endregion
             case 4:
                 #region confirm popup cycling
                 //Cycles backwards through available options in the confirm menu
                 //sets the highlight over the current target
                 int confirmInt = (int)mainCurrent;
                 confirmInt--;
-                if(confirmInt < 1)
+                if (confirmInt < 1)
                 {
                     confirmInt = 2;
                 }
-                if(confirmInt == 1)
+                if (confirmInt == 1)
                 {
                     HighlightConfirm.transform.position = ConfirmButton.transform.position;
                     HighlightConfirm.SetActive(true);
@@ -729,89 +739,9 @@ public class UI_StartMenu : MonoBehaviour
         }
         #endregion
     }
+    #endregion
 
-
-    public void MenuSetup()
-    {
-        #region Determines the data displayed in the load game menus
-
-        //Hides display while loading menus
-        MenuMain.SetActive(false);
-        LoadRoom.SetActive(true);
-        windowCurrent = WindowFinder.MenuLoad;
-
-        //Creates a total list length based on number of existing saves (plus 1)
-        //Includes all full pages, plus a page for the remainder
-        listLength = saves.SavesList.Count + 2;
-        pageCount = listLength / 3;
-        if (listLength % 3 > 0)
-        {
-            pageCount++;
-        }
-
-
-        //Makes sure there is always one page
-        if (listLength == 0)
-        {
-            pageCount = 1;
-        }
-
-        pageCurrent = 1;
-        DisplayPageDetails();
-
-        ObjectsHide.SetActive(true);
-        #endregion
-    }
-
-    private void DisplayPageDetails()
-    {
-        //Displays save data read from the save file list
-        #region display save data per page
-        countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
-
-        for (int i = 0; i <= 2; i++)
-        {
-            if (((pageCurrent - 1) * 3) + i == listLength - 2)
-            {
-                //Populates the second-last entry on the list with the option to download a room from an online repository
-                saveTexts[i].text = "Download room";
-                saveDates[i].text = " ";
-                saveNews[i].text = " ";
-            }
-            else if (((pageCurrent - 1) * 3) + i > (listLength - 2))
-            {
-                //Populates the last entry on the list in edit mode with the option to create a new save
-                if (((pageCurrent - 1) * 3) + i == (listLength - 1) && isEditable == true)
-                {
-                    saveTexts[i].text = "Create new room";
-                    saveDates[i].text = "--/--/----";
-                    saveNews[i].text = " ";
-                }
-                else
-                {
-                    //Debug.Log("Empty save");
-                    saveTexts[i].text = "NO DATA";
-                    saveDates[i].text = "--/--/----";
-                    saveNews[i].text = " ";
-                }
-            }
-            else
-            {
-                //Debug.Log("Existing save");
-                //Debug.Log(SaveTitle1);
-                //Debug.Log(saveTexts);
-                //Debug.Log(saveTexts[0]);
-                saveTexts[i].text = saves.SavesList[((pageCurrent - 1) * 3) + i];
-                saveDates[i].text = saves.DatesList[((pageCurrent - 1) * 3) + i];
-                saveNews[i].text = " ";
-            }
-            paneCurrent = 0;
-
-        }
-        #endregion
-    }
-
-    #region Button voids
+    #region Voids performing tasks associated with specific UI buttons
 
     public void LoadView()
     {
@@ -985,6 +915,129 @@ public class UI_StartMenu : MonoBehaviour
         #endregion
     }
 
+    public void SetToDelete()
+    {
+        #region Sets the save files to a delete-able state. Also, locks down the highlight over that icon so it always shows as highlighted
+        if (!deleteSaveFiles)
+        {
+            deleteSaveFiles = true;
+            uploadSaveFiles = false;
+            HighlightDeleteHover.SetActive(true);
+            HighlightDeleteHover.transform.position = DeleteButton.transform.position;
+            HighlightUploadHover.SetActive(false);
+        }
+        else
+        {
+            deleteSaveFiles = false;
+            HighlightDeleteHover.SetActive(false);
+        }
+        #endregion
+    }
+
+    public void SetToUpload()
+    {
+        #region Sets the save files to an uploadable state. Also, locks down the highlight over that icon so it always shows as highlighted
+        if (!uploadSaveFiles)
+        {
+            deleteSaveFiles = false;
+            uploadSaveFiles = true;
+            HighlightUploadHover.SetActive(true);
+            HighlightUploadHover.transform.position = UploadButton.transform.position;
+            HighlightDeleteHover.SetActive(false);
+        }
+        else
+        {
+            uploadSaveFiles = false;
+            HighlightUploadHover.SetActive(false);
+        }
+        #endregion
+    }
+
+    #endregion
+
+    #region Catalogue voids
+    public void MenuSetup()
+    {
+        #region Determines the data displayed in the load game menus
+
+        //Hides display while loading menus
+        MenuMain.SetActive(false);
+        LoadRoom.SetActive(true);
+        windowCurrent = WindowFinder.MenuLoad;
+
+        //Creates a total list length based on number of existing saves (plus 1)
+        //Includes all full pages, plus a page for the remainder
+        listLength = saves.SavesList.Count + 2;
+        pageCount = listLength / 3;
+        if (listLength % 3 > 0)
+        {
+            pageCount++;
+        }
+
+
+        //Makes sure there is always one page
+        if (listLength == 0)
+        {
+            pageCount = 1;
+        }
+
+        pageCurrent = 1;
+        DisplayPageDetails();
+
+        ObjectsHide.SetActive(true);
+        #endregion
+    }
+
+    private void DisplayPageDetails()
+    {
+        #region Displays save data read from the save file list
+        countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
+
+        for (int i = 0; i <= 2; i++)
+        {
+            if (((pageCurrent - 1) * 3) + i == listLength - 2)
+            {
+                #region Populates the second-last entry on the list with the option to download a room from an online repository
+                saveTexts[i].text = "Download room";
+                saveDates[i].text = " ";
+                saveNews[i].text = " ";
+                #endregion
+            }
+            else if (((pageCurrent - 1) * 3) + i > (listLength - 2))
+            {
+                #region Populates the last entry on the list in edit mode with the option to create a new save
+                if (((pageCurrent - 1) * 3) + i == (listLength - 1) && isEditable == true)
+                {
+                    saveTexts[i].text = "Create new room";
+                    saveDates[i].text = "--/--/----";
+                    saveNews[i].text = " ";
+                }
+                else
+                {
+                    //Debug.Log("Empty save");
+                    saveTexts[i].text = "NO DATA";
+                    saveDates[i].text = "--/--/----";
+                    saveNews[i].text = " ";
+                }
+                #endregion
+            }
+            else
+            {
+                #region Displays existing save files
+                //Debug.Log("Existing save");
+                //Debug.Log(SaveTitle1);
+                //Debug.Log(saveTexts);
+                //Debug.Log(saveTexts[0]);
+                saveTexts[i].text = saves.SavesList[((pageCurrent - 1) * 3) + i];
+                saveDates[i].text = saves.DatesList[((pageCurrent - 1) * 3) + i];
+                saveNews[i].text = " ";
+                #endregion
+            }
+            paneCurrent = 0;
+
+        }
+        #endregion
+    }
     #endregion
 
     public void DisableHovers()
@@ -1010,44 +1063,6 @@ public class UI_StartMenu : MonoBehaviour
         deleteSaveFiles = false;
         uploadSaveFiles = false;
         InputObject.SetActive(false);
-        #endregion
-    }
-
-    public void SetToDelete()
-    {
-        #region Sets the save files to a delete-able state. Also, locks down the highlight over that icon so it always shows as highlighted
-        if (!deleteSaveFiles)
-        {
-            deleteSaveFiles = true;
-            uploadSaveFiles = false;
-            HighlightDeleteHover.SetActive(true);
-            HighlightDeleteHover.transform.position = DeleteButton.transform.position;
-            HighlightUploadHover.SetActive(false);
-        }
-        else
-        {
-            deleteSaveFiles = false;
-            HighlightDeleteHover.SetActive(false);
-        }
-        #endregion
-    }
-
-    public void SetToUpload()
-    {
-        #region Sets the save files to an uploadable state. Also, locks down the highlight over that icon so it always shows as highlighted
-        if(!uploadSaveFiles)
-        {
-            deleteSaveFiles = false;
-            uploadSaveFiles = true;
-            HighlightUploadHover.SetActive(true);
-            HighlightUploadHover.transform.position = UploadButton.transform.position;
-            HighlightDeleteHover.SetActive(false);
-        }
-        else
-        {
-            uploadSaveFiles = false;
-            HighlightUploadHover.SetActive(false);
-        }
         #endregion
     }
 }

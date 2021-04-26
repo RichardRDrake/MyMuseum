@@ -1884,6 +1884,7 @@ MonoBehaviour:
   QuitButton: {fileID: 203085417}
   ObjectsHide: {fileID: 925422720}
   saveLoadIdentity: 0
+  lastSaved: 0
   SaveBack: {fileID: 2007621463}
   SaveLoad1: {fileID: 925422736}
   SaveLoad2: {fileID: 925422735}
@@ -5549,7 +5550,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 323468563}
           m_TargetAssemblyTypeName: UI_StartMenu, Assembly-CSharp
-          m_MethodName: RemoveHover
+          m_MethodName: RemoveUploadHover
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
