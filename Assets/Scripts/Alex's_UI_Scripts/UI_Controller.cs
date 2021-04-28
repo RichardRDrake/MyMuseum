@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
+
 
 public class UI_Controller : MonoBehaviour
 {
@@ -11,8 +13,6 @@ public class UI_Controller : MonoBehaviour
 
     //Used for first-time initialisation
     bool RoomSetup = false;
-
-    private AudioManager audioManager;
 
     #region GameObjects and relevant components
     //Main menu
@@ -148,14 +148,19 @@ public class UI_Controller : MonoBehaviour
     public detailFinder detailCurrent = detailFinder.Null;
     #endregion
 
+    #region Audio
+    private AudioManager audioManager;
+
+    [SerializeField] private AudioMixer bgmMixer;
+    [SerializeField] private AudioMixer sfxMixer;
+    #endregion
+
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         #region Set variables
-
-        
 
         #region Finds instances of necessary GameObjects
         //Finds the main menu's associated controller
@@ -232,14 +237,14 @@ public class UI_Controller : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         if (PlayerPrefs.HasKey("BGM"))
         {
-            audioManager.bgmCurrent = PlayerPrefs.GetFloat("BGM");
-            audioManager.sfxCurrent = PlayerPrefs.GetFloat("SFX");
+            bgmMixer.SetFloat("bgmVol", Mathf.Log10(PlayerPrefs.GetFloat("BGM")) * 20);
+            sfxMixer.SetFloat("sfxVol", Mathf.Log10(PlayerPrefs.GetFloat("SFX")) * 20);
             Debug.Log("Playerprefs found");
         }
         else
         {
-            audioManager.bgmCurrent = 0.8f;
-            audioManager.sfxCurrent = 0.8f;
+            bgmMixer.SetFloat("bgmVol", Mathf.Log10(0.8f) * 20);
+            sfxMixer.SetFloat("sfxVol", Mathf.Log10(0.8f) * 20);
             Debug.Log("Playerprefs not found");
         }
         audioManager.Play("Default_BGM");

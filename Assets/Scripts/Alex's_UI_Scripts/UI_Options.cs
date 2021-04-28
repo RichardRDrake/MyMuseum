@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
 
 public class UI_Options : MonoBehaviour
 {
@@ -18,9 +19,9 @@ public class UI_Options : MonoBehaviour
     public float sfxVolume;
     private float sfxVolumeInternal;
 
-    //Audio controller ref here
-
-
+    //Audio mixer
+    [SerializeField] private AudioMixer bgmMixer;
+    [SerializeField] private AudioMixer sfxMixer;
 
     // Start is called before the first frame update
     void Start()
@@ -76,10 +77,12 @@ public class UI_Options : MonoBehaviour
     public void Music(float sliderMusic)
     {
         musicVolume = sliderMusic;
+        bgmMixer.SetFloat("bgmVol", Mathf.Log10(musicVolume) * 20);
     }
 
     public void Sfx(float sliderSfx)
     {
         sfxVolume = sliderSfx;
+        sfxMixer.SetFloat("sfxVol", Mathf.Log10(sfxVolume) * 20);
     }
 }

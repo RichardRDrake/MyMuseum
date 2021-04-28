@@ -324,7 +324,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 7598899048227764614}
   m_HandleRect: {fileID: 7598899047681103842}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.8
@@ -657,8 +657,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294833877
-  m_fontColor: {r: 0.83637416, g: 0.96363485, b: 0.990566, a: 1}
+    rgba: 4293972403
+  m_fontColor: {r: 0.7019608, g: 0.81960785, b: 0.9411765, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -793,8 +793,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294833878
-  m_fontColor: {r: 0.8392157, g: 0.9647059, b: 0.99215686, a: 1}
+    rgba: 4293972403
+  m_fontColor: {r: 0.7019608, g: 0.81960785, b: 0.9411765, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 7598899046458340368}
   m_HandleRect: {fileID: 7598899048274548335}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.8

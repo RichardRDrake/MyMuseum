@@ -132,6 +132,7 @@ public class UI_StartMenu : MonoBehaviour
     #region Audio
     [SerializeField] private AudioMixer bgmMixer;
     [SerializeField] private AudioMixer sfxMixer;
+    private AudioManager audioManager;
     #endregion
 
     //For loading the game in edit vs view mode
@@ -178,18 +179,26 @@ public class UI_StartMenu : MonoBehaviour
         //Then sets the slider starting values to either the value in PlayerPrefs or, if those do not exist, 0.8f
         musicSlider = MusicSliderObject.GetComponent<Slider>();
         sfxSlider = SfxSliderObject.GetComponent<Slider>();
+        audioManager = FindObjectOfType<AudioManager>();
+        if(!audioManager)
+        {
+            Debug.Log("Could not find AudioManager");
+        }
         if (PlayerPrefs.HasKey("BGM"))
         {
             musicSlider.value = PlayerPrefs.GetFloat("BGM");
-            bgmMixer.SetFloat("bgmVol", (musicSlider.value * 80) - 80);
+            bgmMixer.SetFloat("bgmVol", Mathf.Log10(PlayerPrefs.GetFloat("BGM")) * 20);
             sfxSlider.value = PlayerPrefs.GetFloat("SFX");
-            sfxMixer.SetFloat("sfxVol", (sfxSlider.value * 80) - 80);
+            sfxMixer.SetFloat("sfxVol", Mathf.Log10(PlayerPrefs.GetFloat("SFX")) * 20);
         }
         else
         {
             musicSlider.value = 0.8f;
             sfxSlider.value = 0.8f;
+            bgmMixer.SetFloat("bgmVol", Mathf.Log10(0.8f) * 20);
+            sfxMixer.SetFloat("bgmVol", Mathf.Log10(0.8f) * 20);
         }
+        audioManager.Play("Title_Track_BGM");
         #endregion
 
         #region Lists of Gameobjects, for positioning highlights
@@ -340,10 +349,6 @@ public class UI_StartMenu : MonoBehaviour
                 //after saving the data in the options sliders to PlayerPrefs
                 uiOptions = SlidersParent.GetComponent<UI_Options>();
                 PlayerPrefs.SetFloat("BGM", uiOptions.musicVolume);
-                bgmMixer.SetFloat("bgmVol", (musicSlider.value * 80) - 80);
-                Debug.Log("bgmMixer set to" + ((musicSlider.value * 80) - 80));
-                Debug.Log("BGM set to " + uiOptions.musicVolume);
-                sfxMixer.SetFloat("sfxVol", (sfxSlider.value * 80) - 80);
                 PlayerPrefs.SetFloat("SFX", uiOptions.sfxVolume);
                 DisableHovers();
                 windowCurrent = WindowFinder.MenuTop;

@@ -12,6 +12,9 @@ public class AudioManager : MonoBehaviour
     public float bgmCurrent;
     public float sfxCurrent;
 
+    [SerializeField] private AudioMixerGroup bgmMixerGroup;
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
+
     void Awake()
     {
         if (instance == null)
@@ -29,7 +32,7 @@ public class AudioManager : MonoBehaviour
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
-            s.source.volume = s.volume;
+            //s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
@@ -42,6 +45,7 @@ public class AudioManager : MonoBehaviour
     }
     public void Play(string name)
     {
+        Debug.Log("Gets here");
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
@@ -52,11 +56,11 @@ public class AudioManager : MonoBehaviour
 
         if (name.Contains("_BGM"))
         {
-            s.source.volume = s.volume * bgmCurrent;
+            s.source.outputAudioMixerGroup = bgmMixerGroup;
         }
         else if (name.Contains("_SFX"))
         {
-            s.source.volume = s.volume * sfxCurrent;
+            s.source.outputAudioMixerGroup = sfxMixerGroup;
         }
         else
         {
