@@ -12,8 +12,6 @@ public class UI_Controller : MonoBehaviour
     //Used for first-time initialisation
     bool RoomSetup = false;
 
-    private AudioManager audioManager;
-
     #region GameObjects and relevant components
     //Main menu
     [SerializeField] private GameObject MainMenu;
@@ -154,9 +152,6 @@ public class UI_Controller : MonoBehaviour
     void Start()
     {
         #region Set variables
-
-        audioManager = FindObjectOfType<AudioManager>();
-        audioManager.Play("Default");
 
         #region Finds instances of necessary GameObjects
         //Finds the main menu's associated controller
