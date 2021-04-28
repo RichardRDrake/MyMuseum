@@ -6,12 +6,12 @@ public enum Source { Music }
 public class AudioManager : MonoBehaviour
 {
     //new audiomanager
-    public Sound[] sounds;
+    public Sound[] sounds;  
 
     // final volume = s.volume * currentVolume
     void Awake()
     {
-        foreach (Sound s in sounds)
+        foreach(Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
@@ -26,5 +26,9 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         s.source.Play();
     }
+
+    
+
+
 }
 
