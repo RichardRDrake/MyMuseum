@@ -27916,6 +27916,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Title_BGM
+    clip: {fileID: 8300000, guid: e3bb23dbc3c67114598d4de758b67100, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   bgmCurrent: 0
   sfxCurrent: 0
   bgmMixerGroup: {fileID: 24300002, guid: 0492c873e38fd774da6aeb98774d955e, type: 2}

@@ -248,6 +248,7 @@ public class UI_Controller : MonoBehaviour
             Debug.Log("Playerprefs not found");
         }
         audioManager.Play("Default_BGM");
+        audioManager.Play("Title_BGM");
         #endregion
 
         #endregion
