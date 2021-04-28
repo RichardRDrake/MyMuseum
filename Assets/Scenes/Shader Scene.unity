@@ -9683,10 +9683,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Theme
-    clip: {fileID: 8300000, guid: c9e92daa3f84f2541aeaefd5d4e3ff60, type: 3}
-    volume: 0.53
-    pitch: 1
+  - name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
     source: {fileID: 0}
 --- !u!4 &362555088
 Transform:
