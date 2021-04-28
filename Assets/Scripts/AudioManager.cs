@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     //new audiomanager
     public Sound[] sounds;  
 
+    // final volume = s.volume * currentVolume
     void Awake()
     {
         foreach(Sound s in sounds)
