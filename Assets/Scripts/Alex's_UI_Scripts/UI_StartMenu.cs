@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class UI_StartMenu : MonoBehaviour
 {
@@ -128,6 +129,11 @@ public class UI_StartMenu : MonoBehaviour
     [SerializeField] private GameObject HighlightSaveBackHover;
     #endregion
 
+    #region Audio
+    [SerializeField] private AudioMixer bgmMixer;
+    [SerializeField] private AudioMixer sfxMixer;
+    #endregion
+
     //For loading the game in edit vs view mode
     private bool isEditable = false;
 
@@ -175,7 +181,9 @@ public class UI_StartMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("BGM"))
         {
             musicSlider.value = PlayerPrefs.GetFloat("BGM");
+            bgmMixer.SetFloat("bgmVol", (musicSlider.value * 80) - 80);
             sfxSlider.value = PlayerPrefs.GetFloat("SFX");
+            sfxMixer.SetFloat("sfxVol", (sfxSlider.value * 80) - 80);
         }
         else
         {
@@ -332,8 +340,10 @@ public class UI_StartMenu : MonoBehaviour
                 //after saving the data in the options sliders to PlayerPrefs
                 uiOptions = SlidersParent.GetComponent<UI_Options>();
                 PlayerPrefs.SetFloat("BGM", uiOptions.musicVolume);
-
+                bgmMixer.SetFloat("bgmVol", (musicSlider.value * 80) - 80);
+                Debug.Log("bgmMixer set to" + ((musicSlider.value * 80) - 80));
                 Debug.Log("BGM set to " + uiOptions.musicVolume);
+                sfxMixer.SetFloat("sfxVol", (sfxSlider.value * 80) - 80);
                 PlayerPrefs.SetFloat("SFX", uiOptions.sfxVolume);
                 DisableHovers();
                 windowCurrent = WindowFinder.MenuTop;
