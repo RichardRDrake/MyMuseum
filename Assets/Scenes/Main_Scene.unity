@@ -27911,10 +27911,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Default
+  - name: Default_BGM
     clip: {fileID: 8300000, guid: c9e92daa3f84f2541aeaefd5d4e3ff60, type: 3}
     volume: 0.5
     pitch: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!4 &955788564
 Transform:

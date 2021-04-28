@@ -9,6 +9,9 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
     public static AudioManager instance;
 
+    public float bgmCurrent;
+    public float sfxCurrent;
+
     void Awake()
     {
         if (instance == null)
@@ -44,6 +47,20 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning("Sound:" + name + " not found!");
             return;
+        }
+
+
+        if (name.Contains("_BGM"))
+        {
+            s.source.volume = s.volume * bgmCurrent;
+        }
+        else if (name.Contains("_SFX"))
+        {
+            s.source.volume = s.volume * sfxCurrent;
+        }
+        else
+        {
+            Debug.Log("Audio not tagged as _BGM or _SFX");
         }
         s.source.Play();
     }

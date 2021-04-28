@@ -332,6 +332,7 @@ public class UI_StartMenu : MonoBehaviour
                 //after saving the data in the options sliders to PlayerPrefs
                 uiOptions = SlidersParent.GetComponent<UI_Options>();
                 PlayerPrefs.SetFloat("BGM", uiOptions.musicVolume);
+
                 Debug.Log("BGM set to " + uiOptions.musicVolume);
                 PlayerPrefs.SetFloat("SFX", uiOptions.sfxVolume);
                 DisableHovers();

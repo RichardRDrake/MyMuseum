@@ -8,6 +8,8 @@ public class UI_MenuController : MonoBehaviour
 {
     #region variables
 
+    private AudioManager audioManager;
+
     #region Game objects and relevant variables
     //Build Menu UI
     [SerializeField] private GameObject BuildMenu;
@@ -223,6 +225,8 @@ public class UI_MenuController : MonoBehaviour
         //Gets the input field from the confirm menu
         inputField = InputObject.GetComponent<TMP_InputField>();
 
+        audioManager = FindObjectOfType<AudioManager>();
+
         //Gets the slider components of the music and sfx slider objects
         //Then sets the slider starting values to either the value in PlayerPrefs or, if those do not exist, 0.8f
         musicSlider = MusicSliderObject.GetComponent<Slider>();
@@ -378,8 +382,10 @@ public class UI_MenuController : MonoBehaviour
                 uiOptions = SlidersParent.GetComponent<UI_Options>();
 
                 PlayerPrefs.SetFloat("BGM", uiOptions.musicVolume);
+                audioManager.bgmCurrent = uiOptions.musicVolume;
                 Debug.Log("BGM set to " + uiOptions.musicVolume);
                 PlayerPrefs.SetFloat("SFX", uiOptions.sfxVolume);
+                audioManager.sfxCurrent = uiOptions.musicVolume;
             }
             windowCurrent = (WindowFinder)1;
             DisableSubmenus();

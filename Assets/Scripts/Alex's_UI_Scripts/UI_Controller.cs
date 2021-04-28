@@ -155,8 +155,7 @@ public class UI_Controller : MonoBehaviour
     {
         #region Set variables
 
-        audioManager = FindObjectOfType<AudioManager>();
-        audioManager.Play("Default");
+        
 
         #region Finds instances of necessary GameObjects
         //Finds the main menu's associated controller
@@ -225,6 +224,25 @@ public class UI_Controller : MonoBehaviour
         {
             Debug.Log("RoomSetup not initialised when scene was loaded.");
         }
+        #endregion
+
+        #region Audio setup
+        //Gets the AudioManager values for SFX and BGM volume
+        //Then sets the slider starting values to either the value in PlayerPrefs or, if those do not exist, 0.8f
+        audioManager = FindObjectOfType<AudioManager>();
+        if (PlayerPrefs.HasKey("BGM"))
+        {
+            audioManager.bgmCurrent = PlayerPrefs.GetFloat("BGM");
+            audioManager.sfxCurrent = PlayerPrefs.GetFloat("SFX");
+            Debug.Log("Playerprefs found");
+        }
+        else
+        {
+            audioManager.bgmCurrent = 0.8f;
+            audioManager.sfxCurrent = 0.8f;
+            Debug.Log("Playerprefs not found");
+        }
+        audioManager.Play("Default_BGM");
         #endregion
 
         #endregion
