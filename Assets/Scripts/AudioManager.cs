@@ -12,15 +12,28 @@ public class AudioManager : MonoBehaviour
     // create clip variables
 
     [SerializeField] AudioClip backgroundMusicFirst;
-   // [SerializeField] AudioClip backgroundMusicThird;
-
+    [SerializeField] AudioClip TitleMusic;
+    [SerializeField] AudioClip Click;
+    [SerializeField] AudioClip Can_Not_Place_Here;
+    [SerializeField] AudioClip Delete;
+    [SerializeField] AudioClip Place;
+    [SerializeField] AudioClip Select_Artifact;
+    [SerializeField] AudioClip Title;
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>(); //add all clips to dictionary
 
     void Awake()
     {
         Instance = this;
-        _audioClips.Add("background_1st_person", backgroundMusicFirst);
-      //  _audioClips.Add("background_3d_person", backgroundMusicThird);
+        _audioClips.Add("Background_1st_Person_Music", backgroundMusicFirst);
+        _audioClips.Add("Background_3d_Person_Music", TitleMusic);
+        _audioClips.Add("Click_fx", Click);
+        _audioClips.Add("Can_Not_Place_Here_fx", Can_Not_Place_Here);
+        _audioClips.Add("Delete_fx", Delete);
+        _audioClips.Add("Place_fx", Place);
+        _audioClips.Add("Select_Artifact_fx", Select_Artifact);
+        _audioClips.Add("Title_Track_Music", Title)
+
+        //  _audioClips.Add("background_3d_person", backgroundMusicThird);
 
     }
 
