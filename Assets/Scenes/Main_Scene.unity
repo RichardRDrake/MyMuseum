@@ -9258,6 +9258,7 @@ MonoBehaviour:
   gridManager: {fileID: 0}
   activeGrid: {fileID: 0}
   cameraObj: {fileID: 876706179}
+  audioManager: {fileID: 0}
 --- !u!4 &331005437
 Transform:
   m_ObjectHideFlags: 0
@@ -27916,10 +27917,16 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Title_BGM
-    clip: {fileID: 8300000, guid: e3bb23dbc3c67114598d4de758b67100, type: 3}
-    volume: 0.5
+  - name: Place_SFX
+    clip: {fileID: 8300000, guid: 0e2b5df47b09ecc41a139eeea69ba517, type: 3}
+    volume: 0.95
     pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Select_Artifact_SFX
+    clip: {fileID: 8300000, guid: 7423bf61b7f3468418ecbf335528d3d7, type: 3}
+    volume: 0.38
+    pitch: 0.79
     loop: 0
     source: {fileID: 0}
   bgmCurrent: 0

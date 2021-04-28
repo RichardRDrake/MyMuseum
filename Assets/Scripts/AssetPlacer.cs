@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.AddressableAssets;
 
 public class AssetPlacer : MonoBehaviour
@@ -20,9 +21,13 @@ public class AssetPlacer : MonoBehaviour
     private Asset asset = null;
     private bool validPlacement = false;
 
+    [SerializeField] private AudioManager audioManager;
+   
+
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         gridManager = FindObjectOfType<GridManager>();
         if (gridManager == null)
         {
@@ -58,6 +63,7 @@ public class AssetPlacer : MonoBehaviour
                 validPosition = Vector3.zero;
                 ChangeColour(objectToBePlaced, Color.green);
                 validPlacement = true;
+                
             }
             else
             {
@@ -101,7 +107,7 @@ public class AssetPlacer : MonoBehaviour
 
             //Let the grid know an object has been placed on it
             activeGrid.OnObjectPlaced(objectToBePlaced.transform.position, asset);
-
+            audioManager.Play("Place_SFX");
             //if there are grids on the object, they must be (re)built here
             PlacementGrid[] childrenGrids;
 
@@ -117,26 +123,30 @@ public class AssetPlacer : MonoBehaviour
             asset = null;
             validPlacement = false;
         }
-
-        /*
-        //This whole section will be [PH]
-        if (Input.GetKeyDown(KeyCode.Alpha1) && objectToBePlaced == null)
-        {
-            //Queue ex_obj_1 
-            objectToBePlaced = Instantiate(exampleObject_1);
+        //just so I can play the other sounds effect
+        //if (Input.GetMouseButton(0) && objectToBePlaced != null && validPlacement == false)
+        //{
+        //    audioManager.Play("Can_Not_Place_Here_SFX");
+        //}
+            /*
+            //This whole section will be [PH]
+            if (Input.GetKeyDown(KeyCode.Alpha1) && objectToBePlaced == null)
+            {
+                //Queue ex_obj_1 
+                objectToBePlaced = Instantiate(exampleObject_1);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2) && objectToBePlaced == null)
+            {
+                //Queue ex_obj_2 
+                objectToBePlaced = Instantiate(exampleObject_2);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3) && objectToBePlaced == null)
+            {
+                //Queue ex_obj_3 
+                objectToBePlaced = Instantiate(exampleObject_3);
+            }
+            */
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && objectToBePlaced == null)
-        {
-            //Queue ex_obj_2 
-            objectToBePlaced = Instantiate(exampleObject_2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3) && objectToBePlaced == null)
-        {
-            //Queue ex_obj_3 
-            objectToBePlaced = Instantiate(exampleObject_3);
-        }
-        */
-    }
 
     private Vector3 RayToGrid()
     {
