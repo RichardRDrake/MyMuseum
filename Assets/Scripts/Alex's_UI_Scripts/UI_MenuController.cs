@@ -8,6 +8,9 @@ public class UI_MenuController : MonoBehaviour
 {
     #region variables
 
+    [SerializeField] private GameObject SoundObject;
+    private Sound soundScript;
+
     #region Game objects and relevant variables
     //Build Menu UI
     [SerializeField] private GameObject BuildMenu;
@@ -247,6 +250,8 @@ public class UI_MenuController : MonoBehaviour
         {
             Debug.Log("Failed to load room identity");
         }
+
+        soundScript = SoundObject.GetComponent<Sound>();
         #endregion
     }
 
