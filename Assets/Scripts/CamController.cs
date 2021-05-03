@@ -147,10 +147,10 @@ public class CamController : MonoBehaviour
         firstPersonPosition.x = 0.0f;
         firstPersonPosition.y = 2.1f;
         firstPersonPosition.z = 0.0f;
-        gameObject.transform.position = new Vector3(0.0f, 10.0f, -15.0f);
+        gameObject.transform.position = new Vector3(0.0f, 25.0f, -25.0f);
         thirdPersonPosition.x = 0.0f;
-        thirdPersonPosition.y = 10.0f;
-        thirdPersonPosition.z = -15.0f;
+        thirdPersonPosition.y = 25.0f;
+        thirdPersonPosition.z = -25.0f;
       
     }
 
@@ -276,7 +276,7 @@ public class CamController : MonoBehaviour
         thirdPersonPosition.x = 0.0f;
         //Debug.Log(parent.transform.position.x);
         //Debug.Log(parent.transform.position.y);
-        thirdPersonPosition.y = 10.0f;
-        thirdPersonPosition.z = -15.0f;
+        thirdPersonPosition.y = 22.0f;
+        thirdPersonPosition.z = -25.0f;
     }
 }
