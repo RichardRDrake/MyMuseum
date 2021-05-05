@@ -10,6 +10,8 @@ public class AssetPlacerScriptableObject : ScriptableObject
 {
     public string ArtefactName;
 
+    public string ArtefactContent;
+
     [SerializeField] private AssetReference ArtefactPrefab; //AddressableReference (Assigned in Inspector)
 
     public Texture2D[] PreviewImages = new Texture2D[4];    
@@ -49,14 +51,16 @@ public enum ArtefactPlacementType
 public class Asset
 {
     public string Name;
+    public string Content;
     public string AssRef;
     public ArtefactPlacementType placementType;
 
     public GameObject asset;
 
-    public Asset(string name, string ar, ArtefactPlacementType apt)
+    public Asset(string name, string content, string ar, ArtefactPlacementType apt)
     {
         Name = name;
+        Content = content;
         AssRef = ar;
         placementType = apt;
     }

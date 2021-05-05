@@ -83,7 +83,7 @@ public class AssetPlacer : MonoBehaviour
         }
 
         //Confused on Addressables? Go here: https://www.youtube.com/watch?v=Zb9WchxZhvM
-        asset = new Asset(artefact.ArtefactName, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType());
+        asset = new Asset(artefact.ArtefactName, artefact.ArtefactContent, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType());
         //The Addressable pathway to the asset (found on its scriptable object)
         AssetReference newAsset = artefact.GetArtefact();
 

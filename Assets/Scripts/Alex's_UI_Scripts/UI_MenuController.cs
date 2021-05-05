@@ -183,7 +183,7 @@ public class UI_MenuController : MonoBehaviour
         Saves = SaveObject.GetComponent<SaveLoadRoom>();
         if(Saves != null)
         {
-             //Debug.Log(Saves.savesList.Count);
+             Debug.Log(Saves.savesList.Count);
         }
         else 
         {
@@ -655,14 +655,14 @@ public class UI_MenuController : MonoBehaviour
                     //Or the others to be hidden
                     //Debug.Log("New save");
                     saveTexts[i].text = "NO DATA";
-                    saveDates[i].text = "--/--/----";
+                    saveDates[i].text = "----/--/--";
                     saveNews[i].text = " ";
                 }
                 else if (((pageCurrent - 1) * 3) + i > (listLength - 2))
                 {
                     //Debug.Log("Empty save");
                     saveTexts[i].text = "NO DATA";
-                    saveDates[i].text = "--/--/----";
+                    saveDates[i].text = "----/--/--";
                     saveNews[i].text = " ";
                 }
                 else
@@ -672,7 +672,7 @@ public class UI_MenuController : MonoBehaviour
                     //Debug.Log(saveTexts);
                     //Debug.Log(saveTexts[0]);
                     saveTexts[i].text = Saves.savesList[((pageCurrent - 1) * 3) + i];
-                    //saveDates[i].text = Saves.DatesList[((pageCurrent - 1) * 3) + i];
+                    saveDates[i].text = Saves.GetDate(saveTexts[i].text);
                     saveNews[i].text = " ";
                 }
                 paneCurrent = 0;
@@ -689,7 +689,7 @@ public class UI_MenuController : MonoBehaviour
                 {
                     //Debug.Log("Empty save");
                     saveTexts[i].text = "NO DATA";
-                    saveDates[i].text = "--/--/----";
+                    saveDates[i].text = "----/--/--";
                     saveNews[i].text = " ";
                 }
                 else
@@ -699,7 +699,7 @@ public class UI_MenuController : MonoBehaviour
                     //Debug.Log(saveTexts);
                     //Debug.Log(saveTexts[0]);
                     saveTexts[i].text = Saves.savesList[i];
-                    //saveDates[i].text = Saves.DatesList[i];
+                    saveDates[i].text = Saves.GetDate(saveTexts[i].text);
                     saveNews[i].text = " ";
                 }
                 paneCurrent = 0;

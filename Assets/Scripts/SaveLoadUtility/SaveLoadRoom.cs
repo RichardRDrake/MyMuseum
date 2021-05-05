@@ -6,18 +6,37 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class SaveLoadRoom : MonoBehaviour
 {
 
-    [SerializeField] private AssetReference savedRoom;
+    [SerializeField] private AssetReference savedRoom; //Temp, not useful until there are more rooms to save
 
-    public List<string> savesList = new List<string>(new string[] { "/Test.save" });
+    public List<string> savesList = new List<string>();
+
+    private AssetPlacer placer;
+
+    private void Awake()
+    {        
+        //Get the names of current saves and append them to savesList
+        DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
+        FileInfo[] info = dir.GetFiles("*.save*");
+
+        foreach (FileInfo file in info)
+        {
+            savesList.Add(file.Name);
+            //Debug.Log(file.Name);
+        }
+
+    }
 
     private void Start()
     {
         //save();
         //load();
+
+        placer = FindObjectOfType<AssetPlacer>();
     }
 
     public static BinaryFormatter GetBinaryFormatter()
@@ -41,6 +60,9 @@ public class SaveLoadRoom : MonoBehaviour
 
     public void Save(string name)
     {
+        //Step 0 - Check the given name is legal
+        name = IllegalCharacterCheck(name);
+        
         //Step 1 - Get the Room we're using
         // Since Room selection isn't a thing yet, this will have to wait
         // Instead, we'll just pretend we found it lol
@@ -70,13 +92,14 @@ public class SaveLoadRoom : MonoBehaviour
 
 
         BinaryFormatter formatter = GetBinaryFormatter();
-        string filepath = Application.persistentDataPath + "/Test.save";
+        string filepath = Application.persistentDataPath +"/" + name +".save";
         FileStream stream = new FileStream(filepath, FileMode.Create);
 
         formatter.Serialize(stream, savedRoomData);
 
         stream.Close();
 
+        savesList.Add( name +".save");
         Debug.Log("Saved Room Data of size " + savedRoomData.Assets.Count);
     }
 
@@ -92,12 +115,11 @@ public class SaveLoadRoom : MonoBehaviour
         }
 
         gridManager.ClearGrids();
+        //spawnedObjects.Clear();
 
-        string filepath = Application.persistentDataPath + "/Test.save";
+        string filepath = Application.persistentDataPath + "/" + name;
         if (File.Exists(filepath))
         {
-            AssetPlacer placer = FindObjectOfType<AssetPlacer>();
-
             BinaryFormatter formatter = GetBinaryFormatter();
             FileStream stream = new FileStream(filepath, FileMode.Open);
 
@@ -105,36 +127,18 @@ public class SaveLoadRoom : MonoBehaviour
             stream.Close();
 
             //Spawn the RoomObject
-            //MakeAsset(data.roomString, Vector3.zero, Quaternion.identity);
+            //MakeAsset(data.roomString, Vector3.zero, Quaternion.identity, true);
 
             //Spawn all the artefacts
             //Since we dont know the order objects will be spawned in, we wont attach them to their grid positions until we're finished spawning
-            List<GameObject> spawnedObjects = new List<GameObject>();
+            //List<GameObject> spawnedObjects = new List<GameObject>();
 
             foreach (AssetData asset in data.Assets)
             {
-                spawnedObjects.Add(MakeAsset(asset.assetString, asset.assetPos, asset.assetRot)); //Spawned Asynchronously, wont be ready immidiately
-            }
-
-            //Wait one frame
-            StartCoroutine(WaitOneFrame());
-
-            //if data.Assets and spawnedObjects are different sizes, we've got a problem
-            if (spawnedObjects.Count != data.Assets.Count)
-            {
-                Debug.Log("Size mismatch - we gotta problem");
-                return;
-            }
-
-            //Attach each object to the grid (closest point will be correct spot, or not make a difference)
-            for (int i = 0; i < spawnedObjects.Count; i++)
-            {
-                GridPosition gPos = placer.PointToGrid(spawnedObjects[i].transform.position, spawnedObjects[i]).gridPosition;
-                AssetData assetData = data.Assets[i];
-                gPos.occupied = new Asset(assetData.assetName, assetData.assetString, assetData.assetPlacement);
-
-                //Debug.Log(gPos.occupied);
-            }
+                MakeAsset(asset.assetString, asset.assetPos, asset.assetRot, false, placer, asset); //Spawned Asynchronously, wont be ready immidiately
+                //spawnedObjects.Add(spawned);
+                //AssetData assetData = data.Assets[i];
+            }            
         }
         else
         {
@@ -142,14 +146,27 @@ public class SaveLoadRoom : MonoBehaviour
         }
     }
 
-    private GameObject MakeAsset(string GUID, Vector3 pos, Quaternion rot)
+    private void MakeAsset(string GUID, Vector3 pos, Quaternion rot, bool room, AssetPlacer placer, AssetData assetData)
     {
         AssetReference asset = new AssetReference(GUID);
+        GameObject spawnedAsset;
 
         //asset.LoadAssetAsync<GameObject>();
-        GameObject spawnedAsset = asset.InstantiateAsync(pos, rot).Result;
-        return spawnedAsset;
+        asset.InstantiateAsync(pos, rot).Completed += op =>
+        {
+            if (op.Status == AsyncOperationStatus.Succeeded)
+            {
+                spawnedAsset = op.Result;
+                //Attach each object to the grid (closest point will be correct spot, or not make a difference)
+                if (!room)
+                {
+                    GridPosition gPos = placer.PointToGrid(spawnedAsset.transform.position, spawnedAsset).gridPosition;                    
+                    gPos.occupied = new Asset(assetData.assetName,assetData.assetContent, assetData.assetString, assetData.assetPlacement);
+                }
+            }
+        };
     }
+    
 
     private string ARtoGuid(AssetReference AR)
     {
@@ -179,11 +196,40 @@ public class SaveLoadRoom : MonoBehaviour
 
     }
 
-    private IEnumerator WaitOneFrame()
+    private string IllegalCharacterCheck( string str)
     {
-        yield return 0;
+        //There are a bunch of characters that are not allowed to be included in a file name
+        char[] badChars = { '<', '>', ':', '"', '/', '|', '?', '*', '\\' };
+
+        str = str.Trim(badChars);
+
+        //There are also a bunch of bad names that may brick a computer if we allow them
+        string[] badNames = { "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9"
+                                , "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
+
+        if (Array.Exists(badNames, element => element == str))
+        {
+            Debug.Log("Illegal name! Replacing with InvalidName");
+            str = "InvalidName";
+        }
+
+        return str;
     }
 
+    public string GetDate(string saveName)
+    {
+        //Get the names of current saves and append them to savesList
+        DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
+        FileInfo[] info = dir.GetFiles(saveName);
+
+        foreach (FileInfo file in info)
+        {
+            DateTime time = file.LastWriteTimeUtc;
+            return time.ToString();
+        }
+
+        return "----/--/--";
+    }
 
     /*
      * NOTES
@@ -236,26 +282,4 @@ public class QuaternionSerializationSurrogate : ISerializationSurrogate
         return obj;
     }
 }
-/*
-public class AssetSOSerializationSurrogate : ISerializationSurrogate
-{
-    public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
-    {
-        AssetPlacerScriptableObject a = (AssetPlacerScriptableObject)obj;
-        info.AddValue("Name", a.ArtefactName);
-        info.AddValue("Ref", a.GetAssetReference().AssetGUID);
-        info.AddValue("Type", (int)a.GetPlacementType());
-    }
 
-    public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
-    {
-        AssetPlacerScriptableObject a = (AssetPlacerScriptableObject)obj;
-        a.ArtefactName = (string)info.GetValue("Name", typeof(string));
-        a.//ArtefactPrefab = new AssetReference((string)info.GetValue("Ref", typeof(string)));
-        a.//PlacementType = (ArtefactPlacementType)((int)info.GetValue("Type", typeof(int)));
-
-        obj = a;
-        return obj;
-    }
-}
-*/

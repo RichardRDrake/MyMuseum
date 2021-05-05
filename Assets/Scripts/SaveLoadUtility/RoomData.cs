@@ -8,9 +8,12 @@ using UnityEngine.AddressableAssets;
 public class RoomData
 {
     //What data do we need to record, in order to be able to re-construct the room later?
+    // 0 The name of the Save
     // 1 The Room itself (Addressable prefab)
     // 2 The Objects placed on the grid (Addressable prefabs)
     // 3 The Position of each of those objects
+
+    public string saveName;
 
     //The Room itself
     public string roomString;
@@ -32,8 +35,8 @@ public class AssetData
     public Quaternion assetRot;
 
     public string assetName;
+    public string assetContent;
     public ArtefactPlacementType assetPlacement;
-    //Asset Content when we do that
 
     public AssetData(string GUID, Asset asset, Vector3 pos, Quaternion rot)
     {
