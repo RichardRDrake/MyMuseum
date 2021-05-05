@@ -43,7 +43,41 @@ public class CamController : MonoBehaviour
     private float movementCounter;
     private float idleCounter;
     private Vector3 headBobMovement;
+
+    //clamp variables
+    public GameObject posX;
+    public GameObject negX;
+    public GameObject posZ;
+    public GameObject negZ;
+
+    //zoom variables
+    float minFov = 15f;
+    float maxFov = 90f;
+    float sensitivity = 10f;
+
+    int rotateCounter;
+
+    //camera reference
+    public Camera cameraRef;
+    //use mudolo
+    int mod(int a, int n)
+    {
+        int result = a % n;
+        if ((result < 0 && n > 0) || (result > 0 && n < 0))
+        {
+            result += n;
+        }
+        return result;
+    }
+    public void ZoomIn()
+    {
+        float fov = cameraRef.fieldOfView;
+        fov -= Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+        fov = Mathf.Clamp(fov, minFov, maxFov);
+        cameraRef.fieldOfView = fov;
+    }
     #endregion
+
 
     private void idleHeadBobber()
     {
@@ -132,6 +166,7 @@ public class CamController : MonoBehaviour
         Debug.Log(cameraToggle);
         parent.transform.position = resetParent;
         UI_SwitchPerson();
+        rotateCounter = 0;
     }
     // Start is called before the first frame update
     void Start()
@@ -263,16 +298,178 @@ public class CamController : MonoBehaviour
     }
     void thirdPersonCameraUpdate()
     {
+        ZoomIn();
         if (Input.GetKeyDown("q") && canHotkey)
         {
             // Applys a rotation of 90 degrees to the object
+            rotateCounter++;
             rotateLeft();
         }
 
         if (Input.GetKeyDown("e") && canHotkey)
         {
+            rotateCounter--;
             rotateRight();
         }
+        //hard wired clamp values, not efficient but effective
+        if (Mathf.Abs(mod(rotateCounter, 4)) == 0)
+        {
+            Debug.Log("Rotation 1");
+            Debug.Log(rotateCounter);
+            //we are  at rotation 0
+            if (Input.GetKey("a") && canHotkey)
+            {
+                if (parent.transform.position.x > negZ.transform.position.x)
+                {
+                    parent.Translate((-transform.right) * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("d") && canHotkey)
+            {
+               
+                if (parent.transform.position.x < posZ.transform.position.x)
+                {
+                    parent.Translate((transform.right) * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("w") && canHotkey)
+            {
+                var forward = parent.forward;
+                forward.y = 0;
+                if (parent.transform.position.z < negX.transform.position.z + 5)
+                {
+                    parent.Translate(forward * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("s") && canHotkey)
+            {
+                var forward = parent.forward;
+                forward.y = 0;
+                if (parent.transform.position.z > posX.transform.position.z + 10)
+                {
+                    parent.Translate(-forward * 4 * Time.deltaTime, Space.World);
+                }
+            }
+        } // rotation 1
+
+        if (Mathf.Abs(mod(rotateCounter, 4)) == 1) 
+        {
+            Debug.Log("Rotation 2");
+            Debug.Log(rotateCounter);
+            //we are  at rotation 2
+            if (Input.GetKey("a") && canHotkey)
+            {
+                if (parent.transform.position.z > posX.transform.position.z)
+                {
+                    parent.Translate((-transform.right) * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("d") && canHotkey)
+            { 
+                if (parent.transform.position.z < negX.transform.position.z)
+                {
+                    parent.Translate((transform.right) * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("w") && canHotkey)
+            {
+                var forward = parent.forward;
+                forward.y = 0;
+                if (parent.transform.position.x > negZ.transform.position.x )
+                {
+                    parent.Translate(forward * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("s") && canHotkey)
+            {
+                var forward = parent.forward;
+                forward.y = 0;
+                if (parent.transform.position.x < posZ.transform.position.x )
+                {
+                    parent.Translate(-forward * 4 * Time.deltaTime, Space.World);
+                }
+            }
+
+
+        } // rotation 2
+
+        else if (Mathf.Abs(mod(rotateCounter, 4)) == 2)
+        {
+            Debug.Log("Rotation 3");
+            Debug.Log(rotateCounter);
+            //we are  at rotation 3
+            if (Input.GetKey("a") && canHotkey)
+            {
+                if (parent.transform.position.x < posZ.transform.position.x)
+                {
+                    parent.Translate((-transform.right) * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("d") && canHotkey)
+            {
+                if (parent.transform.position.x > negZ.transform.position.x)
+                {
+                    parent.Translate((transform.right) * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("w") && canHotkey)
+            {
+                var forward = parent.forward;
+                forward.y = 0;
+                if (parent.transform.position.z > posX.transform.position.z + 5)
+                {
+                    parent.Translate(forward * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("s") && canHotkey)
+            {
+                var forward = parent.forward;
+                forward.y = 0;
+                if (parent.transform.position.z < negX.transform.position.z + 10)
+                {
+                    parent.Translate(-forward * 4 * Time.deltaTime, Space.World);
+                }
+            }
+        } // rotation 3
+
+       else if (Mathf.Abs(mod(rotateCounter,4)) == 3)
+        {
+            Debug.Log("Rotation 4");
+            Debug.Log(rotateCounter);
+            //we are  at rotation 4
+            if (Input.GetKey("a") && canHotkey)
+            {
+                if (parent.transform.position.z < negX.transform.position.z)
+                {
+                    parent.Translate((-transform.right) * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("d") && canHotkey)
+            {
+                if (parent.transform.position.z > posX.transform.position.z)
+                {
+                    parent.Translate((transform.right) * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("w") && canHotkey)
+            {
+                var forward = parent.forward;
+                forward.y = 0;
+                if (parent.transform.position.x < posZ.transform.position.x)
+                {
+                    parent.Translate(forward * 4 * Time.deltaTime, Space.World);
+                }
+            }
+            if (Input.GetKey("s") && canHotkey)
+            {
+                var forward = parent.forward;
+                forward.y = 0;
+                if (parent.transform.position.x > negZ.transform.position.x)
+                {
+                    parent.Translate(-forward * 4 * Time.deltaTime, Space.World);
+                }
+            }
+        } // rotation 4
         thirdPersonPosition.x = 0.0f;
         //Debug.Log(parent.transform.position.x);
         //Debug.Log(parent.transform.position.y);
