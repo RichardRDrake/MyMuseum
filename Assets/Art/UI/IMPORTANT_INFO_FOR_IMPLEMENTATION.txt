@@ -1,0 +1,4 @@
+- All "Backdrop Boxes" (e.g. "GUI2_ArtefactBrowser6_BackdropBox1",
+  "GUI2_ArtefactInspector1_InspectorBoxBackdrop1", "GUI1_CameraRotate1_BoxBackdrop1", etc) are half the
+  size they should be (because it seems stupidly inefficient to export a blank backdrop image bigger than
+  2000x2000px), so be sure to scale them up by 2 when putting them in-engine.
