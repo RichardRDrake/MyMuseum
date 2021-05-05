@@ -58,7 +58,8 @@ public class CamController : MonoBehaviour
     int rotateCounter;
 
     //camera reference
-    public Camera cameraRef;
+    private Camera cameraRef;
+
     //use mudolo
     int mod(int a, int n)
     {
@@ -145,12 +146,12 @@ public class CamController : MonoBehaviour
 
         // parent.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
         thirdPersonRotation = gameObject.transform.forward; //saves the forward-facing direction of the rotation
-        Debug.Log(thirdPersonRotation);
+        //Debug.Log(thirdPersonRotation);
         gameObject.transform.localPosition = firstPersonPosition;
         
 
         cameraToggle = true;
-        Debug.Log(cameraToggle);
+        //Debug.Log(cameraToggle);
 
         parent.transform.position = resetParent;
         UI_SwitchPerson();
@@ -163,7 +164,7 @@ public class CamController : MonoBehaviour
         gameObject.transform.localPosition = thirdPersonPosition;
 
         cameraToggle = false;
-        Debug.Log(cameraToggle);
+        //Debug.Log(cameraToggle);
         parent.transform.position = resetParent;
         UI_SwitchPerson();
         rotateCounter = 0;
@@ -172,13 +173,14 @@ public class CamController : MonoBehaviour
     void Start()
     {
         // By default, the game begins using the third person cam
+        cameraRef = GetComponent<Camera>();
        
         UI_Controller = UiBuild.GetComponent<UI_Controller>();
         UI_MenuController = UiMain.GetComponent<UI_MenuController>();
         UI_ViewController = UiView.GetComponent<UI_ViewController>();
 
         parent = transform.parent;
-        Debug.Log(parent);
+        //Debug.Log(parent);
         firstPersonPosition.x = 0.0f;
         firstPersonPosition.y = 2.1f;
         firstPersonPosition.z = 0.0f;
@@ -314,8 +316,8 @@ public class CamController : MonoBehaviour
         //hard wired clamp values, not efficient but effective
         if (Mathf.Abs(mod(rotateCounter, 4)) == 0)
         {
-            Debug.Log("Rotation 1");
-            Debug.Log(rotateCounter);
+            //Debug.Log("Rotation 1");
+            //Debug.Log(rotateCounter);
             //we are  at rotation 0
             if (Input.GetKey("a") && canHotkey)
             {
@@ -354,8 +356,8 @@ public class CamController : MonoBehaviour
 
         if (Mathf.Abs(mod(rotateCounter, 4)) == 1) 
         {
-            Debug.Log("Rotation 2");
-            Debug.Log(rotateCounter);
+            //Debug.Log("Rotation 2");
+            //Debug.Log(rotateCounter);
             //we are  at rotation 2
             if (Input.GetKey("a") && canHotkey)
             {
@@ -395,8 +397,8 @@ public class CamController : MonoBehaviour
 
         else if (Mathf.Abs(mod(rotateCounter, 4)) == 2)
         {
-            Debug.Log("Rotation 3");
-            Debug.Log(rotateCounter);
+            //Debug.Log("Rotation 3");
+            //Debug.Log(rotateCounter);
             //we are  at rotation 3
             if (Input.GetKey("a") && canHotkey)
             {
@@ -434,8 +436,8 @@ public class CamController : MonoBehaviour
 
        else if (Mathf.Abs(mod(rotateCounter,4)) == 3)
         {
-            Debug.Log("Rotation 4");
-            Debug.Log(rotateCounter);
+            //Debug.Log("Rotation 4");
+            //Debug.Log(rotateCounter);
             //we are  at rotation 4
             if (Input.GetKey("a") && canHotkey)
             {
