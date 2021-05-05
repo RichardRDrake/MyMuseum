@@ -35,8 +35,8 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 2de3197c414bd0143ba77270b2d39cf4
-    m_Address: Assets/ArtefactData/ArtefactPrefabs/Moa_skeleton.prefab
+  - m_GUID: 875f32d53a03b684bbd32c8f5a2c06b9
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/Moa_Skeleton.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Moa
   m_EditorClassIdentifier: 
   ArtefactName: Moa
+  ArtefactContent: 
   ArtefactPrefab:
-    m_AssetGUID: 2de3197c414bd0143ba77270b2d39cf4
+    m_AssetGUID: 875f32d53a03b684bbd32c8f5a2c06b9
     m_SubObjectName: 
     m_SubObjectType: 
   PreviewImages:
