@@ -37,6 +37,9 @@ public class UI_Controller : MonoBehaviour
     private Image detailImage;
     private int detailImageCounter = 0;
 
+    //Main menu button
+    [SerializeField] private GameObject MainMenuButton;
+
     //Camera object
     [SerializeField] private GameObject Camera;
     private CamController camController;
@@ -70,6 +73,9 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject Object5;
     [SerializeField] private GameObject Object6;
     private List<Vector3> panelLocationList = new List<Vector3>();
+
+    [SerializeField] private Sprite downloadImage;
+    [SerializeField] private Sprite emptyImage;
     #endregion
 
     #region detail objects
@@ -213,6 +219,8 @@ public class UI_Controller : MonoBehaviour
 
         rotateLocationList.Add(RotateLeft.transform.position);
         rotateLocationList.Add(RotateRight.transform.position);
+
+        HighlightMainMenu.transform.position = MainMenuButton.transform.position;
         #endregion
 
         #region First-time setup variables
@@ -812,11 +820,11 @@ public class UI_Controller : MonoBehaviour
             pageNumber = ((pageCurrent - 1) * 6) + i;
             if (pageNumber == (listLength - 1))
             {
-                //objectDisplay[i].sprite = null;
+                objectDisplay[i].sprite = downloadImage;
             }
             else if (pageNumber > (Resources.readFrom.Count - 1))
             {
-                //objectDisplay[i].sprite = null;
+                objectDisplay[i].sprite = emptyImage;
             }
             else
             {

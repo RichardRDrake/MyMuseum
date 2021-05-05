@@ -40,6 +40,9 @@ public class CamController : MonoBehaviour
     private float xRotation = 0.0f;
     private float yRotation = 0.0f;
 
+    //Determines whether the camera can pan
+    private bool canPan = false;
+
     //headbob variables
     private float movementCounter;
     private float idleCounter;
@@ -322,12 +325,24 @@ public class CamController : MonoBehaviour
             rotateCounter--;
             rotateRight();
         }
+
+        if (Input.GetMouseButtonDown(2) && canPan == false)
+        {
+            canPan = true;
+        }
+
+        if (Input.GetMouseButtonUp(2))
+        {
+            canPan = false;
+        }
+
         //hard wired clamp values, not efficient but effective
         if (Mathf.Abs(mod(rotateCounter, 4)) == 0)
         {
             //Debug.Log("Rotation 1");
             //Debug.Log(rotateCounter);
-            //we are  at rotation 0
+            //we are  at rotation 1
+
             if (Input.GetKey("a") && canHotkey)
             {
                 if (parent.transform.position.x > negZ.transform.position.x)

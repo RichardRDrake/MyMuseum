@@ -424,9 +424,11 @@ public class UI_StartMenu : MonoBehaviour
                             break;
                         case 5:
                             SetToUpload();
+                            Debug.Log("Setting Upload");
                             break;
                         case 6:
                             SetToDelete();
+                            Debug.Log("Setting Delete");
                             break;
                     }
                 }

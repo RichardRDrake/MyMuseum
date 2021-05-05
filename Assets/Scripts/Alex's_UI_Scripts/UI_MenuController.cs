@@ -51,7 +51,9 @@ public class UI_MenuController : MonoBehaviour
     #region Save/load contents
     //The text field at the top of that window
     [SerializeField] private GameObject SaveLoadText;
-    private TextMeshProUGUI SaveLoadTitle;
+    private Image SaveLoadTitle;
+    [SerializeField] private Sprite saveSprite;
+    [SerializeField] private Sprite loadSprite;
 
     //Allows save files to be independently hidden when loading a new page
     [SerializeField] private GameObject ObjectsHide;
@@ -201,7 +203,7 @@ public class UI_MenuController : MonoBehaviour
         saveNews.Add(SaveNew2.GetComponent<TextMeshProUGUI>());
         saveNews.Add(SaveNew3.GetComponent<TextMeshProUGUI>());
         countText = PageCounter.GetComponent<TextMeshProUGUI>();
-        SaveLoadTitle = SaveLoadText.GetComponent<TextMeshProUGUI>();
+        SaveLoadTitle = SaveLoadText.GetComponent<Image>();
 
         //Sets the locations the highlights can occupy
         MainLocations.Add(SaveButton.transform.position);
@@ -599,11 +601,11 @@ public class UI_MenuController : MonoBehaviour
         //Titles the page based on the appropriate function
         if (saveOrLoad == false)
         {
-            SaveLoadTitle.text = "SAVE";
+            SaveLoadTitle.sprite = saveSprite;
         }
         else
         {
-            SaveLoadTitle.text = "LOAD";
+            SaveLoadTitle.sprite = loadSprite;
         }
 
         //Creates a total list length based on number of existing saves
