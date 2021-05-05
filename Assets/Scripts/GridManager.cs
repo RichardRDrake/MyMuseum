@@ -102,6 +102,21 @@ public class GridManager : MonoBehaviour
             grid.ClearGrid();
         }
     }
+
+    public Asset GetPlacedObject(GameObject match)
+    {
+        foreach (PlacementGrid grid in GridList)
+        {
+            Asset check = grid.LookForMatch(match);
+
+            if (check != null)
+            {
+                return check;
+            } 
+        }
+
+        return null;
+    }
 } // TODO
 
 //Assign active grid somewhere

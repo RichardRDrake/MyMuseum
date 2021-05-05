@@ -165,6 +165,19 @@ public class PlacementGrid : MonoBehaviour
         }
     }
 
+    public Asset LookForMatch(GameObject match )
+    {
+        foreach (GridPosition point in gridPositions)
+        {
+            if (point.occupied.asset == match)
+            {
+                return point.occupied;
+            }
+        }
+
+        return null;
+    }
+
     private void OnDrawGizmos()
     {
         //Draw a rectangle to represent the size / position of the grid
