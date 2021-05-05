@@ -22,7 +22,8 @@ public class CamController : MonoBehaviour
     //camera movement variables
 
     private Transform parent;
-    private float moveSpeed = 5.0f;
+    Rigidbody rb;
+    private float moveSpeed = 30.0f;
     private float rotation = 90.0f;
 
 
@@ -188,7 +189,10 @@ public class CamController : MonoBehaviour
         thirdPersonPosition.x = 0.0f;
         thirdPersonPosition.y = 25.0f;
         thirdPersonPosition.z = -25.0f;
-      
+
+       rb = parent.GetComponent<Rigidbody>();
+
+
     }
 
     // Update is called once per frame
@@ -255,34 +259,39 @@ public class CamController : MonoBehaviour
            
             if (Input.GetKey("w") && canHotkey)
             {
-                doubleDisplacement();
+              //  doubleDisplacement();
                 // Sets y value to 0 so the player won't move based on tilt.
                 var forward = parent.forward;
                 forward.y = 0;
-                
+
                 // Applys the translation based on the objects rotation.
-                parent.Translate((forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+                //parent.Translate((forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+                rb.MovePosition(parent.transform.position + (parent.transform.forward * moveSpeed * Time.deltaTime));
+                
             }
 
             if (Input.GetKey("a") && canHotkey)
             {
-                doubleDisplacement();
-                parent.Translate((-transform.right + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+               // doubleDisplacement();
+                rb.MovePosition(parent.transform.position + (-parent.transform.right * moveSpeed * Time.deltaTime));
+             //   parent.Translate((-transform.right + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
             }
 
             if (Input.GetKey("s") && canHotkey)
             {
-                doubleDisplacement();
+              //  doubleDisplacement();
                 var forward = parent.forward;
                 forward.y = 0;
-                parent.Translate((-forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+              //  parent.Translate((-forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+                rb.MovePosition(parent.transform.position + (-parent.transform.forward * moveSpeed * Time.deltaTime));
             }
 
             if (Input.GetKey("d") && canHotkey)
             {
-                doubleDisplacement();
+            //doubleDisplacement();
 
-                parent.Translate((transform.right + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+                //parent.Translate((transform.right + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
+                rb.MovePosition(parent.transform.position + (parent.transform.right * moveSpeed * Time.deltaTime));
             }
             movementPosition = parent.localPosition;
           
