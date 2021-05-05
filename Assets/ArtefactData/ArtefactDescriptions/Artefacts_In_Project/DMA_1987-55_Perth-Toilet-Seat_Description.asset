@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_1987-55_Perth-Toilet-Seat_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_1987-55_Perth-Toilet-Seat_Description
+  ArtefactContent: 'This toilet seat was found during the 1979 excavations in Kirk
+    Close, Perth. It was found resting on a timber frame over a cesspit.  Evidence
+    suggests that the structure had been reduced in size and that originally there
+    may have been two seats. Toilet seats such as this were common across a broad
+    time range: some were still being used in outside toilets in the 19th century.
+    Similar medieval examples have been excavated in York, Kings Lynn and Exeter.'
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

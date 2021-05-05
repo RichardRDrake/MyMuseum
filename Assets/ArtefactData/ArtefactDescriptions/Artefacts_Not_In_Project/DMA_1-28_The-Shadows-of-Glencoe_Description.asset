@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_1-28_The-Shadows-of-Glencoe_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_1-28_The-Shadows-of-Glencoe_Description
+  ArtefactContent: Cameron was the son of a former Perth minister and took a great
+    interest in the opening of the new Perth Art Gallery & Museum in 1935. During
+    his lifetime he made many gifts to the collection and after his death in Perth
+    in 1945 he divided his estate between the National Gallery of Scotland and Perth
+    Art Gallery & Museum. Cameron had begun as an etcher, producing over 300 known
+    plates. He was a skilled watercolourist and became a prolific recorder of the
+    Scottish landscape in his oil paintings. Here he paints a typically broody, almost
+    menacing view of Glencoe with its association of slaughter in the 1692 Massacre.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

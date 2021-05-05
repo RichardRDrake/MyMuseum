@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_1979-5_Pictish-Cross-Slab-Fragment_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_1979-5_Pictish-Cross-Slab-Fragment_Description
+  ArtefactContent: Large fragment of a sandstone Pictish cross-slab found in New
+    Scone, but probably originally from Perth. 10-11 century AD. From the collection
+    of Perth Museum & Art Gallery, Perth & Kinross Council.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

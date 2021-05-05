@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_1985-105_Cross-Marked-Bronze-Age-Cup-Marked-Stone_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_1985-105_Cross-Marked-Bronze-Age-Cup-Marked-Stone_Description
+  ArtefactContent: Boulder marked with a plain Christian cross on one face and a
+    set of Bronze Age cupmarks on the other. From Shenavail Farm, Tominteold nr.
+    Aberfeldy. From the collection of Perth Museum & Art Gallery, Perth & Kinross
+    Council.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

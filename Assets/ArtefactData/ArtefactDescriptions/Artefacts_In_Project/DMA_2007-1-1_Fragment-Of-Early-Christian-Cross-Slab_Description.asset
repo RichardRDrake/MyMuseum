@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_2007-1-1_Fragment-Of-Early-Christian-Cross-Slab_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_2007-1-1_Fragment-Of-Early-Christian-Cross-Slab_Description
+  ArtefactContent: "Portion of an early Christian cross slab from the monastery at
+    Dull, Perthshire. Carved with a plain cross with hollow armpits and inscribed
+    with the name \u2018BECLII\u2019. Eighth century AD. From the collection of Perth
+    Museum & Art Gallery, Perth & Kinross Council."
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

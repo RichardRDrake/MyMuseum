@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
-  m_Name: ArtefactData
+  m_Name: DMA_1965-19_Celtic-Stone-Head-2nd-Century-AD_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_1965-19_Celtic-Stone-Head-2nd-Century-AD_Description
+  ArtefactContent: Possible so-called Celtic stone head, originally carved with horns
+    and possibly coloured stones for eye sockets. From North Muirton, Perth. Second
+    century AD. From the collection of Perth Museum & Art Gallery, Perth & Kinross
+    Council.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

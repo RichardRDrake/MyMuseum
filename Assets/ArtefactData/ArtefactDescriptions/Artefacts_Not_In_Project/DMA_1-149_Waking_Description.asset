@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_1-149_Waking_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_1-149_Waking_Description
+  ArtefactContent: Born in Southampton, Millais studied at the Royal Academy Schools
+    in London. He became associated with the Pre-Raphaelite Brotherhood. So his work
+    came to the attention of their early champion John Ruskin, the most influential
+    art critic in England. The picture is one of a pair, the other is titled Asleep.
+    The title of this one may suggest a wider wakening as the girl grows up, hence
+    the discarded books and toys of childhood, above all, the open doored, empty
+    birdcage above her head at which she gazes. The picture is highly detailed in
+    its technique.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

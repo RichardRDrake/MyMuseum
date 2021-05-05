@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_2-132_Loch-Katrine_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_2-132_Loch-Katrine_Description
+  ArtefactContent: McCulloch was inspired by Sir Walter Scott's poem of 1810, The
+    Lady of the Lake. The Loch nestles at the heart of one of the most popular and
+    beautiful of all Scotland's tourist haunts, The Trossachs to the west of Callendar.
+    Not only does it now serve the people of Glasgow as one of its reservoirs, it
+    is also home to a paddle steamer pleasure boat, the PS Sir Walter Scott. The
+    works of Scott proved immensely inspirational to Scottish and other artists throughout
+    the 19th century. His interest in places steeped in Scottish history touched
+    a nerve with a nation that was striving to establish its own cultural foundations
+    across the arts in the 1800s and helped open up the Scottish highlands as the
+    first seeds of the tourist trade were sown.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

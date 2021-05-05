@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_K1972-285_Dinosaur-Footprint_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_K1972-285_Dinosaur-Footprint_Description
+  ArtefactContent: This fossilised footprint was made by a theropod dinosaur about
+    200 million years ago. It is preserved in Jurassic age rocks from North America.
+    The theropods were large two-legged carnivores. Its scientific name, Eubrontes
+    means "true thunder". The specimen was brought to Scotland by Captain Anderson
+    and donated to the Marshall Museum, Kinross. This museum closed in 1996. The
+    specimen was collected in the Connecticut River Valley in 1860. The Connecticut
+    Valley is a world famous site for dinosaur tracks. Fossil footprints were first
+    discovered there in the early nineteenth century. When first discovered these
+    fossils were thought to be the footprints of giant birds. This specimen is in
+    the collection of Perth Museum and Art Gallery.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

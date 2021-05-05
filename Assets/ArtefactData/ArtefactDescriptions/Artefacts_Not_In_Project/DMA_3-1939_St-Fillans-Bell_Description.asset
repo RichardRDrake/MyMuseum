@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_3-1939_St-Fillans-Bell_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_3-1939_St-Fillans-Bell_Description
+  ArtefactContent: "Early Christian hand-bell formerly kept and used in St Fillan\u2019s
+    Church, Struan (near Blair Atholl), Perthshire, and possibly associated with
+    that place since the eighth century. It is made of wrought iron, coated in bronze.
+    From the collection of Perth Museum & Art Gallery, Perth & Kinross Council."
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

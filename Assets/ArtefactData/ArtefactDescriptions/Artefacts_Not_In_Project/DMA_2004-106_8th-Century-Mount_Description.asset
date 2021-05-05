@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_2004-106_8th-Century-Mount_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_2004-106_8th-Century-Mount_Description
+  ArtefactContent: Enamel and copper alloy mount with swastika design. Found Mains
+    of Cargill, Perthshire. Eighth century AD. From the collection of Perth Museum
+    & Art Gallery, Perth & Kinross Council.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

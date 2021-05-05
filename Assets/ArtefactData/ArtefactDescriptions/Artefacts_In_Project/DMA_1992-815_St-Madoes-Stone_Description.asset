@@ -12,8 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_1992-815_St-Madoes-Stone_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_1992-815_St-Madoes-Stone_Description
+  ArtefactContent: 'This magnificent piece of early medieval sculpture, the Pictish
+    St Madoes cross-slab, dates to the eighth century AD. Its imagery powerfully
+    symbolises the authority of the Christian church. The whole is dominated by the
+    ring-headed cross that fills what we can accept as the front of the slab. It
+    is surrounded by biting dogs and with two lion-like creatures facing each other
+    across the top of the stone. The back of the slab shows three cloaked and hooded
+    riders, probably churchmen (possibly a reference to the road and its users between
+    St Andrews and Scone) and below them three Pictish symbols: a crescent and v-rod,
+    a double-disc and z-rod and a Pictish beast/elephant. The symbols are much worn
+    due to exposure to the elements when it stood in St Madoes churchyard. In 1991
+    the stone was conserved and moved to Perth Museum & Art Gallery.'
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

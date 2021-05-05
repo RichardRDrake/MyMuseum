@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_2013-30_Iron-Age-Button-Loop-Fastener_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_2013-30_Iron-Age-Button-Loop-Fastener_Description
+  ArtefactContent: Iron Age copper alloy and enamel button-loop dress fastener, from
+    Rait, Perthshire. From the collection of Perth Museum & Art Gallery, Perth &
+    Kinross Council.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

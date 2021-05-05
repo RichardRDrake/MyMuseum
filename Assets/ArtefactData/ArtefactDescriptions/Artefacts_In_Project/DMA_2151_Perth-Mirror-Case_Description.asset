@@ -12,8 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_2151_Perth-Mirror-Case_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_2151_Perth-Mirror-Case_Description
+  ArtefactContent: A single, openwork, valve of a pewter mirror-case of the 13th
+    century. It is oval in shape and retains traces of the putty used to hold its
+    glass mirror (long perished) in place. It was found in 1921, during construction
+    work on the corner of St Johns Place and King Edward Street. It was found crumpled
+    up, implying it had been deliberately disposed of. The imagery depicts elements
+    of the highly popular medieval romance of Tristram and Iseult, focussing upon
+    the episode of the lovers tryst beneath the tree. King Mark, Tristram and Iseult
+    are named across the middle portions of the mirror-case and the circumference
+    carries an inscription in garbled, illiterate Anglo-Norman, wishing joy to the
+    bearer of the mirror-case. As a mass-produced, cheap piece of jewellery, it significantly
+    demonstrates the widespread and popular appeal of romance culture. Only two other
+    examples of pewter, Tristram and Iseult mirror-cases are known, one from London,
+    England and the other from Regensburg, Germany.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

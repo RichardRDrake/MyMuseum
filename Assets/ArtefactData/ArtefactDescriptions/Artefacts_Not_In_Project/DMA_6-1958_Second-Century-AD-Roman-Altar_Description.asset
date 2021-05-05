@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_6-1958_Second-Century-AD-Roman-Altar_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_6-1958_Second-Century-AD-Roman-Altar_Description
+  ArtefactContent: "From Bertha roman fort near Perth. The inscription reads \u2018Discipvlinae
+    Avgvsti\u2019 \u2013 to the discipline of the emperors. From the collection of
+    Perth Museum & Art Gallery, Perth & Kinross Council."
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 

@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
-  m_Name: ArtefactData
+  m_Name: DMA_5-1945_Inchyra-Stone_Description
   m_EditorClassIdentifier: 
-  ArtefactName: 
-  ArtefactContent: 
+  ArtefactName: DMA_5-1945_Inchyra-Stone_Description
+  ArtefactContent: Incised Pictish stone with ogham inscriptions, from Inchyra, St
+    Madoes, Perthshire. From the collection of Perth Museum & Art Gallery, Perth
+    & Kinross Council.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 
