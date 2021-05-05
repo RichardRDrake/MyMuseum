@@ -1,0 +1,8 @@
+- "GUI2_ArtefactBrowser2_PAGENUMBERBOX2_DarkVersion" looks nicer than the normal, lighter version, but if
+  you think it's too difficult to see in-engine, you can use the lighter "ArtefactBrowser2_PAGENUMBERBOX1"
+
+- While "ArtefactBrowser1_ASSEMBLYDEMONSTRATION1" shows a background on it, feel free to leave out the
+  backdrop if the buttons can still be seen without the backdrop.
+
+- For the Artefact Inspector ("GUI2_ArtefactInspector"), if you prefer to have TurnLeft/Right buttons that
+  fit the already in-game buttons, you can re-use the "CameraRotate" buttons in 4_GUI1

@@ -1,0 +1,62 @@
+----------- FONT ------------------------------------------------------------------------
+
+Century Gothic
+ - Regular for most text	[ generic buttons, unimportant text, flavour text ]
+
+ - Bold for specific text	[ menu title, emphasised text, ]
+	(WARNING: the menu titles - e.g. "OPTIONS", "SELECT FILE", "MENU" - uses a gradient. Either contact
+		  Ben to make new Bold text title if you need one, or replace all menu title text with
+		  custom Century Gothic bold text with solid colour ("Light Text on a Blue backdrop"
+		  RGB Hex listed below))
+
+
+
+
+
+
+----------- FONT COLOUR ------------------------------------------------------------------------
+
+LIGHT TEXT (on a BLUE backdrop):
+
+RGB Hex - #C3D7E5
+
+RGB -	R 195
+	G 215
+	B 229
+
+
+===============
+
+
+LIGHT TEXT (on a RED NEGATIVE BUTTON backdrop):
+[Yes, there IS a difference]
+
+RGB Hex - #FFF3F4
+
+RGB -	R 255
+	G 243
+	B 244
+
+
+===============
+
+
+DARK TEXT (on a WHITE backdrop):
+
+RGB Hex - #001671
+
+RGB -	R 0
+	G 22
+	B 113
+
+
+===============
+
+
+DARK TEXT (on a GREEN POSITIVE BUTTON backdrop):
+
+RGB Hex - #20631C
+
+RGB -	R 32
+	G 99
+	B 28

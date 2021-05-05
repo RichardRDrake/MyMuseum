@@ -453,7 +453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &165861375
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2747,7 +2747,7 @@ RectTransform:
   m_GameObject: {fileID: 768545931}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children:
   - {fileID: 423783095}
   m_Father: {fileID: 925422719}
@@ -2755,8 +2755,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 246.99995, y: -242}
-  m_SizeDelta: {x: 170, y: 170}
+  m_AnchoredPosition: {x: 360, y: -242}
+  m_SizeDelta: {x: 843, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &768545933
 MonoBehaviour:
@@ -2891,7 +2891,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1c748268e4b9a6b46ac316410303a1ca, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9887aec2a8f74b44ba05318fb33ce998, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5384,7 +5384,7 @@ RectTransform:
   m_GameObject: {fileID: 1582860151}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children:
   - {fileID: 278476036}
   m_Father: {fileID: 925422719}
@@ -5392,8 +5392,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 247, y: -166}
-  m_SizeDelta: {x: 170, y: 170}
+  m_AnchoredPosition: {x: 360, y: -166}
+  m_SizeDelta: {x: 843, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1582860153
 MonoBehaviour:
@@ -5528,7 +5528,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cad222e15c7a7d547813d768f100ad2e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4bdc34f8a0f3440428de61065d49ba3e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7543,6 +7543,10 @@ PrefabInstance:
     - target: {fileID: 2377757370394350234, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
       propertyPath: m_Name
       value: UI_Confirm
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377757370394350234, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2377757370394350235, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
       propertyPath: m_RootOrder
