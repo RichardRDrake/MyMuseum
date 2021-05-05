@@ -12,6 +12,7 @@ public class SaveLoadRoom : MonoBehaviour
 {
 
     [SerializeField] private AssetReference savedRoom; //Temp, not useful until there are more rooms to save
+    private GameObject spawnedRoom;
 
     public List<string> savesList = new List<string>();
 
@@ -35,6 +36,7 @@ public class SaveLoadRoom : MonoBehaviour
     {
         //save();
         //load();
+        //MakeRoom(savedRoom.AssetGUID, null, false);
 
         placer = FindObjectOfType<AssetPlacer>();
     }
@@ -114,7 +116,9 @@ public class SaveLoadRoom : MonoBehaviour
             Debug.Log("Could not find Grid Manager in scene!");
         }
 
+        //Clean up
         gridManager.ClearGrids();
+        Destroy(spawnedRoom);
         //spawnedObjects.Clear();
 
         string filepath = Application.persistentDataPath + "/" + name;
@@ -127,18 +131,9 @@ public class SaveLoadRoom : MonoBehaviour
             stream.Close();
 
             //Spawn the RoomObject
-            //MakeAsset(data.roomString, Vector3.zero, Quaternion.identity, true);
+            MakeRoom(data.roomString, data.Assets, true);
 
-            //Spawn all the artefacts
-            //Since we dont know the order objects will be spawned in, we wont attach them to their grid positions until we're finished spawning
-            //List<GameObject> spawnedObjects = new List<GameObject>();
-
-            foreach (AssetData asset in data.Assets)
-            {
-                MakeAsset(asset.assetString, asset.assetPos, asset.assetRot, false, placer, asset); //Spawned Asynchronously, wont be ready immidiately
-                //spawnedObjects.Add(spawned);
-                //AssetData assetData = data.Assets[i];
-            }            
+            //Make room calls the rest of the function, as it is asyncronous                       
         }
         else
         {
@@ -146,8 +141,40 @@ public class SaveLoadRoom : MonoBehaviour
         }
     }
 
-    private void MakeAsset(string GUID, Vector3 pos, Quaternion rot, bool room, AssetPlacer placer, AssetData assetData)
+    private void MakeRoom(string GUID, List<AssetData> assetData, bool b)
     {
+        AssetReference asset = new AssetReference(GUID);
+        //GameObject spawnedAsset;
+
+        asset.InstantiateAsync(Vector3.zero, Quaternion.identity).Completed += op =>
+        {
+            if (op.Status == AsyncOperationStatus.Succeeded && b)
+            {
+                //once the room has been spawned, spawn the assets
+                spawnedRoom = op.Result;
+                SpawnAssets(assetData);
+            }
+        };
+    }
+
+    private void SpawnAssets(List<AssetData> assetData)
+    {
+        foreach (AssetData asset in assetData)
+        {
+            MakeAsset(asset, placer);
+            //Spawned Asynchronously, wont be ready immidiately
+            //spawnedObjects.Add(spawned);
+            //AssetData assetData = data.Assets[i];
+        }
+    }
+
+    private void MakeAsset(AssetData assetData, AssetPlacer placer)
+    {
+        string GUID = assetData.assetString;
+
+        Vector3 pos = assetData.assetPos;
+        Quaternion rot = assetData.assetRot;
+
         AssetReference asset = new AssetReference(GUID);
         GameObject spawnedAsset;
 
@@ -158,11 +185,8 @@ public class SaveLoadRoom : MonoBehaviour
             {
                 spawnedAsset = op.Result;
                 //Attach each object to the grid (closest point will be correct spot, or not make a difference)
-                if (!room)
-                {
-                    GridPosition gPos = placer.PointToGrid(spawnedAsset.transform.position, spawnedAsset).gridPosition;                    
-                    gPos.occupied = new Asset(assetData.assetName,assetData.assetContent, assetData.assetString, assetData.assetPlacement);
-                }
+                GridPosition gPos = placer.PointToGrid(spawnedAsset.transform.position, spawnedAsset).gridPosition;                    
+                gPos.occupied = new Asset(assetData.assetName,assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result);
             }
         };
     }
@@ -220,13 +244,21 @@ public class SaveLoadRoom : MonoBehaviour
     {
         //Get the names of current saves and append them to savesList
         DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
-        FileInfo[] info = dir.GetFiles(saveName);
-
-        foreach (FileInfo file in info)
+        Debug.Log(saveName);
+        try
         {
-            DateTime time = file.LastWriteTimeUtc;
-            return time.ToString();
+            FileInfo[] info = dir.GetFiles(saveName);
+
+            foreach (FileInfo file in info)
+            {
+                DateTime time = file.LastWriteTimeUtc;
+                return time.ToString();
+            }
         }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }       
 
         return "----/--/--";
     }

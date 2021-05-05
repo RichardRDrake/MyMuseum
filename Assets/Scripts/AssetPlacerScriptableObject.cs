@@ -57,12 +57,14 @@ public class Asset
 
     public GameObject asset;
 
-    public Asset(string name, string content, string ar, ArtefactPlacementType apt)
+    public Asset(string name, string content, string ar, ArtefactPlacementType apt, GameObject _asset)
     {
         Name = name;
         Content = content;
         AssRef = ar;
         placementType = apt;
+
+        asset = _asset;
     }
 }
 
