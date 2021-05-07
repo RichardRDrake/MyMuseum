@@ -49,12 +49,17 @@ public class UI_SaveLoad : MonoBehaviour
         {
             //Behaviour in the main menu
             startMenuController.saveLoadIdentity = identifier;
+            startMenuController.paneCurrent = identifier;
             startMenuController.DisplayConfirmation();
         }
         else
         {
             //Behaviour in-game
             mainMenuController.saveLoadIdentity = identifier;
+            if (startMenuController)
+            {
+                startMenuController.paneCurrent = identifier;
+            }            
             Debug.Log("Changed to" + mainMenuController.saveLoadIdentity);
             mainMenuController.ShowConfirmation();
         }

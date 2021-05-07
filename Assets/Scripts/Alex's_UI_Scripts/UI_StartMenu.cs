@@ -34,7 +34,7 @@ public class UI_StartMenu : MonoBehaviour
     public int saveLoadIdentity;
 
     //Script managing save files
-    private Level saves;
+    private SaveLoadRoom saves;
 
     //The last accessed save's position in saves.savesList
     public int lastSaved;
@@ -172,7 +172,7 @@ public class UI_StartMenu : MonoBehaviour
         #region Set variables
         
         sceneNavigation = GetComponent<MainMenu>();
-        saves = GetComponent<Level>();
+        saves = GetComponent<SaveLoadRoom>();
 
         #region Audio variables
         //Gets the slider components of the music and sfx slider objects
@@ -300,7 +300,9 @@ public class UI_StartMenu : MonoBehaviour
     #region Catalogue scrolling
     public void IncrementPage()
     {
-        pageCurrent = Mathf.Clamp(pageCurrent++, 1, pageCount);
+        pageCurrent++;
+        pageCurrent = Mathf.Clamp(pageCurrent, 1, pageCount);
+        //Debug.Log(pageCurrent);
         ObjectsHide.SetActive(false);
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
@@ -310,7 +312,9 @@ public class UI_StartMenu : MonoBehaviour
 
     public void DecrementPage()
     {
-        pageCurrent = Mathf.Clamp(pageCurrent--, 1, pageCount);
+        pageCurrent--;
+        pageCurrent = Mathf.Clamp(pageCurrent, 1, pageCount);
+        //Debug.Log(pageCurrent);
         ObjectsHide.SetActive(false);
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
@@ -908,7 +912,15 @@ public class UI_StartMenu : MonoBehaviour
             //If this is selected, the player is attempting to load an existing room
             if(deleteSaveFiles)
             {
-                //Or attempting to delete one
+                //Or attempting to delete one*
+                Debug.Log(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+
+                saves.DeleteRoom(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+                
+                windowCurrent = WindowFinder.MenuLoad;
+                Confirm.SetActive(false);
+                MenuSetup();
+
             }
             else if(uploadSaveFiles)
             {
@@ -922,12 +934,10 @@ public class UI_StartMenu : MonoBehaviour
                 if (isEditable)
                 {
                     //The edit mode has an additional entry in the save file lists
-                    PlayerPrefs.SetInt("CurrentSave", (paneCurrent - 3) + (pageCurrent - 1) * 3);
+                    PlayerPrefs.SetInt("CurrentSave", (paneCurrent - 1) + (pageCurrent - 1) * 3);
                 }
-                else
-                {
-                    PlayerPrefs.SetInt("CurrentSave", (paneCurrent - 2) + (pageCurrent - 1) * 3);
-                }
+
+                SceneManager.LoadScene("Main_Scene", LoadSceneMode.Single);
             }
         }
         #endregion
@@ -976,7 +986,7 @@ public class UI_StartMenu : MonoBehaviour
     #region Catalogue voids
     public void MenuSetup()
     {
-        #region Determines the data displayed in the load game menus
+        #region Determines the data displayed in the load game menus     
 
         //Hides display while loading menus
         MenuMain.SetActive(false);
@@ -985,7 +995,7 @@ public class UI_StartMenu : MonoBehaviour
 
         //Creates a total list length based on number of existing saves (plus 1)
         //Includes all full pages, plus a page for the remainder
-        listLength = saves.SavesList.Count + 2;
+        listLength = saves.savesList.Count + 2;
         pageCount = listLength / 3;
         if (listLength % 3 > 0)
         {
@@ -1002,7 +1012,7 @@ public class UI_StartMenu : MonoBehaviour
         pageCurrent = 1;
         DisplayPageDetails();
 
-        ObjectsHide.SetActive(true);
+        ObjectsHide.SetActive(true);        
         #endregion
     }
 
@@ -1027,14 +1037,14 @@ public class UI_StartMenu : MonoBehaviour
                 if (((pageCurrent - 1) * 3) + i == (listLength - 1) && isEditable == true)
                 {
                     saveTexts[i].text = "Create new room";
-                    saveDates[i].text = "--/--/----";
+                    saveDates[i].text = "----/--/--";
                     saveNews[i].text = " ";
                 }
                 else
                 {
                     //Debug.Log("Empty save");
                     saveTexts[i].text = "NO DATA";
-                    saveDates[i].text = "--/--/----";
+                    saveDates[i].text = "----/--/--";
                     saveNews[i].text = " ";
                 }
                 #endregion
@@ -1046,8 +1056,8 @@ public class UI_StartMenu : MonoBehaviour
                 //Debug.Log(SaveTitle1);
                 //Debug.Log(saveTexts);
                 //Debug.Log(saveTexts[0]);
-                saveTexts[i].text = saves.SavesList[((pageCurrent - 1) * 3) + i];
-                saveDates[i].text = saves.DatesList[((pageCurrent - 1) * 3) + i];
+                saveTexts[i].text = saves.savesList[((pageCurrent - 1) * 3) + i];
+                saveDates[i].text = saves.GetDate(saveTexts[i].text);
                 saveNews[i].text = " ";
                 #endregion
             }

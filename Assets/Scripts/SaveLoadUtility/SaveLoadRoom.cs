@@ -18,6 +18,8 @@ public class SaveLoadRoom : MonoBehaviour
 
     private AssetPlacer placer;
 
+    [SerializeField] private bool isMainMenu = false;
+
     private void Awake()
     {        
         //Get the names of current saves and append them to savesList
@@ -37,11 +39,29 @@ public class SaveLoadRoom : MonoBehaviour
         //save();
         //load();
         //MakeRoom(savedRoom.AssetGUID, null, false);
+        if (isMainMenu)
+        {
+            return;
+        }
 
         placer = FindObjectOfType<AssetPlacer>();
+
+        //If the player choose to load a room from the start menu, load that here
+        if (PlayerPrefs.GetInt("RoomSetup") == 0)
+        {
+            //auto-load a room
+            if (!PlayerPrefs.HasKey("CurrentSave"))
+            {
+                //Make back-up room
+                MakeRoom(savedRoom.AssetGUID, null, false);
+            }
+
+            int save = PlayerPrefs.GetInt("CurrentSave");
+            Load(savesList[save]);
+        }
     }
 
-    public static BinaryFormatter GetBinaryFormatter()
+    public BinaryFormatter GetBinaryFormatter()
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
@@ -134,6 +154,21 @@ public class SaveLoadRoom : MonoBehaviour
             MakeRoom(data.roomString, data.Assets, true);
 
             //Make room calls the rest of the function, as it is asyncronous                       
+        }
+        else
+        {
+            Debug.LogError("Save file not found");
+        }
+    }
+
+    public void DeleteRoom(string name)
+    {
+        //Get the full file path
+        string filepath = Application.persistentDataPath + "/" + name;
+        if (File.Exists(filepath))
+        {
+            File.Delete(filepath);
+            savesList.Remove(name);
         }
         else
         {
@@ -244,7 +279,7 @@ public class SaveLoadRoom : MonoBehaviour
     {
         //Get the names of current saves and append them to savesList
         DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
-        Debug.Log(saveName);
+        //Debug.Log(saveName);
         try
         {
             FileInfo[] info = dir.GetFiles(saveName);
