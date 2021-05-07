@@ -229,6 +229,7 @@ public class UI_Controller : MonoBehaviour
         {
             if(PlayerPrefs.GetInt("RoomSetup") == 1)
             {
+                Debug.Log(PlayerPrefs.GetInt("RoomSetup"));
                 RoomSetup = true;
                 RoomInitialisation();
             }
@@ -406,15 +407,7 @@ public class UI_Controller : MonoBehaviour
                         DetailBack();
                         break;
                     case 3:
-                        if (RoomSetup == false)
-                        {
                             SendToAssetPlacer();
-                        }
-                        else
-                        {
-                            //Places the new room
-                            RoomSetup = false;
-                        }
                         break;
                     default:
                         break;
@@ -742,7 +735,7 @@ public class UI_Controller : MonoBehaviour
         //Then created a list of relevant assets from that record based on the catalogue category selected
         if (RoomSetup == true)
         {
-            //Resources = Wherever the room prefabs are stored.GetComponent<TempListScript>();
+            Resources = Room.GetComponent<TempListScript>();
         }
         else if (isArtefact == true)
         {
@@ -785,7 +778,7 @@ public class UI_Controller : MonoBehaviour
         //Creates a total page count based on number of objects in Resources.readFrom
         //Includes all full pages, plus a page for the remainder
         listLength = Resources.readFrom.Count + 1;
-        Debug.Log(listLength);
+        //Debug.Log(listLength);
         pageCount = listLength / 6;
         if(listLength % 6 > 0)
         {
@@ -818,7 +811,7 @@ public class UI_Controller : MonoBehaviour
         countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
         for (int i = 0; i <= 5; i++)
         {
-            Debug.Log(pageCurrent);
+            //Debug.Log(pageCurrent);
             pageNumber = ((pageCurrent - 1) * 6) + i;
             if (pageNumber == (listLength - 1))
             {
@@ -834,7 +827,7 @@ public class UI_Controller : MonoBehaviour
                 {
                     continue;
                 }
-                Debug.Log(Resources.readFrom[pageNumber].ArtefactName);
+                //Debug.Log(Resources.readFrom[pageNumber].ArtefactName);
                 objectDisplay[i].sprite = Sprite.Create(Resources.readFrom[pageNumber].PreviewImages[0], new Rect(0.0f, 0.0f, Resources.readFrom[pageNumber].PreviewImages[0].width, Resources.readFrom[pageNumber].PreviewImages[0].height), new Vector2(0.0f, 0.0f));
             }
         }
@@ -978,10 +971,9 @@ public class UI_Controller : MonoBehaviour
         //And include Texture2D details in similar form to artefacts
         if (RoomSetup)
         {
-            //Present the player with the RoomSelectionMenu
 
         }
-        //MenuSetup();
+        MenuSetup();
         #endregion
     }
 }
