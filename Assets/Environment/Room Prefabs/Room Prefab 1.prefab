@@ -3724,6 +3724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lighting (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1346143591004233033, guid: 01ed4bd6f1d3db6468a191b365cd3d6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2540506852701013275, guid: 01ed4bd6f1d3db6468a191b365cd3d6d, type: 3}
       propertyPath: m_Color.b
       value: 0.9783183
@@ -3912,27 +3916,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 298036733678710199, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1025690411070363841, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1570315662250748951, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4270487003004905544, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4501413288617863294, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5056687077837298407, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5378938145896149752, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_RootOrder
@@ -3980,19 +3984,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6159534173873457291, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6426909164521854584, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6498636690464208178, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6733506968927406164, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8629796183742972597, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Name
