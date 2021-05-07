@@ -1101,7 +1101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savedRoom:
-    m_AssetGUID: d94b37ac3c9111a40bcd3a9305f8ba0b
+    m_AssetGUID: faa1823436260094ba4da8cdb5360388
     m_SubObjectName: 
     m_SubObjectType: 
   savesList: []
@@ -1211,6 +1211,7 @@ MonoBehaviour:
   UiBuild: {fileID: 5315955196195339578}
   UiView: {fileID: 5315955196085896704}
   UiMain: {fileID: 5315955194279705937}
+  cameraToggle: 0
   canHotkey: 1
   inspection: 0
   horSensitivity: 1
@@ -5550,6 +5551,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 59796ded7a46aea4cb3fdfa06aad89e4, type: 2}
   - {fileID: 11400000, guid: 4f208d69b28060e4487943ef0dc1e8dd, type: 2}
   - {fileID: 11400000, guid: c525209b649df24448d2dbf1d5250303, type: 2}
+  - {fileID: 11400000, guid: 1ad29f302ac71c74697d4e4a67f5f35c, type: 2}
+  - {fileID: 11400000, guid: 7b18d70e4c6fbc544b092ef24322e9f1, type: 2}
+  - {fileID: 11400000, guid: e14df01225f7eb545a621a12d407d402, type: 2}
+  - {fileID: 11400000, guid: 6c50879307d57ee49bc8476489122010, type: 2}
+  - {fileID: 11400000, guid: 1a67f9d966a60bb49906af76b2166000, type: 2}
+  - {fileID: 11400000, guid: 95ea3d637f567c1418e18908430e4635, type: 2}
+  - {fileID: 11400000, guid: e7df756880754c84cb68d57321594dbc, type: 2}
+  - {fileID: 11400000, guid: 782b97fdea99ec94aa410b3829973d0b, type: 2}
+  - {fileID: 11400000, guid: 06e3158082540e943b96100a5ff1277f, type: 2}
+  - {fileID: 11400000, guid: 7c87db7e2ced85b45b0e1d5dc7a909a8, type: 2}
+  - {fileID: 11400000, guid: b4c11b254769dba4290ab3e9045e11b2, type: 2}
+  - {fileID: 11400000, guid: ec6dba56af537a74c80d53d5e9f6da72, type: 2}
 --- !u!114 &5315955194687452584
 MonoBehaviour:
   m_ObjectHideFlags: 0

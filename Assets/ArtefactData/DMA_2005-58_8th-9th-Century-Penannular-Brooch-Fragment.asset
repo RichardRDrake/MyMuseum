@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
-  m_Name: DMA_2005-58_8th-9th-Century-Penannular-Brooch-Fragment_Description
+  m_Name: DMA_2005-58_8th-9th-Century-Penannular-Brooch-Fragment
   m_EditorClassIdentifier: 
-  ArtefactName: DMA_2005-58_8th-9th-Century-Penannular-Brooch-Fragment_Description
+  ArtefactName: DMA_2005-58_8th-9th-Century-Penannular-Brooch-Fragment
   ArtefactContent: Approximatley half of a copper alloy penannular brooch. 8-9th
     century AD. From Cambusmichael, Perthshire. From the collection of Perth Museum
     & Art Gallery, Perth & Kinross Council.
   ArtefactPrefab:
-    m_AssetGUID: 
+    m_AssetGUID: b63d3a9d518e0e24d91e9657d6d1a93a
     m_SubObjectName: 
     m_SubObjectType: 
   PreviewImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  PlacementType: 3
+  - {fileID: 2800000, guid: 9b95d532eeec1e448bd5935c286d51af, type: 3}
+  - {fileID: 2800000, guid: 5e31d04e3245b624286d01074d4633ee, type: 3}
+  - {fileID: 2800000, guid: 2e03ebaa9b81a7a4aaff99542ea73e2a, type: 3}
+  - {fileID: 2800000, guid: cfeebf26e163d4048ad08acd0cd9065b, type: 3}
+  PlacementType: 0

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
-  m_Name: DMA_1992-815_St-Madoes-Stone_Description
+  m_Name: DMA_1992-815_St-Madoes-Stone
   m_EditorClassIdentifier: 
-  ArtefactName: DMA_1992-815_St-Madoes-Stone_Description
+  ArtefactName: DMA_1992-815_St-Madoes-Stone
   ArtefactContent: 'This magnificent piece of early medieval sculpture, the Pictish
     St Madoes cross-slab, dates to the eighth century AD. Its imagery powerfully
     symbolises the authority of the Christian church. The whole is dominated by the
@@ -25,12 +25,12 @@ MonoBehaviour:
     due to exposure to the elements when it stood in St Madoes churchyard. In 1991
     the stone was conserved and moved to Perth Museum & Art Gallery.'
   ArtefactPrefab:
-    m_AssetGUID: 
+    m_AssetGUID: 116f72d915b214548a878450a73a6b77
     m_SubObjectName: 
     m_SubObjectType: 
   PreviewImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  PlacementType: 3
+  - {fileID: 2800000, guid: 9b95d532eeec1e448bd5935c286d51af, type: 3}
+  - {fileID: 2800000, guid: 5e31d04e3245b624286d01074d4633ee, type: 3}
+  - {fileID: 2800000, guid: 2e03ebaa9b81a7a4aaff99542ea73e2a, type: 3}
+  - {fileID: 2800000, guid: cfeebf26e163d4048ad08acd0cd9065b, type: 3}
+  PlacementType: 0

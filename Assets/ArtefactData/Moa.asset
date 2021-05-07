@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: Moa
   m_EditorClassIdentifier: 
-  ArtefactName: Moa
-  ArtefactContent: 
+  ArtefactName: DMA_1977-1868_Moa-Skeleton
+  ArtefactContent: The tallest birds that ever lived were the moas from New Zealand.
+    Some grew to three metres, about the height of a set of traffic lights. There
+    may have been as many as 13 species of Moa judging from skeletal remains which
+    have been discovered on both North and South Islands of New Zealand. They flourished
+    on an island which had no mammals. The Moas demonstrate that persecution of animals
+    is not a modern problem. Polynesian settlers arrived in New Zealand one thousand
+    years ago. They introduced domestic mammals and hunted moas for meat. They made
+    spear points, hooks and ornaments from moa bones and used moa eggs as water carriers.
+    The moas declined and died out before 1775. This moa skeleton is from Ben More
+    on the South Island of New Zealand. It was donated to the Perthshire Natural
+    History Museum in 1888. This specimen is in the collection of Perth Museum and
+    Art Gallery.
   ArtefactPrefab:
     m_AssetGUID: 875f32d53a03b684bbd32c8f5a2c06b9
     m_SubObjectName: 
