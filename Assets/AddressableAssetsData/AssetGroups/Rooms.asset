@@ -18,7 +18,13 @@ MonoBehaviour:
   m_GUID: d8a8e9e64a32b8d4c91f033e1e987c9f
   m_SerializeEntries:
   - m_GUID: d94b37ac3c9111a40bcd3a9305f8ba0b
-    m_Address: Assets/Environment/Room Prefabs/Room Prefab 1.prefab
+    m_Address: Assets/Environment/Room/Room Prefabs/Room Prefab 1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 1916158934677676352, guid: d94b37ac3c9111a40bcd3a9305f8ba0b, type: 3}
+    m_TargetAsset: {fileID: 1916158934677676352, guid: d94b37ac3c9111a40bcd3a9305f8ba0b, type: 3}
+  - m_GUID: faa1823436260094ba4da8cdb5360388
+    m_Address: Assets/Environment/Room/Room Prefabs/Room Prefab 2.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

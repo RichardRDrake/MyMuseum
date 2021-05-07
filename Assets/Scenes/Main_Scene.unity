@@ -8311,7 +8311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bbb5bf1cc59bb4f8055bcd2ad0d61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  readFrom: []
+  readFrom:
+  - {fileID: 11400000, guid: 89c800a2186362d4db67b0d55a248df6, type: 2}
+  - {fileID: 11400000, guid: 8b203cb302330e847b58d7f264415bf0, type: 2}
 --- !u!224 &5315955195175665783
 RectTransform:
   m_ObjectHideFlags: 0
