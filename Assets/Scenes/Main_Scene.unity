@@ -585,7 +585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1916158934677676352, guid: d94b37ac3c9111a40bcd3a9305f8ba0b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1916158934677676353, guid: d94b37ac3c9111a40bcd3a9305f8ba0b, type: 3}
       propertyPath: m_RootOrder
@@ -1310,6 +1310,7 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
   savesList: []
+  isMainMenu: 0
 --- !u!1 &842062352 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7598899046292271628, guid: 0a8d12bd1ed66db4a88959dcf77e39ea, type: 3}
@@ -13161,7 +13162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7808088890178266071, guid: faa1823436260094ba4da8cdb5360388, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faa1823436260094ba4da8cdb5360388, type: 3}
