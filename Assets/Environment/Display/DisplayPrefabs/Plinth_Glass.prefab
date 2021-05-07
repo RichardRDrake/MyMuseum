@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6771302640716126581}
   - component: {fileID: 4100639102784298068}
   - component: {fileID: 5725701379495851517}
+  - component: {fileID: 1743276790973799980}
   m_Layer: 0
   m_Name: TempA_Plinth_01
   m_TagString: Untagged
@@ -103,6 +104,19 @@ MonoBehaviour:
   offsetX: 0.5
   offsetY: 1.5
   offsetZ: -0.5
+--- !u!65 &1743276790973799980
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56158299563237174}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0.5, y: 0.5, z: -0.5}
 --- !u!1 &8888855923295174825
 GameObject:
   m_ObjectHideFlags: 0
