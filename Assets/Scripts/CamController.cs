@@ -16,7 +16,7 @@ public class CamController : MonoBehaviour
     private UI_MenuController UI_MenuController;
 
     bool UiToggle = false;
-    bool cameraToggle = false;
+    public bool cameraToggle = false;
     public bool canHotkey = true;
     public bool inspection = false;
     //camera movement variables
