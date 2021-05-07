@@ -171,12 +171,12 @@ public class PlacementGrid : MonoBehaviour
         {
             if (point == null)
             {
-                return null;
+                continue;
             }
 
             if (point.occupied == null)
             {
-                return null;
+                continue;
             }
 
             if (point.occupied.asset == match)
