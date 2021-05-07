@@ -347,9 +347,11 @@ public class UI_Controller : MonoBehaviour
                         break;
                     case 3:
                         //This should link to the move object function in future
+                        StartManipulateMode();
                         break;
                     case 4:
                         //This should link to the delete object function in future
+                        StartDeleteMode();
                         break;
                     case 5:
                         SwitchToMain();
@@ -886,6 +888,16 @@ public class UI_Controller : MonoBehaviour
         UI_MenuController.Activate();
         camController.canHotkey = false;
         #endregion
+    }
+
+    public void StartManipulateMode()
+    {
+
+    }
+
+    public void StartDeleteMode()
+    {
+        
     }
 
     public void SendToAssetPlacer()

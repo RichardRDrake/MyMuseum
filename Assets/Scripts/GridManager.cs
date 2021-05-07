@@ -117,6 +117,4 @@ public class GridManager : MonoBehaviour
 
         return null;
     }
-} // TODO
-
-//Assign active grid somewhere
+}

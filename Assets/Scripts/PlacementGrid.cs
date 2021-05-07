@@ -133,7 +133,7 @@ public class PlacementGrid : MonoBehaviour
         }
 
         //Check to make sure the point is close to *something* on the grid
-        if (closestDistance <= size*0.6)
+        if (closestDistance <= size*0.8)
         {
             return new NearestPointResponse(closestPoint, closestDistance, this);
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.AddressableAssets;
 
-public class AssetPlacer : MonoBehaviour
+public class AssetPlacer : MonoBehaviour //At this point its more accurate to call it a manipulator
 {
     //Component that recives objects selected in the Artefact Browser and allow the user to place them on a grid
     //Parts of this will be subject to change, denoted with [PH]
@@ -65,8 +65,9 @@ public class AssetPlacer : MonoBehaviour
             {
                 objectToBePlaced.transform.Rotate(0.0f, -90.0f, 0.0f, Space.Self);
             }
-                //Debug.Log("TEST");
-                if (validPosition != Vector3.zero)
+
+            //Debug.Log("TEST");
+            if (validPosition != Vector3.zero)
             {
                 objectToBePlaced.transform.position = validPosition;
                 validPosition = Vector3.zero;
