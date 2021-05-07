@@ -18,7 +18,7 @@ public class CamController : MonoBehaviour
     bool UiToggle = false;
     bool cameraToggle = false;
     public bool canHotkey = true;
-
+    public bool inspection = false;
     //camera movement variables
 
     private Transform parent;
@@ -226,8 +226,10 @@ public class CamController : MonoBehaviour
         }
         else
         {
-           
-            firstPersonCameraUpdate(); // first person mode
+            if (inspection == false)
+            {
+                firstPersonCameraUpdate(); // first person mode
+            }
         }
 
     }
