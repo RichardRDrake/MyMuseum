@@ -10,7 +10,7 @@ public class Inspector : MonoBehaviour
     public GameObject[] objects;
     public List<float> distances;
     Transform parent;
-    public GameObject camera;
+    //public GameObject camera;
     public GameObject UI;
 
     GameObject inspected;
@@ -38,7 +38,7 @@ public class Inspector : MonoBehaviour
         // Sets the parent variable to the current camera parent
         parent = transform.parent;
         // Get the CamController component from the camera
-        controller = camera.GetComponent<CamController>();
+        controller = GetComponent<CamController>();
         // Get the assetPlacer object
         assetPlacer = GameObject.Find("AssetPlacer");
 
@@ -84,7 +84,7 @@ public class Inspector : MonoBehaviour
                 toggle = true;
 
                 // Set the camera viewing rotation to be the original value
-                camera.transform.eulerAngles = new Vector3(camera.transform.eulerAngles.x + 20, camera.transform.eulerAngles.y, camera.transform.eulerAngles.z);
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x + 20, transform.eulerAngles.y, transform.eulerAngles.z);
 
                 // Hides the cursor again
                 Cursor.visible = false;
@@ -139,7 +139,7 @@ public class Inspector : MonoBehaviour
             min = distances.Min();
 
             // Check if the distance is below 1.5. If it is,
-            if (min < 1.5 && min > 0)
+            if (min < 3 && min > 0)
             {         
                 return true; // Return true
 
@@ -248,7 +248,7 @@ public class Inspector : MonoBehaviour
 
         // Reposition/rotate the camera and inspected object.
         objects[index].transform.position = new Vector3(500, 500, 503);
-        camera.transform.eulerAngles = new Vector3(camera.transform.eulerAngles.x - 20, camera.transform.eulerAngles.y, camera.transform.eulerAngles.z);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x - 20, transform.eulerAngles.y, transform.eulerAngles.z);
         parent.transform.rotation = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, 1.0f), new Vector3(0, 1, 0));
         parent.localPosition = new Vector3(500, 500, 500);
 
