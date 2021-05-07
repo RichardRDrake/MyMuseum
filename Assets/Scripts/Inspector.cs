@@ -113,6 +113,7 @@ public class Inspector : MonoBehaviour
             if (toggle == false)
             {
                 // Call MouseControl to allow for mouse rotation/scrolling
+                img.gameObject.SetActive(false);
                 MouseControl();
             }
         }
