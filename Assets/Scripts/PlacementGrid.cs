@@ -169,6 +169,16 @@ public class PlacementGrid : MonoBehaviour
     {
         foreach (GridPosition point in gridPositions)
         {
+            if (point == null)
+            {
+                return null;
+            }
+
+            if (point.occupied == null)
+            {
+                return null;
+            }
+
             if (point.occupied.asset == match)
             {
                 return point.occupied;
