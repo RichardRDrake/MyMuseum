@@ -54,63 +54,73 @@ public class Inspector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Calls CheckSurround every frame
-        bool check = CheckSurround();
-        if (check == true)
-        {
-            img.gameObject.SetActive(true);
-        }
-        else
-        { img.gameObject.SetActive(false); }
-      
 
-        if (Input.GetKeyUp("space")) // On key press,
+        if (controller.cameraToggle == true)
         {
-            // Toggle variable is checked to determine whether we are currently inspecting an object,
-            if (toggle == true) // If an object isn't currently being inspected,
+
+            // Calls CheckSurround every frame
+            bool check = CheckSurround();
+            if (check == true)
             {
-                // Call CheckSurround 
-                if (check == true)
+                img.gameObject.SetActive(true);
+            }
+            else
+            { img.gameObject.SetActive(false); }
+
+
+            if (Input.GetKeyUp("space")) // On key press,
+            {
+                // Toggle variable is checked to determine whether we are currently inspecting an object,
+                if (toggle == true) // If an object isn't currently being inspected,
                 {
-                    Inspection();
+                    // Call CheckSurround 
+                    if (check == true)
+                    {
+                        Inspection();
+                    }
+                }
+                else // If an object is already being inspected,
+                {
+                    // Toggle the display text
+                    DisplayTextToggle();
+
+                    // Set the toggle variable to true again
+                    toggle = true;
+
+                    // Set the camera viewing rotation to be the original value
+                    transform.eulerAngles = new Vector3(transform.eulerAngles.x + 20, transform.eulerAngles.y, transform.eulerAngles.z);
+
+                    // Hides the cursor again
+                    Cursor.visible = false;
+
+                    // Lets the camera controller know we are no longer inspecting, re-enables hotkeys (allowing the user to move again)
+                    controller.inspection = false;
+                    controller.canHotkey = true;
+
+
+                    // Reset the objects rotation to its original value
+                    inspected.transform.eulerAngles = oldRot;
+
+                    // Resets the inspected object and camera's position back to their original values, prior to inspection.
+                    inspected.transform.position = apos;
+                    parent.transform.position = apos2;
+
+
                 }
             }
-            else // If an object is already being inspected,
+
+            // While toggle is false,
+            if (toggle == false)
             {
-                // Toggle the display text
-                DisplayTextToggle();
-
-                // Set the toggle variable to true again
-                toggle = true;
-
-                // Set the camera viewing rotation to be the original value
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x + 20, transform.eulerAngles.y, transform.eulerAngles.z);
-
-                // Hides the cursor again
-                Cursor.visible = false;
-
-                // Lets the camera controller know we are no longer inspecting, re-enables hotkeys (allowing the user to move again)
-                controller.inspection = false;
-                controller.canHotkey = true;
-
-
-                // Reset the objects rotation to its original value
-                inspected.transform.eulerAngles = oldRot;
-
-                // Resets the inspected object and camera's position back to their original values, prior to inspection.
-                inspected.transform.position = apos;
-                parent.transform.position = apos2;
-
-          
+                // Call MouseControl to allow for mouse rotation/scrolling
+                MouseControl();
             }
         }
-
-        // While toggle is false,
-        if (toggle == false)
+        else
         {
-            // Call MouseControl to allow for mouse rotation/scrolling
-            MouseControl();
+            img.gameObject.SetActive(false);
         }
+
     }
 
     bool CheckSurround()
