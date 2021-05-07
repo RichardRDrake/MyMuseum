@@ -56,8 +56,17 @@ public class AssetPlacer : MonoBehaviour
 
         if (objectToBePlaced != null && activeGrid != null)
         {
-            //Debug.Log("TEST");
-            if (validPosition != Vector3.zero)
+            if (Input.GetKeyDown(KeyCode.A) ||  Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                objectToBePlaced.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+            }
+
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                objectToBePlaced.transform.Rotate(0.0f, -90.0f, 0.0f, Space.Self);
+            }
+                //Debug.Log("TEST");
+                if (validPosition != Vector3.zero)
             {
                 objectToBePlaced.transform.position = validPosition;
                 validPosition = Vector3.zero;
