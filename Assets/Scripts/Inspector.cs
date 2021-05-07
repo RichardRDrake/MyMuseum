@@ -22,6 +22,11 @@ public class Inspector : MonoBehaviour
     CamController controller;
     Asset assetBundle;
     Vector3 oldRot;
+    Image img;
+
+    float min;
+
+    Text desc, title;
 
     bool UIToggle = false;
 
@@ -30,23 +35,45 @@ public class Inspector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Sets the parent variable to the current camera parent
         parent = transform.parent;
+        // Get the CamController component from the camera
         controller = camera.GetComponent<CamController>();
-        UI.SetActive(UIToggle);
+        // Get the assetPlacer object
         assetPlacer = GameObject.Find("AssetPlacer");
+
+        //Get the child image component from the UI, for showing/hiding the prompt message.
+        img = UI.GetComponent<Transform>().Find("objectPrompt").GetComponent<Image>();
+
+        // Get the child text components from the UI, for editing the text based on the currently inspected object.
+        title = UI.GetComponent<Transform>().Find("objectName").GetComponent<Text>();
+        desc = UI.GetComponent<Transform>().Find("objectDesc").GetComponent<Text>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp("f")) // On key press,
+        // Calls CheckSurround every frame
+        bool check = CheckSurround();
+        if (check == true)
+        {
+            img.gameObject.SetActive(true);
+        }
+        else
+        { img.gameObject.SetActive(false); }
+      
+
+        if (Input.GetKeyUp("space")) // On key press,
         {
             // Toggle variable is checked to determine whether we are currently inspecting an object,
             if (toggle == true) // If an object isn't currently being inspected,
             {
                 // Call CheckSurround 
-                CheckSurround();
-
+                if (check == true)
+                {
+                    Inspection();
+                }
             }
             else // If an object is already being inspected,
             {
@@ -85,6 +112,45 @@ public class Inspector : MonoBehaviour
             MouseControl();
         }
     }
+
+    bool CheckSurround()
+    {
+        // Populate the GameObject array "objects" with all objects found in the scene with the tag "object"
+        objects = GameObject.FindGameObjectsWithTag("object");
+
+        // If this array has at least 1 object within it,
+        if (objects.Length > 0)
+        {
+            // Reset the distances list
+            distances = new List<float>();
+
+            // For every object in the array,
+            for (int i = 0; i < objects.Length; i++)
+            {
+                // Get the object/camera positions
+                pos = objects[i].transform.position;
+                pos2 = parent.transform.position;
+
+                // Determine the total distance between the camera and object, add it to the distances list
+                distances.Add(Mathf.Sqrt(Mathf.Pow(pos2.x - pos.x, 2) + Mathf.Pow(pos2.z - pos.z, 2)));
+            }
+
+            // Get the minimum distance from the list
+            min = distances.Min();
+
+            // Check if the distance is below 1.5. If it is,
+            if (min < 1.5 && min > 0)
+            {         
+                return true; // Return true
+
+            } else // If it is less than 1.5
+            {
+                return false; // Return false
+            }
+        }
+        return false;
+    }
+
 
 
     void MouseControl()
@@ -127,96 +193,64 @@ public class Inspector : MonoBehaviour
         }
     }
 
-
-    void CheckSurround()
+    void Inspection()
     {
-        // Populate objects array with all gameObjects with the "object tag"
-        objects = GameObject.FindGameObjectsWithTag("object");
-       
-        // If therea are objects within the array,
-        if (objects.Length > 0)
-        {
-            // Reset distances list
-            distances = new List<float>();
-        
-            // For every object in the array,
-            for (int i = 0; i < objects.Length; i++)
-            {
-                // Get the object/camera positions
-              pos = objects[i].transform.position;
-              pos2 = parent.transform.position;
+  
+        // Entering inspection mode
 
-              // Determine the total distance between the camera and object, add it to the distances list
-              distances.Add(Mathf.Sqrt(Mathf.Pow(pos2.x - pos.x, 2) + Mathf.Pow(pos2.z - pos.z, 2)));
-            }
+        // Sets toggle to false so the next time the player presses the "f" key, they will instead exit inspection mode
+        toggle = false;
 
-            // Get the minimum distance from the list
-            float min = distances.Min();
+        // Tells the camea controller that we are currently inspecting
+        controller.inspection = true;
 
-            // Check if the distance is below 1.5. If it is,
-            if (min < 1.5 && min > 0) 
-            {
-                // Entering inspection mode
+        // Disables hotkeys for the camera controller.
+        controller.canHotkey = false;
 
-                // Sets toggle to false so the next time the player presses the "f" key, they will instead exist inspection mode
-                toggle = false;
+        // Get the index from the list of distances, for the smallest distance value
+        int index = distances.IndexOf(min);
 
-                // Tells the camea controller that we are currently inspecting
-                controller.inspection = true;
-                // Disables hotkeys for the camera controller.
-                controller.canHotkey = false;
-
-                // Get the index from the list of distances, for the smallest distance value
-                int index = distances.IndexOf(min);
-
-                // Save old object and camera positions prior to moving them to a new space.
-                apos = objects[index].transform.position;
-                apos2 = parent.transform.position;
+        // Save old object and camera positions prior to moving them to a new space.
+        apos = objects[index].transform.position;
+        apos2 = parent.transform.position;
                
+        // Shows the cursor
+        Cursor.visible = true;
 
-                // Shows the cursor
-                Cursor.visible = true;
+        // Sets the inspected variable to the object that is closest to the player (the min distance object)
+        inspected = objects[index];
 
-                // Sets the inspected variable to the object that is closest to the player (the min distance object)
-                inspected = objects[index];
+        // Call the text toggle function
+        DisplayTextToggle();
 
-                // Call the text toggle function
-                DisplayTextToggle();
+        
 
-                // Get the child text components from the UI, for editing the text based on the currently inspected object.
-                Text title = UI.GetComponent<Transform>().Find("objectName").GetComponent<Text>();
-                Text desc = UI.GetComponent<Transform>().Find("objectDesc").GetComponent<Text>();
+        // Gets the specific asset for the currently inspected object, from the grid manager. This is stored within the assetBundle variable
+        assetBundle = assetPlacer.GetComponent<GridManager>().GetPlacedObject(inspected);
 
-
-                // Gets the specific asset for the currently inspected object, from the grid manager. This is stored within the assetBundle variable
-                assetBundle = assetPlacer.GetComponent<GridManager>().GetPlacedObject(inspected);
-
-                // Null check for assetBundle
-                if (assetBundle != null)
-                {
-                    // If assetBundle isn't null,
+        // Null check for assetBundle
+        if (assetBundle != null)
+        {
+            // If assetBundle isn't null,
              
-                    // Populate the UI text with the corresponding asset text and content.
-                    title.text = assetBundle.Name;
-                    desc.text = assetBundle.Content;
-
-                }
-                else
-                {
-                    Debug.Log("Asset not found");
-                }
-
-                // Save old rotation of the inspected object
-                oldRot = inspected.transform.eulerAngles;
-
-                // Reposition/rotate the camera and inspected object.
-                objects[index].transform.position = new Vector3(500, 500, 503);
-                camera.transform.eulerAngles = new Vector3(camera.transform.eulerAngles.x - 20, camera.transform.eulerAngles.y, camera.transform.eulerAngles.z);
-                parent.transform.rotation = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, 1.0f), new Vector3(0, 1, 0));
-                parent.localPosition = new Vector3(500, 500, 500);
-            }
+            // Populate the UI text with the corresponding asset text and content.
+            title.text = assetBundle.Name;
+            desc.text = assetBundle.Content;
 
         }
+        else
+        {
+            Debug.Log("Asset not found");
+        }
+
+        // Save old rotation of the inspected object
+        oldRot = inspected.transform.eulerAngles;
+
+        // Reposition/rotate the camera and inspected object.
+        objects[index].transform.position = new Vector3(500, 500, 503);
+        camera.transform.eulerAngles = new Vector3(camera.transform.eulerAngles.x - 20, camera.transform.eulerAngles.y, camera.transform.eulerAngles.z);
+        parent.transform.rotation = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, 1.0f), new Vector3(0, 1, 0));
+        parent.localPosition = new Vector3(500, 500, 500);
 
     }
 
@@ -225,7 +259,9 @@ public class Inspector : MonoBehaviour
     {
         // UI active toggle, will toggle between true/false each time it's called
         UIToggle = !UIToggle;
-        UI.SetActive(UIToggle);
+
+        title.gameObject.SetActive(UIToggle);
+        desc.gameObject.SetActive(UIToggle);
      
     }
 
