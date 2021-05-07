@@ -693,7 +693,8 @@ public class UI_Controller : MonoBehaviour
     public void IncrementPage()
     {
         //Cycles pages upward
-        pageCurrent = Mathf.Clamp(pageCurrent++, 1, pageCount);
+        pageCurrent++;
+        pageCurrent = Mathf.Clamp(pageCurrent, 1, pageCount);
         ObjectsHide.SetActive(false);
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
@@ -706,7 +707,8 @@ public class UI_Controller : MonoBehaviour
     public void DecrementPage()
     {
         //Cycles pages downward
-        pageCurrent = Mathf.Clamp(pageCurrent--, 1, pageCount);
+        pageCurrent--;
+        pageCurrent = Mathf.Clamp(pageCurrent, 1, pageCount);
         ObjectsHide.SetActive(false);
         DisplayPageDetails();
         ObjectsHide.SetActive(true);
