@@ -1961,6 +1961,7 @@ GameObject:
   - component: {fileID: 323468564}
   - component: {fileID: 323468563}
   - component: {fileID: 323468565}
+  - component: {fileID: 323468566}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2142,7 +2143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323468558}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c31c052f30be92468765c873a81b2ef, type: 3}
   m_Name: 
@@ -2156,6 +2157,24 @@ MonoBehaviour:
   objTextDesc: []
   name: 
   date: 14/04/2021
+--- !u!114 &323468566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323468558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f3e8777ea5c4749b322da0b0b43b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savedRoom:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+  savesList: []
+  isMainMenu: 1
 --- !u!1 &423783094
 GameObject:
   m_ObjectHideFlags: 0

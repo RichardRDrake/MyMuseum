@@ -185,7 +185,7 @@ public class UI_MenuController : MonoBehaviour
         Saves = SaveObject.GetComponent<SaveLoadRoom>();
         if(Saves != null)
         {
-             Debug.Log(Saves.savesList.Count);
+             //Debug.Log(Saves.savesList.Count);
         }
         else 
         {
@@ -990,11 +990,11 @@ public class UI_MenuController : MonoBehaviour
             }
                 if (saveFileSelected < listLength)
                 {
-                    Debug.Log(paneCurrent);
-                    Debug.Log(paneCurrent - 1 + (pageCurrent - 1) * 3);
+                    //Debug.Log(paneCurrent);
+                    //Debug.Log(paneCurrent - 1 + (pageCurrent - 1) * 3);
                     windowCurrent = (WindowFinder)1;
                     Saves.Load(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
-                    Debug.Log(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+                    //Debug.Log(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
                     lastSaved = (paneCurrent - 1) + (pageCurrent - 1) * 3;
                     DisableSubmenus();
                     Confirm.SetActive(false);
