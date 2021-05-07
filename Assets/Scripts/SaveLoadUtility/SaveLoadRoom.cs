@@ -128,7 +128,6 @@ public class SaveLoadRoom : MonoBehaviour
     public void Load(string name)
     {
         //When room placement's sorted we'll clear out the room here
-
         //Clear out all current objects
         GridManager gridManager = FindObjectOfType<GridManager>();
         if (!gridManager)
@@ -138,6 +137,7 @@ public class SaveLoadRoom : MonoBehaviour
 
         //Clean up
         gridManager.ClearGrids();
+
         Destroy(spawnedRoom);
         //spawnedObjects.Clear();
 
@@ -176,20 +176,40 @@ public class SaveLoadRoom : MonoBehaviour
         }
     }
 
-    private void MakeRoom(string GUID, List<AssetData> assetData, bool b)
+    public void MakeRoom(string GUID, List<AssetData> assetData, bool b)
     {
         AssetReference asset = new AssetReference(GUID);
         //GameObject spawnedAsset;
 
+        //Clear out all current objects
+        GridManager gridManager = FindObjectOfType<GridManager>();
+        if (!gridManager)
+        {
+            Debug.Log("Could not find Grid Manager in scene!");
+        }
+
+        //Clean up
+        gridManager.ClearGrids();
+
+        if (spawnedRoom != null)
+        {
+            Destroy(spawnedRoom);
+        }       
+
         asset.InstantiateAsync(Vector3.zero, Quaternion.identity).Completed += op =>
         {
-            if (op.Status == AsyncOperationStatus.Succeeded && b)
+            if (op.Status == AsyncOperationStatus.Succeeded)
             {
                 //once the room has been spawned, spawn the assets
                 spawnedRoom = op.Result;
-                SpawnAssets(assetData);
+                if (b)
+                {
+                    SpawnAssets(assetData);
+                }                
             }
         };
+
+        savedRoom = asset;
     }
 
     private void SpawnAssets(List<AssetData> assetData)

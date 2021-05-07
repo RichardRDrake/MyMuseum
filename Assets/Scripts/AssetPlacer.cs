@@ -82,6 +82,13 @@ public class AssetPlacer : MonoBehaviour
             //artefact = exampleObject_1;
         }
 
+        //We're jamming the room selection in here. good luck.
+        if (artefact.GetPlacementType() == ArtefactPlacementType.Rooms)
+        {
+            FindObjectOfType<SaveLoadRoom>().MakeRoom(artefact.GetArtefact().AssetGUID, null, false);
+            return;
+        }
+
         //Confused on Addressables? Go here: https://www.youtube.com/watch?v=Zb9WchxZhvM
         asset = new Asset(artefact.ArtefactName, artefact.ArtefactContent, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType(), null);
         //The Addressable pathway to the asset (found on its scriptable object)
@@ -192,7 +199,7 @@ public class AssetPlacer : MonoBehaviour
 
         if (mr)
         {
-            mr.material.color = newColor;
+            //mr.material.color = newColor;
         }       
     }
 }

@@ -964,7 +964,11 @@ public class UI_Controller : MonoBehaviour
         //Room initialisation needs to read the object containing serialised room prefabs.
         //These must be serialised in the same list structure as artefacts
         //And include Texture2D details in similar form to artefacts
+        if (RoomSetup)
+        {
+            //Present the player with the RoomSelectionMenu
 
+        }
         //MenuSetup();
         #endregion
     }

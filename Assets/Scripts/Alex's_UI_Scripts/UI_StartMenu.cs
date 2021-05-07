@@ -23,7 +23,7 @@ public class UI_StartMenu : MonoBehaviour
     [SerializeField] private GameObject LoadViewButton;
     [SerializeField] private GameObject OptionsButton;
     [SerializeField] private GameObject QuitButton;
-    private List<Vector3> MainLocations = new List<Vector3>();
+    private List<Vector3> MainLocations = new List<Vector3>();    
     #endregion
 
     #region Load screen variables
@@ -211,6 +211,8 @@ public class UI_StartMenu : MonoBehaviour
         #endregion
 
         #region Variables and lists involved with save file management
+        PlayerPrefs.SetInt("RoomSetup", 1);
+
         countText = PageCounter.GetComponent<TextMeshProUGUI>();
         SaveLoadLocations.Add(SaveLoad1.transform.position);
         SaveLoadLocations.Add(SaveLoad2.transform.position);
@@ -902,6 +904,7 @@ public class UI_StartMenu : MonoBehaviour
             //The player will need to record the list position of the save file, and write to PlayerPrefs
             PlayerPrefs.SetInt("CurrentSave", lastSaved);
             //Commented out for now
+            SceneManager.LoadScene("Main_Scene", LoadSceneMode.Single);
         }
         else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Download room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Download new room")
         {

@@ -45,6 +45,7 @@ public enum ArtefactPlacementType
     FloorGrid, //Placed on the floor grid
     PlinthGrid,
     WallGrid,
+    Rooms,
     Misc
 }
 

@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Plinth
   m_EditorClassIdentifier: 
   ArtefactName: Plinth
+  ArtefactContent: 
   ArtefactPrefab:
     m_AssetGUID: b35fb21c23866214caa16fb1eff69816
     m_SubObjectName: 
     m_SubObjectType: 
   PreviewImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2800000, guid: fc03f6d15fbc5844f83e71c20bd340c1, type: 3}
+  - {fileID: 2800000, guid: fc03f6d15fbc5844f83e71c20bd340c1, type: 3}
+  - {fileID: 2800000, guid: fc03f6d15fbc5844f83e71c20bd340c1, type: 3}
+  - {fileID: 2800000, guid: fc03f6d15fbc5844f83e71c20bd340c1, type: 3}
   PlacementType: 0
