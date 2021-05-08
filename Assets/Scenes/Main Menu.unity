@@ -418,6 +418,18 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: Button_Pressed_SFX
+    clip: {fileID: 8300000, guid: 150ec9b901f0f9843ba9ba500bb2ab7c, type: 3}
+    volume: 0.71
+    pitch: 1.1
+    loop: 0
+    source: {fileID: 0}
+  - name: Select_Artifact_SFX
+    clip: {fileID: 8300000, guid: 7423bf61b7f3468418ecbf335528d3d7, type: 3}
+    volume: 0.47
+    pitch: 1.16
+    loop: 0
+    source: {fileID: 0}
   bgmCurrent: 0.8
   sfxCurrent: 0
   bgmMixerGroup: {fileID: 24300002, guid: 0492c873e38fd774da6aeb98774d955e, type: 2}

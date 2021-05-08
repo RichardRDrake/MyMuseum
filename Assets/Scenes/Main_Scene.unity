@@ -1139,7 +1139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876706179}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1640005284}
@@ -1364,6 +1364,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Select_Artifact_SFX
     clip: {fileID: 8300000, guid: 7423bf61b7f3468418ecbf335528d3d7, type: 3}
+    volume: 0.38
+    pitch: 1.36
+    loop: 0
+    source: {fileID: 0}
+  - name: Button_Pressed_SFX
+    clip: {fileID: 8300000, guid: 150ec9b901f0f9843ba9ba500bb2ab7c, type: 3}
     volume: 0.38
     pitch: 0.79
     loop: 0
@@ -1714,8 +1720,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1640005284}
-  - component: {fileID: 1640005283}
   - component: {fileID: 1640005285}
+  - component: {fileID: 1640005283}
   m_Layer: 0
   m_Name: CameraController
   m_TagString: Untagged
@@ -1737,7 +1743,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!4 &1640005284
 Transform:
@@ -1747,7 +1753,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640005282}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 876706180}
@@ -1765,8 +1771,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
+  m_Height: 0.5
+  m_Radius: 0.1
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08

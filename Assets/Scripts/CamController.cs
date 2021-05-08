@@ -34,7 +34,7 @@ public class CamController : MonoBehaviour
     private Vector3 thirdPersonRotation;
     private Vector3 startFirstPersonRotation = new Vector3(0.0f,0.0f,1.0f);
     private Vector3 startThirdPersonRotation = new Vector3(0.0f,-0.3f,1f).normalized; 
-    private Vector3 resetParent = new Vector3(0.0f, 0.0f, 0.0f);
+    private Vector3 resetParent = new Vector3(0.0f, 1.7f, 0.0f);
     public float horSensitivity = 1.0f;
     public float verSensitivity = 1.0f;
 
@@ -61,6 +61,8 @@ public class CamController : MonoBehaviour
     float sensitivity = 10f;
 
     int rotateCounter;
+    float forward;
+    float right;
 
     //camera reference
     private Camera cameraRef;
@@ -187,7 +189,7 @@ public class CamController : MonoBehaviour
         parent = transform.parent;
         //Debug.Log(parent);
         firstPersonPosition.x = 0.0f;
-        firstPersonPosition.y = 2.1f;
+        firstPersonPosition.y = 0.2f;
         firstPersonPosition.z = 0.0f;
         gameObject.transform.position = new Vector3(0.0f, 25.0f, -25.0f);
         thirdPersonPosition.x = 0.0f;
@@ -196,6 +198,12 @@ public class CamController : MonoBehaviour
 
        //rb = parent.GetComponent<Rigidbody>();
         cController = parent.GetComponent<CharacterController>();
+        
+        //forward = parent.forward.y;
+        //right = parent.right.y;
+
+        //forward = 0;
+        //right = 0;
 
     }
 
@@ -275,7 +283,10 @@ public class CamController : MonoBehaviour
                 // Applys the translation based on the objects rotation.
                 //parent.Translate((forward + headBobMovement) * moveSpeed * Time.deltaTime, Space.World);
                 // rb.MovePosition(parent.transform.position + (parent.transform.forward * moveSpeed * Time.deltaTime));
+                
              cController.Move(forward * moveSpeed * Time.deltaTime);
+            
+         
             }
 
             if (Input.GetKey("a") && canHotkey)
@@ -314,7 +325,7 @@ public class CamController : MonoBehaviour
         //headBob
 
         firstPersonPosition.x = gameObject.transform.localPosition.x;
-        firstPersonPosition.y = 2.1f;
+        firstPersonPosition.y = 0.2f;
         firstPersonPosition.z = gameObject.transform.localPosition.z;
 
         

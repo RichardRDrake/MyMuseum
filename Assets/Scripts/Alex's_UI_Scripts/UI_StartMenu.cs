@@ -328,6 +328,7 @@ public class UI_StartMenu : MonoBehaviour
     #region Menu navigation
     public void NavigateUp()
     {
+        audioManager.Play("Button_Pressed_SFX");
         #region Move up the hierarchy
         //determine which menu layer the player is on
         int windowInt = (int)windowCurrent;
@@ -769,6 +770,7 @@ public class UI_StartMenu : MonoBehaviour
 
     public void LoadView()
     {
+        audioManager.Play("Button_Pressed_SFX");
         #region Activates the load menu in view mode
         windowCurrent = WindowFinder.MenuLoad;
         DisableHovers();
@@ -785,6 +787,7 @@ public class UI_StartMenu : MonoBehaviour
 
     public void LoadEdit()
     {
+        audioManager.Play("Button_Pressed_SFX");
         #region Activates the load menu in edit mode
         windowCurrent = WindowFinder.MenuLoad;
         DisableHovers();
@@ -802,6 +805,7 @@ public class UI_StartMenu : MonoBehaviour
     public void DisplayOptions()
     {
         #region Navigates to the options menu
+        audioManager.Play("Button_Pressed_SFX");
         windowCurrent = WindowFinder.MenuOptions;
         DisableHovers();
         MenuMain.SetActive(false);
@@ -811,21 +815,25 @@ public class UI_StartMenu : MonoBehaviour
 
     public void DisplayConfirmation()
     {
+        audioManager.Play("Button_Pressed_SFX");
         #region Displays the confirmation menu
         //The Mathf.Clamps are to prevent negative values
         //Does nothing if attempting to load an empty save
         if (!isLoading || (saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text != "NO DATA"))
         {
+
             windowCurrent = WindowFinder.Confirm;
             #region Quit game
             if (!isLoading)
             {
+                audioManager.Play("Button_Pressed_SFX");
                 ConfirmText.text = "Quit MyMuseum?";
             }
             #endregion
             #region Create new room
             else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Create new room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Create new room")
             {
+                audioManager.Play("Button_Pressed_SFX");
                 ConfirmText.text = "Name your new room";
                 inputField.text = "";
                 InputObject.SetActive(true);
@@ -836,6 +844,7 @@ public class UI_StartMenu : MonoBehaviour
             #region Download room
             else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Download room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Download new room")
             {
+                audioManager.Play("Button_Pressed_SFX");
                 ConfirmText.text = "Browse rooms online?";
                 InputObject.SetActive(false);
             }
@@ -846,16 +855,19 @@ public class UI_StartMenu : MonoBehaviour
                 InputObject.SetActive(false);
                 if (deleteSaveFiles)
                 {
+                    audioManager.Play("Button_Pressed_SFX");
                     ConfirmText.text = "Delete this save file?";
                 }
                 else
                 {
                     if (isEditable)
                     {
+                        audioManager.Play("Button_Pressed_SFX");
                         ConfirmText.text = "Load this room in edit mode?";
                     }
                     else
                     {
+                        audioManager.Play("Button_Pressed_SFX");
                         ConfirmText.text = "Load this room in view mode?";
                     }
                 }
@@ -890,6 +902,7 @@ public class UI_StartMenu : MonoBehaviour
     public void ConfirmPressed()
     {
         #region When the confirm button is pressed
+        audioManager.Play("Button_Pressed_SFX");
         if (!isLoading)
         {
             //If the confirm menu is active outside the context of the load menus
@@ -900,7 +913,7 @@ public class UI_StartMenu : MonoBehaviour
             //If this is selected, the player is attempting to create a new save
             //The player will need to load an initial room template.
             PlayerPrefs.SetInt("RoomSetup", 1);
-
+            Destroy(audioManager);
             //The player will need to record the list position of the save file, and write to PlayerPrefs
             PlayerPrefs.SetInt("CurrentSave", lastSaved);
             //Commented out for now

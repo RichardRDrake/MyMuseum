@@ -172,6 +172,11 @@ public class UI_MenuController : MonoBehaviour
     public ConfirmFinder confirmCurrent = ConfirmFinder.Null;
     #endregion
 
+    #region audio
+    private AudioManager audioManager;
+    
+
+    #endregion
     #endregion
 
     // Start is called before the first frame update
@@ -183,7 +188,8 @@ public class UI_MenuController : MonoBehaviour
         UI_ViewController = ViewMenu.GetComponent<UI_ViewController>();
         CamController = Camera.GetComponent<CamController>();
         Saves = SaveObject.GetComponent<SaveLoadRoom>();
-        if(Saves != null)
+        audioManager = FindObjectOfType<AudioManager>();
+        if (Saves != null)
         {
              //Debug.Log(Saves.savesList.Count);
         }
@@ -367,6 +373,7 @@ public class UI_MenuController : MonoBehaviour
 
     public void NavigateUp()
     {
+        audioManager.Play("Button_Pressed_SFX");
         //Similar in function to NavigateUp in the UI_Controller script
         //Moves back up the hierarchy based on windowCurrent
         #region Backing Up
@@ -931,6 +938,7 @@ public class UI_MenuController : MonoBehaviour
     public void SavePressed()
     {
         saveOrLoad = false;
+        audioManager.Play("Button_Pressed_SFX");
         DisableMainMenu();
         MenuSetup();
     }
@@ -939,6 +947,7 @@ public class UI_MenuController : MonoBehaviour
     public void LoadPressed()
     {
         saveOrLoad = true;
+        audioManager.Play("Button_Pressed_SFX");
         DisableMainMenu();
         MenuSetup();
     }
@@ -946,6 +955,7 @@ public class UI_MenuController : MonoBehaviour
     //Used by the options button
     public void OptionsPressed()
     {
+        audioManager.Play("Button_Pressed_SFX");
         DisableMainMenu();
         OptionsSetup();
     }
