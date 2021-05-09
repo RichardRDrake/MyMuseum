@@ -1210,8 +1210,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UiBuild: {fileID: 5315955196195339578}
   UiView: {fileID: 5315955196085896704}
+  UiPrompt: {fileID: 381074991}
   UiMain: {fileID: 5315955194279705937}
   cameraToggle: 0
+  returnToFirst: 1
   canHotkey: 1
   inspection: 0
   horSensitivity: 1

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CamController : MonoBehaviour
 {
@@ -11,12 +12,16 @@ public class CamController : MonoBehaviour
     private UI_Controller UI_Controller;
     private UI_ViewController UI_ViewController;
 
+    //The return-to-build-mode icon
+    [SerializeField] private GameObject UiPrompt;
+
     //Main menu object and script
     [SerializeField] private GameObject UiMain;
     private UI_MenuController UI_MenuController;
 
     bool UiToggle = false;
     public bool cameraToggle = false;
+    public bool returnToFirst = true;
     public bool canHotkey = true;
     public bool inspection = false;
     //camera movement variables
@@ -205,6 +210,16 @@ public class CamController : MonoBehaviour
         //forward = 0;
         //right = 0;
 
+        if(PlayerPrefs.HasKey("isExplore"))
+        {
+            if(PlayerPrefs.GetInt("isExplore") == 1)
+            {
+                UiPrompt.SetActive(false);
+                returnToFirst = false;
+                switchToFirstPerson();
+            }
+        }
+
     }
 
     // Update is called once per frame
@@ -212,7 +227,7 @@ public class CamController : MonoBehaviour
     {
         
         // If "k" is pressed,
-        if (Input.GetKeyUp("k") && canHotkey)
+        if (Input.GetKeyUp("k") && canHotkey && returnToFirst)
         {
                 if (cameraToggle == false)  //switch to first person mode
                 {

@@ -826,6 +826,7 @@ public class UI_StartMenu : MonoBehaviour
     public void LoadView()
     {
         #region Activates the load menu in view mode
+        PlayerPrefs.SetInt("isExplore", 1);
         audioManager.Play("Button_Pressed_SFX");
         windowCurrent = WindowFinder.MenuLoad;
         DisableHovers();
@@ -843,6 +844,7 @@ public class UI_StartMenu : MonoBehaviour
     public void LoadEdit()
     {
         #region Activates the load menu in edit mode
+        PlayerPrefs.SetInt("isExplore", 0);
         audioManager.Play("Button_Pressed_SFX");
         windowCurrent = WindowFinder.MenuLoad;
         DisableHovers();
@@ -850,7 +852,6 @@ public class UI_StartMenu : MonoBehaviour
         //Confirms that it is loading the room in an editable form
         isEditable = true;
         isLoading = true;
-
         MenuMain.SetActive(false);
         LoadRoom.SetActive(true);
         MenuSetup();
