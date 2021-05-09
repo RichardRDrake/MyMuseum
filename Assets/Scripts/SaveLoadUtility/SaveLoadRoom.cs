@@ -122,7 +122,7 @@ public class SaveLoadRoom : MonoBehaviour
         stream.Close();
 
         savesList.Add( name +".save");
-        Debug.Log("Saved Room Data of size " + savedRoomData.Assets.Count);
+        //Debug.Log("Saved Room Data of size " + savedRoomData.Assets.Count);
     }
 
     public void Load(string name)
@@ -269,7 +269,7 @@ public class SaveLoadRoom : MonoBehaviour
         //Make a new AssetData, and add it to the RoomData list
         string GUID = pos.occupied.AssRef;
 
-        AssetData data = new AssetData(GUID, pos.occupied, pos.position, Quaternion.identity);
+        AssetData data = new AssetData(GUID, pos.occupied, pos.position, pos.occupied.asset.transform.rotation);
 
         roomData.Assets.Add(data);
 

@@ -216,6 +216,7 @@ public class GridPosition
 {
     // Small container class to hold data on a grid position
     public Vector3 position { get; private set; }
+    //public Quaternion rotation { get; private set; }
     public Asset occupied = null;
 
     public GridPosition(Vector3 _position)
