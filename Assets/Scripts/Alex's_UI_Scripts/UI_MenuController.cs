@@ -56,6 +56,7 @@ public class UI_MenuController : MonoBehaviour
     private Image SaveLoadTitle;
     [SerializeField] private Sprite saveSprite;
     [SerializeField] private Sprite loadSprite;
+    private bool isOverwriting;
 
     //Allows save files to be independently hidden when loading a new page
     [SerializeField] private GameObject ObjectsHide;
@@ -399,6 +400,8 @@ public class UI_MenuController : MonoBehaviour
             HighlightConfirm.SetActive(false);
             HighlightConfirmHover.SetActive(false);
             saveLoadIdentity = 0;
+            isSaving = false;
+            isOverwriting = false;
         }
         else if (windowInt == 1)
         {
@@ -811,7 +814,7 @@ public class UI_MenuController : MonoBehaviour
                     //Debug.Log(SaveTitle1);
                     //Debug.Log(saveTexts);
                     //Debug.Log(saveTexts[0]);
-                    saveTexts[i].text = Saves.savesList[i];
+                    saveTexts[i].text = Saves.savesList[((pageCurrent - 1) * 3) + i];
                     saveDates[i].text = Saves.GetDate(saveTexts[i].text);
                     saveNews[i].text = " ";
                 }
@@ -853,6 +856,7 @@ public class UI_MenuController : MonoBehaviour
     //Used by the confirm save button
     public void ConfirmSave()
     {
+        Debug.Log(isSaving);
         //if the game is set to save
         if(saveOrLoad==false)
         {
@@ -868,6 +872,7 @@ public class UI_MenuController : MonoBehaviour
             }
             else
             {
+                Debug.Log("Here!");
                 inputField = InputObject.GetComponent<TMP_InputField>();
                 if (inputField.text != "")
                 {
@@ -878,6 +883,16 @@ public class UI_MenuController : MonoBehaviour
                     Confirm.SetActive(false);
                     Main.SetActive(true);
                     isSaving = false;
+                }
+                else if (isOverwriting)
+                {
+                    windowCurrent = (WindowFinder)1;
+                    Saves.Save(Saves.savesList[((pageCurrent - 1) * 3) + (saveLoadIdentity - 1)]);
+                    DisableSubmenus();
+                    Confirm.SetActive(false);
+                    Main.SetActive(true);
+                    isSaving = false;
+                    isOverwriting = false;
                 }
             }
         }
@@ -978,6 +993,9 @@ public class UI_MenuController : MonoBehaviour
                 {
                     ConfirmText.text = "Overwrite save file?";
                     saveFileSelected = saveLoadIdentity - 1 + ((pageCurrent - 1) * 3);
+                    isSaving = true;
+                    isOverwriting = true;
+                    Debug.Log("Set isSaving true");
                 }
             }
         }
