@@ -4008,19 +4008,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5351109781831837724}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5315955194279705943}
-        m_TargetAssemblyTypeName: UI_MenuController, Assembly-CSharp
-        m_MethodName: LoadPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &5052807640712823403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4265,6 +4253,7 @@ MonoBehaviour:
   Options: {fileID: 5315955194266887649}
   SaveButton: {fileID: 5315955194975060032}
   LoadButton: {fileID: 5315955195766293344}
+  UploadButton: {fileID: 305403896766794196}
   OptionsButton: {fileID: 5315955195390239942}
   QuitButton: {fileID: 5315955194893386371}
   HighlightTop: {fileID: 5315955195657963097}
@@ -4849,7 +4838,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1 / 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2fb1fba6e2f5cbd4ebe39ebe38c33ea2, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4857,7 +4846,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 0.7019608, g: 0.81960785, b: 0.9411765, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4913,7 +4902,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!224 &5315955194513639803

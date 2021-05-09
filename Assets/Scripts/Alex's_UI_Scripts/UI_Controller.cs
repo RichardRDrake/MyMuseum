@@ -424,6 +424,7 @@ public class UI_Controller : MonoBehaviour
     {
         #region Move up the Hierarchy
         //determine which menu layer the player is on
+        audioManager.Play("Button_Pressed_SFX");
         int windowInt = (int)windowCurrent;
         if (windowInt >= 2 && windowInt <= 4)
         {

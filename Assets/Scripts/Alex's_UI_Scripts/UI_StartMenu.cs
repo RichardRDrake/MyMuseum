@@ -113,6 +113,7 @@ public class UI_StartMenu : MonoBehaviour
 
     [SerializeField] private GameObject InputObject;
     private TMP_InputField inputField;
+    private bool isSaving;
     #endregion
 
     #region Highlights
@@ -328,9 +329,9 @@ public class UI_StartMenu : MonoBehaviour
     #region Menu navigation
     public void NavigateUp()
     {
-        audioManager.Play("Button_Pressed_SFX");
         #region Move up the hierarchy
         //determine which menu layer the player is on
+        audioManager.Play("Button_Pressed_SFX");
         int windowInt = (int)windowCurrent;
         switch (windowInt)
         {
@@ -375,6 +376,8 @@ public class UI_StartMenu : MonoBehaviour
                 else
                 {
                     windowCurrent = WindowFinder.MenuLoad;
+                    isSaving = false;
+                    inputField.DeactivateInputField();
                 }
                 confirmCurrent = ConfirmFinder.Null;
                 HighlightConfirm.SetActive(false);
@@ -591,19 +594,45 @@ public class UI_StartMenu : MonoBehaviour
                 //sets the highlight over the current target
                 int confirmInt = (int)confirmCurrent;
                 confirmInt++;
-                if (confirmInt > 2)
+                if (!isSaving)
                 {
-                    confirmInt = 1;
+                    if (confirmInt > 2)
+                    {
+                        confirmInt = 1;
+                    }
+                    if (confirmInt == 1)
+                    {
+                        HighlightConfirm.transform.position = ConfirmButton.transform.position;
+                        HighlightConfirm.SetActive(true);
+                    }
+                    else
+                    {
+                        HighlightConfirm.transform.position = CancelButton.transform.position;
+                        HighlightConfirm.SetActive(true);
+                    }
                 }
-                if (confirmInt == 1)
-                {
-                    HighlightConfirm.transform.position = ConfirmButton.transform.position;
-                    HighlightConfirm.SetActive(true);
-                }
-                else
-                {
-                    HighlightConfirm.transform.position = CancelButton.transform.position;
-                    HighlightConfirm.SetActive(true);
+                else 
+                { 
+                   if (confirmInt > 3)
+                   {
+                        confirmInt = 1;
+                   }
+                   switch(confirmInt)
+                   {
+                        case 1:
+                            HighlightConfirm.transform.position = ConfirmButton.transform.position;
+                            HighlightConfirm.SetActive(true);
+                            inputField.DeactivateInputField();
+                            break;
+                        case 2:
+                            HighlightConfirm.transform.position = CancelButton.transform.position;
+                            HighlightConfirm.SetActive(true);
+                            break;
+                        case 3:
+                            HighlightConfirm.SetActive(false);
+                            inputField.ActivateInputField();
+                            break;
+                   }
                 }
                 confirmCurrent = (ConfirmFinder)confirmInt;
                 break;
@@ -744,19 +773,45 @@ public class UI_StartMenu : MonoBehaviour
                 //sets the highlight over the current target
                 int confirmInt = (int)mainCurrent;
                 confirmInt--;
-                if (confirmInt < 1)
+                if (!isSaving)
                 {
-                    confirmInt = 2;
-                }
-                if (confirmInt == 1)
-                {
-                    HighlightConfirm.transform.position = ConfirmButton.transform.position;
-                    HighlightConfirm.SetActive(true);
+                    if (confirmInt < 1)
+                    {
+                        confirmInt = 2;
+                    }
+                    if (confirmInt == 1)
+                    {
+                        HighlightConfirm.transform.position = ConfirmButton.transform.position;
+                        HighlightConfirm.SetActive(true);
+                    }
+                    else
+                    {
+                        HighlightConfirm.transform.position = CancelButton.transform.position;
+                        HighlightConfirm.SetActive(true);
+                    }
                 }
                 else
                 {
-                    HighlightConfirm.transform.position = CancelButton.transform.position;
-                    HighlightConfirm.SetActive(true);
+                    if (confirmInt < 1)
+                    {
+                        confirmInt = 3;
+                    }
+                    switch (confirmInt) 
+                    {
+                        case 1:
+                            HighlightConfirm.transform.position = ConfirmButton.transform.position;
+                            HighlightConfirm.SetActive(true);
+                            inputField.DeactivateInputField();
+                            break;
+                        case 2:
+                            HighlightConfirm.transform.position = CancelButton.transform.position;
+                            HighlightConfirm.SetActive(true);
+                            break;
+                        case 3:
+                            HighlightConfirm.SetActive(false);
+                            inputField.ActivateInputField();
+                            break;
+                    }
                 }
                 confirmCurrent = (ConfirmFinder)confirmInt;
                 break;
@@ -770,8 +825,8 @@ public class UI_StartMenu : MonoBehaviour
 
     public void LoadView()
     {
-        audioManager.Play("Button_Pressed_SFX");
         #region Activates the load menu in view mode
+        audioManager.Play("Button_Pressed_SFX");
         windowCurrent = WindowFinder.MenuLoad;
         DisableHovers();
         
@@ -787,8 +842,8 @@ public class UI_StartMenu : MonoBehaviour
 
     public void LoadEdit()
     {
-        audioManager.Play("Button_Pressed_SFX");
         #region Activates the load menu in edit mode
+        audioManager.Play("Button_Pressed_SFX");
         windowCurrent = WindowFinder.MenuLoad;
         DisableHovers();
 
@@ -815,10 +870,10 @@ public class UI_StartMenu : MonoBehaviour
 
     public void DisplayConfirmation()
     {
-        audioManager.Play("Button_Pressed_SFX");
         #region Displays the confirmation menu
         //The Mathf.Clamps are to prevent negative values
         //Does nothing if attempting to load an empty save
+        audioManager.Play("Button_Pressed_SFX");
         if (!isLoading || (saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text != "NO DATA"))
         {
 
@@ -833,12 +888,14 @@ public class UI_StartMenu : MonoBehaviour
             #region Create new room
             else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Create new room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Create new room")
             {
+                isSaving = true;
                 audioManager.Play("Button_Pressed_SFX");
                 ConfirmText.text = "Name your new room";
                 inputField.text = "";
                 InputObject.SetActive(true);
                 confirmCurrent = ConfirmFinder.Text;
                 ConfirmText.transform.position = confirmText2;
+                inputField.ActivateInputField();
             }
             #endregion
             #region Download room
