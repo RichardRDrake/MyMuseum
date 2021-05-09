@@ -887,7 +887,10 @@ public class UI_MenuController : MonoBehaviour
                 else if (isOverwriting)
                 {
                     windowCurrent = (WindowFinder)1;
-                    Saves.Save(Saves.savesList[((pageCurrent - 1) * 3) + (saveLoadIdentity - 1)]);
+                    //We need to trim the ".save" off of the file's name else it will be saved as "(name)save.save"
+                    string og_name = Saves.savesList[((pageCurrent - 1) * 3) + (saveLoadIdentity - 1)];
+                    string newName = TrimOverwriteName(og_name);
+                    Saves.Save(newName);
                     DisableSubmenus();
                     Confirm.SetActive(false);
                     Main.SetActive(true);
@@ -1051,5 +1054,26 @@ public class UI_MenuController : MonoBehaviour
         mainCurrent = MainFinder.Null;
         HighlightTop.SetActive(false);
         #endregion
+    }
+
+    public string TrimOverwriteName(string og_name)
+    {
+        //iterate through the string until we find a ".".
+        //since this name is coming direct from file names, there should only be 1
+        char[] _og_name = og_name.ToCharArray();
+        List<char> _newName = new List<char>();
+        foreach (char c in _og_name)
+        {
+            if (c == '.')
+            {
+                return new string(_newName.ToArray());
+            }
+            else
+            {
+                _newName.Add(c);
+            }
+        }
+
+        return new string(_newName.ToArray());
     }
 }
