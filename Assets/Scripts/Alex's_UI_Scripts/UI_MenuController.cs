@@ -856,6 +856,7 @@ public class UI_MenuController : MonoBehaviour
     //Used by the confirm save button
     public void ConfirmSave()
     {
+        audioManager.Play("Button_Pressed_SFX");
         Debug.Log(isSaving);
         //if the game is set to save
         if(saveOrLoad==false)

@@ -879,7 +879,6 @@ public class UI_StartMenu : MonoBehaviour
             #region Quit game
             if (!isLoading)
             {
-                audioManager.Play("Button_Pressed_SFX");
                 ConfirmText.text = "Quit MyMuseum?";
             }
             #endregion
@@ -887,7 +886,6 @@ public class UI_StartMenu : MonoBehaviour
             else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Create new room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Create new room")
             {
                 isSaving = true;
-                audioManager.Play("Button_Pressed_SFX");
                 ConfirmText.text = "Name your new room";
                 inputField.text = "";
                 InputObject.SetActive(true);
@@ -899,7 +897,6 @@ public class UI_StartMenu : MonoBehaviour
             #region Download room
             else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Download room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Download new room")
             {
-                audioManager.Play("Button_Pressed_SFX");
                 ConfirmText.text = "Browse rooms online?";
                 InputObject.SetActive(false);
             }
@@ -910,7 +907,6 @@ public class UI_StartMenu : MonoBehaviour
                 InputObject.SetActive(false);
                 if (deleteSaveFiles)
                 {
-                    audioManager.Play("Button_Pressed_SFX");
                     ConfirmText.text = "Delete this save file?";
                 }
                 else
