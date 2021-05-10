@@ -906,18 +906,15 @@ public class UI_MenuController : MonoBehaviour
             {
                 paneCurrent = saveLoadIdentity;
             }
-                if (saveFileSelected < listLength)
-                {
-                    //Debug.Log(paneCurrent);
-                    //Debug.Log(paneCurrent - 1 + (pageCurrent - 1) * 3);
-                    windowCurrent = (WindowFinder)1;
-                    Saves.Load(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
-                    //Debug.Log(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
-                    lastSaved = (paneCurrent - 1) + (pageCurrent - 1) * 3;
-                    DisableSubmenus();
-                    Confirm.SetActive(false);
-                    Main.SetActive(true);
-                }
+            if (saveFileSelected < listLength)
+            {
+                Saves.Load(saveTexts[paneCurrent - 1].text);
+                lastSaved = (paneCurrent - 1) + (pageCurrent - 1) * 3;
+                DisableSubmenus();
+                Confirm.SetActive(false);
+                Main.SetActive(true);
+                windowCurrent = (WindowFinder)1;
+            }
             saveLoadIdentity = 0;
         }
     }
