@@ -454,7 +454,7 @@ public class UI_MenuController : MonoBehaviour
                         OptionsSetup();
                         break;
                     case 5:
-                        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+                        QuitGame();
                         break;
                     default:
                         break;
@@ -917,6 +917,11 @@ public class UI_MenuController : MonoBehaviour
             }
             saveLoadIdentity = 0;
         }
+    }
+
+    public void QuitGame()
+    {
+        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
     }
     #endregion
 
