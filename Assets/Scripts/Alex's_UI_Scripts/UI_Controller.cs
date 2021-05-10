@@ -434,7 +434,6 @@ public class UI_Controller : MonoBehaviour
                 case 1:
                     #region Moves the player up to the top layer
                     HideAllArtefact();
-                    ResetHighlight();
                     windowCurrent = (windowFinder)windowInt;
                     break;
                     #endregion
