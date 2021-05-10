@@ -143,7 +143,7 @@ public class UI_Controller : MonoBehaviour
     public topFinder topCurrent = topFinder.Null;
 
     //Determines which submenu the user is on.
-    public enum subFinder { Null = 0, FloorRoom = 1, MiscPlinth = 2, SmallFrames = 3, PlanarStands = 4};
+    public enum subFinder { Null = 0, FloorRoom = 1, MiscPlinth = 2, SmallStands = 3, PlanarFrames = 4};
     public subFinder subCurrent = subFinder.Null;
 
     //Determines which catalogue pane the user is on.
