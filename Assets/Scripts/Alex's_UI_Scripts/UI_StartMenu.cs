@@ -913,12 +913,10 @@ public class UI_StartMenu : MonoBehaviour
                 {
                     if (isEditable)
                     {
-                        audioManager.Play("Button_Pressed_SFX");
                         ConfirmText.text = "Load this room in edit mode?";
                     }
                     else
                     {
-                        audioManager.Play("Button_Pressed_SFX");
                         ConfirmText.text = "Load this room in view mode?";
                     }
                 }
