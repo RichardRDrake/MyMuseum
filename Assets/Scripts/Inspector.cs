@@ -258,7 +258,7 @@ public class Inspector : MonoBehaviour
         oldRot = inspected.transform.eulerAngles;
 
         // Reposition/rotate the camera and inspected object.
-        objects[index].transform.position = new Vector3(500, 500, 503);
+        objects[index].transform.position = new Vector3(500, 499, 503);
         transform.eulerAngles = new Vector3(transform.eulerAngles.x - 20, transform.eulerAngles.y, transform.eulerAngles.z);
         parent.transform.rotation = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, 1.0f), new Vector3(0, 1, 0));
         parent.localPosition = new Vector3(500, 500, 500);
