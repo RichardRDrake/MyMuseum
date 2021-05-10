@@ -164,15 +164,12 @@ public class UI_StartMenu : MonoBehaviour
     public ConfirmFinder confirmCurrent = ConfirmFinder.Null;
     #endregion
 
-    private MainMenu sceneNavigation;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         #region Set variables
-        
-        sceneNavigation = GetComponent<MainMenu>();
         saves = GetComponent<SaveLoadRoom>();
 
         #region Audio variables
