@@ -10,7 +10,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class SaveLoadRoom : MonoBehaviour
 {
-
     [SerializeField] private AssetReference savedRoom; //Temp, not useful until there are more rooms to save
     private GameObject spawnedRoom;
 
@@ -18,10 +17,10 @@ public class SaveLoadRoom : MonoBehaviour
 
     private AssetPlacer placer;
 
-    [SerializeField] private bool isMainMenu = false;
+    [SerializeField] private bool isMainMenu = false;    
 
     private void Awake()
-    {        
+    {
         //Get the names of current saves and append them to savesList
         DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
         FileInfo[] info = dir.GetFiles("*.save*");

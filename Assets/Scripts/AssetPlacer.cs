@@ -103,14 +103,14 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
         asset = new Asset(artefact.ArtefactName, artefact.ArtefactContent, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType(), null);
         //The Addressable pathway to the asset (found on its scriptable object)
         AssetReference newAsset = artefact.GetArtefact();
-
         //Spawn the object. If you don't want to do anything to the object after it's spawned, ignore .Completed and everything after
+        
         Addressables.InstantiateAsync(newAsset, Vector3.zero, Quaternion.identity).Completed += (asyncOperationHandle) =>
         {
             //Async functions don't finish until the next frame, so this event runs the following code once the computer's ready
             objectToBePlaced = asyncOperationHandle.Result;
-            asset.asset = objectToBePlaced;
-        };
+            asset.asset = objectToBePlaced;            
+        };       
 
         //Debug.Log("test");
     }
