@@ -18,39 +18,65 @@ public class DC_SnapZones : MonoBehaviour
 
     void Start()
     {
-        foreach(Transform transformComponent in GetComponentsInChildren<Transform>())
+        foreach (Transform transformComponent in GetComponentsInChildren<Transform>())
         {
-            if(transformComponent.name.Contains("Snap_Zone_Floor_Directional"))
+            if (transformComponent.name.Contains("Snap_Zone_Floor_Directional"))
             {
-                GameObject temp = Instantiate(_DirectionalZoneSpritePrefab, transform, false);
+                GameObject temp = Instantiate(_DirectionalZoneSpritePrefab, transformComponent, false);
                 temp.name = transformComponent.name;
-                temp.transform.position = transformComponent.position + temp.transform.localPosition;
                 temp.transform.rotation = transformComponent.rotation;
-                temp.transform.localScale = Vector3.one;
+                temp.transform.localScale = new Vector3(transformComponent.localScale.x / temp.transform.lossyScale.x,
+                                                        transformComponent.localScale.y / temp.transform.lossyScale.y,
+                                                        transformComponent.localScale.z / temp.transform.lossyScale.z);
                 temp.layer = LayerMask.NameToLayer("FloorSnapDirectional");
                 DC_SnapZone script = temp.GetComponent<DC_SnapZone>();
                 script.Init(_Threshold, true);
             }
             else if (transformComponent.name.Contains("Snap_Zone_Floor"))
             {
-                GameObject temp = Instantiate(_NonDirectionalZoneSpritePrefab, transform, false);
+                GameObject temp = Instantiate(_NonDirectionalZoneSpritePrefab, transformComponent, false);
                 temp.name = transformComponent.name;
-                temp.transform.position = transformComponent.position + temp.transform.localPosition;
-                temp.transform.localScale = Vector3.one;
+                temp.transform.localScale = new Vector3(transformComponent.localScale.x / temp.transform.lossyScale.x,
+                                                        transformComponent.localScale.y / temp.transform.lossyScale.y,
+                                                        transformComponent.localScale.z / temp.transform.lossyScale.z);
                 temp.layer = LayerMask.NameToLayer("FloorSnap");
                 DC_SnapZone script = temp.GetComponent<DC_SnapZone>();
                 script.Init(_Threshold);
             }
-            else if(transformComponent.name.Contains("Snap_Zone_Wall"))
+            else if (transformComponent.name.Contains("Snap_Zone_Wall"))
             {
-                GameObject temp = Instantiate(_NonDirectionalZoneSpritePrefab, transform, false);
+                GameObject temp = Instantiate(_NonDirectionalZoneSpritePrefab, transformComponent, false);
                 temp.name = transformComponent.name + "_Directional";
                 temp.transform.rotation = transformComponent.rotation;
-                temp.transform.position = transformComponent.position + temp.transform.localPosition;
-                temp.transform.localScale = Vector3.one;
+                temp.transform.localScale = new Vector3(transformComponent.localScale.x / temp.transform.lossyScale.x,
+                                                        transformComponent.localScale.y / temp.transform.lossyScale.y,
+                                                        transformComponent.localScale.z / temp.transform.lossyScale.z);
                 temp.layer = LayerMask.NameToLayer("WallSnap");
                 DC_SnapZone script = temp.GetComponent<DC_SnapZone>();
                 script.Init(_Threshold, true);
+            }
+            else if (transformComponent.name.Contains("Snap_Zone_Object_Directional"))
+            {
+                GameObject temp = Instantiate(_DirectionalZoneSpritePrefab, transformComponent, false);
+                temp.name = transformComponent.name;
+                temp.transform.rotation = transformComponent.rotation;
+                temp.transform.localScale = new Vector3(transformComponent.localScale.x / temp.transform.lossyScale.x,
+                                                        transformComponent.localScale.y / temp.transform.lossyScale.y,
+                                                        transformComponent.localScale.z / temp.transform.lossyScale.z);
+                temp.layer = LayerMask.NameToLayer("ObjectSnapDirectional");
+                DC_SnapZone script = temp.GetComponent<DC_SnapZone>();
+                script.Init(_Threshold, true);
+            }
+            else if (transformComponent.name.Contains("Snap_Zone_Object"))
+            {
+                GameObject temp = Instantiate(_NonDirectionalZoneSpritePrefab, transformComponent, false);
+                temp.name = transformComponent.name;
+                temp.transform.localScale = new Vector3(transformComponent.localScale.x / temp.transform.lossyScale.x,
+                                                        transformComponent.localScale.y / temp.transform.lossyScale.y,
+                                                        transformComponent.localScale.z / temp.transform.lossyScale.z);
+                temp.layer = LayerMask.NameToLayer("ObjectSnap");
+                DC_SnapZone script = temp.GetComponent<DC_SnapZone>();
+                script.Init(_Threshold);
             }
         }
     }

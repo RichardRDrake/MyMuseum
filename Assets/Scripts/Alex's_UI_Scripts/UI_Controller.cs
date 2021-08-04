@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
+using UnityEngine.AddressableAssets;
 
 
 public class UI_Controller : MonoBehaviour
@@ -45,7 +46,10 @@ public class UI_Controller : MonoBehaviour
     private CamController camController;
 
     //Asset placer
-    [SerializeField] private AssetPlacer assetPlacer = null;
+    //[SerializeField] private AssetPlacer assetPlacer = null;
+
+    private GameObject objectToBePlaced = null;
+    private Asset asset = null;
 
     //Object containing 
 
@@ -196,11 +200,11 @@ public class UI_Controller : MonoBehaviour
         camController = Camera.GetComponent<CamController>();
 
         //Gets the (hopefully) single assetplacer in the scene
-        assetPlacer = FindObjectOfType<AssetPlacer>();
-        if (assetPlacer == null)
-        {
-            Debug.LogError("no assetPlacer present in scene");
-        }
+        //assetPlacer = FindObjectOfType<AssetPlacer>();
+        //if (assetPlacer == null)
+        //{
+        //    Debug.LogError("no assetPlacer present in scene");
+        //}
         #endregion
 
         #region Sets possible highlight positions
@@ -904,11 +908,42 @@ public class UI_Controller : MonoBehaviour
         AssetPlacerScriptableObject newArtefact = Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)];
         // We're gonna do this in Assetplacer now// AssetReference newAsset = newArtefact.GetArtefact();
         Debug.Log(newArtefact.name);
-        assetPlacer.ReceiveFromUI(newArtefact);
+        ReceiveFromUI(newArtefact);
 
         ResetBuildUI();
         audioManager.Play("Select_Artifact_SFX");
         #endregion
+    }
+
+    public void ReceiveFromUI(AssetPlacerScriptableObject artefact)
+    {
+        if (artefact == null)
+        {
+            Debug.Log("Missing Artefact");
+            //artefact = exampleObject_1;
+        }
+
+        //We're jamming the room selection in here. good luck.
+        if (artefact.GetPlacementType() == ArtefactPlacementType.Rooms)
+        {
+            FindObjectOfType<SaveLoadRoom>().MakeRoom(artefact.GetArtefact().AssetGUID, null, false);
+            return;
+        }
+
+        //Confused on Addressables? Go here: https://www.youtube.com/watch?v=Zb9WchxZhvM
+        asset = new Asset(artefact.ArtefactName, artefact.ArtefactContent, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType(), null);
+        //The Addressable pathway to the asset (found on its scriptable object)
+        AssetReference newAsset = artefact.GetArtefact();
+        //Spawn the object. If you don't want to do anything to the object after it's spawned, ignore .Completed and everything after
+
+        Addressables.InstantiateAsync(newAsset, Vector3.zero, Quaternion.identity).Completed += (asyncOperationHandle) =>
+        {
+            //Async functions don't finish until the next frame, so this event runs the following code once the computer's ready
+            objectToBePlaced = asyncOperationHandle.Result;
+            asset.asset = objectToBePlaced;
+        };
+
+        //Debug.Log("test");
     }
     #endregion
 

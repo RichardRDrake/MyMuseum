@@ -239,8 +239,8 @@ public class SaveLoadRoom : MonoBehaviour
             {
                 spawnedAsset = op.Result;
                 //Attach each object to the grid (closest point will be correct spot, or not make a difference)
-                GridPosition gPos = placer.PointToGrid(spawnedAsset.transform.position, spawnedAsset).gridPosition;                    
-                gPos.occupied = new Asset(assetData.assetName,assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result);
+                //GridPosition gPos = placer.PointToGrid(spawnedAsset.transform.position, spawnedAsset).gridPosition;                    
+                //gPos.occupied = new Asset(assetData.assetName,assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result);
             }
         };
     }
