@@ -12,7 +12,7 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
    // [SerializeField] GridManager gridManager = null; //Assigned in Inspector
         
         //Active grid, since this relies on Artefact browser, we will temporary use 1-3 to select objects
-    //[SerializeField] PlacementGrid activeGrid = null; //[PH] Assigned during run-time
+    [SerializeField] PlacementGrid activeGrid = null; //[PH] Assigned during run-time
 
     //[SerializeField] GameObject cameraObj = null; //[PH] Assigned during run-time
     //private Camera camera;
@@ -119,13 +119,13 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
     {
         if (Input.GetMouseButton(0) && objectToBePlaced != null && validPlacement == true)
         {
-            //Release selected object
+            Release selected object
             ChangeColour(objectToBePlaced, Color.white);
 
-            //Let the grid know an object has been placed on it
+            Let the grid know an object has been placed on it
             activeGrid.OnObjectPlaced(objectToBePlaced.transform.position, asset);
             audioManager.Play("Place_SFX");
-            //if there are grids on the object, they must be (re)built here
+            if there are grids on the object, they must be (re)built here
             PlacementGrid[] childrenGrids;
 
             
@@ -140,26 +140,26 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
             asset = null;
             validPlacement = false;
         }
-        //just so I can play the other sounds effect
-        //if (Input.GetMouseButton(0) && objectToBePlaced != null && validPlacement == false)
-        //{
-        //    audioManager.Play("Can_Not_Place_Here_SFX");
-        //}
+        just so I can play the other sounds effect
+        if (Input.GetMouseButton(0) && objectToBePlaced != null && validPlacement == false)
+        {
+            audioManager.Play("Can_Not_Place_Here_SFX");
+        }
             /*
-            //This whole section will be [PH]
+            This whole section will be [PH]
             if (Input.GetKeyDown(KeyCode.Alpha1) && objectToBePlaced == null)
             {
-                //Queue ex_obj_1 
+                Queue ex_obj_1 
                 objectToBePlaced = Instantiate(exampleObject_1);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2) && objectToBePlaced == null)
             {
-                //Queue ex_obj_2 
+                Queue ex_obj_2 
                 objectToBePlaced = Instantiate(exampleObject_2);
             }
             if (Input.GetKeyDown(KeyCode.Alpha3) && objectToBePlaced == null)
             {
-                //Queue ex_obj_3 
+                Queue ex_obj_3 
                 objectToBePlaced = Instantiate(exampleObject_3);
             }
             
@@ -167,7 +167,7 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
 
    /* private Vector3 RayToGrid()
     {
-        //Turns a raycast into the closest point on the active grid
+        Turns a raycast into the closest point on the active grid
         RaycastHit hitInfo;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
@@ -180,8 +180,8 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
             }
 
             activeGrid = nearestPoint.grid;
-            //Debug.Log(activeGrid);
-            //Check to see is position is valid (not occupied)
+            Debug.Log(activeGrid);
+            Check to see is position is valid (not occupied)
             if (nearestPoint != null && nearestPoint.gridPosition.occupied == null)
             {
                 return nearestPoint.gridPosition.position;
@@ -209,7 +209,7 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
 
         if (mr)
         {
-            //mr.material.color = newColor;
+            mr.material.color = newColor;
         }       
     }
     */

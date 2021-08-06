@@ -16,7 +16,11 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 8fb158c471ccd7c439f4448688a3e5bb
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 731d105c54b347f4bbba1fc085a8df1f
+    m_Address: Assets/Environment/Room/Room Prefabs/0_Room.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:

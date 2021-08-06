@@ -940,7 +940,12 @@ public class UI_Controller : MonoBehaviour
         {
             //Async functions don't finish until the next frame, so this event runs the following code once the computer's ready
             objectToBePlaced = asyncOperationHandle.Result;
-            asset.asset = objectToBePlaced;
+            asset.asset = objectToBePlaced; 
+
+            if(objectToBePlaced.GetComponent<DC_Placeable>())
+            {
+                objectToBePlaced.GetComponent<DC_Placeable>().asset = asset;
+            }
         };
 
         //Debug.Log("test");

@@ -38,6 +38,9 @@ public class DC_Placeable : MonoBehaviour
     private float m_XClamp = 0.0f;
     private float m_ZClamp = 0.0f;
 
+    //probalbly make this a private with a getters and setters
+    public Asset asset = null;
+
     private void Awake()
     {
         // Encapsulate all renderers bounds to get the size of the object
