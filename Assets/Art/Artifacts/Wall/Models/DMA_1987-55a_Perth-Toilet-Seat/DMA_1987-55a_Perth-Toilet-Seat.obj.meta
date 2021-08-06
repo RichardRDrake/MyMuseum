@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: 4dc0ba8f11f3c6a49a488c40949cd5aa
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DMA_1987_55a_Perth_Toilet_SeatMat
+    second: {fileID: 2100000, guid: 21fa2d048945b9c4bb645514bf8a8e99, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -95,6 +100,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
