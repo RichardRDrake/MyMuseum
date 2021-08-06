@@ -21,6 +21,14 @@ MonoBehaviour:
     m_Address: Assets/Environment/Room/Room Prefabs/0_Room.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 4dc0ba8f11f3c6a49a488c40949cd5aa
+    m_Address: Assets/Art/Artifacts/Wall/Models/DMA_1987-55a_Perth-Toilet-Seat/DMA_1987-55a_Perth-Toilet-Seat.obj
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e7eba50c25c2e15409945595a6650253
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1987-55a_Perth-Toilet-Seat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:
