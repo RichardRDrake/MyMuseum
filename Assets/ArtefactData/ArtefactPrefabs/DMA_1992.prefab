@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8356486356168511368}
   - component: {fileID: 7027644086437169517}
-  - component: {fileID: 3229995015142745623}
-  - component: {fileID: 1800245455229218935}
+  - component: {fileID: 7435992963656454441}
+  - component: {fileID: 4856752258882665684}
   m_Layer: 0
   m_Name: DMA_1992
   m_TagString: object
@@ -47,7 +47,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.2, z: 0.2}
   m_Center: {x: 0, y: 0.7, z: -0.05}
---- !u!114 &3229995015142745623
+--- !u!114 &7435992963656454441
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,8 +61,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ValidLayers:
     serializedVersion: 2
-    m_Bits: 3892314112
---- !u!54 &1800245455229218935
+    m_Bits: 2415919104
+--- !u!54 &4856752258882665684
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
