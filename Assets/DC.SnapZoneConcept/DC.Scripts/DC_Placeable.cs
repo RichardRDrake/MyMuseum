@@ -81,7 +81,7 @@ public class DC_Placeable : MonoBehaviour
         if (m_BeingPlaced)
         {
             // A ray from your mouse pointer to the world
-            m_Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            m_Ray = Camera.current.ScreenPointToRay(Input.mousePosition);
 
             // Get all the hits, and order them by distance
             m_Hits = Physics.RaycastAll(m_Ray, 100, _ValidLayers, QueryTriggerInteraction.Collide);// EDIT: no need to order, instead using if it has a Sphere Collider to take precedence.OrderBy(x => x.distance).ToArray();

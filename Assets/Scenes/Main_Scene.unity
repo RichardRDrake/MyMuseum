@@ -1124,7 +1124,7 @@ GameObject:
   - component: {fileID: 876706183}
   - component: {fileID: 876706184}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: MainCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8107,6 +8107,7 @@ MonoBehaviour:
   readFrom:
   - {fileID: 11400000, guid: 89c800a2186362d4db67b0d55a248df6, type: 2}
   - {fileID: 11400000, guid: 8b203cb302330e847b58d7f264415bf0, type: 2}
+  - {fileID: 11400000, guid: d06024fffad16ed4391e6047fbd15024, type: 2}
 --- !u!224 &5315955195175665783
 RectTransform:
   m_ObjectHideFlags: 0
