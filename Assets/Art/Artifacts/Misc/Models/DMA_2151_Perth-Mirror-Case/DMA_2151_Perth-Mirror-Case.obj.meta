@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: 243a05f9f880d544ab664dc1ca2f80fa
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DMA_2151_Perth_Mirror_CaseMat
+    second: {fileID: 2100000, guid: 206a1204e03505a4083b1c80bb57ecaa, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -95,6 +100,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
