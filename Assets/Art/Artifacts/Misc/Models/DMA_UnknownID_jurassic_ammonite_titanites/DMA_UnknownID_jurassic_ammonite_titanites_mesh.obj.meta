@@ -3,7 +3,12 @@ guid: 62d41c7aecf114d48ae9cf173745c20f
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ilrBakeLayer1_jurassic_ammonite_zremeshed_Group46463Mat
+    second: {fileID: 2100000, guid: 4d98f1f62faf13946bc80d5e33755ded, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
