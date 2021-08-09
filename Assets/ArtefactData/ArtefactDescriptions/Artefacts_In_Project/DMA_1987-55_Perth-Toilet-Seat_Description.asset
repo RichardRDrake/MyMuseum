@@ -20,12 +20,14 @@ MonoBehaviour:
     time range: some were still being used in outside toilets in the 19th century.
     Similar medieval examples have been excavated in York, Kings Lynn and Exeter.'
   ArtefactPrefab:
-    m_AssetGUID: 
+    m_AssetGUID: e7eba50c25c2e15409945595a6650253
     m_SubObjectName: 
-    m_SubObjectType: 
+    m_SubObjectType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_EditorAssetChanged: 0
   PreviewImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  PlacementType: 3
+  - {fileID: 2800000, guid: 9b95d532eeec1e448bd5935c286d51af, type: 3}
+  - {fileID: 2800000, guid: 5e31d04e3245b624286d01074d4633ee, type: 3}
+  - {fileID: 2800000, guid: 2e03ebaa9b81a7a4aaff99542ea73e2a, type: 3}
+  - {fileID: 2800000, guid: cfeebf26e163d4048ad08acd0cd9065b, type: 3}
+  PlacementType: 2

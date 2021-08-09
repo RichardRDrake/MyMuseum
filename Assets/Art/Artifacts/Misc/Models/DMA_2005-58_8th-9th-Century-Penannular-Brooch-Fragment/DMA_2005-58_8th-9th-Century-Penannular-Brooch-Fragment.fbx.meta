@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: 3fb9274f491238e41a0fb76508e3b901
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DMA_2005_58_8th_9th_Century_Penannular_Brooch_Fragment_M
+    second: {fileID: 2100000, guid: e83a57696580f164090cad691850405a, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -95,6 +100,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

@@ -92,24 +92,19 @@ public class SaveLoadRoom : MonoBehaviour
 
         //Step 2 - Find all the Artefacts placed in the room, save their GUID and Position (and rotation)
         //Step 2.1 - Find the GridManager, it contains all the grids in the room, which in turn contain everything we'd want to save
-        GridManager gridManager = FindObjectOfType<GridManager>();
-        if (!gridManager)
-        {
-            Debug.Log("Could not find Grid Manager in scene!");
-        }
-
+        
         //Step 2.2 - Go through each grid and extract the data we need
         //Step 2.3 - Then bundle each of those into a AssetData class (see RoomData.cs)
-        int numberOfGrids = gridManager.GetGridCount();
+        //int numberOfGrids = gridManager.GetGridCount();
 
-        for (int i = 0; i < numberOfGrids; i++)
-        {
-            PlacementGrid grid = gridManager.GetGrid(i);
-            foreach (GridPosition pos in grid.gridPositions)
-            {
-                ProcessContent(pos, savedRoomData);
-            }
-        }
+        //for (int i = 0; i < numberOfGrids; i++)
+        //{
+        //    PlacementGrid grid = gridManager.GetGrid(i);
+            //foreach (GridPosition pos in grid.gridPositions)
+        //    {
+                ProcessContent(savedRoomData);
+        //    }
+        //}
 
 
         BinaryFormatter formatter = GetBinaryFormatter();
@@ -128,14 +123,14 @@ public class SaveLoadRoom : MonoBehaviour
     {
         //When room placement's sorted we'll clear out the room here
         //Clear out all current objects
-        GridManager gridManager = FindObjectOfType<GridManager>();
-        if (!gridManager)
-        {
-            Debug.Log("Could not find Grid Manager in scene!");
-        }
+        //GridManager gridManager = FindObjectOfType<GridManager>();
+        //if (!gridManager)
+        //{
+        //    Debug.Log("Could not find Grid Manager in scene!");
+        //}
 
         //Clean up
-        gridManager.ClearGrids();
+        //gridManager.ClearGrids();
 
         Destroy(spawnedRoom);
         //spawnedObjects.Clear();
@@ -181,14 +176,14 @@ public class SaveLoadRoom : MonoBehaviour
         //GameObject spawnedAsset;
 
         //Clear out all current objects
-        GridManager gridManager = FindObjectOfType<GridManager>();
-        if (!gridManager)
-        {
-            Debug.Log("Could not find Grid Manager in scene!");
-        }
+        //GridManager gridManager = FindObjectOfType<GridManager>();
+        //if (!gridManager)
+        //{
+        //    Debug.Log("Could not find Grid Manager in scene!");
+        //}
 
         //Clean up
-        gridManager.ClearGrids();
+        //gridManager.ClearGrids();
 
         if (spawnedRoom != null)
         {
@@ -238,9 +233,13 @@ public class SaveLoadRoom : MonoBehaviour
             if (op.Status == AsyncOperationStatus.Succeeded)
             {
                 spawnedAsset = op.Result;
-                //Attach each object to the grid (closest point will be correct spot, or not make a difference)
-                GridPosition gPos = placer.PointToGrid(spawnedAsset.transform.position, spawnedAsset).gridPosition;                    
-                gPos.occupied = new Asset(assetData.assetName,assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result);
+                if (spawnedAsset.GetComponent<DC_Placeable>())
+                {
+                    spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result);
+                }
+                    //Attach each object to the grid (closest point will be correct spot, or not make a difference)
+                    //GridPosition gPos = placer.PointToGrid(spawnedAsset.transform.position, spawnedAsset).gridPosition;                    
+                    //gPos.occupied = new Asset(assetData.assetName,assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result);
             }
         };
     }
@@ -256,22 +255,23 @@ public class SaveLoadRoom : MonoBehaviour
         return GUID;
     }
 
-    private void ProcessContent(GridPosition pos, RoomData roomData)
+    private void ProcessContent(RoomData roomData)
     {
-        //If the GridPos is empty, we dont care
-        if (pos.occupied == null)
-        {
-            return;
-        }
 
         //There is content to record
         //Make a new AssetData, and add it to the RoomData list
-        string GUID = pos.occupied.AssRef;
+        foreach (GameObject assets in UnityEngine.Object.FindObjectsOfType(typeof(GameObject)))
+        {
+            if (assets.GetComponent<DC_Placeable>())
+            {
 
-        AssetData data = new AssetData(GUID, pos.occupied, pos.position, pos.occupied.asset.transform.rotation);
+                string GUID = assets.GetComponent<DC_Placeable>().asset.AssRef;
 
-        roomData.Assets.Add(data);
+                AssetData data = new AssetData(GUID, assets.GetComponent<DC_Placeable>().asset, assets.transform.position, assets.transform.rotation);
 
+                roomData.Assets.Add(data);
+            }
+        }
     }
 
     private string IllegalCharacterCheck( string str)

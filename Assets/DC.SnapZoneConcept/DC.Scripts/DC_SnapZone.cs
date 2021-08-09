@@ -17,6 +17,7 @@ public class DC_SnapZone : MonoBehaviour
     [HideInInspector] public bool _Directional = false;
 
     private SphereCollider m_SphereCollider;
+    private Vector3 objectScreenPos;
 
     private void Awake()
     {
@@ -35,7 +36,9 @@ public class DC_SnapZone : MonoBehaviour
     private void Update()
     {
         // use alpha to fade colour based on distance to the mouse pointer
-        Vector3 objectScreenPos = Camera.main.WorldToScreenPoint(transform.position);
+       
+        objectScreenPos = Camera.main.WorldToScreenPoint(transform.position);
+        
         float alpha = Mathf.Lerp(1, 0, Vector3.Distance(objectScreenPos, Input.mousePosition) * 0.01f);
 
         _SpriteRenderer.color = new Color(_SpriteRenderer.color.r, _SpriteRenderer.color.g, _SpriteRenderer.color.b, alpha);

@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: 861c0b057002d98458ed7e40658893ce
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DMA_1992_503_Celtic_Stone_Head_M
+    second: {fileID: 2100000, guid: 032bdcce78a77be40aae7f1c444ef2e3, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -95,6 +100,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

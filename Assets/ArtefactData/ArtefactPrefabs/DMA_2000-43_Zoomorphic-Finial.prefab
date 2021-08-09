@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 3751961890334463909}
   - component: {fileID: 1438146073903276911}
   - component: {fileID: 8626155484050536537}
+  - component: {fileID: 6039457145094484057}
+  - component: {fileID: 7237717509620277724}
   m_Layer: 0
   m_Name: DMA_2000-43_Zoomorphic-Finial
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3122206219236097610, guid: b5f2d1c512a4735479540574405f805e, type: 3}
+  - {fileID: 2100000, guid: 98b317e9e04dcce48afb418b81642a34, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,3 +98,34 @@ CapsuleCollider:
   m_Height: 0.38110137
   m_Direction: 1
   m_Center: {x: -0.01321478, y: 0.19343695, z: -0.0000000037252903}
+--- !u!54 &6039457145094484057
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645613763987178170}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7237717509620277724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645613763987178170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c51bb58468650e49b6c8bfde24bc942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ValidLayers:
+    serializedVersion: 2
+    m_Bits: 2415919104

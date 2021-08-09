@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: db7aca80316de23478843bc605b1d1de
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DMA_1979_5_Pictish_Cross_Slab_Fragment_M
+    second: {fileID: 2100000, guid: d10702e2a0d5ae945afb656dab0f9335, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -95,6 +100,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

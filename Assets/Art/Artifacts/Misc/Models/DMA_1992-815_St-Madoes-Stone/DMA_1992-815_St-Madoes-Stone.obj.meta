@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: d9bc9ff41b7ca9344a41e934923eefa0
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DMA_1992_815_St_Madoes_StoneMat
+    second: {fileID: 2100000, guid: eaf753f0162c1d042b0c592e022cad5b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -95,6 +100,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

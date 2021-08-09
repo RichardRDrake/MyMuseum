@@ -9,42 +9,42 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
     //Component that recives objects selected in the Artefact Browser and allow the user to place them on a grid
     //Parts of this will be subject to change, denoted with [PH]
 
-    [SerializeField] GridManager gridManager = null; //Assigned in Inspector
+   // [SerializeField] GridManager gridManager = null; //Assigned in Inspector
         
         //Active grid, since this relies on Artefact browser, we will temporary use 1-3 to select objects
     [SerializeField] PlacementGrid activeGrid = null; //[PH] Assigned during run-time
 
-    [SerializeField] GameObject cameraObj = null; //[PH] Assigned during run-time
-    private Camera camera;
+    //[SerializeField] GameObject cameraObj = null; //[PH] Assigned during run-time
+    //private Camera camera;
 
     private GameObject objectToBePlaced = null;
     private Asset asset = null;
-    private bool validPlacement = false;
+    //private bool validPlacement = false;
 
-    [SerializeField] private AudioManager audioManager;
+    //[SerializeField] private AudioManager audioManager;
    
 
     // Start is called before the first frame update
     void Start()
     {
-        audioManager = FindObjectOfType<AudioManager>();
-        gridManager = FindObjectOfType<GridManager>();
-        if (gridManager == null)
-        {
-            Debug.LogError("Asset Placer does not have a Grid Manager assigned.");
-        }
-        if (cameraObj)
-        {
-            camera = cameraObj.GetComponent<Camera>();
-        }
-        else
-        {
-            Debug.Log("Please assign camera Object");
-        }
+        //audioManager = FindObjectOfType<AudioManager>();
+        //gridManager = FindObjectOfType<GridManager>();
+        //if (gridManager == null)
+        //{
+        //    Debug.LogError("Asset Placer does not have a Grid Manager assigned.");
+        //}
+        //if (cameraObj)
+        //{
+        //    camera = cameraObj.GetComponent<Camera>();
+        //}
+        //else
+        //{
+        //    Debug.Log("Please assign camera Object");
+        //}
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         Vector3 validPosition = RayToGrid();
 
@@ -82,7 +82,7 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
             }
             
         }
-    }
+    }*/
 
     public void ReceiveFromUI(AssetPlacerScriptableObject artefact)
     {
@@ -115,17 +115,17 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
         //Debug.Log("test");
     }
 
-    private void ProcessInput()
+    /*private void ProcessInput()
     {
         if (Input.GetMouseButton(0) && objectToBePlaced != null && validPlacement == true)
         {
-            //Release selected object
+            Release selected object
             ChangeColour(objectToBePlaced, Color.white);
 
-            //Let the grid know an object has been placed on it
+            Let the grid know an object has been placed on it
             activeGrid.OnObjectPlaced(objectToBePlaced.transform.position, asset);
             audioManager.Play("Place_SFX");
-            //if there are grids on the object, they must be (re)built here
+            if there are grids on the object, they must be (re)built here
             PlacementGrid[] childrenGrids;
 
             
@@ -140,34 +140,34 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
             asset = null;
             validPlacement = false;
         }
-        //just so I can play the other sounds effect
-        //if (Input.GetMouseButton(0) && objectToBePlaced != null && validPlacement == false)
-        //{
-        //    audioManager.Play("Can_Not_Place_Here_SFX");
-        //}
+        just so I can play the other sounds effect
+        if (Input.GetMouseButton(0) && objectToBePlaced != null && validPlacement == false)
+        {
+            audioManager.Play("Can_Not_Place_Here_SFX");
+        }
             /*
-            //This whole section will be [PH]
+            This whole section will be [PH]
             if (Input.GetKeyDown(KeyCode.Alpha1) && objectToBePlaced == null)
             {
-                //Queue ex_obj_1 
+                Queue ex_obj_1 
                 objectToBePlaced = Instantiate(exampleObject_1);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2) && objectToBePlaced == null)
             {
-                //Queue ex_obj_2 
+                Queue ex_obj_2 
                 objectToBePlaced = Instantiate(exampleObject_2);
             }
             if (Input.GetKeyDown(KeyCode.Alpha3) && objectToBePlaced == null)
             {
-                //Queue ex_obj_3 
+                Queue ex_obj_3 
                 objectToBePlaced = Instantiate(exampleObject_3);
             }
-            */
-        }
+            
+        }*/
 
-    private Vector3 RayToGrid()
+   /* private Vector3 RayToGrid()
     {
-        //Turns a raycast into the closest point on the active grid
+        Turns a raycast into the closest point on the active grid
         RaycastHit hitInfo;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
@@ -180,8 +180,8 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
             }
 
             activeGrid = nearestPoint.grid;
-            //Debug.Log(activeGrid);
-            //Check to see is position is valid (not occupied)
+            Debug.Log(activeGrid);
+            Check to see is position is valid (not occupied)
             if (nearestPoint != null && nearestPoint.gridPosition.occupied == null)
             {
                 return nearestPoint.gridPosition.position;
@@ -190,9 +190,9 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
         }
 
         return Vector3.zero;
-    }
+    }*/
 
-    public NearestPointResponse PointToGrid(Vector3 point, GameObject artefact) //Place object on Gridpoint at saved position (used by loading utility)
+   /* public NearestPointResponse PointToGrid(Vector3 point, GameObject artefact) //Place object on Gridpoint at saved position (used by loading utility)
     {
         NearestPointResponse nearestPoint = gridManager.GetPointOnNearestGrid(point);
         if (nearestPoint == null)
@@ -202,14 +202,15 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
 
         return nearestPoint;
     }
-
-    private void ChangeColour(GameObject target, Color newColor) //At this stage this is simple enough, but I anticipate it will get more compicated as more things are completed
+   */
+    /*private void ChangeColour(GameObject target, Color newColor) //At this stage this is simple enough, but I anticipate it will get more compicated as more things are completed
     {
         MeshRenderer mr = target.GetComponent<MeshRenderer>();
 
         if (mr)
         {
-            //mr.material.color = newColor;
+            mr.material.color = newColor;
         }       
     }
+    */
 }

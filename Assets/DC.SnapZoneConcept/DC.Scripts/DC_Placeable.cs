@@ -15,23 +15,37 @@ public class DC_Placeable : MonoBehaviour
 
     // The bounds are used to calculate how far an object needs adjusting for directional snap zones
     // It is also used to position the Edit Object GUI
-    public Bounds m_EncapsulatedBounds;
+    private Bounds m_EncapsulatedBounds;
     // This boolean determines whether the object is rotated to 90 degrees in Y or not based on which bound size is thinnest
     private bool m_DefaultToX = false;
-    public float pushOutAmount = 0;
+    private float m_PushOutAmount = 0;
     private float m_CurrentLocalAngle = 0.0f;
 
     // The snap zone this object is currently placed on (if any)
     private DC_SnapZone m_SnapZone = null;
 
+    // Only allow placement when this is true
     private bool m_BeingPlaced = true;
-    private bool m_BeingEdited = false;
+
+    // RD EXT: Wall Layer for detecting walls and limiting movement of object
+    private int m_WallLayerID;
+    // Invalid locations are where the object could not possibly fit in an area
+    private bool m_InvalidLocation = false;
+    // Breakdown of the above for X and Z
+    // 0 not too small in +X or -X, 1 too small in +X or -X, 2 too small in +X and -X ergo invalid placement
+    private int m_SpaceTooSmallX = 0;
+    private int m_SpaceTooSmallZ = 0;
+    private float m_XClamp = 0.0f;
+    private float m_ZClamp = 0.0f;
+
+    //probalbly make this a private with a getters and setters
+    public Asset asset = null;
 
     private void Awake()
     {
         // Encapsulate all renderers bounds to get the size of the object
         m_EncapsulatedBounds = GetComponentInChildren<Renderer>().bounds;
-        foreach(Renderer renderer in GetComponentsInChildren<Renderer>())
+        foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
             m_EncapsulatedBounds.Encapsulate(renderer.bounds);
 
         // If the object is thinner in X than it is in Z (Forward direction for directional snap zones)
@@ -41,16 +55,21 @@ public class DC_Placeable : MonoBehaviour
             m_DefaultToX = true;
             m_CurrentLocalAngle = 90.0f;
         }
+
+        // RD EXT: Get wall layer ID
+        m_WallLayerID = LayerMask.NameToLayer("Wall");
     }
 
     // For optimisation
     Ray m_Ray;
     RaycastHit[] m_Hits;
+    RaycastHit m_Hit;
 
     private void Update()
     {
         // Place object
-        if (Input.GetMouseButtonDown(0))
+        // RD EXT: Only if a valid placement
+        if (Input.GetMouseButtonDown(0) && !m_InvalidLocation)
         {
             m_BeingPlaced = false;
 
@@ -61,6 +80,7 @@ public class DC_Placeable : MonoBehaviour
 
         if (m_BeingPlaced)
         {
+            // A ray from your mouse pointer to the world
             m_Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             // Get all the hits, and order them by distance
@@ -88,7 +108,7 @@ public class DC_Placeable : MonoBehaviour
                             transform.position = hit.transform.position + hit.transform.forward * (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
 
                             //Testing
-                            pushOutAmount = (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
+                            m_PushOutAmount = (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
                             break;
                         }
                         // Otherwise just set the objects position (Normal floor snap point where direction doesn't matter)
@@ -105,6 +125,95 @@ public class DC_Placeable : MonoBehaviour
                 {
                     transform.position = hit.point;
                 }
+
+                // Clamp positioning using 4 rays from the objects current position, and off setting accordingly
+                ClampPositioning4Rays();
+            }
+        }
+
+
+
+    }
+
+    /// <summary>
+    /// RD EXT: Cast 4 more rays from the object in +/- X and Z
+    /// These are used to detect Wall surfaces
+    /// If the distance to any wall is smaller than the size of the object in X Z respecfully,
+    /// then clamp the movment of the object in that direction
+    /// </summary>
+    private void ClampPositioning4Rays()
+    {
+        m_SpaceTooSmallX = 0;
+        m_SpaceTooSmallZ = 0;
+        m_InvalidLocation = false;
+
+        // +X
+        m_Ray = new Ray(transform.position, Vector3.right);
+        if (Physics.Raycast(m_Ray, out m_Hit, m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z, 1 << m_WallLayerID, QueryTriggerInteraction.Collide))
+        {
+            // Because the ray is the exact length of the encapsulated renderers
+            // If it got in here then it must have hit a wall, therefore limit the object motion in this direction
+            m_SpaceTooSmallX++;
+
+            // The new X position is where it hit the wall in X - half the size of the object in it's current orientation
+            m_XClamp = m_Hit.point.x - (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
+
+            // Rotate the object to be as flat as possible against the surface
+            transform.rotation = Quaternion.FromToRotation(Vector3.forward, m_Hit.normal) * Quaternion.AngleAxis(m_DefaultToX ? 90.0f : 0.0f, Vector3.up);
+        }
+        // -X
+        m_Ray = new Ray(transform.position, Vector3.left);
+        if (Physics.Raycast(m_Ray, out m_Hit, m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z, 1 << m_WallLayerID, QueryTriggerInteraction.Collide))
+        {
+            m_SpaceTooSmallX++;
+
+            // The new X position is where it hit the wall in X + half the size of the object in it's current orientation
+            m_XClamp = m_Hit.point.x + (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
+
+            // Rotate the object to be as flat as possible against the surface
+            transform.rotation = Quaternion.FromToRotation(Vector3.forward, m_Hit.normal) * Quaternion.AngleAxis(m_DefaultToX ? 90.0f : 0.0f, Vector3.up);
+        }
+        // +Z
+        m_Ray = new Ray(transform.position, Vector3.forward);
+        if (Physics.Raycast(m_Ray, out m_Hit, m_DefaultToX ? m_EncapsulatedBounds.extents.z : m_EncapsulatedBounds.extents.x, 1 << m_WallLayerID, QueryTriggerInteraction.Collide))
+        {
+            m_SpaceTooSmallZ++;
+
+            // The new Z position is where it hit the wall in Z - half the size of the object in it's current orientation
+            m_ZClamp = m_Hit.point.z - (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
+
+            // Rotate the object to be as flat as possible against the surface
+            // Edit: Using Back to avoid gimbol lock, then -90 : 180 instead of 90 : 0
+            transform.rotation = Quaternion.FromToRotation(Vector3.back, m_Hit.normal) * Quaternion.AngleAxis(m_DefaultToX ? -90.0f : 180.0f, Vector3.up);
+            transform.rotation.eulerAngles.Set(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0.0f);
+        }
+        // -Z
+        m_Ray = new Ray(transform.position, Vector3.back);
+        if (Physics.Raycast(m_Ray, out m_Hit, m_DefaultToX ? m_EncapsulatedBounds.extents.z : m_EncapsulatedBounds.extents.x, 1 << m_WallLayerID, QueryTriggerInteraction.Collide))
+        {
+            m_SpaceTooSmallZ++;
+
+            // The new Z position is where it hit the wall in Z + half the size of the object in it's current orientation
+            m_ZClamp = m_Hit.point.z + (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
+
+            // Rotate the object to be as flat as possible against the surface
+            transform.rotation = Quaternion.FromToRotation(Vector3.forward, m_Hit.normal) * Quaternion.AngleAxis(m_DefaultToX ? 90.0f : 0.0f, Vector3.up);
+        }
+
+        // If the space is too small then we cannot place the object
+        if (m_SpaceTooSmallX > 1 || m_SpaceTooSmallZ > 1)
+            m_InvalidLocation = true;
+        // Clamp the positioning if the gap between a wall and the obejct is smaller than the size of the object in that direction
+        else
+        {
+            if (m_SpaceTooSmallX == 1)
+            {
+                transform.position = new Vector3(m_XClamp, transform.position.y, transform.position.z);
+
+            }
+            if (m_SpaceTooSmallZ == 1)
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y, m_ZClamp);
             }
         }
     }
@@ -123,8 +232,6 @@ public class DC_Placeable : MonoBehaviour
 
             // Set the position and scale for the Edit Object toolbox
             DC_EditObject.Instance.Init(tempBound, this);
-
-            m_BeingEdited = true;
         }
     }
 
@@ -187,20 +294,20 @@ public class DC_Placeable : MonoBehaviour
         {
             float percentage = Mathf.Sin(angle * Mathf.Deg2Rad);
 
-            pushOutAmount = Mathf.Lerp(m_EncapsulatedBounds.extents.z, m_EncapsulatedBounds.extents.x, Mathf.Abs(percentage));
+            m_PushOutAmount = Mathf.Lerp(m_EncapsulatedBounds.extents.z, m_EncapsulatedBounds.extents.x, Mathf.Abs(percentage));
 
             // If the angle isn't divisible by 90, then add a little extra (To avoid clipping as much as possible without calculating expensive ellipsoids)
             if (angle % 90 != 0)
-                pushOutAmount += new Vector2(m_EncapsulatedBounds.extents.x, m_EncapsulatedBounds.extents.z).magnitude * 0.5f;
+                m_PushOutAmount += new Vector2(m_EncapsulatedBounds.extents.x, m_EncapsulatedBounds.extents.z).magnitude * 0.5f;
 
-            return pushOutAmount;
+            return m_PushOutAmount;
         }
         // Otherwise 0 degrees is X extents (Use Cos())
         else
         {
             float percentage = Mathf.Cos(angle * Mathf.Deg2Rad);
 
-            pushOutAmount = Mathf.Lerp(m_EncapsulatedBounds.extents.x, m_EncapsulatedBounds.extents.z, Mathf.Abs(percentage));
+            m_PushOutAmount = Mathf.Lerp(m_EncapsulatedBounds.extents.x, m_EncapsulatedBounds.extents.z, Mathf.Abs(percentage));
 
             // If the angle isn't divisible by 90, then add a little extra
             // To avoid clipping as much as possible without calculating expensive ellipsoids or a load of pythagoras
@@ -208,9 +315,9 @@ public class DC_Placeable : MonoBehaviour
             // 1. Use collision boxes (As these are rotated with the object, Bounds are not)
             // 2. Find the closest point (locally with regard to the snap point) and push out by any negative distance in Z
             if (angle % 90 != 0)
-                pushOutAmount += new Vector2(m_EncapsulatedBounds.extents.x, m_EncapsulatedBounds.extents.z).magnitude * 0.5f;
+                m_PushOutAmount += new Vector2(m_EncapsulatedBounds.extents.x, m_EncapsulatedBounds.extents.z).magnitude * 0.5f;
 
-            return pushOutAmount;
+            return m_PushOutAmount;
         }
     }
 }
