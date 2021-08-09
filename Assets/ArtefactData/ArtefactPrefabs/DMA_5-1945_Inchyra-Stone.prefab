@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4446068865143493822}
   m_Layer: 0
   m_Name: DMA_5-1945_Inchyra-Stone
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

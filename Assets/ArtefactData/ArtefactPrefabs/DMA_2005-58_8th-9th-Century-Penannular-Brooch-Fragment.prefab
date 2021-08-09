@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 349896165952632033}
   m_Layer: 0
   m_Name: DMA_2005-58_8th-9th-Century-Penannular-Brooch-Fragment
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

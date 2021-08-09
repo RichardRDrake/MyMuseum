@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7237717509620277724}
   m_Layer: 0
   m_Name: DMA_2000-43_Zoomorphic-Finial
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

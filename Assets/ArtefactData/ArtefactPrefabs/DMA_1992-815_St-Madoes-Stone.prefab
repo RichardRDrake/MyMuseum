@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5888242173379114762}
   m_Layer: 0
   m_Name: DMA_1992-815_St-Madoes-Stone
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
