@@ -14,6 +14,8 @@ public class AssetPlacerScriptableObject : ScriptableObject
 
     [SerializeField] private AssetReference ArtefactPrefab; //AddressableReference (Assigned in Inspector)
 
+    public Vector2 PaintingPixelSize;
+
     public Texture2D[] PreviewImages = new Texture2D[4];    
 
     [SerializeField] ArtefactPlacementType PlacementType = ArtefactPlacementType.Misc; //Overriden in Inspector
@@ -54,17 +56,18 @@ public class Asset
     public string Name;
     public string Content;
     public string AssRef;
+    public Vector2 pixelSize;
     public ArtefactPlacementType placementType;
 
     public GameObject asset;
 
-    public Asset(string name, string content, string ar, ArtefactPlacementType apt, GameObject _asset)
+    public Asset(string name, string content, string ar, ArtefactPlacementType apt, Vector2 pixels, GameObject _asset)
     {
         Name = name;
         Content = content;
         AssRef = ar;
         placementType = apt;
-
+        pixelSize = pixels;
         asset = _asset;
     }
 }

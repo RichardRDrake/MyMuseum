@@ -931,7 +931,7 @@ public class UI_Controller : MonoBehaviour
         }
 
         //Confused on Addressables? Go here: https://www.youtube.com/watch?v=Zb9WchxZhvM
-        asset = new Asset(artefact.ArtefactName, artefact.ArtefactContent, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType(), null);
+        asset = new Asset(artefact.ArtefactName, artefact.ArtefactContent, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType(), artefact.PaintingPixelSize, null);
         //The Addressable pathway to the asset (found on its scriptable object)
         AssetReference newAsset = artefact.GetArtefact();
         //Spawn the object. If you don't want to do anything to the object after it's spawned, ignore .Completed and everything after

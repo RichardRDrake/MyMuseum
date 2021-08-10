@@ -33,6 +33,7 @@ public class AssetData
     //public AssetPlacerScriptableObject scriptObject;
     public Vector3 assetPos;
     public Quaternion assetRot;
+    public Vector2 pixelSize;
 
     public string assetName;
     public string assetContent;
@@ -43,6 +44,7 @@ public class AssetData
         assetString = GUID;
         assetName = asset.Name;
         assetPlacement = asset.placementType;
+        pixelSize = asset.pixelSize;
         assetPos = pos;
         assetRot = rot;
     }

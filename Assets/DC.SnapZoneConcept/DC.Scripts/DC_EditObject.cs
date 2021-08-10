@@ -11,6 +11,9 @@ using UnityEngine.UI;
 /// </summary>
 public class DC_EditObject : MonoBehaviour
 {
+    [Header("Editor camera for focusing on object being edited")]
+    public DC_EditorCamera _EditorCamera;
+
     [Header("Canvas settings")]
     [Tooltip("Canvas to enable/disable Edit GUI")]
     public Canvas _Canvas;
@@ -24,12 +27,16 @@ public class DC_EditObject : MonoBehaviour
     // This is the current placeable object that this editor is editing
     private DC_Placeable m_CurrentPlaceableObject = null;
 
+    private bool m_EnabledThisFrame = false;
+
     // Check to see if we're about to be destroyed.
     private static bool m_ShuttingDown = false;
     private static object m_Lock = new object();
     private static DC_EditObject m_Instance;
 
-    private bool m_EnabledThisFrame = false;
+    // Current bounds and forward vector of the selected object
+    private Bounds m_CurrentSelectedBounds;
+    private Vector3 m_CurrentSelectedForward;
 
     /// <summary>
     /// Access singleton instance through this propriety.
@@ -58,18 +65,26 @@ public class DC_EditObject : MonoBehaviour
             }
         }
     }
+    private void OnDestroy()
+    {
+        m_ShuttingDown = true;
+    }
 
     public void Init(Bounds encapsulatedBounds, DC_Placeable placeableObjectToEdit)
     {
         // Enable the Edit HUD
         _Canvas.enabled = true;
 
+        // Save the bounds and forward direction
+        m_CurrentSelectedBounds = encapsulatedBounds;
+        m_CurrentSelectedForward = placeableObjectToEdit.transform.forward;
+
         // Calculate position and scale of object in screen space
         Rect rect = GUIRectWithObject(encapsulatedBounds, _MinRectSize, _MaxRectSize);
 
         // Scale to move the buttons out around the selected object
-        _Positioner.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rect.width);
-        _Positioner.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rect.height);
+        //_Positioner.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rect.width);
+        //_Positioner.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rect.height);
 
         // Set the position in screen space
         _Positioner.position = rect.center;
@@ -160,17 +175,14 @@ public class DC_EditObject : MonoBehaviour
             max = Vector2.Max(max, v);
         }
 
-        Vector2 scale = new Vector2(Mathf.Clamp(max.x - min.x, minScale.x, maxScale.x), Mathf.Clamp(max.x - min.x, minScale.x, maxScale.x));// Mathf.Clamp( max.y - min.y, minScale.y, maxScale.y ) );
+        Vector2 scale = new Vector2(Mathf.Clamp(max.x - min.x, minScale.x, maxScale.x), Mathf.Clamp( max.y - min.y, minScale.y, maxScale.y ) );
         Vector2 center = Camera.main.WorldToScreenPoint(cen);
         center = new Vector2(center.x - (scale.x * 0.5f), center.y - (scale.y * 0.5f));
 
         return new Rect(center, scale);
     }
 
-    private void OnDestroy()
-    {
-        m_ShuttingDown = true;
-    }
+    
 
     /// <summary>
     /// During update check if the user has presssed down anywhere other than a button
@@ -188,5 +200,28 @@ public class DC_EditObject : MonoBehaviour
         }
         else
             m_EnabledThisFrame = false;
+
+        // If 'F' button pressed, focus the camera on the object
+        if(Input.GetKeyDown(KeyCode.F) && m_CurrentSelectedBounds != null && _EditorCamera)
+        {
+            _EditorCamera.FocusOnObject(m_CurrentPlaceableObject.gameObject);
+        }
+
+
+        // Calculate position and scale of object in screen space
+        if (m_CurrentPlaceableObject)
+        {
+            Bounds encapsulatedBounds = m_CurrentPlaceableObject.GetComponentInChildren<Renderer>().bounds;
+            foreach (Renderer renderer in m_CurrentPlaceableObject.GetComponentsInChildren<Renderer>())
+                encapsulatedBounds.Encapsulate(renderer.bounds);
+            Rect rect = GUIRectWithObject(encapsulatedBounds, _MinRectSize, _MaxRectSize);
+
+            // Scale to move the buttons out around the selected object
+            //_Positioner.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rect.width);
+            //_Positioner.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rect.height);
+
+            // Set the position in screen space
+            _Positioner.position = rect.center;
+        }
     }
 }

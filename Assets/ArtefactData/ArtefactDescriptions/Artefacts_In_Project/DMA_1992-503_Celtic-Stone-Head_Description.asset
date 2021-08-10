@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: DMA_1992-503_Celtic-Stone-Head_Description
   m_EditorClassIdentifier: 
   ArtefactName: DMA_1992-503_Celtic-Stone-Head_Description
-  ArtefactContent: So-called Celtic stone head, found in Beech Hill place, Coupar
+  ArtefactContent: Art Gallery, Perth & Kinross Council. Beech Hill place, Coupar
     Angus, Perthshire. Possibly early first millennium AD. From the collection of
     Perth Museum & Art Gallery, Perth & Kinross Council.
   ArtefactPrefab:
     m_AssetGUID: 
     m_SubObjectName: 
     m_SubObjectType: 
+    m_EditorAssetChanged: 0
   PreviewImages:
   - {fileID: 0}
   - {fileID: 0}

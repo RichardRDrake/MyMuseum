@@ -235,7 +235,7 @@ public class SaveLoadRoom : MonoBehaviour
                 spawnedAsset = op.Result;
                 if (spawnedAsset.GetComponent<DC_Placeable>())
                 {
-                    spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result);
+                    spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, assetData.pixelSize, op.Result);
                 }
                     //Attach each object to the grid (closest point will be correct spot, or not make a difference)
                     //GridPosition gPos = placer.PointToGrid(spawnedAsset.transform.position, spawnedAsset).gridPosition;                    

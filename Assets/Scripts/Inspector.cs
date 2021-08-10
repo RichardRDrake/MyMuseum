@@ -76,10 +76,10 @@ public class Inspector : MonoBehaviour
                     // Call CheckSurround 
                     if (check == true)
                     {
-                        Inspection();
+                        //Inspection();
                     }
                 }
-                else // If an object is already being inspected,
+               /* else // If an object is already being inspected,
                 {
                     // Toggle the display text
                     DisplayTextToggle();
@@ -106,7 +106,7 @@ public class Inspector : MonoBehaviour
                     parent.transform.position = apos2;
 
 
-                }
+                }*/
             }
 
             // While toggle is false,
@@ -114,7 +114,7 @@ public class Inspector : MonoBehaviour
             {
                 // Call MouseControl to allow for mouse rotation/scrolling
                 img.gameObject.SetActive(false);
-                MouseControl();
+                //MouseControl();
             }
         }
         else
