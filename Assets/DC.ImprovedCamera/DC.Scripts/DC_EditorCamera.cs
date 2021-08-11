@@ -20,7 +20,7 @@ public class DC_EditorCamera : MonoBehaviour
     [Range(0.1f, 1.0f)] public float _RotationalSensitivity = 0.25f;
     [Range(0.1f, 1.0f)] public float _ZoomSensitivity = 0.5f;
 
-    [Header("Inversion controls")]
+    [Header("Inversion controls (EDIT mode)")]
     public bool _InvertedPanning = false;
     public bool _InvertedRotation = true;
     public bool _InvertedPitch = true;
@@ -34,6 +34,20 @@ public class DC_EditorCamera : MonoBehaviour
 
     [Header("Smooth transitioning speed")]
     [Range(5.0f, 25.0f)] public float _SmoothTransformationSpeed = 5.0f;
+
+    [Header("Perspective view settings")]
+    [Tooltip("Speed the player moves, in Meters per second")]
+    [Range(1.0f, 25.0f)] public float _MovementSpeed = 10.0f;
+    [Tooltip("Movement speed multiplier when left shift button held down")]
+    [Range(1.0f, 5.0f)] public float _SprintMultiplier = 5.0f;
+    [Tooltip("Look speed sensitivity")]
+    [Range(200.0f, 500.0f)] public float _LookSensitivity = 400.0f;
+    public bool _InvertedLookX = false;
+    public bool _InvertedLookY = false;
+    [Tooltip("The height of the player (Camera) in perspective view (Meters)")]
+    [Range(0.5f, 2.0f)] public float _PlayerHeight = 1.5f;
+    [Range(5.0f, 40.0f)] public float _PerspectiveMoveSmoothingSpeed = 10.0f;
+    [Range(5.0f, 60.0f)] public float _PerspectiveRotationSmoothingSpeed = 20.0f;
 
     // These are the targets you are directly controlling, the transformations smoothly go towards these
     private Vector3 m_TargetFocusPosition;
@@ -64,15 +78,23 @@ public class DC_EditorCamera : MonoBehaviour
     // Is the camera currently focused on an object
     private bool m_CurrentlyFocused = false;
 
+    // The following is public just for testing
     public enum CurrentMode
     {
         EDIT,
         PERSPECTIVE
     }
-
     public CurrentMode m_CurrentMode = CurrentMode.EDIT;
-
+    // Switching to perspective will lock the camera controls and instead it will swoop down from it's current orientation ddown to perspective view
     public bool _SwitchingToPerspective = false;
+    // If the camera is locked, the cursor will appear and mouse/keyboard input for controlling the camera is ignored
+    public bool _CameraLocked = false;
+
+    private Vector3 m_PerspectiveViewEulerAngles;
+    private Vector3 m_PerspectiveViewPosition;
+    private Vector3 m_PerspectiveDirection;
+    private Vector3 m_PerspectiveTargetPosition;
+    private Quaternion m_PerspectiveTargetRotation;
 
     private void Awake()
     {
@@ -109,13 +131,17 @@ public class DC_EditorCamera : MonoBehaviour
         {
             if (!_SwitchingToPerspective)
             {
+                // Set the target focus position to where it currently is, plus a little in front of it
                 m_TargetFocusPosition = _FocusTransform.localPosition + _PivotTransform.forward;
-                m_TargetFocusPosition.y = 1.5f;
+                // Set the player height
+                m_TargetFocusPosition.y = _PlayerHeight;
+                // Set the new target rotation (Swooping down from current position)
                 m_TargetPivotRotation = Quaternion.AngleAxis(m_CurrentEulerAngles.y, Vector3.up) * Quaternion.AngleAxis(0, Vector3.right);
                 
                 // This will actually make it feel like you are moving your head up and down, can bring it closer to 0 (but not 0) for a more traditional perspective view
                 m_TargetZoom = -0.5f;
 
+                // Now switching to perspective mode, camera controls locked during transition (Cursor is always visible)
                 _SwitchingToPerspective = true;
             }
             else
@@ -125,89 +151,100 @@ public class DC_EditorCamera : MonoBehaviour
         // Editing controls
         if (m_CurrentMode == CurrentMode.EDIT)
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+            if (!_SwitchingToPerspective)
             {
-                // Hide the cursor
-                Cursor.visible = false;
+                // Make sure cursor is unlocked
+                Cursor.lockState = CursorLockMode.None;
 
-                // Mouse position in screen space (For Rotations)
-                m_MouseReference = Input.mousePosition;
-
-                // Mouse position in world space (For Panning)
-                // 20.0f, is the Z distance into the world, just a number I found works best
-                // Could potentially use the Z distance from the surface you clicked to make it relative to your distance from that point
-                // With a sensitivity of 1, it would then feel like your literally grabbing that point and dragging yourself along
-                m_MouseReferenceWorldSpace = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20.0f));
-
-                // Enable Optional representation of the focus point
-                // EDIT: Dont show representation if focused on an object
-                if (_FocusPointRepresentation && !m_CurrentlyFocused)
-                    _FocusPointRepresentation.SetActive(true);
-            }
-
-            // Right mouse button rotates the pivot transform target
-            if (Input.GetMouseButton(1))
-            {
-                // Calculate the mouse offset from the last frame
-                m_MouseOffset = (Input.mousePosition - m_MouseReference);
-
-                // Rotate pivot in X and Y
-                m_CurrentEulerAngles += new Vector3(m_MouseOffset.y * (_InvertedPitch ? -1 : 1), m_MouseOffset.x * (_InvertedRotation ? -1 : 1), 0.0f) * _RotationalSensitivity;
-
-                // Clamp X rotation by _MinMaxPitch
-                if (_SwitchingToPerspective)
+                if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
                 {
-                    if (m_CurrentEulerAngles.x <= _MinMaxPitch.x)
-                        m_CurrentEulerAngles.x = _MinMaxPitch.x;
-                    else if (m_CurrentEulerAngles.x >= _MinMaxPitch.y)
-                        m_CurrentEulerAngles.x = _MinMaxPitch.y;
+                    // Hide the cursor
+                    Cursor.visible = false;
+
+                    // Mouse position in screen space (For Rotations)
+                    m_MouseReference = Input.mousePosition;
+
+                    // Mouse position in world space (For Panning)
+                    // 20.0f, is the Z distance into the world, just a number I found works best
+                    // Could potentially use the Z distance from the surface you clicked to make it relative to your distance from that point
+                    // With a sensitivity of 1, it would then feel like your literally grabbing that point and dragging yourself along
+                    m_MouseReferenceWorldSpace = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20.0f));
+
+                    // Enable Optional representation of the focus point
+                    // EDIT: Dont show representation if focused on an object
+                    if (_FocusPointRepresentation && !m_CurrentlyFocused)
+                        _FocusPointRepresentation.SetActive(true);
                 }
 
-                // Set the target quaternion rotation
-                m_TargetPivotRotation = Quaternion.AngleAxis(m_CurrentEulerAngles.y, Vector3.up) * Quaternion.AngleAxis(m_CurrentEulerAngles.x, Vector3.right);
+                // Right mouse button rotates the pivot transform target
+                if (Input.GetMouseButton(1))
+                {
+                    // Calculate the mouse offset from the last frame
+                    m_MouseOffset = (Input.mousePosition - m_MouseReference);
 
-                // Save the mouse position for the next frame
-                m_MouseReference = Input.mousePosition;
-            }
-            // Middle mouse button adjusts the focus transform target
-            else if (Input.GetMouseButton(2))
-            {
-                // No longer focused on a target object
-                if (_FocusPointRepresentation && !m_CurrentlyFocused)
-                    _FocusPointRepresentation.SetActive(true);
-                m_CurrentlyFocused = false;
+                    // Rotate pivot in X and Y
+                    m_CurrentEulerAngles += new Vector3(m_MouseOffset.y * (_InvertedPitch ? -1 : 1), m_MouseOffset.x * (_InvertedRotation ? -1 : 1), 0.0f) * _RotationalSensitivity;
 
-                // Get the current mouse position in world space
-                m_CurrentMousePositionWorldSpace = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20.0f));
+                    // Clamp X rotation by _MinMaxPitch
+                    if (_SwitchingToPerspective)
+                    {
+                        if (m_CurrentEulerAngles.x <= _MinMaxPitch.x)
+                            m_CurrentEulerAngles.x = _MinMaxPitch.x;
+                        else if (m_CurrentEulerAngles.x >= _MinMaxPitch.y)
+                            m_CurrentEulerAngles.x = _MinMaxPitch.y;
+                    }
 
-                // Calculate the offset from the last frame
-                m_MouseOffset = (m_CurrentMousePositionWorldSpace - m_MouseReferenceWorldSpace);
+                    // Set the target quaternion rotation
+                    m_TargetPivotRotation = Quaternion.AngleAxis(m_CurrentEulerAngles.y, Vector3.up) * Quaternion.AngleAxis(m_CurrentEulerAngles.x, Vector3.right);
 
-                // Set the focus position
-                m_TargetFocusPosition += new Vector3(m_MouseOffset.x, 0.0f, m_MouseOffset.z) * _FocusSensitivity * (_InvertedPanning ? -1 : 1);
+                    // Save the mouse position for the next frame
+                    m_MouseReference = Input.mousePosition;
+                }
+                // Middle mouse button adjusts the focus transform target
+                else if (Input.GetMouseButton(2))
+                {
+                    // No longer focused on a target object
+                    if (_FocusPointRepresentation && !m_CurrentlyFocused)
+                        _FocusPointRepresentation.SetActive(true);
+                    m_CurrentlyFocused = false;
 
-                // Clamp where the focus position can be to within the confines of the room
-                m_TargetFocusPosition = new Vector3(Mathf.Clamp(m_TargetFocusPosition.x, _WorldLimitsX.x, _WorldLimitsX.y), 0.0f, Mathf.Clamp(m_TargetFocusPosition.z, _WorldLimitsZ.x, _WorldLimitsZ.y));
+                    // Get the current mouse position in world space
+                    m_CurrentMousePositionWorldSpace = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20.0f));
 
-                // Save the mouse position for the next frame
-                m_MouseReferenceWorldSpace = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20.0f));
+                    // Calculate the offset from the last frame
+                    m_MouseOffset = (m_CurrentMousePositionWorldSpace - m_MouseReferenceWorldSpace);
+
+                    // Set the focus position
+                    m_TargetFocusPosition += new Vector3(m_MouseOffset.x, 0.0f, m_MouseOffset.z) * _FocusSensitivity * (_InvertedPanning ? -1 : 1);
+
+                    // Clamp where the focus position can be to within the confines of the room
+                    m_TargetFocusPosition = new Vector3(Mathf.Clamp(m_TargetFocusPosition.x, _WorldLimitsX.x, _WorldLimitsX.y), 0.0f, Mathf.Clamp(m_TargetFocusPosition.z, _WorldLimitsZ.x, _WorldLimitsZ.y));
+
+                    // Save the mouse position for the next frame
+                    m_MouseReferenceWorldSpace = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 20.0f));
+                }
+                else
+                {
+                    // Unhide the cursor
+                    Cursor.visible = true;
+
+                    // Disable Optional representation of the focus point
+                    if (_FocusPointRepresentation)
+                        _FocusPointRepresentation.SetActive(false);
+                }
+
+                // Scroll wheel zooms in/out
+                m_TargetZoom += Input.mouseScrollDelta.y * _ZoomSensitivity * (_InvertedZoom ? -1 : 1);
+
+                // Limit the zooming
+                m_TargetZoom = Mathf.Clamp(m_TargetZoom, Mathf.Min(_MinMaxZoom.x, _MinMaxZoom.y), Mathf.Max(_MinMaxZoom.x, _MinMaxZoom.y));
             }
             else
             {
-                // Unhide the cursor
-                Cursor.visible = true;
-
-                // Disable Optional representation of the focus point
-                if (_FocusPointRepresentation)
-                    _FocusPointRepresentation.SetActive(false);
+                // Hide the cursor while transitioning and lock it
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
-
-            // Scroll wheel zooms in/out
-            m_TargetZoom += Input.mouseScrollDelta.y * _ZoomSensitivity * (_InvertedZoom ? -1 : 1);
-
-            // Limit the zooming
-            if(!_SwitchingToPerspective)
-                m_TargetZoom = Mathf.Clamp(m_TargetZoom, Mathf.Min(_MinMaxZoom.x, _MinMaxZoom.y), Mathf.Max(_MinMaxZoom.x, _MinMaxZoom.y));
 
             // Smoothly transition towards targets
             // This is a much easier way to smooth out the transformations
@@ -221,48 +258,90 @@ public class DC_EditorCamera : MonoBehaviour
             // The zoom transform can be the actual camera and is the last transform, it changes local Z position to move in/out towards the focus transform
             _ZoomTransform.localPosition = Vector3.Lerp(_ZoomTransform.localPosition, new Vector3(0, 0, m_TargetZoom), Time.deltaTime * _SmoothTransformationSpeed);
 
+            // If still in Edit mode but were switching to perspective mode
             if(_SwitchingToPerspective)
             {
+                // And the edit mode camera has reached it's destination
                 if(_FocusTransform.localPosition ==  m_TargetFocusPosition &&
                     _PivotTransform.localRotation == m_TargetPivotRotation &&
                     Mathf.Approximately(_ZoomTransform.localPosition.z, m_TargetZoom))
                 {
+                    // Switch the mode
                     m_CurrentMode = CurrentMode.PERSPECTIVE;
 
+                    // Use the pivot rotation in X and Y as the starting rotation for free look
+                    m_PerspectiveViewEulerAngles.x = _PivotTransform.localRotation.eulerAngles.x;
+                    m_PerspectiveViewEulerAngles.y = _PivotTransform.localRotation.eulerAngles.y;
 
-                    freeAngles.y = _PivotTransform.localRotation.eulerAngles.y;
+                    // Set the rotation to the focus transform and target rotation
+                    _FocusTransform.localRotation = _PivotTransform.localRotation;
+                    m_PerspectiveTargetRotation = _PivotTransform.localRotation;
+
+                    // Set the target position to match
+                    m_PerspectiveTargetPosition = _FocusTransform.localPosition;
+
+                    // Remove the rotation from the Pivot Transform as this transform is just not used during perspective mode
                     _PivotTransform.localRotation = Quaternion.identity;
-                    
+
+                    // Camera not locked by default unless space is pressed
+                    _CameraLocked = false;
                 }
             }
         }
-        // Perspective controls (Not finished)
+        // Perspective controls
         else
         {
-            //Move the camera faster if the shift key is held
-            float moveSpeed = 10.0f;
-            float sprintMultiplier = 5.0f;
-            float freeSensitivity = 400.0f;
-            float speed = moveSpeed * (Input.GetKey(KeyCode.LeftShift) ? sprintMultiplier : 1.0f);
+            // If Space pressed, toggle the locking of the camera and change the cursor visibility
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                _CameraLocked = !_CameraLocked;
 
-            freeAngles.x += Input.GetAxisRaw("Mouse Y") * Time.deltaTime * -freeSensitivity;
-            freeAngles.x = Mathf.Clamp(freeAngles.x, -80, 80);
-            freeAngles.y += Input.GetAxisRaw("Mouse X") * Time.deltaTime * freeSensitivity;
+                if (_CameraLocked)
+                {
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
 
-            _FocusTransform.localRotation = Quaternion.AngleAxis(freeAngles.y, Vector3.up);
-            _FocusTransform.localRotation *= Quaternion.AngleAxis(freeAngles.x, Vector3.right);
+                    // ROMAIN: This is where you could enable the Model viewer if you are looking at an object
+                    //
+                    //
+                }
+            }
 
-            Vector3 moveDirection = _FocusTransform.forward * Input.GetAxisRaw("Vertical") + transform.right * moveSpeed * Input.GetAxisRaw("Horizontal");
-            moveDirection.y = 0;
-            moveDirection.Normalize();
-            freePosition = moveDirection * Time.deltaTime * speed;
+            if (!_CameraLocked)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
 
-            _FocusTransform.localPosition += freePosition;
+                // Move the camera faster if the shift key is held
+                float speed = _MovementSpeed * (Input.GetKey(KeyCode.LeftShift) ? _SprintMultiplier : 1.0f);
+
+                // Adjust the viewing angles based on Mouse
+                m_PerspectiveViewEulerAngles.x += Input.GetAxisRaw("Mouse Y") * Time.deltaTime * -_LookSensitivity * (_InvertedLookX ? -1 : 1);
+                m_PerspectiveViewEulerAngles.x = Mathf.Clamp(m_PerspectiveViewEulerAngles.x, -80, 80);
+                m_PerspectiveViewEulerAngles.y += Input.GetAxisRaw("Mouse X") * Time.deltaTime * _LookSensitivity * (_InvertedLookY ? -1 : 1);
+
+                // Apply that to the perspective rotatioon (Top most transform, the only transform used for Perspective view)
+                m_PerspectiveTargetRotation = Quaternion.AngleAxis(m_PerspectiveViewEulerAngles.y, Vector3.up) * Quaternion.AngleAxis(m_PerspectiveViewEulerAngles.x, Vector3.right);
+
+                // Calculate the movement direction based on the direction you are looking in
+                m_PerspectiveDirection = _FocusTransform.forward * Input.GetAxisRaw("Vertical") + transform.right * _MovementSpeed * Input.GetAxisRaw("Horizontal");
+                m_PerspectiveDirection.y = 0;
+                m_PerspectiveDirection.Normalize();
+                m_PerspectiveViewPosition = m_PerspectiveDirection * Time.deltaTime * speed;
+
+                // Add this to the perspective target position
+                m_PerspectiveTargetPosition += m_PerspectiveViewPosition;
+
+                // Rotate the focus transform
+                _FocusTransform.localRotation = Quaternion.Lerp(_FocusTransform.localRotation, m_PerspectiveTargetRotation, Time.deltaTime * _PerspectiveRotationSmoothingSpeed);
+
+                // Move the Focus transfrom in the calculated direction
+                _FocusTransform.localPosition = Vector3.Lerp(_FocusTransform.localPosition, m_PerspectiveTargetPosition, Time.deltaTime * _PerspectiveMoveSmoothingSpeed);
+            }
         }
     }
 
-    private Vector3 freeAngles;
-    private Vector3 freePosition;
+    
 
     /// <summary>
     /// Using an objects bounds the camera will focus on the center of that object

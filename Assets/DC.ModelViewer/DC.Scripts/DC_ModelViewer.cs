@@ -25,18 +25,26 @@ public class DC_ModelViewer : MonoBehaviour
     [Header("3D Model view settings")]
     [Tooltip("The camera used for rendering the raw image (Position is set at the beginning based on model size and can be moved up and down, the field of view is used to zoom in/out)")]
     public Camera _Camera;
+    [Tooltip("The camera pivot is used to pitch the camera up/down")]
+    public Transform _CameraPivot;
     [Tooltip("The GameObject of the Raw image that displays the 3D content (This is enabled/disabled as it also detects if the user has their mouse pointer onver the viewing area)")]
     public GameObject _3DContentViewGameObject;
     [Tooltip("The 3D Model Anchor used for placing the object (This is what is rotated based on controls)")]
     public Transform _3DModelAnchor;
     [Tooltip("The default camera distance in meters")]
     [Range(0.5f, 2.0f)] public float _DefaultCameraDistance = 1.0f;
-    [Tooltip("Rotational sensitivity")]
+    [Tooltip("Rotational sensitivity (Also used for pitch, feels better if they are the same)")]
     [Range(0.1f, 1.0f)] public float _RotationalSensitivity = 0.4f;
     [Tooltip("Height offset sensitivity")]
     [Range(0.005f, 0.05f)] public float _HeightSensitivity = 0.01f;
     [Tooltip("Zoom sensitivity")]
     [Range(1.0f, 10.0f)] public float _ZoomSensitivity = 5.0f;
+    [Tooltip("Inverted rotation?")]
+    public bool _InvertMouseX = true;
+    [Tooltip("Inverted pitch?")]
+    public bool _InvertMouseY = true;
+    [Tooltip("Inverted height control?")]
+    public bool _InvertHeightControl = false;
     [Tooltip("The layer used to isolate the viewing object")]
     public string _ViewingObjectLayerName = "ViewingObject";
 
@@ -100,12 +108,19 @@ public class DC_ModelViewer : MonoBehaviour
                 m_MouseReference = Input.mousePosition;
             }
 
-            // Rotate the 3D model anchor in Y axis
+            // Rotate the 3D model anchor in Y axis using mouse left/right difference
+            // Pitch camera up/down in X axis using mouse up/down difference
             if (Input.GetMouseButton(0))
             {
                 m_MouseOffset = (Input.mousePosition - m_MouseReference);
 
-                _3DModelAnchor.Rotate(0.0f, -(m_MouseOffset.x + m_MouseOffset.y) * _RotationalSensitivity, 0.0f);
+                _3DModelAnchor.Rotate(0.0f, m_MouseOffset.x * _RotationalSensitivity * (_InvertMouseX? -1:1), 0.0f);
+
+                _CameraPivot.Rotate(m_MouseOffset.y * _RotationalSensitivity * (_InvertMouseY ? -1 : 1), 0.0f, 0.0f);
+                // Limit camera pivot
+                Vector3 cameraPitch = _CameraPivot.eulerAngles;
+                cameraPitch.x = ClampAngle(_CameraPivot.eulerAngles.x, -35.0f, 35.0f);
+                _CameraPivot.eulerAngles = cameraPitch;
 
                 m_MouseReference = Input.mousePosition;
 
@@ -115,16 +130,16 @@ public class DC_ModelViewer : MonoBehaviour
             {
                 m_MouseOffset = (Input.mousePosition - m_MouseReference);
 
-                _Camera.transform.Translate(0.0f, (m_MouseOffset.x + m_MouseOffset.y) * _HeightSensitivity * m_ObjectSize, 0.0f, Space.World);
+                _CameraPivot.Translate(0.0f, m_MouseOffset.y * _HeightSensitivity * m_ObjectSize * (_InvertHeightControl?-1:1), 0.0f, Space.World);
 
                 // Limit the positioning
-                Vector3 tempPos = _Camera.transform.position;
-                tempPos.y = Mathf.Clamp(tempPos.y, m_CameraStartingPosition.y - m_ObjectSize * 0.5f, m_CameraStartingPosition.y + m_ObjectSize * 0.5f);
-                _Camera.transform.position = tempPos;
+                Vector3 tempPos = _CameraPivot.position;
+                tempPos.y = Mathf.Clamp(tempPos.y, - m_ObjectSize * 0.5f, m_ObjectSize * 0.5f);
+                _CameraPivot.position = tempPos;
 
                 m_MouseReference = Input.mousePosition;
             }
-            else
+            else if(Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
             {
                 // Make the cursor visible again
                 Cursor.visible = true;
@@ -147,9 +162,9 @@ public class DC_ModelViewer : MonoBehaviour
             // Update horizontal scrollbar to match current rotation
             if (_HorizontalScrollbar)
                 _HorizontalScrollbar.value = 0.5f + (_3DModelAnchor.rotation.eulerAngles.y - 180.0f) / 360.0f;
-            // Update vertical scrollbar to match current height offset
-            if (_VerticalScrollbar)
-                _VerticalScrollbar.value = 0.5f + (m_CameraStartingPosition.y - _Camera.transform.position.y) / m_ObjectSize;
+            //// Update vertical scrollbar to match current height offset
+            //if (_VerticalScrollbar)
+            //    _VerticalScrollbar.value = 0.5f + (m_CameraStartingPosition.y - _Camera.transform.position.y) / m_ObjectSize;
         }
     }
     #endregion
@@ -243,6 +258,25 @@ public class DC_ModelViewer : MonoBehaviour
         if (!fadeIn && _3DContentViewGameObject)
             _3DContentViewGameObject.SetActive(false);
     }
+    #endregion
+
+    #region Private Helper Functions
+
+    /// <summary>
+    /// Clamp any euler angle between two values
+    /// </summary>
+    /// <param name="angle">Angle to clamp</param>
+    /// <param name="from">Minimum angle</param>
+    /// <param name="to">Maximum angle</param>
+    /// <returns></returns>
+    float ClampAngle(float angle, float from, float to)
+    {
+        // accepts e.g. -80, 80
+        if (angle < 0f) angle = 360 + angle;
+        if (angle > 180f) return Mathf.Max(angle, 360 + from);
+        return Mathf.Min(angle, to);
+    }
+
     #endregion
 
     #region Main Public Functions
@@ -362,7 +396,7 @@ public class DC_ModelViewer : MonoBehaviour
 
     public void UISetHeight(Scrollbar scrollbar)
     {
-        _Camera.transform.position = m_CameraStartingPosition - new Vector3(0.0f, (scrollbar.value - 0.5f) * m_ObjectSize, 0.0f);
+        //_Camera.transform.position = m_CameraStartingPosition - new Vector3(0.0f, (scrollbar.value - 0.5f) * m_ObjectSize, 0.0f);
     }
 
     public void UIZoomIn()

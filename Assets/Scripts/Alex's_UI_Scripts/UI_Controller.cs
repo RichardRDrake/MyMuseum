@@ -41,13 +41,6 @@ public class UI_Controller : MonoBehaviour
     //Main menu button
     [SerializeField] private GameObject MainMenuButton;
 
-    //Camera object
-    [SerializeField] private GameObject Camera;
-    private CamController camController;
-
-    //Asset placer
-    //[SerializeField] private AssetPlacer assetPlacer = null;
-
     private GameObject objectToBePlaced = null;
     private Asset asset = null;
 
@@ -196,8 +189,6 @@ public class UI_Controller : MonoBehaviour
             Debug.Log("Resources - Something went wrong");
         }
 
-        //Gets the camera controller
-        camController = Camera.GetComponent<CamController>();
 
         //Gets the (hopefully) single assetplacer in the scene
         //assetPlacer = FindObjectOfType<AssetPlacer>();
@@ -362,7 +353,6 @@ public class UI_Controller : MonoBehaviour
                         SwitchToMain();
                         break;
                     case 6:
-                        camController.switchToFirstPerson();
                         HighlightFirst.SetActive(false);
                         break;
                 }
@@ -885,7 +875,6 @@ public class UI_Controller : MonoBehaviour
         #region Sets the main menu active, then instructs the main menu to disable this menu
         MainMenu.SetActive(true);
         UI_MenuController.Activate();
-        camController.canHotkey = false;
         #endregion
     }
 

@@ -16,9 +16,6 @@ public class UI_MenuController : MonoBehaviour
     [SerializeField] private GameObject ViewMenu;
     private UI_ViewController UI_ViewController;
 
-    [SerializeField] private GameObject Camera;
-    private CamController CamController;
-
     //Determines whether it should return to build or view mode UI when dismissed
     public bool buildMode = true;
 
@@ -189,7 +186,6 @@ public class UI_MenuController : MonoBehaviour
         //UI controller script attached to build menu
         UI_Controller = BuildMenu.GetComponent<UI_Controller>();
         UI_ViewController = ViewMenu.GetComponent<UI_ViewController>();
-        CamController = Camera.GetComponent<CamController>();
         Saves = SaveObject.GetComponent<SaveLoadRoom>();
         audioManager = FindObjectOfType<AudioManager>();
         if (Saves != null)
@@ -417,7 +413,7 @@ public class UI_MenuController : MonoBehaviour
                 Cursor.visible = false;
                 UI_ViewController.DisableMain();
             }
-            CamController.canHotkey = true;
+            
         }
         #endregion
     }

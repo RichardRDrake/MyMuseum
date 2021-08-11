@@ -19,7 +19,7 @@ public class Inspector : MonoBehaviour
     bool toggle = true;
     Vector3 pos, pos2;
     Vector3 apos, apos2;
-    CamController controller;
+    DC_EditorCamera controller;
     Asset assetBundle;
     Vector3 oldRot;
     Image img;
@@ -38,7 +38,7 @@ public class Inspector : MonoBehaviour
         // Sets the parent variable to the current camera parent
         parent = transform.parent;
         // Get the CamController component from the camera
-        controller = GetComponent<CamController>();
+        controller = GetComponent<DC_EditorCamera>();
         // Get the assetPlacer object
         assetPlacer = GameObject.Find("AssetPlacer");
 
@@ -55,7 +55,7 @@ public class Inspector : MonoBehaviour
     void Update()
     {
 
-        if (controller.cameraToggle == true)
+        if (controller.m_CurrentMode == DC_EditorCamera.CurrentMode.PERSPECTIVE)
         {
 
             // Calls CheckSurround every frame
@@ -211,12 +211,6 @@ public class Inspector : MonoBehaviour
 
         // Sets toggle to false so the next time the player presses the "f" key, they will instead exit inspection mode
         toggle = false;
-
-        // Tells the camea controller that we are currently inspecting
-        controller.inspection = true;
-
-        // Disables hotkeys for the camera controller.
-        controller.canHotkey = false;
 
         // Get the index from the list of distances, for the smallest distance value
         int index = distances.IndexOf(min);
