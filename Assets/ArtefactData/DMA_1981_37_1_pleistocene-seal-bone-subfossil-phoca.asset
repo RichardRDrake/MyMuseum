@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1981_37_1_pleistocene-seal-bone-subfossil-phoca
+  m_EditorClassIdentifier: 
+  ArtefactName: DMA_1981_37_1_pleistocene-seal-bone-subfossil-phoca
+  ArtefactContent: Found in the Errol Clay of the Carse of Gowrie, Perthshire, Scotland. 
+    As the climate warmed at the end of the last ice age the glacier flowing into
+    the sea in the Tay estuary retreated and clay, and drop stones from icebergs,
+    were deposited. This is the Errol Clay which contains fossils, such as this seal
+    bone, that are from animals found nowadays in high Arctic waters
+  ArtefactPrefab:
+    m_AssetGUID: 6b22b38810e06874a92ce3a796334e51
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0, y: 0}
+  PreviewImages:
+  - {fileID: 2800000, guid: 9b95d532eeec1e448bd5935c286d51af, type: 3}
+  - {fileID: 2800000, guid: 5e31d04e3245b624286d01074d4633ee, type: 3}
+  - {fileID: 2800000, guid: 2e03ebaa9b81a7a4aaff99542ea73e2a, type: 3}
+  - {fileID: 2800000, guid: cfeebf26e163d4048ad08acd0cd9065b, type: 3}
+  PlacementType: 0
