@@ -29,6 +29,26 @@ MonoBehaviour:
     m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1987-55a_Perth-Toilet-Seat.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0eff3b5c6f52fcb45a99a580d2317333
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1981_922_elk_antler_subfossil_alces.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6b22b38810e06874a92ce3a796334e51
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1981_37_1_pleistocene-seal-bone-subfossil-phoca.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6223e6a7b59240a4d96700e1d73d676d
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1981_697_devonian_jawless_fish_cephalaspis.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 31ae2f7738d26d441931653d2995c849
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1994_2406_126_devonian_sea_scorpion_claw_pteryogotus.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5e46ff85837f7cc419d72fdda4d78138
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_PERGM_2013_30_iron-age-button-loop-fastener.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:
