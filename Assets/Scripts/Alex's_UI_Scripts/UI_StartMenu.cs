@@ -971,6 +971,12 @@ public class UI_StartMenu : MonoBehaviour
         else if (saveTexts[Mathf.Clamp(paneCurrent - 1, 0, 2)].text == "Download room" || saveTexts[Mathf.Clamp(saveLoadIdentity - 1, 0, 2)].text == "Download new room")
         {
             //If this is selected, the player is attempting to download a room
+
+            // RD TODO: Load download menu
+            // Contains a Tab to view list of Public/Private rooms on the server
+            // Private: If no user Key found (Set locally when User first launches the app from the website link) then display message to explain what needs to be done [They can still Load/save files locally]
+            // Public: Requires internet connection [Can still load local rooms]
+
         }
         else
         {
@@ -990,6 +996,11 @@ public class UI_StartMenu : MonoBehaviour
             else if(uploadSaveFiles)
             {
                 //Or uploading one to the online repo
+
+                // RD TODO: Load Upload menu
+                // Contians option to upload to your private account "website/Users/MD5Key/SavedRooms/"
+                // Private: If not MD5 key known "Message saying why and how to fix" (Needs to launch from website at least once (Website link has the MD5Key embedded in the link and is passed as a Batch file command)
+                // Public: Require internet connecton, check sserver staus etc, Save room file with yourNickname/RoomName/DateModified for uniqueness and so other users will have this info when they download the public room
             }
             else
             {
