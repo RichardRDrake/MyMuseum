@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _NonDirectionalZoneSpritePrefab: {fileID: 5730095353733204792, guid: 6794bc7f3391091428db874228f0002c, type: 3}
   _DirectionalZoneSpritePrefab: {fileID: 5730095353733204792, guid: 20077b323e4becc43940a93f91028293, type: 3}
-  _Threshold: 0.1
+  _Threshold: 0.545
 --- !u!1 &2229146758696343738
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,7 +59,7 @@ public class Inspector : MonoBehaviour
         {
 
             // Calls CheckSurround every frame
-            bool check = CheckSurround();
+            bool check = false; //CheckSurround();
             if (check == true)
             {
                 img.gameObject.SetActive(true);

@@ -129,23 +129,7 @@ public class DC_EditorCamera : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            if (!_SwitchingToPerspective)
-            {
-                // Set the target focus position to where it currently is, plus a little in front of it
-                m_TargetFocusPosition = _FocusTransform.localPosition + _PivotTransform.forward;
-                // Set the player height
-                m_TargetFocusPosition.y = _PlayerHeight;
-                // Set the new target rotation (Swooping down from current position)
-                m_TargetPivotRotation = Quaternion.AngleAxis(m_CurrentEulerAngles.y, Vector3.up) * Quaternion.AngleAxis(0, Vector3.right);
-                
-                // This will actually make it feel like you are moving your head up and down, can bring it closer to 0 (but not 0) for a more traditional perspective view
-                m_TargetZoom = -0.5f;
-
-                // Now switching to perspective mode, camera controls locked during transition (Cursor is always visible)
-                _SwitchingToPerspective = true;
-            }
-            else
-                Return();
+            FirstPersonMode();
         }
 
         // Editing controls
@@ -341,7 +325,28 @@ public class DC_EditorCamera : MonoBehaviour
         }
     }
 
-    
+    public void FirstPersonMode()
+    {
+        if (!_SwitchingToPerspective)
+        {
+            // Set the target focus position to where it currently is, plus a little in front of it
+            m_TargetFocusPosition = _FocusTransform.localPosition + _PivotTransform.forward;
+            // Set the player height
+            m_TargetFocusPosition.y = _PlayerHeight;
+            // Set the new target rotation (Swooping down from current position)
+            m_TargetPivotRotation = Quaternion.AngleAxis(m_CurrentEulerAngles.y, Vector3.up) * Quaternion.AngleAxis(0, Vector3.right);
+
+            // This will actually make it feel like you are moving your head up and down, can bring it closer to 0 (but not 0) for a more traditional perspective view
+            m_TargetZoom = -0.5f;
+
+            // Now switching to perspective mode, camera controls locked during transition (Cursor is always visible)
+            _SwitchingToPerspective = true;
+        }
+        else
+            Return();
+    }
+
+
 
     /// <summary>
     /// Using an objects bounds the camera will focus on the center of that object
@@ -472,5 +477,13 @@ public class DC_EditorCamera : MonoBehaviour
     {
         m_CurrentEulerAngles.y = angle;
         m_TargetPivotRotation = Quaternion.AngleAxis(m_CurrentEulerAngles.y, Vector3.up) * Quaternion.AngleAxis(m_CurrentEulerAngles.x, Vector3.right);
+    }
+
+    public void UiSwitchMode()
+    {
+        if (!_SwitchingToPerspective)
+            _SwitchingToPerspective = true;
+        else
+            Return();
     }
 }
