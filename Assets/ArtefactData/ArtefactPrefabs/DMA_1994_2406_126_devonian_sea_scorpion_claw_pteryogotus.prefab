@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6995100193872078121}
   m_Layer: 0
   m_Name: DMA_1994_2406_126_devonian_sea_scorpion_claw_pteryogotus
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
