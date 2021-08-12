@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1994_2406_126_devonian_sea_scorpion_claw_pteryogotus
+  m_EditorClassIdentifier: 
+  ArtefactName: DMA_1994_2406_126_devonian_sea_scorpion_claw_pteryogotus
+  ArtefactContent: "Part of the claw of an extinct Eurypterid, or water scorpion.
+    The fossil was found at Tealing, Angus, Scotland, preserved in Lower Old Red
+    Sandstone rock.  This Eurypterid was a fierce hunter in freshwater. The fossil
+    is preserved in rocks that were once silty sand accumulating at the bottom of
+    a large lake known as \u2018Lake Forfar\u2019 about 380 million years ago. In
+    this lake lived small predatory fish and water scorpions."
+  ArtefactPrefab:
+    m_AssetGUID: 31ae2f7738d26d441931653d2995c849
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0, y: 0}
+  PreviewImages:
+  - {fileID: 2800000, guid: 9b95d532eeec1e448bd5935c286d51af, type: 3}
+  - {fileID: 2800000, guid: 5e31d04e3245b624286d01074d4633ee, type: 3}
+  - {fileID: 2800000, guid: 2e03ebaa9b81a7a4aaff99542ea73e2a, type: 3}
+  - {fileID: 2800000, guid: cfeebf26e163d4048ad08acd0cd9065b, type: 3}
+  PlacementType: 4

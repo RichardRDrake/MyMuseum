@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1981_697_devonian_jawless_fish_cephalaspis
+  m_EditorClassIdentifier: 
+  ArtefactName: DMA_1981_697_devonian_jawless_fish_cephalaspis
+  ArtefactContent: This is the head shield of an early Cephalaspid or armour-headed
+    fish. The specimen was collected at Balruddery in June 1895 on an excursion organised
+    by the Perthshire Society of Natural Science.  Balruddery Den, a wooded ravine
+    to the west of Dundee, Scotland was nationally famous amongst geologists in the
+    nineteenth century for its fossil fish. Exposed in the Den are sandstones and
+    shales deposited during the Devonian age, between 360 and 410 million years ago.
+  ArtefactPrefab:
+    m_AssetGUID: 6223e6a7b59240a4d96700e1d73d676d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0, y: 0}
+  PreviewImages:
+  - {fileID: 2800000, guid: 9b95d532eeec1e448bd5935c286d51af, type: 3}
+  - {fileID: 2800000, guid: 5e31d04e3245b624286d01074d4633ee, type: 3}
+  - {fileID: 2800000, guid: 2e03ebaa9b81a7a4aaff99542ea73e2a, type: 3}
+  - {fileID: 2800000, guid: cfeebf26e163d4048ad08acd0cd9065b, type: 3}
+  PlacementType: 4
