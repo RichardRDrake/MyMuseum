@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: DMA_1997-432_Quadricephalous-Or-Four-Headed-Stone
   m_EditorClassIdentifier: 
-  ArtefactName: DMA_1997_432_Quadricephalous-Or-Four-Headed-Stone
+  ArtefactName: DMA_1997-432_Quadricephalous-Or-Four-Headed-Stone
   ArtefactContent: A carved stone found at Glenfoot, Abernethy. Probably dating to
     the first half of the first millennium AD. From the Collection of Perth Museum
     & Art Gallery, Perth & Kinross Council.
@@ -20,8 +20,6 @@ MonoBehaviour:
     m_AssetGUID: c9784a092102c354b949223de3b8d47f
     m_SubObjectName: 
     m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  PaintingPixelSize: {x: 0, y: 0}
   PreviewImages:
   - {fileID: 2800000, guid: a7a252bce83f6864fbdbbf6866c07b44, type: 3}
   - {fileID: 2800000, guid: d19edf0efa8944a41becb33f3d8987a8, type: 3}
