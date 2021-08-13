@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1440012135519857896}
   - component: {fileID: 3293766088317090210}
   m_Layer: 0
-  m_Name: DMA_PERGM_2013_30_iron-age-button-loop-fastener
+  m_Name: DMA_2013_30_iron-age-button-loop-fastener
   m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8f9478ccb5074124a9df5817d6a1ee60, type: 3}
       propertyPath: m_Name
-      value: DMA_PERGM_2013_30_iron-age-button-loop-fastener_mesh 1
+      value: DMA_2013_30_iron-age-button-loop-fastener_mesh 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f9478ccb5074124a9df5817d6a1ee60, type: 3}

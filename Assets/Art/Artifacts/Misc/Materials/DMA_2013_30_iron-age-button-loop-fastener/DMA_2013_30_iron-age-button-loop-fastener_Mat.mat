@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DMA_PERGM_2013_30_iron-age-button-loop-fastener_Mat
+  m_Name: DMA_2013_30_iron-age-button-loop-fastener_Mat
   m_Shader: {fileID: -6465566751694194690, guid: 4cf711bd3a59f514c92f7dae0d0fb24e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

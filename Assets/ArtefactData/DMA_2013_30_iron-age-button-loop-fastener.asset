@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
-  m_Name: DMA_PERGM_2013_30_iron-age-button-loop-fastener
+  m_Name: DMA_2013_30_iron-age-button-loop-fastener
   m_EditorClassIdentifier: 
-  ArtefactName: DMA_PERGM_2013_30_iron-age-button-loop-fastener
+  ArtefactName: DMA_2013_30_iron-age-button-loop-fastener
   ArtefactContent: 'Iron Age copper alloy and enamel button-loop dress fastener,
     from Rait, Perthshire. '
   ArtefactPrefab:
