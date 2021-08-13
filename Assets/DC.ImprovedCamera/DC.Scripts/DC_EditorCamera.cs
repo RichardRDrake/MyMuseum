@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class DC_EditorCamera : MonoBehaviour
 {
@@ -78,6 +80,18 @@ public class DC_EditorCamera : MonoBehaviour
     // Is the camera currently focused on an object
     private bool m_CurrentlyFocused = false;
 
+    private Image img;
+    [Header("UI Canvas")]
+    public GameObject UI;
+
+    private GameObject[] objects;
+    private List<float> distances;
+    private Asset inspectedAsset;
+    [Header("Model Viewer")]
+    public DC_ModelViewer model_viewer;
+
+    private bool toggle = true;
+
     // The following is public just for testing
     public enum CurrentMode
     {
@@ -123,6 +137,8 @@ public class DC_EditorCamera : MonoBehaviour
         // Get the initial Zoom position in Z
         if (_ZoomTransform)
             m_TargetZoom = m_Initial_TargetZoom = _ZoomTransform.localPosition.z;
+
+        img = UI.GetComponent<Transform>().Find("objectPrompt").GetComponent<Image>();
     }
 
     private void Update()
@@ -135,6 +151,8 @@ public class DC_EditorCamera : MonoBehaviour
         // Editing controls
         if (m_CurrentMode == CurrentMode.EDIT)
         {
+            img.gameObject.SetActive(false);
+            
             if (!_SwitchingToPerspective)
             {
                 // Make sure cursor is unlocked
@@ -275,8 +293,17 @@ public class DC_EditorCamera : MonoBehaviour
         // Perspective controls
         else
         {
+            bool check = CheckSurround();
+            if (check == true)
+                img.gameObject.SetActive(true);
+            else
+            {
+                img.gameObject.SetActive(false);
+                inspectedAsset = null;
+            }
+
             // If Space pressed, toggle the locking of the camera and change the cursor visibility
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 _CameraLocked = !_CameraLocked;
 
@@ -287,8 +314,31 @@ public class DC_EditorCamera : MonoBehaviour
 
                     // ROMAIN: This is where you could enable the Model viewer if you are looking at an object
                     //
-                    //
+                    // Toggle variable is checked to determine whether we are currently inspecting an object,
+                    if (toggle == true) // If an object isn't currently being inspected,
+                    {
+                        // Call CheckSurround 
+                        if (check == true)
+                        {
+                            toggle = false;
+                            model_viewer.Activate(inspectedAsset.asset, inspectedAsset.Content);
+                        }
+                    }
+
+
                 }
+                else
+                {
+                    toggle = true;
+                    model_viewer.Deactivate();
+                    inspectedAsset = null;
+                }
+            }
+
+            if (toggle == false)
+            {
+                
+                img.gameObject.SetActive(false);
             }
 
             if (!_CameraLocked)
@@ -346,7 +396,47 @@ public class DC_EditorCamera : MonoBehaviour
             Return();
     }
 
+    bool CheckSurround()
+    {
+        // Populate the GameObject array "objects" with all objects found in the scene with the tag "object"
+        objects = GameObject.FindGameObjectsWithTag("object");
 
+        Vector3 pos, pos2;
+        float min;
+        // If this array has at least 1 object within it,
+        if (objects.Length > 0)
+        {
+            // Reset the distances list
+            distances = new List<float>();
+
+            // For every object in the array,
+            for (int i = 0; i < objects.Length; i++)
+            {
+                // Get the object/camera positions
+                pos = objects[i].transform.position;
+                pos2 = transform.position;
+
+                // Determine the total distance between the camera and object, add it to the distances list
+                distances.Add(Mathf.Sqrt(Mathf.Pow(pos2.x - pos.x, 2) + Mathf.Pow(pos2.z - pos.z, 2)));
+            }
+
+            // Get the minimum distance from the list
+            min = distances.Min();
+
+            // Check if the distance is below 1.5. If it is,
+            if (min < 3 && min > 0)
+            {
+                inspectedAsset = objects[distances.IndexOf(min)].GetComponent<DC_Placeable>().asset;
+                return true; // Return true
+
+            }
+            else // If it is less than 1.5
+            {
+                return false; // Return false
+            }
+        }
+        return false;
+    }
 
     /// <summary>
     /// Using an objects bounds the camera will focus on the center of that object

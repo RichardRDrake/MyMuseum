@@ -43,8 +43,6 @@ public class DC_ModelViewer : MonoBehaviour
     public bool _InvertMouseX = true;
     [Tooltip("Inverted pitch?")]
     public bool _InvertMouseY = true;
-    [Tooltip("Inverted height control?")]
-    public bool _InvertHeightControl = false;
     [Tooltip("The layer used to isolate the viewing object")]
     public string _ViewingObjectLayerName = "ViewingObject";
 
@@ -130,7 +128,7 @@ public class DC_ModelViewer : MonoBehaviour
             {
                 m_MouseOffset = (Input.mousePosition - m_MouseReference);
 
-                _CameraPivot.Translate(0.0f, m_MouseOffset.y * _HeightSensitivity * m_ObjectSize * (_InvertHeightControl?-1:1), 0.0f, Space.World);
+                _CameraPivot.Translate(0.0f, (m_MouseOffset.x + m_MouseOffset.y) * _HeightSensitivity * m_ObjectSize, 0.0f, Space.World);
 
                 // Limit the positioning
                 Vector3 tempPos = _CameraPivot.position;
@@ -139,7 +137,7 @@ public class DC_ModelViewer : MonoBehaviour
 
                 m_MouseReference = Input.mousePosition;
             }
-            else if(Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+            else
             {
                 // Make the cursor visible again
                 Cursor.visible = true;
@@ -160,8 +158,8 @@ public class DC_ModelViewer : MonoBehaviour
 
             // Optional
             // Update horizontal scrollbar to match current rotation
-            if (_HorizontalScrollbar)
-                _HorizontalScrollbar.value = 0.5f + (_3DModelAnchor.rotation.eulerAngles.y - 180.0f) / 360.0f;
+            //if (_HorizontalScrollbar)
+            //    _HorizontalScrollbar.value = 0.5f + (_3DModelAnchor.rotation.eulerAngles.y - 180.0f) / 360.0f;
             //// Update vertical scrollbar to match current height offset
             //if (_VerticalScrollbar)
             //    _VerticalScrollbar.value = 0.5f + (m_CameraStartingPosition.y - _Camera.transform.position.y) / m_ObjectSize;
@@ -391,7 +389,7 @@ public class DC_ModelViewer : MonoBehaviour
     #region Optional UI Setters
     public void UISetRotation(Scrollbar scrollbar)
     {
-        _3DModelAnchor.rotation = Quaternion.AngleAxis(scrollbar.value * 360.0f, Vector3.up);
+        //_3DModelAnchor.rotation = Quaternion.AngleAxis(scrollbar.value * 360.0f, Vector3.up);
     }
 
     public void UISetHeight(Scrollbar scrollbar)
