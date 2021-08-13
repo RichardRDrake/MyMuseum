@@ -49,6 +49,34 @@ MonoBehaviour:
     m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_PERGM_2013_30_iron-age-button-loop-fastener.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 02df4babd7df0f343a852e7b10cb0825
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1978_1665_7_devonian_spiny_finned_fish_Ischnacanthus.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 02d8cb5f827ce9f40811df360b3a41f9
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1979_681_53_silurian_fossil_assemblage_wenlock_limestone.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f962f5e4185fe6848aaa4884567bbfef
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1981_923_auroch_skull.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b394c41877edb6349be46d22615be6a9
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1982_346_4_devonian_lobe_finned_fish_Holoptychius.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7594f195d4f10704cb17f49194e3e4ce
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_2004_106_8th-century-mount.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fb5f46915bacb5545a78183846b9df92
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_2013_29_iron-age-dress-fastener.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1bf311f78c16b464894d4b8bbcd937d0
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_UnknownID_jurassic_ammonite_titanites.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:

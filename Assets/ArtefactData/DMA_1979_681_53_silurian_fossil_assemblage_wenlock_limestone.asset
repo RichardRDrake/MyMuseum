@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
-  m_Name: DMA_2005-141_8th-9th-Century-Chip-Carved-Mount
+  m_Name: DMA_1979_681_53_silurian_fossil_assemblage_wenlock_limestone
   m_EditorClassIdentifier: 
-  ArtefactName: DMA_2005_141_8th-9th-Century-Chip-Carved-Mount
-  ArtefactContent: Chip-carved gilt and copper alloy mount. 8-9th century AD. From
-    Carpow, Perthshire. From the collection of Perth Museum & Art Gallery, Perth
-    & Kinross Council.
+  ArtefactName: DMA_1979_681_53_silurian_fossil_assemblage_wenlock_limestone_mesh
+  ArtefactContent: The Wenlock Limestone of Much Wenlock, Shropshire, England is
+    rich in fossils. The limestone formed in a vast shallow tropical sea about 426-423
+    million years ago. Organism present include bryozoans, crinoids and brachiopods
+    typical of a coral reef environment.
   ArtefactPrefab:
-    m_AssetGUID: e0ed63499fae3c24a8804ececf77d988
+    m_AssetGUID: 02d8cb5f827ce9f40811df360b3a41f9
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

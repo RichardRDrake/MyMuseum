@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
-  m_Name: DMA_2005-141_8th-9th-Century-Chip-Carved-Mount
+  m_Name: DMA_2005_59_8th-9th-Century-Mount
   m_EditorClassIdentifier: 
-  ArtefactName: DMA_2005_141_8th-9th-Century-Chip-Carved-Mount
-  ArtefactContent: Chip-carved gilt and copper alloy mount. 8-9th century AD. From
-    Carpow, Perthshire. From the collection of Perth Museum & Art Gallery, Perth
-    & Kinross Council.
+  ArtefactName: DMA_2005_59_8th-9th-Century-Mount
+  ArtefactContent: Enamelled copper alloy mount. 8th-9th century AD. From Cambusmichael,
+    Perthshire. From the collection of Perth Museum & Art Gallery, Perth & Kinross
+    Council.
   ArtefactPrefab:
-    m_AssetGUID: e0ed63499fae3c24a8804ececf77d988
+    m_AssetGUID: f92831dc6ef537f40a4dc746eac602cc
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
