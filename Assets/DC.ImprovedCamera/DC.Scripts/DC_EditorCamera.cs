@@ -251,7 +251,7 @@ public class DC_EditorCamera : MonoBehaviour
             // Smoothly transition towards targets
             // This is a much easier way to smooth out the transformations
 
-            // The top most transsform moves everything under it
+            // The top most transform moves everything under it
             _FocusTransform.localPosition = Vector3.Lerp(_FocusTransform.localPosition, m_TargetFocusPosition, Time.deltaTime * _SmoothTransformationSpeed);
 
             // The pivot is the middle transform, it deals with the rotations whilst fixated on the Focus transform
@@ -264,9 +264,10 @@ public class DC_EditorCamera : MonoBehaviour
             if(_SwitchingToPerspective)
             {
                 // And the edit mode camera has reached it's destination
-                if(_FocusTransform.localPosition ==  m_TargetFocusPosition &&
-                    _PivotTransform.localRotation == m_TargetPivotRotation &&
-                    Mathf.Approximately(_ZoomTransform.localPosition.z, m_TargetZoom))
+                // RD EDIT: Now using a threshold to make this more likely to happen
+                if(Approximately(_FocusTransform.localPosition, m_TargetFocusPosition, 0.01f) &&
+                    Approximately(_PivotTransform.localRotation.eulerAngles, m_TargetPivotRotation.eulerAngles, 0.01f) &&
+                    Approximately(_ZoomTransform.localPosition.z, m_TargetZoom, 0.01f))
                 {
                     // Switch the mode
                     m_CurrentMode = CurrentMode.PERSPECTIVE;
@@ -379,6 +380,15 @@ public class DC_EditorCamera : MonoBehaviour
     {
         if (!_SwitchingToPerspective)
         {
+            // RD EDIT: Added so that the camera zoom and pitch go back to where you had it in Edit mode
+            // But from your new position (Because you may have moved around)
+            // However all is saved just incase you decide to exit perspective mode before the camera even made it to perspective mode
+            // In which case it will go back to where it was before the transitioning started
+            m_Saved_TargetFocusPosition = m_TargetFocusPosition;
+            m_Saved_CurrentEulerAngles = m_CurrentEulerAngles;
+            m_Saved_TargetPivotRotation = m_TargetPivotRotation;
+            m_Saved_TargetZoom = m_TargetZoom;
+
             // Set the target focus position to where it currently is, plus a little in front of it
             m_TargetFocusPosition = _FocusTransform.localPosition + _PivotTransform.forward;
             // Set the player height
@@ -492,18 +502,34 @@ public class DC_EditorCamera : MonoBehaviour
     /// </summary>
     public void Return()
     {
-        // Go back to edit camera
-        m_CurrentMode = CurrentMode.EDIT;
-        _SwitchingToPerspective = false;
-        _FocusTransform.localRotation = Quaternion.identity;
-
-        // If not focused on a target, then go back to initial
-        if (!m_CurrentlyFocused)
+        // If you was focused on a target, then go back to where you was
+        if (m_CurrentlyFocused)
         {
             m_TargetFocusPosition = m_Initial_TargetFocusPosition;
             m_CurrentEulerAngles = m_Initial_CurrentEulerAngles;
             m_TargetPivotRotation = m_Initial_TargetPivotRotation;
             m_TargetZoom = m_Initial_TargetZoom;
+        }
+        // Else if you were in perspective mode keep the focus point where you are
+        // and go to a position where your pitch and zoom matches where you was before perspective mode
+        else if(m_CurrentMode == CurrentMode.PERSPECTIVE)
+        {
+            // Where you are right now
+            m_TargetFocusPosition = _FocusTransform.localPosition; 
+            // Remove player height
+            m_TargetFocusPosition.y = 0.0f; 
+            // Where you are looking right now
+            m_CurrentEulerAngles = _FocusTransform.localRotation.eulerAngles; 
+            // Saved pitch
+            m_CurrentEulerAngles.x = m_Saved_CurrentEulerAngles.x;
+            // New rotation based on where you are looking in Y
+            m_TargetPivotRotation = Quaternion.AngleAxis(m_CurrentEulerAngles.y, Vector3.up);
+            // Set the pivot rotation in Y straight away (Because Focus transform rotation will be zeroed out immedately
+            _PivotTransform.localRotation = m_TargetPivotRotation;
+            // Now set the target pitch to where you had it before switching to perspective
+            m_TargetPivotRotation *= Quaternion.AngleAxis(m_CurrentEulerAngles.x, Vector3.right);
+            // Saved Zoom
+            m_TargetZoom = m_Saved_TargetZoom; 
         }
         // Otherwise just go back to where you was before focusing
         else
@@ -513,6 +539,11 @@ public class DC_EditorCamera : MonoBehaviour
             m_TargetPivotRotation = m_Saved_TargetPivotRotation;
             m_TargetZoom = m_Saved_TargetZoom;
         }
+
+        // Go back to edit camera
+        m_CurrentMode = CurrentMode.EDIT;
+        _SwitchingToPerspective = false;
+        _FocusTransform.localRotation = Quaternion.identity;
 
         m_CurrentlyFocused = false;
     }
@@ -575,5 +606,39 @@ public class DC_EditorCamera : MonoBehaviour
             _SwitchingToPerspective = true;
         else
             Return();
+    }
+
+    /// <summary>
+    /// Checks if all elements of a Vector is approximately the same, within a given threshold
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <param name="threshold"></param>
+    /// <returns></returns>
+    private static bool Approximately(Vector3 a, Vector3 b, float threshold)
+    {
+        if (Approximately(a.x, b.x, threshold) && Approximately(a.y, b.y, threshold) && Approximately(a.z, b.z, threshold))
+            return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if a float is approximately the same as another, within a given threshold
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <param name="threshold"></param>
+    /// <returns></returns>
+    private static bool Approximately(float a, float b, float threshold)
+    {
+        if (threshold > 0f)
+        {
+            return Mathf.Abs(a - b) <= threshold;
+        }
+        else
+        {
+            return Mathf.Approximately(a, b);
+        }
     }
 }

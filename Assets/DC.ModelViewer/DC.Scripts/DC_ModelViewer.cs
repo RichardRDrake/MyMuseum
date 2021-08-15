@@ -92,7 +92,7 @@ public class DC_ModelViewer : MonoBehaviour
             _FadeOutTime = 1.0f / _FadeOutTime;
 
         if (_BackgroundImage)
-            m_BlurRadiusShaderID = Shader.PropertyToID("_BlurRadius");
+            m_BlurRadiusShaderID = Shader.PropertyToID("_AlphaStrength");
     }    
 
     private void Update()
@@ -190,7 +190,7 @@ public class DC_ModelViewer : MonoBehaviour
                 if (fadeIn)
                 {
                     _BackgroundImage.enabled = true;
-                    _BackgroundImage.material.SetFloat(m_BlurRadiusShaderID, 15.0f);
+                    _BackgroundImage.material.SetFloat(m_BlurRadiusShaderID, 1.0f);
                 }
                 else
                 {
@@ -209,9 +209,9 @@ public class DC_ModelViewer : MonoBehaviour
                 {
                     _BackgroundImage.enabled = true;
 
-                    while (_BackgroundImage.material.GetFloat(m_BlurRadiusShaderID) < 15.0f)
+                    while (_BackgroundImage.material.GetFloat(m_BlurRadiusShaderID) < 1.0f)
                     {
-                        _BackgroundImage.material.SetFloat(m_BlurRadiusShaderID, _BackgroundImage.material.GetFloat(m_BlurRadiusShaderID) + Time.deltaTime * _FadeInTime * 30.0f); // 0 - 15 in half fade in time
+                        _BackgroundImage.material.SetFloat(m_BlurRadiusShaderID, _BackgroundImage.material.GetFloat(m_BlurRadiusShaderID) + Time.deltaTime * _FadeInTime * 2.0f); // 0 - 1 in half fade in time
                         yield return null;
                     }
                 }
@@ -241,9 +241,9 @@ public class DC_ModelViewer : MonoBehaviour
                 // then Unblur the background and finally disable it again
                 if (_BackgroundImage)
                 {
-                    while (_BackgroundImage.material.GetFloat(m_BlurRadiusShaderID) > 1.0f)
+                    while (_BackgroundImage.material.GetFloat(m_BlurRadiusShaderID) > 0.0f)
                     {
-                        _BackgroundImage.material.SetFloat(m_BlurRadiusShaderID, _BackgroundImage.material.GetFloat(m_BlurRadiusShaderID) + Time.deltaTime * -_FadeOutTime * 30.0f); // 15 - 0 in half fade out time
+                        _BackgroundImage.material.SetFloat(m_BlurRadiusShaderID, _BackgroundImage.material.GetFloat(m_BlurRadiusShaderID) + Time.deltaTime * -_FadeOutTime * 2.0f); // 1 - 0 in half fade out time
                         yield return null;
                     }
 
