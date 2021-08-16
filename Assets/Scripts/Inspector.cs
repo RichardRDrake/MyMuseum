@@ -140,7 +140,7 @@ public class Inspector : MonoBehaviour
             {
                 // Get the object/camera positions
                 pos = objects[i].transform.position;
-                pos2 = parent.transform.position;
+                pos2 = transform.position;
 
                 // Determine the total distance between the camera and object, add it to the distances list
                 distances.Add(Mathf.Sqrt(Mathf.Pow(pos2.x - pos.x, 2) + Mathf.Pow(pos2.z - pos.z, 2)));

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1982_346_4_devonian_lobe_finned_fish_Holoptychius
+  m_EditorClassIdentifier: 
+  ArtefactName: DMA_1982_346_4_devonian_lobe_finned_fish_Holoptychius_mesh
+  ArtefactContent: At Dura Den in Fife, remarkable fossil fish were discovered during
+    the nineteenth century. Called Holoptychius, these lobe-finned fish lived in
+    freshwater lakes during the Devonian, 390 to 450 million years ago. The fish
+    is thought to have been an ambush predator which lay in wait for passing smaller
+    fish. The large numbers found suggest that they died as the result of a shallow
+    lake drying up during a drought.  This specimen was collected during scientific
+    excavations of Dura Den by the British Association for the Advancement of Science
+    between 1912 and 1914.
+  ArtefactPrefab:
+    m_AssetGUID: b394c41877edb6349be46d22615be6a9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0, y: 0}
+  PreviewImages:
+  - {fileID: 2800000, guid: 9b95d532eeec1e448bd5935c286d51af, type: 3}
+  - {fileID: 2800000, guid: 5e31d04e3245b624286d01074d4633ee, type: 3}
+  - {fileID: 2800000, guid: 2e03ebaa9b81a7a4aaff99542ea73e2a, type: 3}
+  - {fileID: 2800000, guid: cfeebf26e163d4048ad08acd0cd9065b, type: 3}
+  PlacementType: 0
