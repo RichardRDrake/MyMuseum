@@ -6,17 +6,17 @@ public class TempListScript : MonoBehaviour
 {
     //Just a script will a well-known list in it, to distinguish between menus
     public List<AssetPlacerScriptableObject> readFrom = new List<AssetPlacerScriptableObject>();
+    public string FolderName;
 
-    /*void Awake()
+    void Awake()
     {
-        //Populates the script with a list of planets
-        readFrom.Add("Mercury");
-        readFrom.Add("Venus");
-        readFrom.Add("Earth");
-        readFrom.Add("Mars");
-        readFrom.Add("Jupiter");
-        readFrom.Add("Saturn");
-        readFrom.Add("Uranus");
-        readFrom.Add("Neptune");
-    }*/
+        //var objects = Resources.LoadAll(FolderName);
+
+        //foreach (AssetPlacerScriptableObject t in objects)
+        //{
+        //    readFrom.Add(t);
+        //    Debug.Log(objects[0].name);
+        //}
+
+    }
 }

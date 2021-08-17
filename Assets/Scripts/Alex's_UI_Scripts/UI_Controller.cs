@@ -212,8 +212,8 @@ public class UI_Controller : MonoBehaviour
         panelLocationList.Add(Object5.transform.position);
         panelLocationList.Add(Object6.transform.position);
 
-        rotateLocationList.Add(RotateLeft.transform.position);
-        rotateLocationList.Add(RotateRight.transform.position);
+        //rotateLocationList.Add(RotateLeft.transform.position);
+        //rotateLocationList.Add(RotateRight.transform.position);
 
         HighlightMainMenu.transform.position = MainMenuButton.transform.position;
         #endregion

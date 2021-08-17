@@ -43,6 +43,7 @@ public class AssetData
     {
         assetString = GUID;
         assetName = asset.Name;
+        assetContent = asset.Content;
         assetPlacement = asset.placementType;
         pixelSize = asset.pixelSize;
         assetPos = pos;

@@ -76,4 +76,11 @@ public class DC_PictureFraming : MonoBehaviour
             Apply(m_SavedImage);
         }
     }
+
+    public void GetFramesFromFolders()
+    {
+      var objects = Resources.LoadAll("Frames");
+
+        Debug.Log(objects[0].name);
+    }
 }

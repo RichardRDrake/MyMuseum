@@ -17,6 +17,10 @@ public class DC_EditObject : MonoBehaviour
     [Header("Canvas settings")]
     [Tooltip("Canvas to enable/disable Edit GUI")]
     public Canvas _Canvas;
+    public GameObject _FrameButton;
+    public GameObject _PaintingButton;
+    public GameObject _RotateClockwiseButton;
+    public GameObject _RotateAntiClockwiseButton;
     [Tooltip("Positioner transform to set location and scale based on the selected object")]
     public RectTransform _Positioner;
 
@@ -37,6 +41,8 @@ public class DC_EditObject : MonoBehaviour
     // Current bounds and forward vector of the selected object
     private Bounds m_CurrentSelectedBounds;
     private Vector3 m_CurrentSelectedForward;
+
+    private GameObject menuItem;
 
     /// <summary>
     /// Access singleton instance through this propriety.
@@ -70,10 +76,25 @@ public class DC_EditObject : MonoBehaviour
         m_ShuttingDown = true;
     }
 
-    public void Init(Bounds encapsulatedBounds, DC_Placeable placeableObjectToEdit)
+    public void Init(Bounds encapsulatedBounds, DC_Placeable placeableObjectToEdit, Vector2 pixelSize)
     {
         // Enable the Edit HUD
         _Canvas.enabled = true;
+
+        if(pixelSize.x > 0)
+        {
+           _FrameButton.SetActive(true);
+            _PaintingButton.SetActive(true);
+            _RotateClockwiseButton.SetActive(false);
+            _RotateAntiClockwiseButton.SetActive(false);
+        }
+        else 
+        {
+            _FrameButton.SetActive(false);
+            _PaintingButton.SetActive(false);
+            _RotateClockwiseButton.SetActive(true);
+            _RotateAntiClockwiseButton.SetActive(true);
+        }
 
         // Save the bounds and forward direction
         m_CurrentSelectedBounds = encapsulatedBounds;
@@ -140,6 +161,22 @@ public class DC_EditObject : MonoBehaviour
             // Disable the Edit menu
             _Canvas.enabled = false;
         }
+    }
+
+    public void OpenMenu(GameObject menu)
+    {
+        if (menu.activeSelf == false)
+        {
+            menuItem = menu;
+            menuItem.SetActive(true);
+        }
+        else
+            menuItem.SetActive(false);
+    }
+
+    public void SetAssetList(string folderName)
+    {
+        menuItem.GetComponent<TempListScript>().FolderName = folderName;
     }
 
     /// <summary>
