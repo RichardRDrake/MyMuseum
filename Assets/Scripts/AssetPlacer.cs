@@ -84,36 +84,7 @@ public class AssetPlacer : MonoBehaviour //At this point its more accurate to ca
         }
     }*/
 
-    public void ReceiveFromUI(AssetPlacerScriptableObject artefact)
-    {
-        if (artefact == null)
-        {
-            Debug.Log("Missing Artefact");
-            //artefact = exampleObject_1;
-        }
-
-        //We're jamming the room selection in here. good luck.
-        if (artefact.GetPlacementType() == ArtefactPlacementType.Rooms)
-        {
-            FindObjectOfType<SaveLoadRoom>().MakeRoom(artefact.GetArtefact().AssetGUID, null, false);
-            return;
-        }
-
-        //Confused on Addressables? Go here: https://www.youtube.com/watch?v=Zb9WchxZhvM
-        asset = new Asset(artefact.ArtefactName, artefact.ArtefactContent, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType(), artefact.PaintingPixelSize, null);
-        //The Addressable pathway to the asset (found on its scriptable object)
-        AssetReference newAsset = artefact.GetArtefact();
-        //Spawn the object. If you don't want to do anything to the object after it's spawned, ignore .Completed and everything after
-        
-        Addressables.InstantiateAsync(newAsset, Vector3.zero, Quaternion.identity).Completed += (asyncOperationHandle) =>
-        {
-            //Async functions don't finish until the next frame, so this event runs the following code once the computer's ready
-            objectToBePlaced = asyncOperationHandle.Result;
-            asset.asset = objectToBePlaced;            
-        };       
-
-        //Debug.Log("test");
-    }
+   
 
     /*private void ProcessInput()
     {

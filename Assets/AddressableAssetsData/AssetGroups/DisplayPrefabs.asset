@@ -21,20 +21,24 @@ MonoBehaviour:
     m_Address: Assets/Environment/Display/DisplayPrefabs/Plinth_No_Glass.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: a1423f99da9435f4fafe3060fe147417
     m_Address: Assets/Environment/Display/DisplayPrefabs/Plinth_Glass.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 2c3fdc602d05db44aaff27ee2ed36f45
     m_Address: Assets/Environment/Display/DisplayPrefabs/Display_Case.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+  - m_GUID: 355ca984977fd9949bb36864f8487631
+    m_Address: Assets/Art/Environment/Dynamic/Stretchable_Frame_Ornated_1/PictureFrame
+      Template Streching.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4582726653daa8f4689e817e4feb157a
+    m_Address: Assets/Art/Environment/Dynamic/Stretchable_Frame_Plain_2/PictureFrame
+      Template Streching.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:
