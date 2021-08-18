@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class SaveLoadRoom : MonoBehaviour
@@ -152,6 +153,46 @@ public class SaveLoadRoom : MonoBehaviour
         else
         {
             Debug.LogError("Save file not found");
+        }
+    }
+
+    public void UploadRoom(string name)
+    {
+        StartCoroutine(Upload(name));
+    }
+    private IEnumerator Upload(string name)
+    {
+        string filepath = Application.persistentDataPath + "/" + name;
+        if (File.Exists(filepath))
+        {
+            BinaryFormatter formatter = GetBinaryFormatter();
+            FileStream stream = new FileStream(filepath, FileMode.Open);
+
+            RoomData data = formatter.Deserialize(stream) as RoomData;
+            stream.Close();
+
+            // Create a Web Form
+            WWWForm form = new WWWForm();
+
+            form.AddField("action", "room upload");
+
+            form.AddField("file", name);
+
+            form.AddBinaryData("file", File.ReadAllBytes(filepath), filepath, "binary/save");
+
+            // Send to server
+            UnityWebRequest uwr = UnityWebRequest.Post("https://www.dorsetcreative.co.uk/Maestro/Upload.php", form);
+
+            yield return uwr.SendWebRequest();
+
+            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.Log(uwr.error);
+            }
+            else
+            {
+                Debug.Log(uwr.result.ToString());
+            }
         }
     }
 

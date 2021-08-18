@@ -164,6 +164,11 @@ public class UI_StartMenu : MonoBehaviour
     public ConfirmFinder confirmCurrent = ConfirmFinder.Null;
     #endregion
 
+    #region Server side Room List
+    [Header("Download/Upload panel")]
+    public DC_RoomListPanel RoomListPanel;
+    #endregion
+
     #endregion
 
     // Start is called before the first frame update
@@ -901,13 +906,17 @@ public class UI_StartMenu : MonoBehaviour
                 InputObject.SetActive(false);
             }
             #endregion
-            #region Delete or load room
+            #region Delete, load or upload room
             else
             {
                 InputObject.SetActive(false);
                 if (deleteSaveFiles)
                 {
                     ConfirmText.text = "Delete this save file?";
+                }
+                else if (uploadSaveFiles)
+                {
+                    ConfirmText.text = "Upload this save file to server?";
                 }
                 else
                 {
@@ -977,6 +986,10 @@ public class UI_StartMenu : MonoBehaviour
             // Private: If no user Key found (Set locally when User first launches the app from the website link) then display message to explain what needs to be done [They can still Load/save files locally]
             // Public: Requires internet connection [Can still load local rooms]
 
+            if (RoomListPanel)
+                RoomListPanel.gameObject.SetActive(true);
+
+            Confirm.SetActive(false);
         }
         else
         {
@@ -1001,6 +1014,10 @@ public class UI_StartMenu : MonoBehaviour
                 // Contians option to upload to your private account "website/Users/MD5Key/SavedRooms/"
                 // Private: If not MD5 key known "Message saying why and how to fix" (Needs to launch from website at least once (Website link has the MD5Key embedded in the link and is passed as a Batch file command)
                 // Public: Require internet connecton, check sserver staus etc, Save room file with yourNickname/RoomName/DateModified for uniqueness and so other users will have this info when they download the public room
+
+                saves.UploadRoom(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+
+                Confirm.SetActive(false);
             }
             else
             {
