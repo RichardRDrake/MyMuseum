@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1985_105_cross_marked_bronze_age_cup_marked_stone
+  m_EditorClassIdentifier: 
+  ArtefactName: DMA_1985_105_cross_marked_bronze_age_cup_marked_stone_mesh
+  ArtefactContent: 'A roughly triangular-shaped, boulder-like stone with an asymetrically
+    scalloped upper edge. One face is carved with at least 12 cup and 1 ring markings,
+    suggesting a Bronze Age origin.  The other side has been carved with aplain,
+    space-filling Latin cross. It was reported to have been found on the hill Meal
+    Rawer on the lower slopes of which are the hill farms Shenavail and Tominteold,
+    where it had also been kept for a while. the are is arich Bronze Age landscape
+    where several cup marked stones and hut circles can still be seen. Close by at
+    Aird a Bronze Age dirk was also found. When the cup-marked stone was re-fashioned
+    to serve as a cross-slab it was to help define the boundaries of the monastery
+    at Dull just 3 miles further up the valley (and where the Becli slab was found). '
+  ArtefactPrefab:
+    m_AssetGUID: 362876a5a6b630c43aaaecf0b5cd6ec2
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0, y: 0}
+  PreviewImages:
+  - {fileID: 2800000, guid: 9b95d532eeec1e448bd5935c286d51af, type: 3}
+  - {fileID: 2800000, guid: 5e31d04e3245b624286d01074d4633ee, type: 3}
+  - {fileID: 2800000, guid: 2e03ebaa9b81a7a4aaff99542ea73e2a, type: 3}
+  - {fileID: 2800000, guid: cfeebf26e163d4048ad08acd0cd9065b, type: 3}
+  PlacementType: 0

@@ -77,6 +77,18 @@ MonoBehaviour:
     m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_UnknownID_jurassic_ammonite_titanites.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 6909e5e84c062784f895eb82db38e7fa
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_6_1958_second_century_AD_roman_altar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f8774a0cc036edf46a56eec8e816bec1
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_6_1949_gellyburn_cross_slab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 362876a5a6b630c43aaaecf0b5cd6ec2
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1985_105_cross_marked_bronze_age_cup_marked_stone.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:
