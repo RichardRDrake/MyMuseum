@@ -16,6 +16,8 @@ public class UI_StartMenu : MonoBehaviour
     [SerializeField] private GameObject MenuOptions;
     [SerializeField] private GameObject LoadRoom;
     [SerializeField] private GameObject Confirm;
+    [SerializeField] private GameObject Upload;
+    private string uploadFilename = "";
     #endregion
 
     #region Main Menu Contents
@@ -1014,9 +1016,14 @@ public class UI_StartMenu : MonoBehaviour
                 // Contians option to upload to your private account "website/Users/MD5Key/SavedRooms/"
                 // Private: If not MD5 key known "Message saying why and how to fix" (Needs to launch from website at least once (Website link has the MD5Key embedded in the link and is passed as a Batch file command)
                 // Public: Require internet connecton, check sserver staus etc, Save room file with yourNickname/RoomName/DateModified for uniqueness and so other users will have this info when they download the public room
+                
+                // Activate upload screen
+                Upload.SetActive(true);
 
-                saves.UploadRoom(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+                // Save the filename wanting to be uploaded
+                uploadFilename = saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text;
 
+                // Disable the confirm screen
                 Confirm.SetActive(false);
             }
             else
@@ -1072,6 +1079,16 @@ public class UI_StartMenu : MonoBehaviour
             HighlightUploadHover.SetActive(false);
         }
         #endregion
+    }
+
+    public void ConfirmUploadPrivate()
+    {
+        saves.UploadRoom(uploadFilename, true);
+    }
+
+    public void ConfirmUploadPublic()
+    {
+        saves.UploadRoom(uploadFilename, false);
     }
 
     #endregion
