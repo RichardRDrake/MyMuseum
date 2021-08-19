@@ -77,6 +77,10 @@ MonoBehaviour:
     m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_UnknownID_jurassic_ammonite_titanites.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 96928a2a7f213d343afe8d2267be5173
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_2000_376_Celtic_Stone_Head.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:
