@@ -7,10 +7,10 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: DMA_2000_43_Zoomorphic_Finial_M
+      name: lambert1
     second: {fileID: 2100000, guid: 98b317e9e04dcce48afb418b81642a34, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -100,7 +100,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
-  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
