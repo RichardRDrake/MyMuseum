@@ -231,7 +231,7 @@ public class DC_Placeable : MonoBehaviour
                 tempBound.Encapsulate(renderer.bounds);
 
             // Set the position and scale for the Edit Object toolbox
-            DC_EditObject.Instance.Init(tempBound, this, asset.pixelSize);
+            DC_EditObject.Instance.Init(tempBound, this.gameObject, asset.pixelSize);
         }
     }
 
