@@ -146,7 +146,7 @@ public class DC_PictureFraming : MonoBehaviour
                     // Adjust tilling in X
                     foreach (Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
-                        rend.material.mainTextureScale = Vector2.one;
+                        rend.sharedMaterial.mainTextureScale = Vector2.one;
                     }
                 }
                 else if (anchor.name.Equals("Vertical"))
@@ -157,7 +157,7 @@ public class DC_PictureFraming : MonoBehaviour
                     // Adjust tilling in Y
                     foreach (Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
-                        rend.material.mainTextureScale = Vector2.one;
+                        rend.sharedMaterial.mainTextureScale = Vector2.one;
                     }
                 }
             }
