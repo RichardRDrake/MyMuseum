@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GrassCards_Mat
+  m_Shader: {fileID: -6465566751694194690, guid: 45635c12022056b4d89dd50a31aa0e86, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_8743c418db8b4aac88dca6c4865b4f9a:
+        m_Texture: {fileID: 2800000, guid: 81e6b7e811427cd49a7bcdd2de475445, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_2afec53a91e4469f8ef0ce33dead7b06: 0
+    - Vector1_2e99f292445240cea9ac0ec5fa833dea: 0
+    - Vector1_8221a338ca6f4818ab819dc6b3441230: 0
+    m_Colors:
+    - Color_170aecb0d734455581197d1164f2e6b2: {r: 0.29861587, g: 0.9433962, b: 0.19045922, a: 0}
+    - Color_3610683c3d5b44c6bf5018415a9f3798: {r: 0.31132078, g: 0.23842163, b: 0.08047347, a: 0}
+  m_BuildTextureStacks: []
