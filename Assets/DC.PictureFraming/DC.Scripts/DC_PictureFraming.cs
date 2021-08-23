@@ -13,6 +13,8 @@ public class DC_PictureFraming : MonoBehaviour
     }
     public FrameType _FrameType = FrameType.SLIDING;
 
+    public bool _SwapLeftRight = false;
+
 
     // For testing
     public Texture _TestImage;
@@ -54,9 +56,9 @@ public class DC_PictureFraming : MonoBehaviour
             else if (anchor.name.Equals("Bottom"))
                 anchor.localPosition = new Vector3(0.0f, -offset.y, 0.0f);
             else if (anchor.name.Equals("Left"))
-                anchor.localPosition = new Vector3(-offset.x, 0.0f, 0.0f);
+                anchor.localPosition = new Vector3(_SwapLeftRight ? offset.x : -offset.x, 0.0f, 0.0f);
             else if (anchor.name.Equals("Right"))
-                anchor.localPosition = new Vector3(offset.x, 0.0f, 0.0f);
+                anchor.localPosition = new Vector3(_SwapLeftRight ? -offset.x : offset.x, 0.0f, 0.0f);
 
             // If stretching scale the Center pieces
             if (_FrameType == FrameType.STRETCHING)
@@ -68,12 +70,12 @@ public class DC_PictureFraming : MonoBehaviour
                         m_StretchHorizontalOS = anchor.localScale.x;
 
                     // Stretch in X
-                    anchor.localScale = new Vector3(imageSizeInWorld.x, 1.0f, 1.0f);
+                    anchor.localScale = new Vector3(imageSizeInWorld.x / _ContractedSize.x, 1.0f, 1.0f);
 
                     // Adjust tilling in X
                     foreach(Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
-                        rend.material.mainTextureScale = new Vector2(imageSizeInWorld.x, 1.0f);
+                        rend.material.mainTextureScale = new Vector2(imageSizeInWorld.x / _ContractedSize.x, 1.0f);
                     }
                 }
                 else if(anchor.name.Equals("Vertical"))
@@ -83,12 +85,12 @@ public class DC_PictureFraming : MonoBehaviour
                         m_StretchVerticalOS = anchor.localScale.y;
 
                     // Stretch in Y
-                    anchor.localScale = new Vector3(1.0f, imageSizeInWorld.y, 1.0f);
+                    anchor.localScale = new Vector3(1.0f, imageSizeInWorld.y / _ContractedSize.y, 1.0f);
 
                     // Adjust tilling in Y
                     foreach (Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
-                        rend.material.mainTextureScale = new Vector2(1.0f, imageSizeInWorld.y);
+                        rend.material.mainTextureScale = new Vector2(1.0f, imageSizeInWorld.y / _ContractedSize.y);
                     }
                 }
             }
@@ -120,6 +122,52 @@ public class DC_PictureFraming : MonoBehaviour
         }
     }
 
+    private void ResetFrame()
+    {
+        foreach (Transform anchor in GetComponentsInChildren<Transform>())
+        {
+            if (anchor.name.Equals("Top"))
+                anchor.localPosition = Vector3.zero;
+            else if (anchor.name.Equals("Bottom"))
+                anchor.localPosition = Vector3.zero;
+            else if (anchor.name.Equals("Left"))
+                anchor.localPosition = Vector3.zero;
+            else if (anchor.name.Equals("Right"))
+                anchor.localPosition = Vector3.zero;
+
+            // If stretching scale the Center pieces
+            if (_FrameType == FrameType.STRETCHING)
+            {
+                if (anchor.name.Equals("Horizontal"))
+                {
+                    // Stretch in X
+                    anchor.localScale = Vector3.one;
+
+                    // Adjust tilling in X
+                    foreach (Renderer rend in anchor.GetComponentsInChildren<Renderer>())
+                    {
+                        rend.material.mainTextureScale = Vector2.one;
+                    }
+                }
+                else if (anchor.name.Equals("Vertical"))
+                {
+                    // Stretch in Y
+                    anchor.localScale = Vector3.one;
+
+                    // Adjust tilling in Y
+                    foreach (Renderer rend in anchor.GetComponentsInChildren<Renderer>())
+                    {
+                        rend.material.mainTextureScale = Vector2.one;
+                    }
+                }
+            }
+
+        }
+
+        // Set the Canvas size (Quad)
+        _CanvasTransform.localScale = Vector3.one;
+    }
+
     // Draw a simple gizmo to confirm contracted size
     private void OnDrawGizmos()
     {
@@ -133,7 +181,10 @@ public class DC_PictureFraming : MonoBehaviour
         {
             m_SavedImage = _TestImage;
 
-            Apply(m_SavedImage);
+            if (m_SavedImage)
+                Apply(m_SavedImage);
+            else
+                ResetFrame();
         }
     }
 }
