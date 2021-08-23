@@ -156,32 +156,31 @@ public class SaveLoadRoom : MonoBehaviour
         }
     }
 
-    public void UploadRoom(string name)
+    public void UploadRoom(string name, bool bPrivate)
     {
-        StartCoroutine(Upload(name));
+        StartCoroutine(Upload(name, bPrivate));
     }
-    private IEnumerator Upload(string name)
+    private IEnumerator Upload(string name, bool bPrivate)
     {
         string filepath = Application.persistentDataPath + "/" + name;
         if (File.Exists(filepath))
         {
-            BinaryFormatter formatter = GetBinaryFormatter();
-            FileStream stream = new FileStream(filepath, FileMode.Open);
-
-            RoomData data = formatter.Deserialize(stream) as RoomData;
-            stream.Close();
+            // When saving private saves, just the name of the file is OK
+            // When saving publicly then the save file should be called RoomName.UserID.save so that people know who the creator was
+            string fileName = bPrivate ? name : name.Replace(".save", "") + "." + DC_NetworkManager.s_UserID + ".save";
+            string uploadPath = bPrivate ? "https://www.dorsetcreative.co.uk/Maestro/Upload.php" : "https://www.dorsetcreative.co.uk/Maestro/UploadPublic.php";
 
             // Create a Web Form
             WWWForm form = new WWWForm();
 
-            form.AddField("action", "room upload");
+            form.AddField("action", "upload");
 
-            form.AddField("file", name);
+            form.AddField("file", fileName);
 
-            form.AddBinaryData("file", File.ReadAllBytes(filepath), filepath, "binary/save");
+            form.AddBinaryData("file", File.ReadAllBytes(filepath), fileName, "binary/save");
 
             // Send to server
-            UnityWebRequest uwr = UnityWebRequest.Post("https://www.dorsetcreative.co.uk/Maestro/Upload.php", form);
+            UnityWebRequest uwr = UnityWebRequest.Post(uploadPath, form);
 
             yield return uwr.SendWebRequest();
 

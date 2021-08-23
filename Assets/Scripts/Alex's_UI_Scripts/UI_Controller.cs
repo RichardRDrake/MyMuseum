@@ -811,7 +811,7 @@ public class UI_Controller : MonoBehaviour
             pageNumber = ((pageCurrent - 1) * 6) + i;
             if (pageNumber == (listLength - 1))
             {
-                objectDisplay[i].sprite = downloadImage;
+                objectDisplay[i].sprite = emptyImage;
             }
             else if (pageNumber > (Resources.readFrom.Count - 1))
             {

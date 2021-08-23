@@ -19,4 +19,20 @@ public class TempListScript : MonoBehaviour
         //}
 
     }
+    public List<Texture2D> GetTextureList(string folderName)
+    {
+        if (readFrom.Count > 0)
+            readFrom.Clear();
+        var objects = Resources.LoadAll(folderName);
+
+        List<Texture2D> textureList = new List<Texture2D>();
+
+        foreach (Texture2D t in objects)
+        {
+            textureList.Add(t);
+            Debug.Log(objects[0].name);
+        }
+
+        return textureList;
+    }
 }

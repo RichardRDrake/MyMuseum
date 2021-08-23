@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEditor;
+using TMPro;
 
 /// <summary>
 /// This is a demo script:
@@ -17,12 +19,13 @@ public class DC_EditObject : MonoBehaviour
     [Header("Canvas settings")]
     [Tooltip("Canvas to enable/disable Edit GUI")]
     public Canvas _Canvas;
-    public GameObject _FrameButton;
     public GameObject _PaintingButton;
     public GameObject _RotateClockwiseButton;
     public GameObject _RotateAntiClockwiseButton;
     [Tooltip("Positioner transform to set location and scale based on the selected object")]
     public RectTransform _Positioner;
+    public List<GameObject> objectDisplay;
+    public Sprite emptyImage;
 
     [Header("Scaling settings")]
     public Vector2 _MinRectSize = new Vector2(32.0f, 32.0f);
@@ -30,7 +33,7 @@ public class DC_EditObject : MonoBehaviour
 
     // This is the current placeable object that this editor is editing
     private DC_Placeable m_CurrentPlaceableObject = null;
-
+    private GameObject m_CurrentGAmeObject;
     private bool m_EnabledThisFrame = false;
 
     // Check to see if we're about to be destroyed.
@@ -43,6 +46,13 @@ public class DC_EditObject : MonoBehaviour
     private Vector3 m_CurrentSelectedForward;
 
     private GameObject menuItem;
+    private List<Texture2D> readFrom;
+    private int listLength;
+    private int pageCount;
+    private int pageCurrent;
+    private TextMeshProUGUI countText;
+
+    private int pageNumber;
 
     /// <summary>
     /// Access singleton instance through this propriety.
@@ -76,21 +86,19 @@ public class DC_EditObject : MonoBehaviour
         m_ShuttingDown = true;
     }
 
-    public void Init(Bounds encapsulatedBounds, DC_Placeable placeableObjectToEdit, Vector2 pixelSize)
+    public void Init(Bounds encapsulatedBounds, GameObject placeableObjectToEdit, Vector2 pixelSize)
     {
         // Enable the Edit HUD
         _Canvas.enabled = true;
 
-        if(pixelSize.x > 0)
+        if(placeableObjectToEdit.GetComponent<DC_PictureFraming>())
         {
-           _FrameButton.SetActive(true);
             _PaintingButton.SetActive(true);
             _RotateClockwiseButton.SetActive(false);
             _RotateAntiClockwiseButton.SetActive(false);
         }
         else 
         {
-            _FrameButton.SetActive(false);
             _PaintingButton.SetActive(false);
             _RotateClockwiseButton.SetActive(true);
             _RotateAntiClockwiseButton.SetActive(true);
@@ -111,7 +119,8 @@ public class DC_EditObject : MonoBehaviour
         _Positioner.position = rect.center;
 
         // Make the inputted object the object buttons edit (Send feedback to)
-        m_CurrentPlaceableObject = placeableObjectToEdit;
+        m_CurrentPlaceableObject = placeableObjectToEdit.GetComponent<DC_Placeable>();
+        m_CurrentGAmeObject = placeableObjectToEdit;
 
         // Stops the disabling of the HUD from working on this frame, otherwise it would immediately get rid of it
         m_EnabledThisFrame = true;
@@ -176,7 +185,103 @@ public class DC_EditObject : MonoBehaviour
 
     public void SetAssetList(string folderName)
     {
-        menuItem.GetComponent<TempListScript>().FolderName = folderName;
+        if (menuItem.GetComponent<TempListScript>())
+        {
+           
+            //menuItem.GetComponent<TempListScript>().GetObjectList(folderName);
+            readFrom = menuItem.GetComponent<TempListScript>().GetTextureList(folderName);
+            listLength = readFrom.Count + 1;
+            //Debug.Log(listLength);
+            pageCount = listLength / 4;
+            if (listLength % 4 > 0)
+            {
+                pageCount++;
+            }
+
+            //Makes sure there is always one page
+            if (listLength == 0)
+            {
+                pageCount = 1;
+            }
+
+            for (int i = 0; i < objectDisplay.Count; i++)
+                objectDisplay[i].SetActive(false);
+            pageCurrent = 1;
+            ShowList();
+            for (int i = 0; i < objectDisplay.Count; i++)
+                objectDisplay[i].SetActive(true);
+        }
+       
+    }
+    public void IncrementPage()
+    {
+        //Cycles pages upward
+        pageCurrent++;
+        pageCurrent = Mathf.Clamp(pageCurrent, 1, pageCount);
+       
+        Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
+        //Sets currently selected pane to 0
+        for (int i = 0; i < objectDisplay.Count; i++)
+            objectDisplay[i].SetActive(false);
+        ShowList();
+        for (int i = 0; i < objectDisplay.Count; i++)
+            objectDisplay[i].SetActive(true);
+    }
+
+    public void DecrementPage()
+    {
+        //Cycles pages downward
+        pageCurrent--;
+        pageCurrent = Mathf.Clamp(pageCurrent, 1, pageCount);
+        Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
+        //Sets currently selected pane to 0
+        for (int i = 0; i < objectDisplay.Count; i++)
+            objectDisplay[i].SetActive(false);
+        ShowList();
+        for (int i = 0; i < objectDisplay.Count; i++)
+            objectDisplay[i].SetActive(true);
+    }
+
+    void ShowList()
+    {
+        //countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
+        for (int i = 0; i <= 3; i++)
+        {
+            //Debug.Log(pageCurrent);
+            pageNumber = ((pageCurrent - 1) * 4) + i;
+            if (pageNumber == (listLength - 1))
+            {
+                objectDisplay[i].GetComponent<Image>().sprite = emptyImage;
+            }
+            else if (pageNumber > (readFrom.Count - 1))
+            {
+                objectDisplay[i].GetComponent<Image>().sprite = emptyImage;
+            }
+            else
+            {
+                if (readFrom[pageNumber] == null)
+                {
+                    continue;
+                }
+                //Debug.Log(Resources.readFrom[pageNumber].ArtefactName);
+                objectDisplay[i].GetComponent<Image>().sprite = Sprite.Create(readFrom[pageNumber], new Rect(0.0f, 0.0f, readFrom[pageNumber].width, 
+                readFrom[pageNumber].height), new Vector2(0.0f, 0.0f));
+            }
+        }
+    }
+     
+    public void OnClickedAsset(int panelNumber)
+    {
+        if(pageCurrent <= 1)
+        {
+            if(panelNumber - 1 < readFrom.Count)
+                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._TestImage = readFrom[panelNumber - 1];
+        }
+        else
+        {
+            if ((panelNumber + (4 * (pageCurrent - 1)) - 1) < readFrom.Count)
+                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._TestImage = readFrom[(panelNumber + (4 * (pageCurrent - 1))-1)];
+        }
     }
 
     /// <summary>

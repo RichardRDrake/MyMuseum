@@ -25,7 +25,7 @@ public class DC_NetworkManager : MonoBehaviour
 
     [Header("Found DeepLink Data")]
     [Tooltip("MD5 Checksum")]
-    public string _UserID = "Not found";
+    static public string s_UserID = "Not found";
 
     [Header("Connection Settings")]
     public string _URLPrefix = "www.website.com/User/";
@@ -86,13 +86,13 @@ public class DC_NetworkManager : MonoBehaviour
     private void Instance_LinkActivated(LinkActivation s)
     {
         //  Example <a href="mymuseum://?u=MD5CodeOrName"></a>
-        _UserID = s.QueryString["u"];
+        s_UserID = s.QueryString["u"];
 
         if (_LoginText)
-            _LoginText.text = "User ID: " + _UserID + " : URL: " + s.Uri + " : Full:" + s.RawQueryString;
+            _LoginText.text = "User ID: " + s_UserID + " : URL: " + s.Uri + " : Full:" + s.RawQueryString;
 
         // Save the key to the registry (in case they want to launch the application locally next time)
-        PlayerPrefs.SetString("UserID", _UserID);
+        PlayerPrefs.SetString("UserID", s_UserID);
         PlayerPrefs.Save();
     }
 
@@ -118,13 +118,13 @@ public class DC_NetworkManager : MonoBehaviour
         }
 
         // If no user ID was sent, this app was launched locally (Try finding the user key from the registry)
-        if (_UserID.Equals("Not Found"))
+        if (s_UserID.Equals("Not Found"))
         {
             // Try getting existing saved key
-            _UserID = PlayerPrefs.GetString("UserID", "Not Found");
+            s_UserID = PlayerPrefs.GetString("UserID", "Not Found");
 
             // If the user ID is still "Not Found" then the app was never launched from the website
-            if (_UserID.Equals("Not Found"))
+            if (s_UserID.Equals("Not Found"))
             {
                 // TODO: Tell the user that they can only save room locally or publicly
                 // To save to their personal profile on the website, the app must be launched at least once from the website
@@ -164,7 +164,7 @@ public class DC_NetworkManager : MonoBehaviour
 
             // Private first
             if (I == 0)
-                URI = new Uri("c:/" + _UserID + "/PrivateRoomList.xml");
+                URI = new Uri("c:/" + s_UserID + "/PrivateRoomList.xml");
             // Public second
             else
                 URI = new Uri("c:/RoomList.xml");
