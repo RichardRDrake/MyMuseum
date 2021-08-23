@@ -75,7 +75,7 @@ public class DC_PictureFraming : MonoBehaviour
                     // Adjust tilling in X
                     foreach(Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
-                        rend.material.mainTextureScale = new Vector2(imageSizeInWorld.x / _ContractedSize.x, 1.0f);
+                        rend.sharedMaterial.mainTextureScale = new Vector2(imageSizeInWorld.x / _ContractedSize.x, 1.0f);
                     }
                 }
                 else if(anchor.name.Equals("Vertical"))
@@ -90,7 +90,7 @@ public class DC_PictureFraming : MonoBehaviour
                     // Adjust tilling in Y
                     foreach (Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
-                        rend.material.mainTextureScale = new Vector2(1.0f, imageSizeInWorld.y / _ContractedSize.y);
+                        rend.sharedMaterial.mainTextureScale = new Vector2(1.0f, imageSizeInWorld.y / _ContractedSize.y);
                     }
                 }
             }
@@ -110,7 +110,7 @@ public class DC_PictureFraming : MonoBehaviour
             Material canvasMaterial;
             if (_FrameType == FrameType.STRETCHING)
             {
-               canvasMaterial = renderer.material;
+               canvasMaterial = renderer.sharedMaterial;
             }
             else
             {
