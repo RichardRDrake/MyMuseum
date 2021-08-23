@@ -125,7 +125,7 @@ public class UI_SaveLoad : MonoBehaviour
         Uri URI = new Uri(m_DownloadURL);
 
         // Start downloading the room file
-        StartCoroutine(DC_Downloader.DownloadRoom(URI.OriginalString));
+        StartCoroutine(DC_Downloader.DownloadRoom(URI.OriginalString, DC_NetworkManager.s_UserToken));
 
         // Wait until the entire text file has been downloaded
         while (DC_Downloader.isDownloading)

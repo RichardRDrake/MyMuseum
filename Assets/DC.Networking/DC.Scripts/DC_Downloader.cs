@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -58,6 +59,49 @@ public class DC_Downloader : MonoBehaviour
         isDownloading = false;
     }
 
+    /// <summary>
+    /// Downloads a text file and sends authorization bearer token
+    /// </summary>
+    /// <param name="URI"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static IEnumerator DownloadText(string URI, string token)
+    {
+        isDownloading = true;
+
+        var uwr = new UnityWebRequest(URI, "GET");
+
+        // Set request header using unique token provided by deep-link
+        uwr.SetRequestHeader("Authorization", "Bearer " + token);
+
+        //Send the request then wait here until it returns
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result == UnityWebRequest.Result.ConnectionError)
+        {
+            Debug.Log("Network Error: " + uwr.error);
+            isDownloading = false;
+            yield break;
+        }
+        else
+        {
+            MemoryStream stream = new MemoryStream(uwr.downloadHandler.data);
+            stream.Position = 0;
+
+            DownloadedStreamFile = stream;
+            DownloadedTextFile = uwr.downloadHandler.text;
+        }
+
+        uwr.Dispose();
+
+        isDownloading = false;
+    }
+
+    /// <summary>
+    /// Downloads a myMusuem room file from server
+    /// </summary>
+    /// <param name="URL"></param>
+    /// <returns></returns>
     public static IEnumerator DownloadRoom(string URL)
     {
         isDownloading = true;
@@ -100,6 +144,58 @@ public class DC_Downloader : MonoBehaviour
 
             uwr.Dispose();
         }
+
+        isDownloading = false;
+    }
+
+    /// <summary>
+    /// Downloads a myMusuem room file from server and send authorization
+    /// </summary>
+    /// <param name="URI"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static IEnumerator DownloadRoom(string URI, string token)
+    {
+        isDownloading = true;
+
+        var uwr = new UnityWebRequest(URI, "GET");
+
+        // Set request header using unique token provided by deep-link
+        uwr.SetRequestHeader("Authorization", "Bearer " + token);
+
+        //Send the request then wait here until it returns
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result == UnityWebRequest.Result.ConnectionError)
+        {
+            Debug.Log("Network Error: " + uwr.error);
+            isDownloading = false;
+            yield break;
+        }
+        else
+        {
+            Debug.Log("Received: " + uwr.downloadHandler.text);
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            SurrogateSelector selector = new SurrogateSelector();
+
+            Vector3SerializationSurrogate v3Surrogate = new Vector3SerializationSurrogate();
+            QuaternionSerializationSurrogate qSurrogate = new QuaternionSerializationSurrogate();
+
+            selector.AddSurrogate(typeof(Vector3), new StreamingContext(StreamingContextStates.All), v3Surrogate);
+            selector.AddSurrogate(typeof(Quaternion), new StreamingContext(StreamingContextStates.All), qSurrogate);
+            formatter.SurrogateSelector = selector;
+
+            // Read the *.save file
+            MemoryStream stream = new MemoryStream(uwr.downloadHandler.data);
+            DownloadedRoomFile = formatter.Deserialize(stream) as RoomData;
+
+            // Clean up
+            stream.Close();
+        }
+
+        // Clean up
+        uwr.Dispose();
 
         isDownloading = false;
     }

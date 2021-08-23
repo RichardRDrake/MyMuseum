@@ -8,6 +8,8 @@ using System.IO;
 using System;
 using System.Globalization;
 using UnityEngine.Events;
+using UnityEngine.Networking;
+using System.Text;
 
 /// <summary>
 /// This script takes care of...
@@ -24,8 +26,8 @@ public class DC_NetworkManager : MonoBehaviour
     public GameObject _RegisterProductText;
 
     [Header("Found DeepLink Data")]
-    [Tooltip("MD5 Checksum")]
-    static public string s_UserID = "Not found";
+    [Tooltip("User Authentication Token")]
+    static public string s_UserToken = "Not found";
 
     [Header("Connection Settings")]
     public string _URLPrefix = "www.website.com/User/";
@@ -86,13 +88,13 @@ public class DC_NetworkManager : MonoBehaviour
     private void Instance_LinkActivated(LinkActivation s)
     {
         //  Example <a href="mymuseum://?u=MD5CodeOrName"></a>
-        s_UserID = s.QueryString["u"];
+        s_UserToken = s.QueryString["u"];
 
         if (_LoginText)
-            _LoginText.text = "User ID: " + s_UserID + " : URL: " + s.Uri + " : Full:" + s.RawQueryString;
+            _LoginText.text = "User ID: " + s_UserToken + " : URL: " + s.Uri + " : Full:" + s.RawQueryString;
 
         // Save the key to the registry (in case they want to launch the application locally next time)
-        PlayerPrefs.SetString("UserID", s_UserID);
+        PlayerPrefs.SetString("UserID", s_UserToken);
         PlayerPrefs.Save();
     }
 
@@ -118,13 +120,13 @@ public class DC_NetworkManager : MonoBehaviour
         }
 
         // If no user ID was sent, this app was launched locally (Try finding the user key from the registry)
-        if (s_UserID.Equals("Not Found"))
+        if (s_UserToken.Equals("Not Found"))
         {
             // Try getting existing saved key
-            s_UserID = PlayerPrefs.GetString("UserID", "Not Found");
+            s_UserToken = PlayerPrefs.GetString("UserID", "Not Found");
 
             // If the user ID is still "Not Found" then the app was never launched from the website
-            if (s_UserID.Equals("Not Found"))
+            if (s_UserToken.Equals("Not Found"))
             {
                 // TODO: Tell the user that they can only save room locally or publicly
                 // To save to their personal profile on the website, the app must be launched at least once from the website
@@ -153,9 +155,28 @@ public class DC_NetworkManager : MonoBehaviour
         StartCoroutine(DownloadRoomLists());
     }
 
+    private IEnumerator DownloadRoomLists(Uri uri, string token)
+    {
+        var uwr = new UnityWebRequest(uri, "Get");
+
+        uwr.SetRequestHeader("Authorization", "Bearer " + token);
+
+        //Send the request then wait here until it returns
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result == UnityWebRequest.Result.ConnectionError)
+        {
+            Debug.Log("Error While Sending: " + uwr.error);
+        }
+        else
+        {
+            Debug.Log("Received: " + uwr.downloadHandler.text);
+        }
+    }
+
     private IEnumerator DownloadRoomLists()
     {
-        for (int I = 0; I < 2; I++)
+        for (int I = 0; I < 1; I++)
         {
             // Try 5 times before giving up
             Retry:
@@ -164,13 +185,13 @@ public class DC_NetworkManager : MonoBehaviour
 
             // Private first
             if (I == 0)
-                URI = new Uri("c:/" + s_UserID + "/PrivateRoomList.xml");
+                URI = new Uri("http://website.com/api/getPrivateRooms");
             // Public second
             else
-                URI = new Uri("c:/RoomList.xml");
+                URI = new Uri("http://website.com/api/getPublicRooms");
 
             // Start downloading the list file
-            StartCoroutine(DC_Downloader.DownloadText(URI.OriginalString));
+            StartCoroutine(DC_Downloader.DownloadText(URI.OriginalString, s_UserToken));
 
             // Wait until the entire text file has been downloaded
             while (DC_Downloader.isDownloading)
@@ -192,6 +213,8 @@ public class DC_NetworkManager : MonoBehaviour
             }
             else
             {
+                Debug.Log(DC_Downloader.DownloadedTextFile);
+                
                 // Parse the downloaded XML file, poulating private(0)/public(1) RoomList
                 ParseXmlFile(DC_Downloader.DownloadedTextFile, I == 0);
 
@@ -282,5 +305,5 @@ public class DC_NetworkManager : MonoBehaviour
         // Open the room list panel
         if (m_RoomListPanel)
             m_RoomListPanel.gameObject.SetActive(true);
-    }
+    }    
 }

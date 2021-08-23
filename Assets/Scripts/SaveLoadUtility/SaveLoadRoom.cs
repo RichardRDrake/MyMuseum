@@ -167,7 +167,7 @@ public class SaveLoadRoom : MonoBehaviour
         {
             // When saving private saves, just the name of the file is OK
             // When saving publicly then the save file should be called RoomName.UserID.save so that people know who the creator was
-            string fileName = bPrivate ? name : name.Replace(".save", "") + "." + DC_NetworkManager.s_UserID + ".save";
+            string fileName = bPrivate ? name : name.Replace(".save", "") + "." + DC_NetworkManager.s_UserToken + ".save";
             string uploadPath = bPrivate ? "https://www.dorsetcreative.co.uk/Maestro/Upload.php" : "https://www.dorsetcreative.co.uk/Maestro/UploadPublic.php";
 
             // Create a Web Form
@@ -181,6 +181,9 @@ public class SaveLoadRoom : MonoBehaviour
 
             // Send to server
             UnityWebRequest uwr = UnityWebRequest.Post(uploadPath, form);
+
+            // Set request header using unique token provided by deep-link
+            uwr.SetRequestHeader("Authorization", "Bearer " + DC_NetworkManager.s_UserToken);
 
             yield return uwr.SendWebRequest();
 
