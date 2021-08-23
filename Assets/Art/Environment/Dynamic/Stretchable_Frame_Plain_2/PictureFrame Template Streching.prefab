@@ -547,7 +547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _FrameType: 1
   _SwapLeftRight: 1
-  _TestImage: {fileID: 0}
+  _TestImage: {fileID: 2800000, guid: 0e4b2c3138411054eadd13bfa775e8b8, type: 3}
   _CanvasTransform: {fileID: 6452897829961561497}
   _PixelDensity: 100
   _ContractedSize: {x: 5.5, y: 5.5}

@@ -58,6 +58,15 @@ public class DC_Placeable : MonoBehaviour
 
         // RD EXT: Get wall layer ID
         m_WallLayerID = LayerMask.NameToLayer("Wall");
+
+        if (asset != null)
+        {
+            if (asset.snapZone == null)
+            {
+                m_BeingPlaced = false;
+                m_SnapZone = asset.snapZone.GetComponent<DC_SnapZone>();
+            }
+        }
     }
 
     // For optimisation
@@ -67,6 +76,8 @@ public class DC_Placeable : MonoBehaviour
 
     private void Update()
     {
+      
+        
         // Place object
         // RD EXT: Only if a valid placement
         if (Input.GetMouseButtonDown(0) && !m_InvalidLocation)
@@ -75,7 +86,10 @@ public class DC_Placeable : MonoBehaviour
 
             // If snapped to a zone, make it invalid for any future placements (This is reset if the object is subsequently moved)
             if (m_SnapZone)
+            {
                 m_SnapZone.SetValidity(false);
+                asset.snapZone = m_SnapZone.gameObject;
+            }
         }
 
         if (m_BeingPlaced)

@@ -6,13 +6,6 @@ public class UI_ViewController : MonoBehaviour
 {
     //Gameobjects and relevant components
     [SerializeField] private GameObject MainMenu;
-    private UI_MenuController UI_MenuController;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        UI_MenuController = MainMenu.GetComponent<UI_MenuController>();
-    }
 
     // Update is called once per frame
     void Update()

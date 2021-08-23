@@ -83,6 +83,9 @@ public class DC_EditorCamera : MonoBehaviour
     private Image img;
     [Header("UI Canvas")]
     public GameObject UI;
+    public GameObject UI_BuildMode;
+    public GameObject UI_ViewMode;
+    public GameObject UI_MainMenu;
 
     private GameObject[] objects;
     private List<float> distances;
@@ -148,11 +151,23 @@ public class DC_EditorCamera : MonoBehaviour
             FirstPersonMode();
         }
 
+        if(Input.GetKeyDown("escape"))
+        {
+            UI_MainMenu.SetActive(!UI_MainMenu.active);
+            UI_BuildMode.SetActive(false);
+            UI_ViewMode.SetActive(false);
+        }
+
         // Editing controls
         if (m_CurrentMode == CurrentMode.EDIT)
         {
             img.gameObject.SetActive(false);
-            
+            if (!UI_MainMenu.activeInHierarchy)
+            {
+                UI_BuildMode.SetActive(true);
+                UI_ViewMode.SetActive(false);
+            }
+
             if (!_SwitchingToPerspective)
             {
                 // Make sure cursor is unlocked
@@ -271,7 +286,11 @@ public class DC_EditorCamera : MonoBehaviour
                 {
                     // Switch the mode
                     m_CurrentMode = CurrentMode.PERSPECTIVE;
-
+                    if (!UI_MainMenu.activeInHierarchy)
+                    {
+                        UI_BuildMode.SetActive(false);
+                        UI_ViewMode.SetActive(true);
+                    }
                     // Use the pivot rotation in X and Y as the starting rotation for free look
                     m_PerspectiveViewEulerAngles.x = _PivotTransform.localRotation.eulerAngles.x;
                     m_PerspectiveViewEulerAngles.y = _PivotTransform.localRotation.eulerAngles.y;
@@ -294,6 +313,12 @@ public class DC_EditorCamera : MonoBehaviour
         // Perspective controls
         else
         {
+            m_CurrentMode = CurrentMode.PERSPECTIVE;
+            if (!UI_MainMenu.activeInHierarchy)
+            {
+                UI_BuildMode.SetActive(false);
+                UI_ViewMode.SetActive(true);
+            }
             bool check = CheckSurround();
             if (check == true)
                 img.gameObject.SetActive(true);

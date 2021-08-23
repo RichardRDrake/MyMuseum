@@ -38,8 +38,9 @@ public class AssetData
     public string assetName;
     public string assetContent;
     public ArtefactPlacementType assetPlacement;
+    public GameObject snapZone = null;
 
-    public AssetData(string GUID, Asset asset, Vector3 pos, Quaternion rot)
+    public AssetData(string GUID, Asset asset, Vector3 pos, Quaternion rot, GameObject snapzone)
     {
         assetString = GUID;
         assetName = asset.Name;
@@ -48,6 +49,7 @@ public class AssetData
         pixelSize = asset.pixelSize;
         assetPos = pos;
         assetRot = rot;
+        snapZone = snapzone;
     }
 }
 

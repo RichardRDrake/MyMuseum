@@ -350,7 +350,7 @@ public class UI_Controller : MonoBehaviour
                         StartDeleteMode();
                         break;
                     case 5:
-                        SwitchToMain();
+                        //SwitchToMain();
                         break;
                     case 6:
                         HighlightFirst.SetActive(false);
@@ -459,7 +459,7 @@ public class UI_Controller : MonoBehaviour
         #region Switches menu type from the build interface to the pause menu
         else if (windowInt == 1)
         {
-            SwitchToMain();
+            //SwitchToMain();
         }
         #endregion
         #endregion
@@ -873,7 +873,7 @@ public class UI_Controller : MonoBehaviour
     public void SwitchToMain()
     {
         #region Sets the main menu active, then instructs the main menu to disable this menu
-        MainMenu.SetActive(true);
+        MainMenu.SetActive(!MainMenu.active);
         UI_MenuController.Activate();
         #endregion
     }

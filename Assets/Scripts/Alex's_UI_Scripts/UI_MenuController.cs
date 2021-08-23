@@ -31,6 +31,10 @@ public class UI_MenuController : MonoBehaviour
 
     //Menu options window
     [SerializeField] private GameObject Options;
+
+    [SerializeField] private GameObject MainMenu;
+
+    [SerializeField] private DC_EditorCamera cam;
     #endregion
 
     #region Main menu contents
@@ -402,18 +406,19 @@ public class UI_MenuController : MonoBehaviour
         else if (windowInt == 1)
         {
             //Returns the user to the game
-            if (buildMode == true)
-            {
-                BuildMenu.SetActive(true);
-                UI_Controller.ResetBuildUI();
-            }
-            else
-            {
-                ViewMenu.SetActive(true);
-                Cursor.visible = false;
-                UI_ViewController.DisableMain();
-            }
-            
+            //if (cam.m_CurrentMode == DC_EditorCamera.CurrentMode.EDIT)
+            //{
+            //    //BuildMenu.SetActive(true);
+            //    //UI_Controller.ResetBuildUI();
+            //    //this.gameObject.SetActive(false);
+            //}
+            //else
+            //{
+            //    ViewMenu.SetActive(true);
+            //    Cursor.visible = false;
+            //    this.gameObject.SetActive(false);
+            //}
+
         }
         #endregion
     }
@@ -955,6 +960,11 @@ public class UI_MenuController : MonoBehaviour
         HighlightTop.SetActive(false);
         HighlightTopHover.SetActive(false);
         #endregion
+    }
+
+    public void turnoffMainMenu()
+    {
+        this.gameObject.SetActive(false);
     }
 
     public void ShowConfirmation()

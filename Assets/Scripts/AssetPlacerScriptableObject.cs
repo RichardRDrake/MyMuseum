@@ -20,6 +20,8 @@ public class AssetPlacerScriptableObject : ScriptableObject
 
     [SerializeField] ArtefactPlacementType PlacementType = ArtefactPlacementType.Misc; //Overriden in Inspector
 
+    private GameObject SnapeZone = null;
+
     public AssetReference GetArtefact()
     {
 
@@ -30,6 +32,11 @@ public class AssetPlacerScriptableObject : ScriptableObject
         }
 
         return ArtefactPrefab;
+    }
+
+    public GameObject GetSnapZone()
+    {
+        return SnapeZone;
     }
     public AssetReference GetAssetReference()
     {
@@ -58,10 +65,11 @@ public class Asset
     public string AssRef;
     public Vector2 pixelSize;
     public ArtefactPlacementType placementType;
+    public GameObject snapZone = null;
 
     public GameObject asset;
 
-    public Asset(string name, string content, string ar, ArtefactPlacementType apt, Vector2 pixels, GameObject _asset)
+    public Asset(string name, string content, string ar, ArtefactPlacementType apt, Vector2 pixels, GameObject _asset, GameObject snapzone = null)
     {
         Name = name;
         Content = content;
@@ -69,6 +77,7 @@ public class Asset
         placementType = apt;
         pixelSize = pixels;
         asset = _asset;
+        snapZone = snapzone;
     }
 }
 
