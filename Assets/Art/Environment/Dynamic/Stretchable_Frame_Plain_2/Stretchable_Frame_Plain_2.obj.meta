@@ -13,12 +13,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Stretchable_Frame_Plain_2_Bottom_Cube_LeftMat
-    second: {fileID: 2100000, guid: fe5863559fbc174409cc71d2b1a549d2, type: 2}
+    second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Stretchable_Frame_Plain_2_Bottom_Cube_RightMat
-    second: {fileID: 2100000, guid: fe5863559fbc174409cc71d2b1a549d2, type: 2}
+    second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -38,12 +38,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Top_Stretchable_Frame_Plain_2_Cube_LeftMat
-    second: {fileID: 2100000, guid: fe5863559fbc174409cc71d2b1a549d2, type: 2}
+    second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Top_Stretchable_Frame_Plain_2_Cube_RightMat
-    second: {fileID: 2100000, guid: fe5863559fbc174409cc71d2b1a549d2, type: 2}
+    second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
