@@ -27,9 +27,6 @@ public class UI_SaveLoad : MonoBehaviour
     // Where to download the save file from the server
     private string m_DownloadURL;
 
-    // In case of hiccups in the network, each download/upload will attempt 5 times in total, before giving up
-    private int m_NetworkTimesTried = 0;
-
     // The DC_RoomListPanel is just an empty class used to quickly find the one instance of this in the project
     // The panel that contains the lists of rooms should have this component
     private DC_RoomListPanel m_RoomListPanel;
@@ -119,8 +116,6 @@ public class UI_SaveLoad : MonoBehaviour
 
     private IEnumerator AsyncDownloadFile()
     {
-        // Try 5 times before giving up
-        Retry:
 
         Uri URI = new Uri(m_DownloadURL);
 
@@ -134,22 +129,11 @@ public class UI_SaveLoad : MonoBehaviour
         // Check to see if the generated link was valid,
         if (DC_Downloader.DownloadedRoomFile == null)
         {
-            // Try again 4 times (1 time a second)
-            m_NetworkTimesTried++;
-            if (m_NetworkTimesTried < 5)
-            {
-                yield return new WaitForSeconds(1);
-                goto Retry;
-            }
-
             // TODO: If not display a warning letting the user know that no list could be found
             Debug.LogError("Could not find room on server @ " + URI.OriginalString);
         }
         else
         {
-            // Reset times tried as it's used whenever we are trying to download something
-            m_NetworkTimesTried = 0;
-
             // Now it has downloaded, make locally and save it
             if (m_SaveLoadRoomController)
             {

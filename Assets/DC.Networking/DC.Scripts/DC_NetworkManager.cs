@@ -27,11 +27,15 @@ public class DC_NetworkManager : MonoBehaviour
 
     [Header("Found DeepLink Data")]
     [Tooltip("User Authentication Token")]
-    static public string s_UserToken = "Not found";
+    public static string s_UserToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbXltdXNldW0uZG9yc2V0Y3JlYXRpdmUudGVjaFwvZ2VuZXJhdGUtand0LXRva2VuIiwiaWF0IjoxNjI5ODA4OTg5LCJleHAiOjE2Mjk4MTI1ODksIm5iZiI6MTYyOTgwODk4OSwianRpIjoiV0J6cnhCSW1WdXFSNEFZeiIsInN1YiI6NCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.ps0XVqDqBH2xBUccOlQGgIMvFR4AVt5sJI_Y4JmHWa0";
 
-    [Header("Connection Settings")]
-    public string _URLPrefix = "www.website.com/User/";
-    public string _URLGetRoomListSuffix = "GetRoomList";
+    [Header("APIs")]
+    public string _URIPrefix = "https://mymuseum.dorsetcreative.tech/api/";
+    public string _APIGetUserProfile = "getUserProfile";
+    public string _APIGetPublicRoomList = "getPublicRooms";
+    public string _APIGetPrivateRoomList = "getPrivateRooms";
+    public string _APIUploadPublicRoom = "upload/public";
+    public string _APIUploadPrivateRoom = "upload/private";
 
     [Header("Save/Load Button List")]
     [Tooltip("Save/Load button prefab (Instantiated under expandable content fitter)")]
@@ -43,7 +47,6 @@ public class DC_NetworkManager : MonoBehaviour
 
     [Header("Testing")]
     public TextMeshProUGUI _LoginText;
-    public TextMeshProUGUI _LevelText;
 
     [Serializable]
     public class RoomDetails
@@ -60,9 +63,6 @@ public class DC_NetworkManager : MonoBehaviour
 
     // If the program was launched with -Register then this was only to register the program, so will immeditately close
     private bool _RegisteringOnly = false;
-
-    // In case of hiccups in the network, each download/upload will attempt 5 times in total, before giving up
-    private int m_NetworkTimesTried = 0;
 
     // Triggered once the lists of rooms has been downloaded and ready for use
     private UnityEvent m_ListsDownloaded;
@@ -134,7 +134,8 @@ public class DC_NetworkManager : MonoBehaviour
         }
 
         // Test
-        UpdateRoomLists();
+        //UpdateRoomLists();
+        UpdateUserProfile();
     }
 
     private void Update()
@@ -150,45 +151,54 @@ public class DC_NetworkManager : MonoBehaviour
         }
     }
 
+    public void UpdateUserProfile()
+    {
+        StartCoroutine(DownloadUserProfile());
+    }
+
+    private IEnumerator DownloadUserProfile()
+    {
+        // Start downloading the list file
+        StartCoroutine(DC_Downloader.DownloadText(_URIPrefix + _APIGetUserProfile, s_UserToken));
+
+        // Wait until the entire text file has been downloaded
+        while (DC_Downloader.isDownloading)
+            yield return null;
+
+        // Check to see if the generated link was valid,
+        if (DC_Downloader.DownloadedTextFile != null )
+        {
+            Debug.Log(DC_Downloader.DownloadedTextFile);
+
+            XmlDocument xmlDoc = new XmlDocument();
+
+            xmlDoc.Load(new StringReader(DC_Downloader.DownloadedTextFile));
+
+            XmlNode nameNode = xmlDoc.SelectSingleNode("//response/user/name");
+            XmlNode idNode = xmlDoc.SelectSingleNode("//response/user/id");
+
+            if (_LoginText)
+                _LoginText.text = "Username: " + nameNode.InnerText + " / ID: " + idNode.InnerText; 
+        }
+    }
+
     public void UpdateRoomLists()
     {
         StartCoroutine(DownloadRoomLists());
-    }
-
-    private IEnumerator DownloadRoomLists(Uri uri, string token)
-    {
-        var uwr = new UnityWebRequest(uri, "Get");
-
-        uwr.SetRequestHeader("Authorization", "Bearer " + token);
-
-        //Send the request then wait here until it returns
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
-        {
-            Debug.Log("Error While Sending: " + uwr.error);
-        }
-        else
-        {
-            Debug.Log("Received: " + uwr.downloadHandler.text);
-        }
     }
 
     private IEnumerator DownloadRoomLists()
     {
         for (int I = 0; I < 1; I++)
         {
-            // Try 5 times before giving up
-            Retry:
-
             Uri URI;
 
             // Private first
             if (I == 0)
-                URI = new Uri("http://website.com/api/getPrivateRooms");
+                URI = new Uri(_URIPrefix + _APIGetPrivateRoomList);
             // Public second
             else
-                URI = new Uri("http://website.com/api/getPublicRooms");
+                URI = new Uri(_URIPrefix + _APIGetPublicRoomList);
 
             // Start downloading the list file
             StartCoroutine(DC_Downloader.DownloadText(URI.OriginalString, s_UserToken));
@@ -200,26 +210,15 @@ public class DC_NetworkManager : MonoBehaviour
             // Check to see if the generated link was valid,
             if (DC_Downloader.DownloadedStreamFile == null || DC_Downloader.DownloadedTextFile.Contains("Error with config"))
             {
-                // Try again 4 times (1 time a second)
-                m_NetworkTimesTried++;
-                if (m_NetworkTimesTried < 5)
-                {
-                    yield return new WaitForSeconds(1);
-                    goto Retry;
-                }
-
                 // TODO: If not display a warning letting the user know that no list could be found
                 Debug.LogError("Could not find list of rooms from server @ " + URI.OriginalString);
             }
             else
             {
                 Debug.Log(DC_Downloader.DownloadedTextFile);
-                
-                // Parse the downloaded XML file, poulating private(0)/public(1) RoomList
-                ParseXmlFile(DC_Downloader.DownloadedTextFile, I == 0);
 
-                // Reset times tried as it's used whenever we are trying to download something
-                m_NetworkTimesTried = 0;
+                // Parse the downloaded XML file, poulating private(0)/public(1) RoomList
+                ParseRoomListXmlFile(DC_Downloader.DownloadedTextFile, I == 0);
 
                 // Invoke event to say room list has been downloaded and ready for use
                 // When processing final list (Public)
@@ -234,7 +233,7 @@ public class DC_NetworkManager : MonoBehaviour
     /// </summary>
     /// <param name="xmlData"></param>
     /// <param name="bPrivate"></param>
-    private void ParseXmlFile(string xmlData, bool bPrivate)
+    private void ParseRoomListXmlFile(string xmlData, bool bPrivate)
     {
         XmlDocument xmlDoc = new XmlDocument();
 

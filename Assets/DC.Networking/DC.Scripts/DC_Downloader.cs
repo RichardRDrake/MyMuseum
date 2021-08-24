@@ -20,6 +20,9 @@ public class DC_Downloader : MonoBehaviour
 
     public static Stream DownloadedStreamFile { get; private set; }
 
+    // In case of hiccups in the network, each download/upload will attempt 5 times in total, before giving up
+    private static int s_NetworkTimesTried = 0;
+
     /// <summary>
     /// Downloads a text file
     /// </summary>
@@ -28,6 +31,11 @@ public class DC_Downloader : MonoBehaviour
     public static IEnumerator DownloadText(string URL)
     {
         isDownloading = true;
+        DownloadedStreamFile = null;
+        DownloadedTextFile = null;
+
+        // Try 5 times before giving up
+        Retry:
 
         using (UnityWebRequest uwr = UnityWebRequest.Get(URL))
         {
@@ -40,12 +48,23 @@ public class DC_Downloader : MonoBehaviour
 
             if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
             {
+                // Try again 4 times (1 time a second)
+                s_NetworkTimesTried++;
+                if (s_NetworkTimesTried < 5)
+                {
+                    yield return new WaitForSeconds(1);
+                    goto Retry;
+                }
+
                 Debug.Log(uwr.error);
                 isDownloading = false;
                 yield break;
             }
             else
             {
+                // Reset times tried as it's used whenever we are trying to download something
+                s_NetworkTimesTried = 0;
+
                 MemoryStream stream = new MemoryStream(uwr.downloadHandler.data);
                 stream.Position = 0;
 
@@ -68,8 +87,13 @@ public class DC_Downloader : MonoBehaviour
     public static IEnumerator DownloadText(string URI, string token)
     {
         isDownloading = true;
+        DownloadedStreamFile = null;
+        DownloadedTextFile = null;
 
-        var uwr = new UnityWebRequest(URI, "GET");
+        // Try 5 times before giving up
+        Retry:
+
+        var uwr = UnityWebRequest.Get(URI);
 
         // Set request header using unique token provided by deep-link
         uwr.SetRequestHeader("Authorization", "Bearer " + token);
@@ -79,12 +103,23 @@ public class DC_Downloader : MonoBehaviour
 
         if (uwr.result == UnityWebRequest.Result.ConnectionError)
         {
+            // Try again 4 times (1 time a second)
+            s_NetworkTimesTried++;
+            if (s_NetworkTimesTried < 5)
+            {
+                yield return new WaitForSeconds(1);
+                goto Retry;
+            }
+
             Debug.Log("Network Error: " + uwr.error);
             isDownloading = false;
             yield break;
         }
         else
         {
+            // Reset times tried as it's used whenever we are trying to download something
+            s_NetworkTimesTried = 0;
+
             MemoryStream stream = new MemoryStream(uwr.downloadHandler.data);
             stream.Position = 0;
 
@@ -105,6 +140,10 @@ public class DC_Downloader : MonoBehaviour
     public static IEnumerator DownloadRoom(string URL)
     {
         isDownloading = true;
+        DownloadedRoomFile = null;
+
+        // Try 5 times before giving up
+        Retry:
 
         using (UnityWebRequest uwr = UnityWebRequest.Get(URL))
         {
@@ -117,23 +156,32 @@ public class DC_Downloader : MonoBehaviour
 
             if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
             {
+                // Try again 4 times (1 time a second)
+                s_NetworkTimesTried++;
+                if (s_NetworkTimesTried < 5)
+                {
+                    yield return new WaitForSeconds(1);
+                    goto Retry;
+                }
+
                 Debug.Log(uwr.error);
                 isDownloading = false;
                 yield break;
             }
             else
             {
+                // Reset times tried as it's used whenever we are trying to download something
+                s_NetworkTimesTried = 0;
+
                 BinaryFormatter formatter = new BinaryFormatter();
 
                 SurrogateSelector selector = new SurrogateSelector();
 
                 Vector3SerializationSurrogate v3Surrogate = new Vector3SerializationSurrogate();
                 QuaternionSerializationSurrogate qSurrogate = new QuaternionSerializationSurrogate();
-                //AssetSOSerializationSurrogate aSurrogate = new AssetSOSerializationSurrogate();
 
                 selector.AddSurrogate(typeof(Vector3), new StreamingContext(StreamingContextStates.All), v3Surrogate);
                 selector.AddSurrogate(typeof(Quaternion), new StreamingContext(StreamingContextStates.All), qSurrogate);
-                //selector.AddSurrogate(typeof(AssetPlacerScriptableObject), new StreamingContext(StreamingContextStates.All), aSurrogate);
 
                 formatter.SurrogateSelector = selector;
 
@@ -157,8 +205,12 @@ public class DC_Downloader : MonoBehaviour
     public static IEnumerator DownloadRoom(string URI, string token)
     {
         isDownloading = true;
+        DownloadedRoomFile = null;
 
-        var uwr = new UnityWebRequest(URI, "GET");
+        // Try 5 times before giving up
+        Retry:
+
+        var uwr = UnityWebRequest.Get(URI);
 
         // Set request header using unique token provided by deep-link
         uwr.SetRequestHeader("Authorization", "Bearer " + token);
@@ -168,12 +220,23 @@ public class DC_Downloader : MonoBehaviour
 
         if (uwr.result == UnityWebRequest.Result.ConnectionError)
         {
+            // Try again 4 times (1 time a second)
+            s_NetworkTimesTried++;
+            if (s_NetworkTimesTried < 5)
+            {
+                yield return new WaitForSeconds(1);
+                goto Retry;
+            }
+
             Debug.Log("Network Error: " + uwr.error);
             isDownloading = false;
             yield break;
         }
         else
         {
+            // Reset times tried as it's used whenever we are trying to download something
+            s_NetworkTimesTried = 0;
+
             Debug.Log("Received: " + uwr.downloadHandler.text);
 
             BinaryFormatter formatter = new BinaryFormatter();
@@ -208,6 +271,10 @@ public class DC_Downloader : MonoBehaviour
     public static IEnumerator DownloadTexture(string URL)
     {
         isDownloading = true;
+        DownloadedTexture = null;
+
+        // Try 5 times before giving up
+        Retry:
 
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(URL))
         {
@@ -220,12 +287,23 @@ public class DC_Downloader : MonoBehaviour
 
             if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
             {
+                // Try again 4 times (1 time a second)
+                s_NetworkTimesTried++;
+                if (s_NetworkTimesTried < 5)
+                {
+                    yield return new WaitForSeconds(1);
+                    goto Retry;
+                }
+
                 Debug.Log(uwr.error);
                 isDownloading = false;
                 yield break;
             }
             else
             {
+                // Reset times tried as it's used whenever we are trying to download something
+                s_NetworkTimesTried = 0;
+
                 DownloadedTexture = DownloadHandlerTexture.GetContent(uwr);
             }
 
@@ -243,6 +321,10 @@ public class DC_Downloader : MonoBehaviour
     public static IEnumerator DownloadAudio(string URL)
     {
         isDownloading = true;
+        DownloadedAudioClip = null;
+
+        // Try 5 times before giving up
+        Retry:
 
 #if UNITY_EDITOR
         using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(URL, AudioType.OGGVORBIS))
@@ -259,12 +341,23 @@ public class DC_Downloader : MonoBehaviour
 
             if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
             {
+                // Try again 4 times (1 time a second)
+                s_NetworkTimesTried++;
+                if (s_NetworkTimesTried < 5)
+                {
+                    yield return new WaitForSeconds(1);
+                    goto Retry;
+                }
+
                 Debug.Log(uwr.error);
                 isDownloading = false;
                 yield break;
             }
             else
             {
+                // Reset times tried as it's used whenever we are trying to download something
+                s_NetworkTimesTried = 0;
+
                 DownloadedAudioClip = DownloadHandlerAudioClip.GetContent(uwr);
             }
 
