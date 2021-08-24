@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 90110e3b908d05e4dafcb20a820c77d0
+guid: 68310ba808e4bde468c7a606df5a76ba
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,42 +7,42 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bottom_Stretchable_Frame_Ornated_1_Cube_LeftMat
+      name: Cube_Right_Top_Stretchable_Frame_Ornated_1Mat
     second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bottom_Stretchable_Frame_Ornated_1_Cube_RightMat
+      name: Right_Top_Stretchable_Frame_Ornated_1_Bottom_Cube_LeftMat
     second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Horizontal_Bottom_Stretchable_Frame_Ornated_1Mat
+      name: Right_Top_Stretchable_Frame_Ornated_1_Bottom_Cube_RightMat
     second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Stretchable_Frame_Ornated_1_Horizontal_TopMat
+      name: Right_Top_Stretchable_Frame_Ornated_1_Cube_LeftMat
     second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Stretchable_Frame_Ornated_1_Top_Cube_LeftMat
+      name: Right_Top_Stretchable_Frame_Ornated_1_HorizontalMat
     second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Stretchable_Frame_Ornated_1_Top_Cube_RightMat
+      name: Right_Top_Stretchable_Frame_Ornated_1_Horizontal_BottomMat
     second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Stretchable_Frame_Ornated_1_Vertical_LeftMat
+      name: Right_Top_Stretchable_Frame_Ornated_1_VerticalMat
     second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Stretchable_Frame_Ornated_1_Vertical_RightMat
+      name: Right_Top_Stretchable_Frame_Ornated_1_Vertical_RightMat
     second: {fileID: 2100000, guid: 0e613e31d6d90d34aa3db567badf49d7, type: 2}
   materials:
     materialImportMode: 2
@@ -74,7 +74,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.01
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -125,7 +125,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.01
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
