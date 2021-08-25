@@ -46,7 +46,7 @@ public class DC_EditObject : MonoBehaviour
     private Vector3 m_CurrentSelectedForward;
 
     private GameObject menuItem;
-    private List<Texture2D> readFrom;
+    private List<AssetPlacerScriptableObject> readFrom;
     private int listLength;
     private int pageCount;
     private int pageCurrent;
@@ -264,23 +264,34 @@ public class DC_EditObject : MonoBehaviour
                     continue;
                 }
                 //Debug.Log(Resources.readFrom[pageNumber].ArtefactName);
-                objectDisplay[i].GetComponent<Image>().sprite = Sprite.Create(readFrom[pageNumber], new Rect(0.0f, 0.0f, readFrom[pageNumber].width, 
-                readFrom[pageNumber].height), new Vector2(0.0f, 0.0f));
+                objectDisplay[i].GetComponent<Image>().sprite = Sprite.Create(readFrom[pageNumber].PreviewImages[0], new Rect(0.0f, 0.0f, readFrom[pageNumber].PreviewImages[0].width,
+              readFrom[pageNumber].PreviewImages[0].height), new Vector2(0.0f, 0.0f));
             }
         }
     }
      
     public void OnClickedAsset(int panelNumber)
     {
-        if(pageCurrent <= 1)
+        Asset asset;
+      
+        if (pageCurrent <= 1)
         {
-            if(panelNumber - 1 < readFrom.Count)
-                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._TestImage = readFrom[panelNumber - 1];
+            if (panelNumber - 1 < readFrom.Count)
+            {
+                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._TestImage = readFrom[panelNumber - 1].PreviewImages[0];
+
+                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[panelNumber - 1].ArtefactContent;
+                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[panelNumber - 1].ArtefactName;
+            }
         }
         else
         {
             if ((panelNumber + (4 * (pageCurrent - 1)) - 1) < readFrom.Count)
-                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._TestImage = readFrom[(panelNumber + (4 * (pageCurrent - 1))-1)];
+            {
+                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._TestImage = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].PreviewImages[0];
+                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].ArtefactContent;
+                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].ArtefactName;
+            }
         }
     }
 

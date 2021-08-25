@@ -19,20 +19,25 @@ public class TempListScript : MonoBehaviour
         //}
 
     }
-    public List<Texture2D> GetTextureList(string folderName)
+    public List<AssetPlacerScriptableObject> GetTextureList(string folderName)
     {
         if (readFrom.Count > 0)
             readFrom.Clear();
         var objects = Resources.LoadAll(folderName);
 
-        List<Texture2D> textureList = new List<Texture2D>();
+        AssetPlacerScriptableObject[] textureList = (AssetPlacerScriptableObject[])Resources.FindObjectsOfTypeAll(typeof(AssetPlacerScriptableObject));
 
-        foreach (Texture2D t in objects)
+        List<AssetPlacerScriptableObject> list = new List<AssetPlacerScriptableObject>();
+
+        foreach (AssetPlacerScriptableObject t in textureList)
         {
-            textureList.Add(t);
-            Debug.Log(objects[0].name);
+            if (t.PaintingPixelSize.x > 0)
+            {
+                list.Add(t);
+                Debug.Log(t.name);
+            }
         }
 
-        return textureList;
+        return list;
     }
 }
