@@ -37521,6 +37521,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4980114393195799648, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5056687077837298407, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Color.b
       value: 0.81434673
@@ -37544,6 +37548,10 @@ PrefabInstance:
     - target: {fileID: 5056687077837298407, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272467072134498233, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5378938145896149752, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_RootOrder
@@ -37660,6 +37668,10 @@ PrefabInstance:
     - target: {fileID: 8629796183742972597, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Name
       value: Lighting
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629796183742972597, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
