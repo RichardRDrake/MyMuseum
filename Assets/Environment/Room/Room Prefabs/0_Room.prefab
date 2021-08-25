@@ -1965,6 +1965,10 @@ PrefabInstance:
       propertyPath: m_Shadows.m_NormalBias
       value: 0.001
       objectReference: {fileID: 0}
+    - target: {fileID: 5272467072134498233, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5373422144842838717, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2112,6 +2116,10 @@ PrefabInstance:
     - target: {fileID: 8629796183742972597, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_Name
       value: Lighting
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629796183742972597, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8800030231177034456, guid: 5f4ed5b83a36d7441960d4277f1be02a, type: 3}
       propertyPath: m_IsActive
