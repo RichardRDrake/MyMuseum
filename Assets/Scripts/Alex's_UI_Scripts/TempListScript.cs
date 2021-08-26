@@ -6,10 +6,11 @@ public class TempListScript : MonoBehaviour
 {
     //Just a script will a well-known list in it, to distinguish between menus
     public List<AssetPlacerScriptableObject> readFrom = new List<AssetPlacerScriptableObject>();
-    public string FolderName;
+    [SerializeField] public ArtefactCategory FolderName;
 
     void Awake()
     {
+        //readFrom = GetList(FolderName);
         //var objects = Resources.LoadAll(FolderName);
 
         //foreach (AssetPlacerScriptableObject t in objects)
@@ -19,11 +20,11 @@ public class TempListScript : MonoBehaviour
         //}
 
     }
-    public List<AssetPlacerScriptableObject> GetTextureList(string folderName)
+    public List<AssetPlacerScriptableObject> GetList(ArtefactCategory folderName)
     {
         if (readFrom.Count > 0)
             readFrom.Clear();
-        var objects = Resources.LoadAll(folderName);
+       
 
         AssetPlacerScriptableObject[] textureList = (AssetPlacerScriptableObject[])Resources.FindObjectsOfTypeAll(typeof(AssetPlacerScriptableObject));
 
@@ -31,7 +32,7 @@ public class TempListScript : MonoBehaviour
 
         foreach (AssetPlacerScriptableObject t in textureList)
         {
-            if (t.PaintingPixelSize.x > 0)
+            if (t.CategoryType == folderName)
             {
                 list.Add(t);
                 Debug.Log(t.name);
