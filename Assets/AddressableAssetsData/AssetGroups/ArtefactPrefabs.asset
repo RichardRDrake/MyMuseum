@@ -81,6 +81,10 @@ MonoBehaviour:
     m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1997_432_quadricephalous-or-four-headed-stone_mesh.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e420cd1732748a24da1e19fb9199668a
+    m_Address: Assets/DC.PictureFraming/TestImages/2-181A.jpeg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:

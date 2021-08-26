@@ -549,7 +549,7 @@ MonoBehaviour:
   _SwapLeftRight: 0
   _TestImage: {fileID: 0}
   _CanvasTransform: {fileID: 6452897829961561497}
-  _PixelDensity: 100
+  _PixelDensity: 1000
   _ContractedSize: {x: 5.5, y: 5.5}
 --- !u!54 &-799188998241933078
 Rigidbody:
