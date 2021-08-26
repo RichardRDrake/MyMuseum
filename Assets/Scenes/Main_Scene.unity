@@ -2773,6 +2773,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8611470921904018693, guid: d7139a05b83dc964fb8382440ba5cee9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8611470921904018693, guid: d7139a05b83dc964fb8382440ba5cee9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: FineArt
       objectReference: {fileID: 0}
@@ -6125,7 +6129,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b4c11b254769dba4290ab3e9045e11b2, type: 2}
   - {fileID: 11400000, guid: ec6dba56af537a74c80d53d5e9f6da72, type: 2}
   - {fileID: 11400000, guid: 7013aaad4fbac234da9a5868f5847020, type: 2}
-  FolderName: 
+  FolderName: 0
 --- !u!224 &5315955194694313496
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7508,7 +7512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom: []
-  FolderName: 
+  FolderName: 0
 --- !u!222 &5315955194966947183
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7956,7 +7960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom: []
-  FolderName: 
+  FolderName: 0
 --- !u!114 &5315955194978691877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8196,7 +8200,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 85ee2d7b80fbc094594e493f2b1e757a, type: 2}
   - {fileID: 11400000, guid: b1c682702f887a746a99f0eb0ac531ad, type: 2}
   - {fileID: 11400000, guid: fc90cb1048702274390f6c6d8b489ab8, type: 2}
-  FolderName: 
+  FolderName: 0
 --- !u!224 &5315955195117198778
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8487,7 +8491,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 89c800a2186362d4db67b0d55a248df6, type: 2}
   - {fileID: 11400000, guid: 8b203cb302330e847b58d7f264415bf0, type: 2}
   - {fileID: 11400000, guid: d06024fffad16ed4391e6047fbd15024, type: 2}
-  FolderName: 
+  FolderName: 0
 --- !u!224 &5315955195175665783
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9599,7 +9603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom: []
-  FolderName: 
+  FolderName: 0
 --- !u!114 &5315955195564957513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11056,7 +11060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom: []
-  FolderName: 
+  FolderName: 0
 --- !u!222 &5315955196049456237
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11478,7 +11482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom: []
-  FolderName: 
+  FolderName: 0
 --- !u!222 &5315955196173386737
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11782,7 +11786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readFrom: []
-  FolderName: 
+  FolderName: 0
 --- !u!1 &5323804488935171611
 GameObject:
   m_ObjectHideFlags: 0

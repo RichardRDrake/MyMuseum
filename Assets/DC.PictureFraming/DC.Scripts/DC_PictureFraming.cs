@@ -182,10 +182,11 @@ public class DC_PictureFraming : MonoBehaviour
         if(_TestImage == null)
         {
             oldColour = _CanvasTransform.gameObject.GetComponent<Renderer>().material.color;
+            _CanvasTransform.gameObject.GetComponent<Renderer>().material.color = new Color(oldColour.r, oldColour.g, oldColour.b, 0.0f); 
         }
         else 
         {
-            Color newColour = new Color(oldColour.r, oldColour.g, oldColour.b, 1.0f);
+            Color newColour = new Color(1, 1, 1, 1.0f);
             _CanvasTransform.gameObject.GetComponent<Renderer>().material.color = newColour;
         }
 
