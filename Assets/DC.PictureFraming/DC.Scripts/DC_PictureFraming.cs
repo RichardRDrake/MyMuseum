@@ -24,7 +24,7 @@ public class DC_PictureFraming : MonoBehaviour
     public Transform _CanvasTransform;
 
     // The pixel density is how many pixels represent 1 meter (Should really use real-life sizes)
-    public int _PixelDensity = 100;
+    public int _PixelDensity = 1000;
 
     // The size of the gap when all anchors are at 0,0,0
     public Vector2 _ContractedSize;

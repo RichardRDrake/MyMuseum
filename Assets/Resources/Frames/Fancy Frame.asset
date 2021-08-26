@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
   m_Name: Fancy Frame
   m_EditorClassIdentifier: 
-  ArtefactName: Fancy frame
-  ArtefactContent: test
+  ArtefactName: 
+  ArtefactContent: 
   ArtefactPrefab:
     m_AssetGUID: 4582726653daa8f4689e817e4feb157a
     m_SubObjectName: 
