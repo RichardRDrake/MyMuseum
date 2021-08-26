@@ -30,6 +30,10 @@ public class DC_Downloader : MonoBehaviour
     /// <returns></returns>
     public static IEnumerator DownloadText(string URL)
     {
+        // Wait until previous request has finished
+        while (isDownloading)
+            yield return null;
+
         isDownloading = true;
         DownloadedStreamFile = null;
         DownloadedTextFile = null;
@@ -46,7 +50,7 @@ public class DC_Downloader : MonoBehaviour
                 yield return null;
             }
 
-            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
+            if (uwr.result != UnityWebRequest.Result.Success)
             {
                 // Try again 4 times (1 time a second)
                 s_NetworkTimesTried++;
@@ -86,6 +90,10 @@ public class DC_Downloader : MonoBehaviour
     /// <returns></returns>
     public static IEnumerator DownloadText(string URI, string token)
     {
+        // Wait until previous request has finished
+        while (isDownloading)
+            yield return null;
+
         isDownloading = true;
         DownloadedStreamFile = null;
         DownloadedTextFile = null;
@@ -101,7 +109,7 @@ public class DC_Downloader : MonoBehaviour
         //Send the request then wait here until it returns
         yield return uwr.SendWebRequest();
 
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
+        if (uwr.result != UnityWebRequest.Result.Success)
         {
             // Try again 4 times (1 time a second)
             s_NetworkTimesTried++;
@@ -139,6 +147,10 @@ public class DC_Downloader : MonoBehaviour
     /// <returns></returns>
     public static IEnumerator DownloadRoom(string URL)
     {
+        // Wait until previous request has finished
+        while (isDownloading)
+            yield return null;
+
         isDownloading = true;
         DownloadedRoomFile = null;
 
@@ -154,7 +166,7 @@ public class DC_Downloader : MonoBehaviour
                 yield return null;
             }
 
-            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
+            if (uwr.result != UnityWebRequest.Result.Success)
             {
                 // Try again 4 times (1 time a second)
                 s_NetworkTimesTried++;
@@ -204,6 +216,10 @@ public class DC_Downloader : MonoBehaviour
     /// <returns></returns>
     public static IEnumerator DownloadRoom(string URI, string token)
     {
+        // Wait until previous request has finished
+        while (isDownloading)
+            yield return null;
+
         isDownloading = true;
         DownloadedRoomFile = null;
 
@@ -218,7 +234,7 @@ public class DC_Downloader : MonoBehaviour
         //Send the request then wait here until it returns
         yield return uwr.SendWebRequest();
 
-        if (uwr.result == UnityWebRequest.Result.ConnectionError)
+        if (uwr.result != UnityWebRequest.Result.Success)
         {
             // Try again 4 times (1 time a second)
             s_NetworkTimesTried++;
@@ -270,6 +286,10 @@ public class DC_Downloader : MonoBehaviour
     /// <returns></returns>
     public static IEnumerator DownloadTexture(string URL)
     {
+        // Wait until previous request has finished
+        while (isDownloading)
+            yield return null;
+
         isDownloading = true;
         DownloadedTexture = null;
 
@@ -285,7 +305,7 @@ public class DC_Downloader : MonoBehaviour
                 yield return null;
             }
 
-            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
+            if (uwr.result != UnityWebRequest.Result.Success)
             {
                 // Try again 4 times (1 time a second)
                 s_NetworkTimesTried++;
@@ -320,6 +340,10 @@ public class DC_Downloader : MonoBehaviour
     /// <returns></returns>
     public static IEnumerator DownloadAudio(string URL)
     {
+        // Wait until previous request has finished
+        while (isDownloading)
+            yield return null;
+
         isDownloading = true;
         DownloadedAudioClip = null;
 
@@ -339,7 +363,7 @@ public class DC_Downloader : MonoBehaviour
                 yield return null;
             }
 
-            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
+            if (uwr.result != UnityWebRequest.Result.Success)
             {
                 // Try again 4 times (1 time a second)
                 s_NetworkTimesTried++;

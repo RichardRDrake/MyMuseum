@@ -1166,8 +1166,9 @@ public class UI_StartMenu : MonoBehaviour
                 //Debug.Log(SaveTitle1);
                 //Debug.Log(saveTexts);
                 //Debug.Log(saveTexts[0]);
-                saveTexts[i].text = saves.savesList[((pageCurrent - 1) * 3) + i];
-                saveDates[i].text = saves.GetDate(saveTexts[i].text);
+                // RD EDIT: Only show room name not all the other parts of the save filename
+                saveTexts[i].text = saves.savesList[((pageCurrent - 1) * 3) + i].Split('.')[0];
+                saveDates[i].text = saves.GetDate(saves.savesList[((pageCurrent - 1) * 3) + i]);
                 saveNews[i].text = " ";
                 #endregion
             }
