@@ -32,6 +32,8 @@ public class DC_PictureFraming : MonoBehaviour
     private float m_StretchHorizontalOS = 0;
     private float m_StretchVerticalOS = 0;
 
+    private Color oldColour;
+
     private void Start()
     {
         
@@ -177,6 +179,17 @@ public class DC_PictureFraming : MonoBehaviour
     private void Update()
     {
         // Just for testing, usually just use the function Apply
+        if(_TestImage == null)
+        {
+            oldColour = _CanvasTransform.gameObject.GetComponent<Renderer>().material.color;
+            _CanvasTransform.gameObject.GetComponent<Renderer>().material.color = new Color(oldColour.r, oldColour.g, oldColour.b, 0.0f); 
+        }
+        else 
+        {
+            Color newColour = new Color(1, 1, 1, 1.0f);
+            _CanvasTransform.gameObject.GetComponent<Renderer>().material.color = newColour;
+        }
+
         if(_TestImage != m_SavedImage)
         {
             m_SavedImage = _TestImage;

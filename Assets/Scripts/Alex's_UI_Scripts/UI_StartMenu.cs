@@ -110,8 +110,6 @@ public class UI_StartMenu : MonoBehaviour
     [SerializeField] private GameObject ConfirmButton;
     [SerializeField] private GameObject CancelButton;
     [SerializeField] private TextMeshProUGUI ConfirmText;
-    private Vector3 confirmText1;
-    private Vector3 confirmText2;
 
     [SerializeField] private GameObject InputObject;
     private TMP_InputField inputField;
@@ -211,8 +209,6 @@ public class UI_StartMenu : MonoBehaviour
         MainLocations.Add(LoadViewButton.transform.position);
         MainLocations.Add(OptionsButton.transform.position);
         MainLocations.Add(QuitButton.transform.position);
-        confirmText1 = new Vector3(ConfirmText.transform.position.x, ConfirmText.transform.position.y, ConfirmText.transform.position.z);
-        confirmText2 = new Vector3(ConfirmText.transform.position.x, ConfirmText.transform.position.y + 15, ConfirmText.transform.position.z);
         #endregion
 
         #region Variables and lists involved with save file management
@@ -897,7 +893,6 @@ public class UI_StartMenu : MonoBehaviour
                 inputField.text = "";
                 InputObject.SetActive(true);
                 confirmCurrent = ConfirmFinder.Text;
-                ConfirmText.transform.position = confirmText2;
                 inputField.ActivateInputField();
             }
             #endregion
@@ -931,7 +926,6 @@ public class UI_StartMenu : MonoBehaviour
                         ConfirmText.text = "Load this room in view mode?";
                     }
                 }
-                ConfirmText.transform.position = confirmText1;
             }
             #endregion
             Confirm.SetActive(true);
@@ -999,9 +993,9 @@ public class UI_StartMenu : MonoBehaviour
             if(deleteSaveFiles)
             {
                 //Or attempting to delete one*
-                Debug.Log(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+                Debug.Log(saves.savesList[(paneCurrent - 1) + (pageCurrent - 1) * 3]);
 
-                saves.DeleteRoom(saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text);
+                saves.DeleteRoom(saves.savesList[(paneCurrent - 1) + (pageCurrent - 1) * 3]);
                 
                 windowCurrent = WindowFinder.MenuLoad;
                 Confirm.SetActive(false);
@@ -1021,7 +1015,7 @@ public class UI_StartMenu : MonoBehaviour
                 Upload.SetActive(true);
 
                 // Save the filename wanting to be uploaded
-                uploadFilename = saveTexts[(paneCurrent - 1) + (pageCurrent - 1) * 3].text;
+                uploadFilename = saves.savesList[(paneCurrent - 1) + (pageCurrent - 1) * 3];
 
                 // Disable the confirm screen
                 Confirm.SetActive(false);
@@ -1166,8 +1160,9 @@ public class UI_StartMenu : MonoBehaviour
                 //Debug.Log(SaveTitle1);
                 //Debug.Log(saveTexts);
                 //Debug.Log(saveTexts[0]);
-                saveTexts[i].text = saves.savesList[((pageCurrent - 1) * 3) + i];
-                saveDates[i].text = saves.GetDate(saveTexts[i].text);
+                // RD EDIT: Only show room name not all the other parts of the save filename
+                saveTexts[i].text = saves.savesList[((pageCurrent - 1) * 3) + i].Split('.')[0];
+                saveDates[i].text = saves.GetDate(saves.savesList[((pageCurrent - 1) * 3) + i]);
                 saveNews[i].text = " ";
                 #endregion
             }

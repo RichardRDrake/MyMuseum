@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -15,6 +16,9 @@ public class SaveLoadRoom : MonoBehaviour
     private GameObject spawnedRoom;
 
     public List<string> savesList = new List<string>();
+
+    [Header("Popup to delete file from server")]
+    public GameObject _DeleteFromServerPopup;
 
     private AssetPlacer placer;
 
@@ -109,7 +113,7 @@ public class SaveLoadRoom : MonoBehaviour
 
 
         BinaryFormatter formatter = GetBinaryFormatter();
-        string filepath = Application.persistentDataPath +"/" + name +".save";
+        string filepath = Application.persistentDataPath +"/" + name + ".save";
         FileStream stream = new FileStream(filepath, FileMode.Create);
 
         formatter.Serialize(stream, savedRoomData);
@@ -165,39 +169,58 @@ public class SaveLoadRoom : MonoBehaviour
         string filepath = Application.persistentDataPath + "/" + name;
         if (File.Exists(filepath))
         {
-            // When saving private saves, just the name of the file is OK
-            // When saving publicly then the save file should be called RoomName.UserID.save so that people know who the creator was
-            string fileName = bPrivate ? name : name.Replace(".save", "") + "." + DC_NetworkManager.s_UserToken + ".save";
-            string uploadPath = bPrivate ? "https://www.dorsetcreative.co.uk/Maestro/Upload.php" : "https://www.dorsetcreative.co.uk/Maestro/UploadPublic.php";
-
             // Create a Web Form
             WWWForm form = new WWWForm();
 
-            form.AddField("action", "upload");
+            // Take away "save" at the end of the filename, add users unique ID then append ".save" to the end
+            char[] trim = { 's', 'a', 'v', 'e' };
+            string serverFileName = name.TrimEnd(trim) + DC_NetworkManager.s_UserUniqueID + ".save";
 
-            form.AddField("file", fileName);
+            // Send file (RoomName.UniqueUserID.save)
+            form.AddBinaryData("file", File.ReadAllBytes(filepath), serverFileName);
 
-            form.AddBinaryData("file", File.ReadAllBytes(filepath), fileName, "binary/save");
+            // Send type (Public of Private)
+            form.AddField("type", bPrivate ? "private" : "public");
 
-            // Send to server
-            UnityWebRequest uwr = UnityWebRequest.Post(uploadPath, form);
+            // Send to server (https://mymuseum.dorsetcreative.tech/api/uploadRoom)
+            UnityWebRequest uwr = UnityWebRequest.Post(DC_NetworkManager._URIPrefix + DC_NetworkManager._APIUploadRoom, form);
 
             // Set request header using unique token provided by deep-link
             uwr.SetRequestHeader("Authorization", "Bearer " + DC_NetworkManager.s_UserToken);
 
             yield return uwr.SendWebRequest();
 
-            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
+            if (uwr.result != UnityWebRequest.Result.Success)
             {
                 Debug.Log(uwr.error);
             }
             else
             {
                 Debug.Log(uwr.result.ToString());
+
+                // Now the file is uploaded, get the uniqueFileID for this file, that was generated on the website 
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(new StringReader(uwr.downloadHandler.text));
+                XmlNode fileIDNode = xmlDoc.SelectSingleNode("//response/room_id");
+                string uniqueFileID = fileIDNode.InnerText;
+
+                string newFilepath = filepath.TrimEnd(trim) + DC_NetworkManager.s_UserUniqueID + "." + uniqueFileID + ".save";
+
+                // Then rename the local file to include this information
+                File.Move(filepath, newFilepath);
+
+                // And update your saves list
+                // Refresh the list in the current menu
+                if (!FindObjectOfType<UI_MenuController>())
+                    FindObjectOfType<UI_StartMenu>().MenuSetup();
+                else
+                    FindObjectOfType<UI_MenuController>().MenuSetup();
             }
         }
     }
 
+
+    private string m_RoomID;
     public void DeleteRoom(string name)
     {
         //Get the full file path
@@ -206,10 +229,69 @@ public class SaveLoadRoom : MonoBehaviour
         {
             File.Delete(filepath);
             savesList.Remove(name);
+
+            // If you are the creator and this save was from the web, you can also delete this file from the server
+            // Warning, doing so will completely erase this room and will not be recoverable
+
+            // A room previously downloaded includes a unique identifier, recieved as part of the upload room or download room list
+            // Local saves are therefore called RoomName.UserID.UniqueID.save
+            string[] stringParts = name.Split('.');
+
+            // If there are more than 2 parts to the name separated by '.' then it is a file that exists on the server
+            if(stringParts.Length > 2)
+            {
+                // Extract the 2nd part to see if the user ID's match
+                if(DC_NetworkManager.s_UserUniqueID.Equals(stringParts[1]))
+                {
+                    // Store the room ID
+                    m_RoomID = stringParts[2];
+
+                    // Ask the user if they want to delete the file on the server
+                    if (_DeleteFromServerPopup)
+                        _DeleteFromServerPopup.SetActive(true);
+                }
+                else
+                {
+                    // They don't match so this user can't delete the file on the server anyways
+                }
+            }
         }
         else
         {
             Debug.LogError("Save file not found");
+        }
+    }
+
+    /// <summary>
+    /// If the file was made by you and you have said you also want to delete the file on the server then this is called
+    /// </summary>
+    public void DeleteFileFromServer()
+    {
+        StartCoroutine(DeleteFromServer());
+    }
+    private IEnumerator DeleteFromServer()
+    {
+        // Create a Web Form
+        WWWForm form = new WWWForm();
+
+        // Send room ID
+        form.AddField("room_id", m_RoomID);
+
+        // Send to server (https://mymuseum.dorsetcreative.tech/api/deleteRoom)
+        UnityWebRequest uwr = UnityWebRequest.Post(DC_NetworkManager._URIPrefix + DC_NetworkManager._APIDeleteRoom, form);
+
+        // Set request header using unique token provided by deep-link
+        uwr.SetRequestHeader("Authorization", "Bearer " + DC_NetworkManager.s_UserToken);
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(uwr.error);
+        }
+        else
+        {
+            Debug.Log(uwr.result.ToString());
         }
     }
 

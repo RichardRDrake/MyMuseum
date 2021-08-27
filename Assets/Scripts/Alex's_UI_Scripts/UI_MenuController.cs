@@ -32,6 +32,7 @@ public class UI_MenuController : MonoBehaviour
     //Menu options window
     [SerializeField] private GameObject Options;
 
+
     [SerializeField] private DC_EditorCamera cam;
     #endregion
 
@@ -786,8 +787,9 @@ public class UI_MenuController : MonoBehaviour
                     //Debug.Log(SaveTitle1);
                     //Debug.Log(saveTexts);
                     //Debug.Log(saveTexts[0]);
-                    saveTexts[i].text = Saves.savesList[((pageCurrent - 1) * 3) + i];
-                    saveDates[i].text = Saves.GetDate(saveTexts[i].text);
+                    // RD EDIT: Only show room name not all the other parts of the save filename
+                    saveTexts[i].text = Saves.savesList[((pageCurrent - 1) * 3) + i].Split('.')[0];
+                    saveDates[i].text = Saves.GetDate(Saves.savesList[((pageCurrent - 1) * 3) + i]);
                     saveNews[i].text = " ";
                 }
                 paneCurrent = 0;
@@ -813,8 +815,9 @@ public class UI_MenuController : MonoBehaviour
                     //Debug.Log(SaveTitle1);
                     //Debug.Log(saveTexts);
                     //Debug.Log(saveTexts[0]);
-                    saveTexts[i].text = Saves.savesList[((pageCurrent - 1) * 3) + i];
-                    saveDates[i].text = Saves.GetDate(saveTexts[i].text);
+                    // RD EDIT: Only show room name not all the other parts of the save filename
+                    saveTexts[i].text = Saves.savesList[((pageCurrent - 1) * 3) + i].Split('.')[0];
+                    saveDates[i].text = Saves.GetDate(Saves.savesList[((pageCurrent - 1) * 3) + i]);
                     saveNews[i].text = " ";
                 }
                 paneCurrent = 0;

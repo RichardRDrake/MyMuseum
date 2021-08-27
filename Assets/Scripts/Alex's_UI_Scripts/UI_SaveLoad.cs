@@ -26,6 +26,8 @@ public class UI_SaveLoad : MonoBehaviour
 
     // Where to download the save file from the server
     private string m_DownloadURL;
+    private string m_UniqueWebIdentifier;
+    private string m_CreatorID;
 
     // The DC_RoomListPanel is just an empty class used to quickly find the one instance of this in the project
     // The panel that contains the lists of rooms should have this component
@@ -93,14 +95,19 @@ public class UI_SaveLoad : MonoBehaviour
     /// <param name="creator"></param>
     /// <param name="dateModified"></param>
     /// <param name="downloadURL"></param>
-    public void AssignDetails(string filename, string creator, string dateModified, string downloadURL)
+    public void AssignDetails(DC_NetworkManager.RoomDetails details)
     {
-        _FileName.text = filename;
-        _Creator.text = creator;
-        _DateModified.text = dateModified;
+        _FileName.text = details._Name;
+        _Creator.text = "Created By: " + details._Creator;
+        _DateModified.text = details._LastModified.ToString();
 
         // Where to download the room from
-        m_DownloadURL = downloadURL;
+        m_DownloadURL = details._SaveFileLocation;
+
+        // Unique ID - In order to delete the file from the server if you are the creator
+        m_UniqueWebIdentifier = details._ID;
+
+        m_CreatorID = details._CreatorID;
     }
 
     /// <summary>
@@ -140,8 +147,9 @@ public class UI_SaveLoad : MonoBehaviour
                 // Make the room locally
                 m_SaveLoadRoomController.MakeRoom(DC_Downloader.DownloadedRoomFile.roomString, DC_Downloader.DownloadedRoomFile.Assets, false);
 
-                // Save it locally
-                m_SaveLoadRoomController.Save(_FileName.text);
+                // Save it locally [Because from the web: filename should include some extra parameters for identification]
+                // RoomName.UserID
+                m_SaveLoadRoomController.Save(_FileName.text + "." + m_CreatorID + "." + m_UniqueWebIdentifier);
 
                 // Refresh the list in the current menu
                 if (!mainMenuController)

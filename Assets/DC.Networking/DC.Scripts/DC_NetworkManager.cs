@@ -27,15 +27,20 @@ public class DC_NetworkManager : MonoBehaviour
 
     [Header("Found DeepLink Data")]
     [Tooltip("User Authentication Token")]
-    public static string s_UserToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbXltdXNldW0uZG9yc2V0Y3JlYXRpdmUudGVjaFwvZ2VuZXJhdGUtand0LXRva2VuIiwiaWF0IjoxNjI5ODA4OTg5LCJleHAiOjE2Mjk4MTI1ODksIm5iZiI6MTYyOTgwODk4OSwianRpIjoiV0J6cnhCSW1WdXFSNEFZeiIsInN1YiI6NCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.ps0XVqDqBH2xBUccOlQGgIMvFR4AVt5sJI_Y4JmHWa0";
+    public static string s_UserToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbXltdXNldW0uZG9yc2V0Y3JlYXRpdmUudGVjaFwvZ2VuZXJhdGUtand0LXRva2VuIiwiaWF0IjoxNjI5OTgxNzk3LCJleHAiOjE2MzA1ODY1OTcsIm5iZiI6MTYyOTk4MTc5NywianRpIjoiaDJKbXdDYVp4NTFYMlFobiIsInN1YiI6NCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.O--HaDEiu2IQnYywOuhi-m-AQD-J7BI794wqHW9Jzyo";
 
     [Header("APIs")]
-    public string _URIPrefix = "https://mymuseum.dorsetcreative.tech/api/";
-    public string _APIGetUserProfile = "getUserProfile";
-    public string _APIGetPublicRoomList = "getPublicRooms";
-    public string _APIGetPrivateRoomList = "getPrivateRooms";
-    public string _APIUploadPublicRoom = "upload/public";
-    public string _APIUploadPrivateRoom = "upload/private";
+    public static string _URIPrefix = "https://mymuseum.dorsetcreative.tech/api/";
+    public static string _URIPrefixRooms = "https://mymuseum.dorsetcreative.tech/storage/rooms/";
+    public static string _APIGetUserProfile = "getUserProfile";
+    public static string _APIGetPublicRoomList = "getPublicRooms";
+    public static string _APIGetPrivateRoomList = "getPrivateRooms";
+    public static string _APIUploadRoom = "uploadRoom";
+    public static string _APIDeleteRoom = "deleteRoom";
+
+    [Header("User Profile Data")]
+    public static string s_UserName = "";
+    public static string s_UserUniqueID = "";
 
     [Header("Save/Load Button List")]
     [Tooltip("Save/Load button prefab (Instantiated under expandable content fitter)")]
@@ -51,8 +56,10 @@ public class DC_NetworkManager : MonoBehaviour
     [Serializable]
     public class RoomDetails
     {
+        public string _ID;
         public string _Name;
         public string _Creator;
+        public string _CreatorID;
         public DateTime _LastModified;
         public string _SaveFileLocation;
     }
@@ -133,8 +140,6 @@ public class DC_NetworkManager : MonoBehaviour
             }
         }
 
-        // Test
-        //UpdateRoomLists();
         UpdateUserProfile();
     }
 
@@ -177,8 +182,11 @@ public class DC_NetworkManager : MonoBehaviour
             XmlNode nameNode = xmlDoc.SelectSingleNode("//response/user/name");
             XmlNode idNode = xmlDoc.SelectSingleNode("//response/user/id");
 
+            s_UserName = nameNode.InnerText;
+            s_UserUniqueID = idNode.InnerText;
+
             if (_LoginText)
-                _LoginText.text = "Username: " + nameNode.InnerText + " / ID: " + idNode.InnerText; 
+                _LoginText.text = "Username: " + s_UserName + " / ID: " + s_UserUniqueID; 
         }
     }
 
@@ -189,7 +197,10 @@ public class DC_NetworkManager : MonoBehaviour
 
     private IEnumerator DownloadRoomLists()
     {
-        for (int I = 0; I < 1; I++)
+        _PrivateRooms.Clear();
+        _PublicRooms.Clear();
+
+        for (int I = 0; I < 2; I++)
         {
             Uri URI;
 
@@ -239,7 +250,7 @@ public class DC_NetworkManager : MonoBehaviour
 
         xmlDoc.Load(new StringReader(xmlData));
 
-        string xmlPathPattern = "//Rooms/Room";
+        string xmlPathPattern = "//response/rooms/room";
 
         XmlNodeList myNodeList = xmlDoc.SelectNodes(xmlPathPattern);
 
@@ -247,11 +258,13 @@ public class DC_NetworkManager : MonoBehaviour
 
         foreach (XmlNode node in myNodeList)
         {
-            XmlNode dateNode = node.FirstChild;
-            XmlNode uriNode = dateNode.NextSibling;
+            XmlNode idNode = node.FirstChild;
+            XmlNode uriNode = idNode.NextSibling;
+            XmlNode dateNode = uriNode.NextSibling;
+            XmlNode nameNode = dateNode.NextSibling;
 
             RoomDetails room = new RoomDetails();
-            room._LastModified = DateTime.ParseExact(dateNode.InnerXml, "yyyy:MM:dd:HH:mm:ss", provider);
+            room._LastModified = DateTime.ParseExact(dateNode.InnerXml, "yyyy-MM-dd HH:mm:ss", provider);
 
             string roomFullPath = uriNode.InnerXml;
 
@@ -264,11 +277,17 @@ public class DC_NetworkManager : MonoBehaviour
             // Room name is first part
             room._Name = stringParts_L2[0];
 
-            // Creator is second part
-            room._Creator = stringParts_L2[1];
+            // Creator is in the xml file
+            room._Creator = bPrivate? s_UserName : nameNode.InnerXml;
+
+            // Creator ID is part of the save file
+            room._CreatorID = stringParts_L2[1];
 
             // URI (The path used to download the file is the full path
-            room._SaveFileLocation = roomFullPath;
+            room._SaveFileLocation = _URIPrefixRooms + roomFullPath;
+
+            // Unique ID of room on server (So it can be deleted)
+            room._ID = idNode.InnerXml;
 
             // If loading a private list add to Private Rooms
             if (bPrivate)
@@ -285,20 +304,37 @@ public class DC_NetworkManager : MonoBehaviour
     /// </summary>
     private void RoomListsDownloaded()
     {
+        // Remove all content from before (if there is any)
+        foreach(Transform buttonObject in _PrivateRoomListContentTransform.GetComponentsInChildren<Transform>())
+        {
+            if(buttonObject != _PrivateRoomListContentTransform)
+            {
+                Destroy(buttonObject.gameObject);
+            }
+        }
+
+        foreach (Transform buttonObject in _PublicRoomListContentTransform.GetComponentsInChildren<Transform>())
+        {
+            if (buttonObject != _PublicRoomListContentTransform)
+            {
+                Destroy(buttonObject.gameObject);
+            }
+        }
+
         // Populate the UI content field with each room found on the server
 
         // Private list
-        foreach(RoomDetails roomDetails in _PrivateRooms)
+        foreach (RoomDetails roomDetails in _PrivateRooms)
         {
             UI_SaveLoad saveLoadButton = Instantiate(_SaveLoadButtonPrefab, _PrivateRoomListContentTransform, false);
-            saveLoadButton.AssignDetails(roomDetails._Name, roomDetails._Creator, roomDetails._LastModified.ToString(), roomDetails._SaveFileLocation);
+            saveLoadButton.AssignDetails(roomDetails);
         }
 
         // Public list
         foreach (RoomDetails roomDetails in _PublicRooms)
         {
             UI_SaveLoad saveLoadButton = Instantiate(_SaveLoadButtonPrefab, _PublicRoomListContentTransform, false);
-            saveLoadButton.AssignDetails(roomDetails._Name, roomDetails._Creator, roomDetails._LastModified.ToString(), roomDetails._SaveFileLocation);
+            saveLoadButton.AssignDetails(roomDetails);
         }
 
         // Open the room list panel

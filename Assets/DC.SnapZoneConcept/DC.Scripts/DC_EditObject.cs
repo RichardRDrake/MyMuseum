@@ -183,15 +183,13 @@ public class DC_EditObject : MonoBehaviour
             menuItem.SetActive(false);
     }
 
-    public void SetAssetList(string folderName)
+    public void SetAssetList()
     {
         if (menuItem.GetComponent<TempListScript>())
         {
-           
-            //menuItem.GetComponent<TempListScript>().GetObjectList(folderName);
-            readFrom = menuItem.GetComponent<TempListScript>().GetTextureList(folderName);
+            readFrom = menuItem.GetComponent<TempListScript>().GetList(ArtefactCategory.FineArt);
             listLength = readFrom.Count + 1;
-            //Debug.Log(listLength);
+            Debug.Log(listLength);
             pageCount = listLength / 4;
             if (listLength % 4 > 0)
             {

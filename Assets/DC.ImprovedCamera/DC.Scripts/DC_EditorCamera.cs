@@ -203,7 +203,7 @@ public class DC_EditorCamera : MonoBehaviour
                     m_CurrentEulerAngles += new Vector3(m_MouseOffset.y * (_InvertedPitch ? -1 : 1), m_MouseOffset.x * (_InvertedRotation ? -1 : 1), 0.0f) * _RotationalSensitivity;
 
                     // Clamp X rotation by _MinMaxPitch
-                    if (_SwitchingToPerspective)
+                    if (!_SwitchingToPerspective)
                     {
                         if (m_CurrentEulerAngles.x <= _MinMaxPitch.x)
                             m_CurrentEulerAngles.x = _MinMaxPitch.x;

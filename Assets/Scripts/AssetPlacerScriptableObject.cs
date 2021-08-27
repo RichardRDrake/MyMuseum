@@ -20,7 +20,7 @@ public class AssetPlacerScriptableObject : ScriptableObject
 
     [SerializeField] ArtefactPlacementType PlacementType = ArtefactPlacementType.Misc; //Overriden in Inspector
 
-    [SerializeField] ArtefactCategory CategoryType; //Overriden in Inspector
+    [SerializeField] public ArtefactCategory CategoryType; //Overriden in Inspector
 
     private GameObject SnapeZone = null;
 
