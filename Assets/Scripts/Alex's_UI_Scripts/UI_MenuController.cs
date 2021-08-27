@@ -911,7 +911,7 @@ public class UI_MenuController : MonoBehaviour
             }
             if (saveFileSelected < listLength)
             {
-                Saves.Load(saveTexts[paneCurrent - 1].text);
+                Saves.Load(Saves.savesList[paneCurrent - 1]);
                 lastSaved = (paneCurrent - 1) + (pageCurrent - 1) * 3;
                 DisableSubmenus();
                 Confirm.SetActive(false);
@@ -921,6 +921,18 @@ public class UI_MenuController : MonoBehaviour
             saveLoadIdentity = 0;
         }
     }
+
+    public void ReplaceSave(string original, string newString)
+    {
+        string found = Saves.savesList.Find(x => x.Contains(original));
+
+        if (found != null)
+        {
+            Saves.savesList.Remove(original);
+            Saves.savesList.Add(newString);
+        }
+    }
+
 
     public void QuitGame()
     {

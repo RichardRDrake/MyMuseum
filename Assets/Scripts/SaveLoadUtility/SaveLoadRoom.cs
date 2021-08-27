@@ -222,12 +222,20 @@ public class SaveLoadRoom : MonoBehaviour
                 // Then rename the local file to include this information
                 File.Move(filepath, Application.persistentDataPath + "/" + newFilepath);
 
-                // And update your saves list
-                // Refresh the list in the current menu
-                if (!FindObjectOfType<UI_MenuController>())
-                    FindObjectOfType<UI_StartMenu>().MenuSetup();
+                // Find and replace list
+                UI_MenuController menuController = FindObjectOfType<UI_MenuController>();
+                UI_StartMenu startMenuController = FindObjectOfType<UI_StartMenu>();
+
+                if(!menuController)
+                {
+                    startMenuController.ReplaceSave(name, newFilepath);
+                    startMenuController.MenuSetup();
+                }
                 else
-                    FindObjectOfType<UI_MenuController>().MenuSetup();
+                {
+                    menuController.ReplaceSave(name, newFilepath);
+                    menuController.MenuSetup();
+                }
             }
         }
     }

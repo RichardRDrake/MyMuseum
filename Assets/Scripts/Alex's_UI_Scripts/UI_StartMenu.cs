@@ -1085,6 +1085,17 @@ public class UI_StartMenu : MonoBehaviour
         saves.UploadRoom(uploadFilename, false);
     }
 
+    public void ReplaceSave(string original, string newString)
+    {
+        string found = saves.savesList.Find(x => x.Contains(original));
+
+        if(found != null)
+        {
+            saves.savesList.Remove(original);
+            saves.savesList.Add(newString);
+        }
+    }
+
     #endregion
 
     #region Catalogue voids
