@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ValidLayers:
     serializedVersion: 2
-    m_Bits: 2147483648
+    m_Bits: 3858759680
 --- !u!135 &317991556918114785
 SphereCollider:
   m_ObjectHideFlags: 0
