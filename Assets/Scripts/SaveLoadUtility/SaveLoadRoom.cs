@@ -271,31 +271,27 @@ public class SaveLoadRoom : MonoBehaviour
     }
     private IEnumerator DeleteFromServer()
     {
-        string filepath = Application.persistentDataPath + "/" + name;
-        if (File.Exists(filepath))
+        // Create a Web Form
+        WWWForm form = new WWWForm();
+
+        // Send room ID
+        form.AddField("room_id", m_RoomID);
+
+        // Send to server (https://mymuseum.dorsetcreative.tech/api/deleteRoom)
+        UnityWebRequest uwr = UnityWebRequest.Post(DC_NetworkManager._URIPrefix + DC_NetworkManager._APIDeleteRoom, form);
+
+        // Set request header using unique token provided by deep-link
+        uwr.SetRequestHeader("Authorization", "Bearer " + DC_NetworkManager.s_UserToken);
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result != UnityWebRequest.Result.Success)
         {
-            // Create a Web Form
-            WWWForm form = new WWWForm();
-
-            // Send room ID
-            form.AddField("uniqueID", m_RoomID);
-
-            // Send to server (https://mymuseum.dorsetcreative.tech/api/deleteRoom)
-            UnityWebRequest uwr = UnityWebRequest.Post(DC_NetworkManager._URIPrefix + DC_NetworkManager._APIDeleteRoom, form);
-
-            // Set request header using unique token provided by deep-link
-            uwr.SetRequestHeader("Authorization", "Bearer " + DC_NetworkManager.s_UserToken);
-
-            yield return uwr.SendWebRequest();
-
-            if (uwr.result != UnityWebRequest.Result.Success)
-            {
-                Debug.Log(uwr.error);
-            }
-            else
-            {
-                Debug.Log(uwr.result.ToString());
-            }
+            Debug.Log(uwr.error);
+        }
+        else
+        {
+            Debug.Log(uwr.result.ToString());
         }
     }
 

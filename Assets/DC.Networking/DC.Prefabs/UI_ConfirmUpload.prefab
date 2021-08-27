@@ -151,7 +151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5018725246922720201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4c28559d38f883a4eaaa78888ceb004b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d971da8a65e416e4c99827f7fb533453, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8d856712d1ac4054c85da01f2752ba29, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0334f072dfff57545ae93575ef32d9eb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -712,8 +712,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293972403
-  m_fontColor: {r: 0.7019608, g: 0.81960785, b: 0.9411765, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -975,7 +975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8d856712d1ac4054c85da01f2752ba29, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be6bc19e449c5804b83458425dc513bb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

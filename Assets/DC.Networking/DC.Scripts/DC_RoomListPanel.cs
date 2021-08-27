@@ -4,5 +4,11 @@ using UnityEngine;
 
 public class DC_RoomListPanel : MonoBehaviour
 {
-    // Empty, just to easily find this object
+    private void OnEnable()
+    {
+        DC_NetworkManager manager = FindObjectOfType<DC_NetworkManager>();
+
+        if (manager)
+            manager.UpdateRoomLists();
+    }
 }

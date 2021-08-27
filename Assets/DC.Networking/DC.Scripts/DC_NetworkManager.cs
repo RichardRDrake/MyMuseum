@@ -140,10 +140,7 @@ public class DC_NetworkManager : MonoBehaviour
             }
         }
 
-        // Test
-        
         UpdateUserProfile();
-        UpdateRoomLists();
     }
 
     private void Update()
@@ -200,6 +197,9 @@ public class DC_NetworkManager : MonoBehaviour
 
     private IEnumerator DownloadRoomLists()
     {
+        _PrivateRooms.Clear();
+        _PublicRooms.Clear();
+
         for (int I = 0; I < 2; I++)
         {
             Uri URI;
@@ -304,10 +304,27 @@ public class DC_NetworkManager : MonoBehaviour
     /// </summary>
     private void RoomListsDownloaded()
     {
+        // Remove all content from before (if there is any)
+        foreach(Transform buttonObject in _PrivateRoomListContentTransform.GetComponentsInChildren<Transform>())
+        {
+            if(buttonObject != _PrivateRoomListContentTransform)
+            {
+                Destroy(buttonObject.gameObject);
+            }
+        }
+
+        foreach (Transform buttonObject in _PublicRoomListContentTransform.GetComponentsInChildren<Transform>())
+        {
+            if (buttonObject != _PublicRoomListContentTransform)
+            {
+                Destroy(buttonObject.gameObject);
+            }
+        }
+
         // Populate the UI content field with each room found on the server
 
         // Private list
-        foreach(RoomDetails roomDetails in _PrivateRooms)
+        foreach (RoomDetails roomDetails in _PrivateRooms)
         {
             UI_SaveLoad saveLoadButton = Instantiate(_SaveLoadButtonPrefab, _PrivateRoomListContentTransform, false);
             saveLoadButton.AssignDetails(roomDetails);
