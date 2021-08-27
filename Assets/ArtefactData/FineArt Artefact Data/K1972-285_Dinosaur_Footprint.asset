@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: K1972-285_Dinosaur_Footprint
+  m_EditorClassIdentifier: 
+  ArtefactName: Dinosaur Footprint
+  ArtefactContent: 'This fossilised footprint was made by a theropod dinosaur about
+    200 million years ago. It is preserved in Jurassic age rocks from North America.
+    The theropods were large two-legged carnivores. Its scientific name, Eubrontes
+    means "true thunder". The specimen was brought to Scotland by Captain Anderson
+    and donated to the Marshall Museum, Kinross. This museum closed in 1996. The
+    specimen was collected in the Connecticut River Valley in 1860. The Connecticut
+    Valley is a world famous site for dinosaur tracks. Fossil footprints were first
+    discovered there in the early nineteenth century. When first discovered these
+    fossils were thought to be the footprints of giant birds. '
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.688, y: 1.024}
+  PreviewImages:
+  - {fileID: 2800000, guid: e34be6c384919dd42b1a66c879eb071f, type: 3}
+  PlacementType: 2
+  CategoryType: 7

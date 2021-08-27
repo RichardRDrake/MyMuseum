@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_2010-208_Children_Playing
+  m_EditorClassIdentifier: 
+  ArtefactName: Children Playing (recto)/The Fireplace (verso)
+  ArtefactContent: "Eardley, Kathleen Joan, 1955. Oil on canvas, Eardley was born
+    in Sussex in 1921. She moved to Scotland with her family in 1939 and they settled
+    in the Glasgow suburb of Bearsden the following year. At the same time, Eardley
+    began studying at Glasgow School of Art, where she was taught by Hugh Adam Crawford.
+    Eardley went on to study at Hospitalfield House's postgraduate art school under
+    James Cowie, who helped shape her preference for everyday subjects. In 1948 Eardley
+    completed a post diploma year at Glasgow School of Art. After travels in Italy
+    and France, she moved to Glasgow where she drew and painted the local street
+    children of Townhead. These works capture the last traces of a poverty stricken
+    area of one of Scotland\u2019s major cities. In 1954, while still living in Glasgow,
+    she spent much time in Catterline before moving there permanently in 1961. She
+    died in 1963 at the age of just 42."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.889, y: 0.711}
+  PreviewImages:
+  - {fileID: 2800000, guid: df3e571d023cf2147be19597326ad829, type: 3}
+  PlacementType: 2
+  CategoryType: 5

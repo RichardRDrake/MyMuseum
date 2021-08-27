@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1997-465_Carved_Stone_Ball
+  m_EditorClassIdentifier: 
+  ArtefactName: Carved stone ball
+  ArtefactContent: Late Neolithic, c.3200-2500 BC. Fine grained metamorphic ball,
+    grey, with 66 complete knobs and 3 unfinished ones. A third of the surface area
+    is plain with possible marking-out lines for further knobs.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.024, y: 0.744}
+  PreviewImages:
+  - {fileID: 2800000, guid: 345610a6a33169a4a81502b423ab13ac, type: 3}
+  PlacementType: 2
+  CategoryType: 0

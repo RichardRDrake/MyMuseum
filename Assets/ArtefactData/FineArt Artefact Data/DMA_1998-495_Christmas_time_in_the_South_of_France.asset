@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1998-495_Christmas_time_in_the_South_of_France
+  m_EditorClassIdentifier: 
+  ArtefactName: Christmas time in the South of France
+  ArtefactContent: Fergusson, John Duncan, Oil on canvas, 1922. During renovations
+    Fergusson and Morris were invited to spend Christmas with Davison in nearby Juan-les-Pins.
+    'Our room opened onto the garden with palm trees and the beach beyond and the
+    sound of the sea...Christmas dinner was on the terrace in the blazing sun'. The
+    painting is a record of this memorable visit.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.558, y: 0.61}
+  PreviewImages:
+  - {fileID: 2800000, guid: 19e625e12724fa94e94ea46e9a3e048e, type: 3}
+  PlacementType: 2
+  CategoryType: 5

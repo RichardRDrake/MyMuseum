@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: FA16-81_After_the_Storm_Loch_Tay
+  m_EditorClassIdentifier: 
+  ArtefactName: After the storm, Loch Tay
+  ArtefactContent: MacTaggart, William, Sir, Oil on board, c. 1932. William MacTaggart
+    was the grandson of the 19th century landscape painter of the same name. he was
+    born in Edinburgh and studied at art college there. Like the Colourists, he spent
+    long periods in the South of France. Reflecting the impact of their work, he
+    produced canvases such as this, with heavy paint and strong colour.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.016, y: 1.272}
+  PreviewImages:
+  - {fileID: 2800000, guid: 085234808d05ea64ebdf7637e613e341, type: 3}
+  PlacementType: 2
+  CategoryType: 5

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1997-665_Puppet_show_Modena
+  m_EditorClassIdentifier: 
+  ArtefactName: Puppet show, Modena
+  ArtefactContent: 'Colquhoun, Robert, Oil on canvas, 1951. Colquhoun was born in
+    Kilmarnock, Ayrshire. He met Robert MacBryde at Glasgow School of Art. The pair
+    became inextricably linked, garnering the name ''the Two Roberts''. A number
+    of travelling scholarships allowed them to study in Italy and France. After a
+    stint in the Royal Army Medical Corps in Edinburgh, he was invalided out and
+    the Roberts moved to London, where they became associated with the neo-Romantic
+    movement. Their experience of avant-garde French art meant their work was also
+    inspired by Picasso, Braque and Wyndham Lewis. In 1943 the Polish artist Jankel
+    Adler took a studio in their building and encouraged Colquhoun to paint from
+    imagination and experience as opposed to from a model. His work became more austere,
+    concentrating on the theme of the isolated, agonised figure. '
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.39, y: 0.445}
+  PreviewImages:
+  - {fileID: 2800000, guid: 0ced6a5c64664684196dada651694e17, type: 3}
+  PlacementType: 2
+  CategoryType: 5

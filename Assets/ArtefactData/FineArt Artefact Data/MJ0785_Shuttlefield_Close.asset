@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: MJ0785_Shuttlefield_Close
+  m_EditorClassIdentifier: 
+  ArtefactName: Shuttlefield Close
+  ArtefactContent: Jackson, Magnus, Photographer, Perth, 1831-1892, Wet Collodion
+    glass plate negative, 1877. This view shows partially demolished buildings in
+    Shuttlefield Close, Perth in the 1880's.  Men, women and children stand among
+    the ruins; two women are among the group standing between the roof timbers. 
+    As the name suggests, weavers lived in this area of Perth. Shuttlefield Close,
+    Perth, was demolished to make way for the building of Scott Street in 1877. 
+    Perth, like other cities, had slum areas.  In 1895-6 200 properties were demolished
+    or closed as unfit for human habitation.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.215, y: 0.165}
+  PreviewImages:
+  - {fileID: 2800000, guid: b2fcd1c7e590cb64f8d6a91fb47bae08, type: 3}
+  PlacementType: 2
+  CategoryType: 8

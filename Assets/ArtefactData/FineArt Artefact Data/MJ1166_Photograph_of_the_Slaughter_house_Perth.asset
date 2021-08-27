@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: MJ1166_Photograph_of_the_Slaughter_house_Perth
+  m_EditorClassIdentifier: 
+  ArtefactName: Photograph of the Slaughter House, Perth
+  ArtefactContent: Jackson, Magnus, Wet Collodion glass plate negative, c1860-1890.
+    A scene inside the Slaughter House, Shore Road, Perth, during the second half
+    of the 19th century. Magnus Jackson (senior) was active as a wet plate photographer
+    in Perth, Scotland From the late 1850s until shortly before his death in 1891.
+    His two sons and one daughter had also been instructed in the business which
+    continued to be run, primarily by his son, Magnus Jackson junior, until 1897.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.215, y: 0.165}
+  PreviewImages:
+  - {fileID: 2800000, guid: d2fa80a16250a644aa64722cba41fbca, type: 3}
+  PlacementType: 2
+  CategoryType: 8

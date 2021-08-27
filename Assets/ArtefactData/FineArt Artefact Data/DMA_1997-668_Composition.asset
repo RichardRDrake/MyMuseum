@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1997-668_Composition
+  m_EditorClassIdentifier: 
+  ArtefactName: Composition
+  ArtefactContent: Gear, William, Oil and gouache on card, 1949. Gear was born in
+    Methil, Fife, and attended Edinburgh College of Art. Between 1937 and 1938 he
+    studied for a brief time under Fernand Leger in Paris, though the War interrupted
+    this experience. From 1947-1950 he lived in Paris and became affiliated to the
+    COBRA movement, an informal grouping of artists from the northern countries.
+    Their work became known for its spontaneous, rebellious style, influenced by
+    Primitivism and the work of children. His works, such as this, of the late 1940s
+    and early 1950s are marked by direct handling and jagged drawing. Although seemingly
+    abstract, there are hints in them of the shapes of trees and other forms of nature.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.625, y: 0.51}
+  PreviewImages:
+  - {fileID: 2800000, guid: 731a0ab8a2a716840b458a30a3300205, type: 3}
+  PlacementType: 2
+  CategoryType: 5

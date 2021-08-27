@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: PPNN1058_Miss_Georgina_Ballantine_and_the_Record_Rod_Caught_Salmon
+  m_EditorClassIdentifier: 
+  ArtefactName: Miss Georgina Ballantine and the Record Rod Caught Salmon
+  ArtefactContent: Raeburn Photographic Studio, Perth, silver gelatin print, c. 1922.
+    On 7th October 1922, Georgina Ballantine entered the record books. Fishing from
+    a boat on the Glendelvine stretch of the River Tay in Perthshire she cast her
+    spinning tackle into the water. She hooked a large and powerful salmon and her
+    angling skills were tested in the two hours that it took to land the fish. The
+    salmon weighed 64 pounds. To this day her salmon still stands as the British
+    rod-caught record for the species, as well as being the largest freshwater fish
+    ever landed by an angler in the British Isles. This photograph of Miss Ballantine
+    and her record breaking fish was taken at the Raeburn Photographic Studio in
+    Perth a few days after the capture.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.165, y: 0.215}
+  PreviewImages:
+  - {fileID: 2800000, guid: 4325bf6690b4a8646bc1177043463eeb, type: 3}
+  PlacementType: 2
+  CategoryType: 8

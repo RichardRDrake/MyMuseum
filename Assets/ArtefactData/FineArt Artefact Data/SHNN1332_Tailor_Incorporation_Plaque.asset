@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: SHNN1332_Tailor_Incorporation_Plaque
+  m_EditorClassIdentifier: 
+  ArtefactName: Tailor Incorporation Plaque
+  ArtefactContent: Wooden sign or plaque related to the Tailor Incorporation. Featuring
+    a pair of scissors below an inverse fleur-de-lys on a heraldic shield flanked
+    by the date 16/31. Banner text below the 3 floral devices reads; GOD BLIS OUR
+    KNG.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.797, y: 1.024}
+  PreviewImages:
+  - {fileID: 2800000, guid: d6d2f37daa0985e4aac38028d6ae2482, type: 3}
+  PlacementType: 2
+  CategoryType: 9

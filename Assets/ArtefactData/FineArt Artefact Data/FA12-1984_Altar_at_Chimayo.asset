@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: FA12-1984_Altar_at_Chimayo
+  m_EditorClassIdentifier: 
+  ArtefactName: Altar at Chimayo
+  ArtefactContent: Philipson, Robin, Oil on canvas, 1968. Philipson was born in Cumbria
+    in 1916. Soon after graduating, he was conscripted into the King's Own Scottish
+    Borderers and served in India, Burma and Singapore. In 1947, he joined the staff
+    at Edinburgh College of Art, where he remained until he retired in 1982. Alongside
+    William Gillies, John Maxwell, William MacTaggart and Anne Redpath, Philipson
+    was amongst the most prominent and expressionist members of the so-called Edinburgh
+    School. Philipson often engaged in certain themes over a number of years and
+    Mexican altars became a favoured subject matter.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.911, y: 1.219}
+  PreviewImages:
+  - {fileID: 2800000, guid: 7f0ef86c064073142b676e9992bbc888, type: 3}
+  PlacementType: 2
+  CategoryType: 5

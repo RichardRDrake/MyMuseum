@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1992-825_Portrait_of_a_young_woman_in_a_summer_bonnet
+  m_EditorClassIdentifier: 
+  ArtefactName: Portrait of a young woman in a summer bonnet
+  ArtefactContent: "MacNicol, Bessie, Oil on canvas, 1898. Bessie MacNicol was born
+    in Glasgow in 1869 and attended Glasgow School of Art between 1887 and 1892. 
+    She later studied art in Paris at the Acad\xE9mie Colarossi and in 1893 she exhibited
+    at the Royal Academy. After returning to Glasgow, she moved back into the family
+    home.  In 1896, she spent time in the artist\u2019s colony in Kirkcudbright. 
+    While there, she painted the portrait of E. A. Hornel, whose influence can be
+    seen in this painting, which may be a self-portrait."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.401, y: 0.511}
+  PreviewImages:
+  - {fileID: 2800000, guid: a330bdafb24eb0b4e81b8fbbb1846464, type: 3}
+  PlacementType: 2
+  CategoryType: 5
