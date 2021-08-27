@@ -178,7 +178,16 @@ public class SaveLoadRoom : MonoBehaviour
 
             // Take away "save" at the end of the filename, add users unique ID then append ".save" to the end
             char[] trim = { 's', 'a', 'v', 'e' };
-            string serverFileName = name.TrimEnd(trim) + DC_NetworkManager.s_UserUniqueID + ".save";
+            string serverFileName = name;
+            string[] stringParts_L1 = name.Split('.');
+
+            // If the format is RoomName.save change to RoomName.UserID.save
+            // If the format is RoomName.UserID.FileID.save, change to RoomName.UserID.save
+            if (stringParts_L1.Length == 2 || stringParts_L1.Length == 4)
+            {
+                serverFileName = stringParts_L1[0] + "." + DC_NetworkManager.s_UserUniqueID + ".save";
+            }
+            // Otherwise leave as is (Though it should never be RoomName.UserID.save locally)
 
             // Send file (RoomName.UniqueUserID.save)
             form.AddBinaryData("file", File.ReadAllBytes(filepath), serverFileName);
@@ -208,10 +217,10 @@ public class SaveLoadRoom : MonoBehaviour
                 XmlNode fileIDNode = xmlDoc.SelectSingleNode("//response/room_id");
                 string uniqueFileID = fileIDNode.InnerText;
 
-                string newFilepath = filepath.TrimEnd(trim) + DC_NetworkManager.s_UserUniqueID + "." + uniqueFileID + ".save";
+                string newFilepath = serverFileName.TrimEnd(trim) + uniqueFileID + ".save";
 
                 // Then rename the local file to include this information
-                File.Move(filepath, newFilepath);
+                File.Move(filepath, Application.persistentDataPath + "/" + newFilepath);
 
                 // And update your saves list
                 // Refresh the list in the current menu

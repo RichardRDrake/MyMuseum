@@ -21,7 +21,7 @@ public class UI_InfoHover : MonoBehaviour
         {
             Debug.Log("Could not find UI Highlight");
         }
-        ui_StartMenu = Canvas.GetComponent<UI_StartMenu>();
+        ui_StartMenu = FindObjectOfType<UI_StartMenu>();
     }
 
     // Update is called once per frame
