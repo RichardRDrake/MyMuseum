@@ -22,11 +22,7 @@ public class TempListScript : MonoBehaviour
     }
     public List<AssetPlacerScriptableObject> GetList(ArtefactCategory folderName)
     {
-        if (readFrom.Count > 0)
-            readFrom.Clear();
-       
-
-        AssetPlacerScriptableObject[] textureList = (AssetPlacerScriptableObject[])Resources.FindObjectsOfTypeAll(typeof(AssetPlacerScriptableObject));
+        Object[] textureList = Resources.LoadAll("FineArt", typeof(AssetPlacerScriptableObject));
 
         List<AssetPlacerScriptableObject> list = new List<AssetPlacerScriptableObject>();
 

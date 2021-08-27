@@ -78,6 +78,8 @@ public class DC_ModelViewer : MonoBehaviour
 
     // Shader Property ID got at the beginning for much quicker access
     private int m_BlurRadiusShaderID;
+    private float oldAnchorY;
+    private float AnchorOffset;
 
     #endregion
 
@@ -93,6 +95,8 @@ public class DC_ModelViewer : MonoBehaviour
 
         if (_BackgroundImage)
             m_BlurRadiusShaderID = Shader.PropertyToID("_AlphaStrength");
+
+        oldAnchorY = _3DModelAnchor.position.y;
     }    
 
     private void Update()
@@ -291,6 +295,17 @@ public class DC_ModelViewer : MonoBehaviour
         if (m_PreviewedModelCopy)
             Destroy(m_PreviewedModelCopy);
 
+        if(model.GetComponent<DC_PictureFraming>())
+        {
+            
+            AnchorOffset = model.GetComponent<Renderer>().bounds.extents.y;
+        }
+        else 
+        {
+            AnchorOffset = oldAnchorY;
+        }
+
+        _3DModelAnchor.position = new Vector3(_3DModelAnchor.position.x, AnchorOffset, _3DModelAnchor.position.z);
         // Make a copy of the gameobject and attach to the 3D Model Anchor
         m_PreviewedModelCopy = Instantiate(model, _3DModelAnchor, false);
 
