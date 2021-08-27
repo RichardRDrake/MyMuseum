@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: FA192-78_Christ_Displaying_his_Wound
+  m_EditorClassIdentifier: 
+  ArtefactName: Christ Displaying his Wounds
+  ArtefactContent: Galli, Giovanni Antonio (Lo Spadarino), Oil on canvas, c. 1620.
+    Three quarter length image of Christ; graphic chiaroscuro in typical style of
+    the Caravaggisti. The painting was gifted to the Perth Literary and Antiquarian
+    Society in 1861 by a local gentleman, William Macdonald of St Martins. Ruskin
+    is said to have disapproved of the painting's style and execution.The identity
+    of the artist has still to be established though it is probably the work of an
+    Italian rather than a Spanish artist. The painting is exceptional for the quality
+    of the treatment of the drapery and for the particular viewpoint which the artist
+    has adopted, involving the viewer directly with the risen Christ.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.99, y: 1.321}
+  PreviewImages:
+  - {fileID: 2800000, guid: c5d965051965bc64f91d590645895d94, type: 3}
+  PlacementType: 2
+  CategoryType: 5

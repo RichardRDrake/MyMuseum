@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: MJ3747_Banner_Hall
+  m_EditorClassIdentifier: 
+  ArtefactName: Banner Hall, Taymouth Castle
+  ArtefactContent: Jackson, Magnus, Photographer, Perth, 1831-1891, Wet Collodion
+    glass plate negative, c. 1860-1890. A photograph of the Banner Hall in Taymouth
+    Castle taken between 1860 and 1890.  The Banner Hall was built to link the main
+    castle block to the west pavilion and was designed by Gillespie Graham, between
+    1838 and 1842.  Queen Victoria visited Lord Breadalbane here in 1842, when the
+    interiors were completed by Frederick and J G Crace of London, including the
+    reproduction suits of armour. Taymouth Castle was built in 1806-10 by Archibald
+    and James Elliot for the 4th Earl of Breadalbane.  It was enlarged in 1818-21
+    and 1827-28 by William Atkinson and again in 1838-42 by James Gillespie Graham. 
+    Taymouth Castle succeeded Sir Colin Campbell's z-plan Balloch Castle built in
+    the 1580's.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.26, y: 0.311}
+  PreviewImages:
+  - {fileID: 2800000, guid: 92725da5c82eb8d4f979251d82942658, type: 3}
+  PlacementType: 2
+  CategoryType: 8

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: FA601-80_Chinese_Table_No1
+  m_EditorClassIdentifier: 
+  ArtefactName: Chinese Table No. 1
+  ArtefactContent: Blackadder, Elizabeth, 1979. Watercolour, Blackadder was born
+    in Falkirk and studied fine art at Edinburgh University, where her teachers included
+    Robin Philipson, William MacTaggart and William Gillies, who had the biggest
+    influence on her work. From the 1970s, her love of flowers played a prominent
+    part in her work. She has travelled widely, absorbing influences from her time
+    spent abroad. The motifs on display in this work are characteristic of some of
+    her other still lifes. She is the first woman to be elected to both the Royal
+    Academy and the Royal Scottish Academy.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.965, y: 0.672}
+  PreviewImages:
+  - {fileID: 2800000, guid: b2c0f64e9ac7d94478c1532bb4559bf3, type: 3}
+  PlacementType: 2
+  CategoryType: 5

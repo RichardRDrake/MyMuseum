@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_2003-43_On_the_Rance
+  m_EditorClassIdentifier: 
+  ArtefactName: On the Rance
+  ArtefactContent: " Gray, Charles, Watercolour, c1904. Charles Gray Kennaway was
+    born in Perth in 1860, the son of Charles Gray Kennaway (a baker) and his wife
+    Elizabeth Keiller (of the Dundee marmalade making family). Kennaway was educated
+    at Perth Academy and later enrolled at the Royal College of Art in London where
+    he studied for 7 years. He spent the summer of 1887 studying in Paris and later
+    went on to become Art Master at Sharp\u2019s Institution in Perth. In 1892, he
+    was appointed Principal of the Athenaeum School in Glasgow, a post he held for
+    the next 8 years. He and his Danish wife set up an artist\u2019s colony at Dinan
+    in the early 1900s and he exhibited widely at the major art exhibitions in the
+    UK. In later life, he moved to Torquay and died on a holiday to visit family
+    in Perth in 1925. "
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.251, y: 0.324}
+  PreviewImages:
+  - {fileID: 2800000, guid: 7209b4d13591b9e4e834a9c8a22e3f70, type: 3}
+  PlacementType: 2
+  CategoryType: 5

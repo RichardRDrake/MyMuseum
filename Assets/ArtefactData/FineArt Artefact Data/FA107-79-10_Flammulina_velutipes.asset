@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: FA107-79-10_Flammulina_velutipes
+  m_EditorClassIdentifier: 
+  ArtefactName: Flammulina velutipes
+  ArtefactContent: ' Potter, Beatrix, Watercolour, 1892. The Potters visited Perthshire
+    on holiday every summer between 1871 and 1881, leasing Dalguise House on the
+    banks of the River Tay just north of Dunkeld. During this time they met Charlie
+    McIntosh the local postman, and a keen naturalist. In 1892 and 1893 the Potters
+    returned and in 1892 Beatrix and Charlie met to discuss fungi. The earliest letter
+    from Potter to Charlie McIntosh makes reference to this specimen which McIntosh
+    had sent Potter by post. Potter had kept it in a tin and was amazed to discover
+    "another fungus" growing on the branch, like a hundred fingers. In fact this
+    is how the velvet shank grows in the dark.'
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.715, y: 1.024}
+  PreviewImages:
+  - {fileID: 2800000, guid: 36ddee0c7a852b7459be9c9d9072515c, type: 3}
+  PlacementType: 2
+  CategoryType: 5

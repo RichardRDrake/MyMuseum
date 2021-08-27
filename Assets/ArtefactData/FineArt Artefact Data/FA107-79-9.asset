@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: FA107-79-9
+  m_EditorClassIdentifier: 
+  ArtefactName: FA107-79-9
+  ArtefactContent: FA107-79-9
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.024, y: 0.74}
+  PreviewImages:
+  - {fileID: 2800000, guid: d93d73707700b1d4f8bdc5a5ec08f459, type: 3}
+  PlacementType: 2
+  CategoryType: 5

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_2002-13_Pentheus
+  m_EditorClassIdentifier: 
+  ArtefactName: Pentheus
+  ArtefactContent: Reid, Paul, Oil on canvas, 2002. This painting shows the story
+    of Pentheus, King of Thebes, who was slain in a wild frenzy by his own mother
+    and two of his sisters after he had failed to persuade them to abandon their
+    Dionysian revelries. Paul Reid was born in Scone and studied at Duncan of Jordanstone
+    College of Art, Dundee, graduating with First Class Honours in 1998.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.2, y: 1.05}
+  PreviewImages:
+  - {fileID: 2800000, guid: 9dbf4079a5b1b72489f89af8de97d982, type: 3}
+  PlacementType: 2
+  CategoryType: 5

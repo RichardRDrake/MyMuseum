@@ -33,3 +33,4 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 2e03ebaa9b81a7a4aaff99542ea73e2a, type: 3}
   - {fileID: 2800000, guid: cfeebf26e163d4048ad08acd0cd9065b, type: 3}
   PlacementType: 0
+  CategoryType: 7
