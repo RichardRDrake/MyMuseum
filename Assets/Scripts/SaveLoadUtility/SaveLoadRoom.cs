@@ -114,13 +114,17 @@ public class SaveLoadRoom : MonoBehaviour
 
         BinaryFormatter formatter = GetBinaryFormatter();
         string filepath = Application.persistentDataPath +"/" + name + ".save";
+
+        // Only if one doesn't already exist
+        bool fileAlreadyExists = File.Exists(filepath);
+
         FileStream stream = new FileStream(filepath, FileMode.Create);
 
         formatter.Serialize(stream, savedRoomData);
-
         stream.Close();
 
-        savesList.Add( name +".save");
+        if(!fileAlreadyExists)
+            savesList.Add(name + ".save");
         //Debug.Log("Saved Room Data of size " + savedRoomData.Assets.Count);
     }
 

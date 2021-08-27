@@ -144,7 +144,7 @@ public class UI_SaveLoad : MonoBehaviour
             // Now it has downloaded, make locally and save it
             if (m_SaveLoadRoomController)
             {
-                // Make the room locally
+                // Make the room locally (If it doesn't already exist)
                 m_SaveLoadRoomController.MakeRoom(DC_Downloader.DownloadedRoomFile.roomString, DC_Downloader.DownloadedRoomFile.Assets, false);
 
                 // Save it locally [Because from the web: filename should include some extra parameters for identification]

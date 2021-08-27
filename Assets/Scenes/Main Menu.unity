@@ -6382,7 +6382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2377757370394350235, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -802.57587
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2377757370394350235, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6569,10 +6569,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_ConfirmDelete
       objectReference: {fileID: 0}
-    - target: {fileID: 8942571411035375311, guid: 05298c5cd0ea55f4684084aad068a27b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8942571412717105072, guid: 05298c5cd0ea55f4684084aad068a27b, type: 3}
       propertyPath: Highlight
       value: 
@@ -6718,10 +6714,6 @@ PrefabInstance:
     - target: {fileID: 5018725246922720202, guid: 6f285b18c321c5e4e9b79763cdd35d82, type: 3}
       propertyPath: m_Name
       value: UI_ConfirmUpload
-      objectReference: {fileID: 0}
-    - target: {fileID: 5018725246922720202, guid: 6f285b18c321c5e4e9b79763cdd35d82, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5018725247066447297, guid: 6f285b18c321c5e4e9b79763cdd35d82, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

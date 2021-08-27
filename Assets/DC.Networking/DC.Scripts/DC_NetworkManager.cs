@@ -27,6 +27,7 @@ public class DC_NetworkManager : MonoBehaviour
 
     [Header("Found DeepLink Data")]
     [Tooltip("User Authentication Token")]
+    // Already assigned for editor testing (Token will expire soon though)
     public static string s_UserToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbXltdXNldW0uZG9yc2V0Y3JlYXRpdmUudGVjaFwvZ2VuZXJhdGUtand0LXRva2VuIiwiaWF0IjoxNjI5OTgxNzk3LCJleHAiOjE2MzA1ODY1OTcsIm5iZiI6MTYyOTk4MTc5NywianRpIjoiaDJKbXdDYVp4NTFYMlFobiIsInN1YiI6NCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.O--HaDEiu2IQnYywOuhi-m-AQD-J7BI794wqHW9Jzyo";
 
     [Header("APIs")]
