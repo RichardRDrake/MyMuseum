@@ -43,9 +43,10 @@ GameObject:
   - component: {fileID: 1112141857660345725}
   - component: {fileID: 3442404122839426675}
   - component: {fileID: 5052854855395799447}
+  - component: {fileID: 2576615227123092282}
   m_Layer: 0
   m_Name: Plinth_Wooden
-  m_TagString: object
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +126,21 @@ MonoBehaviour:
   _ValidLayers:
     serializedVersion: 2
     m_Bits: 3758096384
+--- !u!114 &2576615227123092282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5602209388703255488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3bddbb913458cb48badc2e44e078ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _NonDirectionalZoneSpritePrefab: {fileID: 5730095353733204792, guid: 6794bc7f3391091428db874228f0002c, type: 3}
+  _DirectionalZoneSpritePrefab: {fileID: 5730095353733204792, guid: 20077b323e4becc43940a93f91028293, type: 3}
+  _Threshold: 0.445
 --- !u!1001 &3505849670819893171
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -33,6 +33,7 @@ public class DC_PictureFraming : MonoBehaviour
     private float m_StretchVerticalOS = 0;
 
     private Color oldColour;
+    public Vector2 imageSizeInWorld = new Vector2(1.0f, 1.0f);
 
     private void Start()
     {
@@ -42,8 +43,8 @@ public class DC_PictureFraming : MonoBehaviour
     private void Apply(Texture image)
     {
         // For the demo it is just calculating the size based on pixel width/height and a given pixel density (Pixels per meter)
-        Vector2 imageSizeInPixels = new Vector2(image.width, image.height);
-        Vector2 imageSizeInWorld = imageSizeInPixels / _PixelDensity;
+        // Vector2 imageSizeInPixels = new Vector2(image.width, image.height);
+       // imageSizeInWorld = imageSizeInPixels / _PixelDensity;
 
 
         // Using the size at the start in X/Y (So all Movable transforms are @(0,0,0))

@@ -298,14 +298,14 @@ public class DC_ModelViewer : MonoBehaviour
         if(model.GetComponent<DC_PictureFraming>())
         {
             
-            AnchorOffset = model.GetComponent<Renderer>().bounds.extents.y;
+            AnchorOffset = (oldAnchorY - model.GetComponent<Collider>().bounds.extents.y) * 3;
         }
         else 
         {
             AnchorOffset = oldAnchorY;
         }
 
-        _3DModelAnchor.position = new Vector3(_3DModelAnchor.position.x, AnchorOffset, _3DModelAnchor.position.z);
+        _3DModelAnchor.position = new Vector3(_3DModelAnchor.position.x,  AnchorOffset, _3DModelAnchor.position.z);
         // Make a copy of the gameobject and attach to the 3D Model Anchor
         m_PreviewedModelCopy = Instantiate(model, _3DModelAnchor, false);
 
@@ -378,6 +378,8 @@ public class DC_ModelViewer : MonoBehaviour
         // Cannot be started if GameObject is no longer active (Destroyed/Shutdown)
         if (gameObject.activeSelf)
             StartCoroutine(AnimatedFade(false));
+
+        AnchorOffset = oldAnchorY;
     }
 
     /// <summary>

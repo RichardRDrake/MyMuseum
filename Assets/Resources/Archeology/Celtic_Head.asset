@@ -21,9 +21,12 @@ MonoBehaviour:
     m_AssetGUID: 0d55d2041e69304489c25e8c13354a78
     m_SubObjectName: 
     m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0, y: 0}
   PreviewImages:
   - {fileID: 2800000, guid: 1389e6b773dd2fa4099297b3698246a6, type: 3}
   - {fileID: 2800000, guid: 2bd79e2beb27f2349b59ac568a0b160b, type: 3}
   - {fileID: 2800000, guid: fbf4b7be5262f91468a18a00fb329f56, type: 3}
   - {fileID: 2800000, guid: 0d1a727f2fe5e414dbe8744f39c73b4f, type: 3}
-  PlacementType: 0
+  PlacementType: 1
+  CategoryType: 0

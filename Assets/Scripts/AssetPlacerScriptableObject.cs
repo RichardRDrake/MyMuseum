@@ -67,10 +67,9 @@ public enum ArtefactCategory
     Costumes,
     DecorativeArt,
     DisplayCases,
-    FineArt,
+    Images,
     Frames,
     NaturalHistory,
-    Photography,
     SocialHistory,
     WorldCulture
 }
@@ -83,6 +82,7 @@ public class Asset
     public Vector2 pixelSize;
     public ArtefactPlacementType placementType;
     public GameObject snapZone = null;
+    public Texture2D painting = null;
 
     public GameObject asset;
 

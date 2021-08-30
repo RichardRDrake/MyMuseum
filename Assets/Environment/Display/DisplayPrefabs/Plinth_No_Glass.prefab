@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8083785177823473118}
   m_Layer: 0
   m_Name: Plinth_No_Glass
-  m_TagString: object
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -39,7 +39,8 @@ public class DC_Placeable : MonoBehaviour
     private float m_ZClamp = 0.0f;
 
     //probalbly make this a private with a getters and setters
-    public Asset asset = null;
+    public Asset asset = null; 
+    private DC_EditorCamera cam;
 
     private void Awake()
     {
@@ -59,20 +60,21 @@ public class DC_Placeable : MonoBehaviour
         // RD EXT: Get wall layer ID
         m_WallLayerID = LayerMask.NameToLayer("Wall");
 
-        if (asset != null)
-        {
-            if (asset.snapZone == null)
-            {
-                m_BeingPlaced = false;
-                m_SnapZone = asset.snapZone.GetComponent<DC_SnapZone>();
-            }
-        }
+        cam =GameObject.Find("Editor Camera").GetComponent<DC_EditorCamera>();
     }
 
     // For optimisation
     Ray m_Ray;
     RaycastHit[] m_Hits;
     RaycastHit m_Hit;
+   
+
+    public void SetPlacing(bool placing)
+    {
+        m_BeingPlaced = placing;
+        m_SnapZone = asset.snapZone.GetComponent<DC_SnapZone>();
+        m_SnapZone.SetValidity(false);
+    }
 
     private void Update()
     {
@@ -234,18 +236,21 @@ public class DC_Placeable : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!m_BeingPlaced)
+        if (cam.m_CurrentMode == DC_EditorCamera.CurrentMode.EDIT)
         {
-            // Create a temporary encapsulated bounds (Not to be confused with the one created at the start)
-            // This one is used to calculate it's current position and size on the screen for the GUI placement
-            // Updating the old one would mean the encapsulated bound would no longer be local to the object
-            // Update the encapsulated bounds to where the object is now
-            Bounds tempBound = GetComponentInChildren<Renderer>().bounds;
-            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-                tempBound.Encapsulate(renderer.bounds);
+            if (!m_BeingPlaced)
+            {
+                // Create a temporary encapsulated bounds (Not to be confused with the one created at the start)
+                // This one is used to calculate it's current position and size on the screen for the GUI placement
+                // Updating the old one would mean the encapsulated bound would no longer be local to the object
+                // Update the encapsulated bounds to where the object is now
+                Bounds tempBound = GetComponentInChildren<Renderer>().bounds;
+                foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+                    tempBound.Encapsulate(renderer.bounds);
 
-            // Set the position and scale for the Edit Object toolbox
-            DC_EditObject.Instance.Init(tempBound, this.gameObject, asset.pixelSize);
+                // Set the position and scale for the Edit Object toolbox
+                DC_EditObject.Instance.Init(tempBound, this.gameObject, asset.pixelSize);
+            }
         }
     }
 

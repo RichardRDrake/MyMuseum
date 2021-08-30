@@ -110,7 +110,7 @@ public class UI_Controller : MonoBehaviour
     int listLength;
 
     //Used to determine which list to read from
-    public int switchLists = 0;
+    public bool switchLists = false;
     #endregion
 
     #region Menu management variables
@@ -363,8 +363,8 @@ public class UI_Controller : MonoBehaviour
                 //Sets MenuSetup to read from the selected submenu's contents
                 //If a submenu is not selected, ignores this function
                 int subInt = (int)subCurrent;
-                switchLists = subInt - 1;
-                if (switchLists >= 0)
+               // switchLists = subInt - 1;
+                if (switchLists == true)
                 {
                     MenuSetup();
                 }
@@ -714,6 +714,12 @@ public class UI_Controller : MonoBehaviour
     #endregion
 
     #region Catalogue setup
+
+    public void MenuInit(TempListScript list)
+    {
+        switchLists = true;
+        Resources = list;
+    }
     private void MenuSetup()
     {
         #region Loads details for the asset placement submenus
@@ -722,9 +728,9 @@ public class UI_Controller : MonoBehaviour
         AssetRepository.SetActive(false);
 
         //Ensures the highlight is active (if navigated to with mouse)
-        //Then moves it to the correct location
-        HighlightMenuTop.SetActive(true);
-        HighlightMenuTop.transform.position = menuLocationList[switchLists];
+        ////Then moves it to the correct location
+        //HighlightMenuTop.SetActive(true);
+        //HighlightMenuTop.transform.position = menuLocationList[switchLists];
 
         #region Determines that it's reading from the correct Resources.readFrom
         //Note for Dorset - We'd rather have used one single record of all available scriptable objects
@@ -733,42 +739,7 @@ public class UI_Controller : MonoBehaviour
         {
             Resources = Room.GetComponent<TempListScript>();
         }
-        else if (isArtefact == true)
-        {
-            switch (switchLists)
-            {
-                case 0:
-                    Resources = FloorBased.GetComponent<TempListScript>();
-                    break;
-                case 1:
-                    Resources = FloorOrWall.GetComponent<TempListScript>();
-                    break;
-                case 2:
-                    Resources = Small.GetComponent<TempListScript>();
-                    break;
-                case 3:
-                    Resources = Planar.GetComponent<TempListScript>();
-                    break;
-            }
-        }
-        else
-        {
-            switch (switchLists)
-            {
-                case 0:
-                    Resources = Room.GetComponent<TempListScript>();
-                    break;
-                case 1:
-                    Resources = Plinth.GetComponent<TempListScript>();
-                    break;
-                case 2:
-                    Resources = Stand.GetComponent<TempListScript>();
-                    break;
-                case 3:
-                    Resources = Frame.GetComponent<TempListScript>();
-                    break;
-            }
-        }
+     
         #endregion
 
         //Creates a total page count based on number of objects in Resources.readFrom
