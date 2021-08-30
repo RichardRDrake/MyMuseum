@@ -93,6 +93,16 @@ MonoBehaviour:
     m_Address: Assets/Environment/Display/DisplayPrefabs/Plinth_Wooden.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d5a2ab7eb13efcb4ba953fc61ed0d05b
+    m_Address: Assets/Art/Environment/Dynamic/Slideable_Frame_Ornate_1/PictureFrame
+      Template.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8c81fa55907f2564ebaccd294ae2087a
+    m_Address: Assets/Art/Environment/Dynamic/Slideable_Frame_Plain_1/PictureFrame
+      Template.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:
