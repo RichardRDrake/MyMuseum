@@ -89,6 +89,10 @@ MonoBehaviour:
     m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1985_105_cross_marked_bronze_age_cup_marked_stone.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5bf5003f25274cc4ba6e2d7a11538f44
+    m_Address: Assets/Environment/Display/DisplayPrefabs/Plinth_Wooden.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:

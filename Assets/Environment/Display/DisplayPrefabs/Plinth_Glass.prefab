@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 1227477671079901759}
   - component: {fileID: 6771302640716126581}
   - component: {fileID: 4100639102784298068}
-  - component: {fileID: 5725701379495851517}
-  - component: {fileID: 1743276790973799980}
   m_Layer: 0
   m_Name: TempA_Plinth_01
   m_TagString: Untagged
@@ -28,11 +26,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56158299563237174}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8075059622396992019}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6771302640716126581
 MeshFilter:
@@ -61,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 109ca8a03056a934baf41b264e5754ba, type: 2}
+  - {fileID: 2100000, guid: 3be3722284114234d97211a8d72d5091, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,40 +81,36 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5725701379495851517
-MonoBehaviour:
+--- !u!1 &8284691177973942689
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56158299563237174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aad92ee35737aeb4986cb44529deb918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 1
-  GUID: 7197e7d4-56f1-40e2-b979-5606b9e72bb7
-  parent: {fileID: 0}
-  boundsX: 1
-  boundsY: 1
-  boundsZ: 1
-  offsetX: 0.5
-  offsetY: 1.5
-  offsetZ: -0.5
---- !u!65 &1743276790973799980
-BoxCollider:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6416210842788476867}
+  m_Layer: 0
+  m_Name: Snap_Zone_Floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6416210842788476867
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56158299563237174}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0.5, y: 0.5, z: -0.5}
+  m_GameObject: {fileID: 8284691177973942689}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8075059622396992019}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8888855923295174825
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +121,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8075059622396992019}
   - component: {fileID: 8755846191367486784}
+  - component: {fileID: 228564256355528621}
+  - component: {fileID: 824732646091510704}
+  - component: {fileID: 3988723545061540967}
   m_Layer: 0
   m_Name: Plinth_Glass
   m_TagString: object
@@ -145,6 +142,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 6416210842788476867}
   - {fileID: 1227477671079901759}
   - {fileID: 7606779603692878618}
   m_Father: {fileID: 0}
@@ -161,8 +159,54 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5, z: 1}
-  m_Center: {x: 0.5, y: 1.25, z: -0.5}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!54 &228564256355528621
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888855923295174825}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &824732646091510704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888855923295174825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c51bb58468650e49b6c8bfde24bc942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ValidLayers:
+    serializedVersion: 2
+    m_Bits: 3758096384
+--- !u!114 &3988723545061540967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888855923295174825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3bddbb913458cb48badc2e44e078ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _NonDirectionalZoneSpritePrefab: {fileID: 5730095353733204792, guid: 6794bc7f3391091428db874228f0002c, type: 3}
+  _DirectionalZoneSpritePrefab: {fileID: 5730095353733204792, guid: 20077b323e4becc43940a93f91028293, type: 3}
+  _Threshold: 0.45
 --- !u!1001 &7933667721943817457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,11 +216,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8242d0481880dd5489fdb646875343d3, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8242d0481880dd5489fdb646875343d3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8242d0481880dd5489fdb646875343d3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -184,7 +228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8242d0481880dd5489fdb646875343d3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8242d0481880dd5489fdb646875343d3, type: 3}
       propertyPath: m_LocalRotation.w
