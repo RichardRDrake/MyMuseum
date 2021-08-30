@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1-48_The_sleeping_princess
+  m_EditorClassIdentifier: 
+  ArtefactName: The sleeping princess
+  ArtefactContent: Duncan, John, Tempera on canvas. This painting of The Sleeping
+    Princess is by John Duncan, a Dundee artist who became a leading figure of the
+    Celtic revivalist movement in Scotland. His early style was established with
+    paintings based on Arthurian legend and later he created a series of paintings
+    of Celtic myths and legends. He painted with the medium of tempera (a type of
+    oil paint) in order to gain a precise density of colour and smoothness of surface
+    that in time came to characterise his work.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.712, y: 0.914}
+  PreviewImages:
+  - {fileID: 2800000, guid: c3a0788ba2a5d5842b7dc443f7930409, type: 3}
+  PlacementType: 2
+  CategoryType: 5

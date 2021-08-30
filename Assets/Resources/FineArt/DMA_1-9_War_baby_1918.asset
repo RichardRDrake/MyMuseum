@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1-9_War_baby_1918
+  m_EditorClassIdentifier: 
+  ArtefactName: War baby 1918
+  ArtefactContent: "Blyth, Robert Henderson, oil on board, 1945. Through directly
+    related to the Second World War, Blythe\u2019s painting reaches across chronological
+    barriers and makes a more universal and timeless statement. The subject is a
+    pathetic and clearly shocked British soldier on the German border.  He is obviously
+    wounded, a huge iodine soaked bandage covers a bloody wound to his left ear. 
+    He is waiting to be evacuated back home. As the title implies, this particular
+    individual was born as the First World War drew to its end in 1918.  Ironically,
+    fresh-faced and with the open haunting eyes of innocence, he finds himself caught
+    up in an equally horrific war.  The soldier himself has become the evacuee, a
+    fate to which countless thousands of civilians were subjected as a direct result
+    of the Second World War."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.8, y: 0.647}
+  PreviewImages:
+  - {fileID: 2800000, guid: 4a79941e58dbbbe4786c6acb19d66787, type: 3}
+  PlacementType: 2
+  CategoryType: 5

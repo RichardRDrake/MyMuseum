@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1979-192-4_Fossil_Fish_Head_shield_Type_Specimen
+  m_EditorClassIdentifier: 
+  ArtefactName: Fossil Fish Head-shield, Type Specimen
+  ArtefactContent: This is an incomplete head-shield of a fossil fish found in old
+    red sandstone rocks at the Wolf's Hole quarry near Bridge of Allan. These early
+    armour-headed fish swam in the Devonian seas around 390 million years ago. This
+    specimen is an example of a type specimen on which scientific names are based.
+    The specimen was collected by the Victorian geologist, Reverend Hugh Mitchell
+    (1822-1894), and gifted to the Perthshire Society of Natural Science. In 1963
+    the fossil was examined by fossil fish expert, Dr Errol White of the British
+    Museum (Natural History). He realised this fossil was new to science and gave
+    it the scientific name Securiapis caledonica.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.8, y: 0.5}
+  PreviewImages:
+  - {fileID: 2800000, guid: 5fd33609aad6b484bb38a86f257b275b, type: 3}
+  PlacementType: 2
+  CategoryType: 5

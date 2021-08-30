@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1992-215_Self_portrait_The_Grey_Hat
+  m_EditorClassIdentifier: 
+  ArtefactName: 'Self portrait: The Grey Hat'
+  ArtefactContent: Fergusson, John Duncan, oil on canvas, 1909. This work is painted
+    in a deliberately crude, forceful style that echoes the savage mood suggested
+    by Fergusson's furrowed brow and intense, brooding gaze. A rough spontaneous
+    application of paint in dark earth tones and strong black outlines that simplify
+    form, lend the image a powerful primitive feel.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.51, y: 0.61}
+  PreviewImages:
+  - {fileID: 2800000, guid: c236cb98fec042348b35c91565be31e0, type: 3}
+  PlacementType: 2
+  CategoryType: 5

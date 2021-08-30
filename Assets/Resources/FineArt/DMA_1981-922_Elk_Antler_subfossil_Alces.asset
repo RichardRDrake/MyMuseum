@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1981-922_Elk_Antler_subfossil_Alces
+  m_EditorClassIdentifier: 
+  ArtefactName: Elk Antler, subfossil - Alces
+  ArtefactContent: This elk antler was excavated near Methven Castle, Perthshire,
+    Scotland in the summer of 1801. It was discovered at a depth of seven and a half
+    feet below the surface in a marl clay pit. At first it was put on display in
+    Methven Castle until it was given to Perth Museum & Art Gallery in 1922.  Fossil
+    remains such as this from the last ice age are the evidence for elk formerly
+    living in Britain. They died out due to hunting and climate change. Today elk
+    are found in the coniferous forests of Northern continental Europe and North
+    America.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.579, y: 1.048}
+  PreviewImages:
+  - {fileID: 2800000, guid: 27cfde26b2ae3a4428a6290ef7411cbd, type: 3}
+  PlacementType: 2
+  CategoryType: 5

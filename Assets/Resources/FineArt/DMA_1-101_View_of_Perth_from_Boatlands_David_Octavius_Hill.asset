@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1-101_View_of_Perth_from_Boatlands_David_Octavius_Hill
+  m_EditorClassIdentifier: 
+  ArtefactName: 'View of Perth from Boatlands, David Octavius Hill '
+  ArtefactContent: 'Hill, David Octavius, oil on canvas, 1826. View of Perth featuring
+    Tay looking south includes the newly constructed Georgian development off the
+    North Inch including Rose Terrace and Perth Academy (and Perth Bridge. '
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.065, y: 0.76}
+  PreviewImages:
+  - {fileID: 2800000, guid: c607980ec63a2e44eab0e1f8bbab4dc2, type: 3}
+  PlacementType: 2
+  CategoryType: 5

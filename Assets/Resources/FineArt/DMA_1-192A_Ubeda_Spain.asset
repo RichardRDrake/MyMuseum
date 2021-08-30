@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1-192A_Ubeda_Spain
+  m_EditorClassIdentifier: 
+  ArtefactName: Ubeda, Spain
+  ArtefactContent: Redpath, Anne, oil on board, 1959. Redpath was born in Galashiels.
+    She studied concurrently at Moray House College of Education and at Edinburgh
+    College of Art. Travel scholarships allowed her to work in London, the Netherlands,
+    France and Italy. After a lengthy spell in France, Redpath returned to Hawick
+    in the mid-1930s with her three sons, while her husband took a job in London.
+    She quickly re-established herself as a promising artist. In 1949 she moved to
+    Edinburgh, becoming a pivotal figure in the group of painters now referred to
+    as the Edinburgh School. Although perhaps best known for her interior still lifes,
+    in her later years she painted many hillsides, as she continued to travel. In
+    these works she often favoured a limited palette, such as in this painting.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.016, y: 0.914}
+  PreviewImages:
+  - {fileID: 2800000, guid: 3182ec3aa4f3ea747a5337b9570fb83d, type: 3}
+  PlacementType: 2
+  CategoryType: 5

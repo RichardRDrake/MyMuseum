@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1992-815_St_Madoes_cross_slab_Pictish
+  m_EditorClassIdentifier: 
+  ArtefactName: St Madoes cross-slab, Pictish
+  ArtefactContent: 'Sandstone, 8/9 century. Impressive Pictish cross slab carved
+    on the two broad faces. The principal face is filled with a wheel-headed cross.
+    The crosshead arms have expanding terminals and hollow sockets. The crosshead
+    junction is overlain by a square panel contianing swirling relief bosses. the
+    shaft and arms are filled with interlace and key patterns. Running up thye side
+    of the shaft are two pairs of dogs, the second biting the rear of the first in
+    each pair. Lying diagonally across the upper curves of the cross wheel are two
+    lions., the heads turned back. these are matched by pair of lions across the
+    upper, narrow edge of the slab. Damage to this are has removed the head of on
+    eof these lions. Between the heads appears to ahve been a space where something
+    could be added to the cross, perhaps a relic, on special feast days. The opposite
+    face has been damged by water runn-off, partially removing element sof the symbols
+    carved on lower portion. At the bottom is the so-called Pictish beast with a
+    crescent and V-rod and a double-disc immediately above. Above the symbols is
+    a verticla arnagment of three rectangular panels, within each one a horse and
+    hooded rider.  One of these is clearly carrying a satchel. They probably represent
+    ecclesiastics. st Madoes is on the road betwen three powerful royal-church communities:
+    Scone, Abernethy and St Andrews.'
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.91, y: 1.75}
+  PreviewImages:
+  - {fileID: 2800000, guid: 347cac5a0bf3c3c4caf20ba3ba0ccdcf, type: 3}
+  PlacementType: 2
+  CategoryType: 5

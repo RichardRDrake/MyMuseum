@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1-149_Waking
+  m_EditorClassIdentifier: 
+  ArtefactName: Waking
+  ArtefactContent: Millais, John Everett, oil on canvas, c. 1876. Born in Southampton,
+    Millais studied at the Royal Academy Schools in London. He became associated
+    with the Pre-Raphaelite Brotherhood. So his work came to the attention of their
+    early champion John Ruskin, the most influential art critic in England.  The
+    picture is one of a pair, the other is titled Asleep. The title of this one may
+    suggest a wider wakening as the girl grows up, hence the discarded books and
+    toys of childhood, above all, the open doored, empty birdcage above her head
+    at which she gazes. The picture is highly detailed in its technique.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.002, y: 1.206}
+  PreviewImages:
+  - {fileID: 2800000, guid: 9ae14fc219bb7714fb99a392011dc7d9, type: 3}
+  PlacementType: 2
+  CategoryType: 5

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_2-132_Loch_Katrine_Horatio_McCulloch
+  m_EditorClassIdentifier: 
+  ArtefactName: Loch Katrine, Horatio McCulloch
+  ArtefactContent: "McCulloch, Horatio, oil on canvas, 1866. Ground-breaking at the
+    time, Horatio McCulloch\u2019s Highland landscapes were romantic, wild and dramatic.
+    As with Landseer, McCulloch was heavily inspired by Sir Walter Scott and this
+    painting was based on the writer\u2019s poem of 1810, \u2018The Lady of the Lake\u2019.
+    Scott\u2019s literary works and his interest in places steeped in Scottish history
+    resonated with a burgeoning sense of national and cultural identity."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.828, y: 1.107}
+  PreviewImages:
+  - {fileID: 2800000, guid: 2672e4faa5640a3449c90ff2c1e54e05, type: 3}
+  PlacementType: 2
+  CategoryType: 5

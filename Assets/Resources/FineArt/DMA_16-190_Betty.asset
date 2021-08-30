@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_16-190_Betty
+  m_EditorClassIdentifier: 
+  ArtefactName: Betty
+  ArtefactContent: "Ramsay, David Prophet, oil on canvas, 1924.  Born in Perth to
+    a local china merchant, Ramsay was educated at Perth Academy before studying
+    carpet design with Coates Bros. in Dunkeld Road, Perth. He enrolled at Glasgow
+    School of Art where he won the Haldane Prize, using the \xA350 award to travel
+    and paint around Europe. During the First World War Ramsay joined the 4th Battalion
+    Black Watch, seeing action on the Western Front near Ypres in Belgium. In 1917
+    he was seriously wounded in the left lung by a shell. After the war, Ramsay set
+    up his studio in Charlotte Street, Perth swiftly becoming a nationally renowned
+    portraitist and figure-painter. He was fascinated by the effect of artificial
+    light on his subjects and was celebrated for his sense of colour."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.041, y: 1.816}
+  PreviewImages:
+  - {fileID: 2800000, guid: b44213c15f3e0424ab802b095a57a57b, type: 3}
+  PlacementType: 2
+  CategoryType: 5

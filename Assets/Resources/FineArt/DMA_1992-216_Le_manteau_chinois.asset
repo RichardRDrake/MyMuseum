@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1992-216_Le_manteau_chinois
+  m_EditorClassIdentifier: 
+  ArtefactName: Le manteau chinois
+  ArtefactContent: Fergusson, John Duncan, oil on canvas, 1909. This is the last
+    of Fergusson's full length portraits showing the influence of James Abbott MacNeill
+    Whistler, taken to extremes here with the inclusion of a mock oriental signature
+    motif. The painting also reveals strong Fauve elements not least in the treatment
+    of the face.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.97, y: 1.995}
+  PreviewImages:
+  - {fileID: 2800000, guid: 1b363012c4339bd42af203824dc006b9, type: 3}
+  PlacementType: 2
+  CategoryType: 5

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1-96_The_green_hat
+  m_EditorClassIdentifier: 
+  ArtefactName: The green hat
+  ArtefactContent: "Henry, George, oil on canvas, 1906. Henry was a key figure in
+    the group of painters now known as the Glasgow Boys. He trained at Glasgow School
+    of Art. Others included William York MacGregor, Edward Atkinson Hornel and Arthur
+    Melville. They took their lead from France. Their experiments, in particular
+    Melville\u2019s use of colour, had a lasting effect on the Scottish Colourists."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.945, y: 1.6}
+  PreviewImages:
+  - {fileID: 2800000, guid: 5e2a6871779f60c46b5937af14310d18, type: 3}
+  PlacementType: 2
+  CategoryType: 5

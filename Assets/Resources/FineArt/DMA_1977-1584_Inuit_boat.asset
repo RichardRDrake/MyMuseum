@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1977-1584_Inuit_boat
+  m_EditorClassIdentifier: 
+  ArtefactName: Inuit boat
+  ArtefactContent: Model oomiak or canoe. The sails are made of caribou skin and
+    the canoe is covered in walrus hide. The pully and sail rings are from sections
+    of walrus tusk. There are seven passengers; six dressed in rabbit fur and one
+    in sealskin. The model contains a harpoon of ivory and wood, as well as three
+    paddles. The 'umiak' is a type of large boat used for whale hunting and for transporting
+    families from one hunting location to another. Often women were in charge of
+    such boats.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.048, y: 0.629}
+  PreviewImages:
+  - {fileID: 2800000, guid: 2c29a1504f8e3bb4c9518afc977ad57c, type: 3}
+  PlacementType: 2
+  CategoryType: 5

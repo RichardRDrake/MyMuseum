@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_2-28_The_Wilds_of_Assynt
+  m_EditorClassIdentifier: 
+  ArtefactName: The Wilds of Assynt
+  ArtefactContent: Cameron, David Young, oil on canvas, 1936. Cameron was a 20th
+    century romantic, who made some of the most majestic paintings of the Scottish
+    landscape ever executed. This almost square canvas was his own personal favourite
+    and he considered it his masterpiece. He has captured perfectly the range and
+    tone of a sunny Scottish autumn day. The painting was purchased from the artist
+    in 1936 to grace the walls of the then newly opened Perth Art Gallery and Museum.
+    Cameron instructed his agent to hang the painting against a backdrop of red cloth
+    to bring out the strength and contrast of the rich colouring of the work.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.279, y: 1.021}
+  PreviewImages:
+  - {fileID: 2800000, guid: 673405f37d0a5ec44b93b8b614d7716c, type: 3}
+  PlacementType: 2
+  CategoryType: 5

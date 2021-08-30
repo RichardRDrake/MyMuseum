@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1981-923_Auroch_skull
+  m_EditorClassIdentifier: 
+  ArtefactName: Auroch skull
+  ArtefactContent: Sub-fossil. This is the skull of an aurochs, or wild ox, the wild
+    ancestor of modern domestic cattle. Destruction of forests and hunting over thousands
+    of years led to its extinction. The species survived in Britain until the Bronze
+    Age and the last wild aurochs was killed in Poland in 1627.  Chapleton Moss,
+    five miles east of Forfar, Angus, Scotland, was drained in 1750 to enable peat
+    and marl to be dug from the ground. This skull was dug from beneath 10 feet of
+    peat in the summer of 1790. The skull was presented to the Literary and Antiquarian
+    Society of Perth in 1791 by James Wright a Dundee merchant.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.048, y: 0.744}
+  PreviewImages:
+  - {fileID: 2800000, guid: 5c28094846ae8074a8bb8a3531c78928, type: 3}
+  PlacementType: 2
+  CategoryType: 5

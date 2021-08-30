@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1986-251_The_Bellany_Family
+  m_EditorClassIdentifier: 
+  ArtefactName: The Bellany Family
+  ArtefactContent: "Bellany, John, oil on hardboard, 1968. Set in his studio, Bellany
+    presents himself as a hard-drinking man with his arm around his pregnant wife,
+    Helen. Their son Jonathan sits in a model boat perhaps with a nod to his own
+    childhood spent drawing in his father\u2019s workshop while his father made model
+    boats. Jonathan\u2019s golliwog lays discarded as if it is something he has outgrown.
+    Behind and to the right are paintings that Bellany has recently completed: part
+    of a painting of windswept fisherman with a bible tossed in front of it on the
+    floor \u2013 the fishing industry and religion, central themes throughout Bellany\u2019s
+    career and Buchenwald prisoners in their striped uniforms representing a darker
+    period in the artist\u2019s life after visiting the camp with his friends the
+    poet, Alan Bold and artist, Alexander Moffat."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 2.45, y: 1.83}
+  PreviewImages:
+  - {fileID: 2800000, guid: 2af779dc6f1bea74e991a311054fb0cd, type: 3}
+  PlacementType: 2
+  CategoryType: 5

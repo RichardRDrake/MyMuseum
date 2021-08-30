@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1992-222_At_my_Studio_Window
+  m_EditorClassIdentifier: 
+  ArtefactName: At my Studio Window
+  ArtefactContent: Fergusson, John Duncan, oil on canvas, 1910. The dramatic entry
+    of the nude in Fergusson's work took the form of a group of monumental paintings
+    executed between 1910 and 1912. This is one of the first of them. His decision
+    to tackle the subject was probably inspired by Fauve examples such as Matisse's
+    'Blue Nude' and Derain's 'Three Bathers' both 1907.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.23, y: 1.575}
+  PreviewImages:
+  - {fileID: 2800000, guid: ba53e816e8004c24c90b6125c2164d19, type: 3}
+  PlacementType: 2
+  CategoryType: 5

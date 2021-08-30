@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1-26A_Girl_in_pink_and_white
+  m_EditorClassIdentifier: 
+  ArtefactName: Girl in pink and white
+  ArtefactContent: "Cadell, Francis Campbell Boileau, oil on canvas, 1911. As the
+    youngest in the group of painters now known collectively as the Scottish Colourists,
+    it was not until around the time of this painting that Cadell really established
+    his career. By then, John Duncan Fergusson and Samuel John Peploe were exhibiting
+    in Paris and London. Cadell studied in Paris and lived in Munich before settling
+    in his native Edinburgh around 1909. A visit to Venice in 1910 was crucial in
+    freeing Cadell\u2019s technique. It inspired him to paint in the loose, fluid
+    manner of this work. He is perhaps the most sophisticated of the Colourists and
+    is celebrated for his elegant depictions of Edinburgh New Town interiors and
+    his brightly coloured and simplified still lifes."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.711, y: 0.876}
+  PreviewImages:
+  - {fileID: 2800000, guid: 8f53d50b5d1cfe940b6bef58c108ab84, type: 3}
+  PlacementType: 2
+  CategoryType: 5

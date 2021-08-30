@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1990-153_La_Vie_Distraite
+  m_EditorClassIdentifier: 
+  ArtefactName: La Vie Distraite
+  ArtefactContent: Crosbie, William, oil on canvas, 1939. Crosbie was born in Hankow,
+    China, of Scottish parents. The family returned to Scotland in 1926. He entered
+    Glasgow School of Art in 1932, graduating in 1935. He was awarded a travel scholarship
+    and went to Paris, where he studied under Fernand Leger. He returned to Glasgow
+    in 1939 where he set up a studio. During the War, he served in the Merchant Navy,
+    though he continued to paint. During his years spent working as an artist, Crosbie
+    experimented in a variety of styles. La Vie Distraite illustrates the fact that
+    Scottish artists were aware of contemporary European movements and were sympathetic
+    to them.  The painting contains Cubist elements, but is more overtly Surrealist
+    in its approach.  The social comment of the work reflects the state of flux and
+    confusion during the troubled year of 1939.
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.5, y: 1.8}
+  PreviewImages:
+  - {fileID: 2800000, guid: 1f8bdaf323a6cc44e94295443a758ad4, type: 3}
+  PlacementType: 4
+  CategoryType: 0

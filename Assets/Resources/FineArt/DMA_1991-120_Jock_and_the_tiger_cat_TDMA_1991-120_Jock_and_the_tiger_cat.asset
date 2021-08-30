@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1991-120_Jock_and_the_tiger_cat_TDMA_1991-120_Jock_and_the_tiger_cat
+  m_EditorClassIdentifier: 
+  ArtefactName: Jock and the tiger cat
+  ArtefactContent: "Byrne, John, oil on canvas, 1968. Byrne was born in Paisley and
+    studied at Glasgow School of Art.  During his time at GSA, Byrne was awarded
+    a number of scholarships, bursaries and medals where he was and still is, regarded
+    as one of the most technically brilliant artists to have attended that prestigious
+    institution. Byrne went on to become a successful television and theatre writer
+    and stage designer. In the 1960s and 1970s he produced a number of naive paintings
+    influenced by Douanier Rousseau, which he signed \u201CPatrick\u201D. This is
+    a powerful example of Byrne\u2019s \u201CPatrick\u201D style. The artworks have
+    become recognisable symbols of the pop music of the day, particularly his portrait
+    of the Beatles."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.01, y: 0.76}
+  PreviewImages:
+  - {fileID: 2800000, guid: 148b69603e1768b45a51a41c30f6b88b, type: 3}
+  PlacementType: 2
+  CategoryType: 5

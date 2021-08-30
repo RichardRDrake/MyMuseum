@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1-143_A_June_day_crab_catching
+  m_EditorClassIdentifier: 
+  ArtefactName: A June day crab catching
+  ArtefactContent: "McTaggart, William, oil on canvas, 1903. William McTaggart was
+    born in Aros in Kintyre in 1835. He moved to Edinburgh at the age of only 16
+    and studied at the Trustees' Academy under Robert Scott Lauder. He won several
+    prizes as a student and exhibited his work in the Royal Scottish Academy. While
+    his early works were mainly figure paintings, inspired by his childhood love
+    of the sea, he later turned seascape painting. From the 1880s, he painted the
+    majority of his works outdoors, en plein air. While his work has been compared
+    to the French Impressionists, he was influenced by Constable. Today he is recognised
+    as one of Scotland\u2019s best landscape painters. "
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0.774, y: 0.596}
+  PreviewImages:
+  - {fileID: 2800000, guid: b77dd0b4203b19d4c9adbeb6d8a763e9, type: 3}
+  PlacementType: 2
+  CategoryType: 5

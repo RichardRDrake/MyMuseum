@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1977-1868_Moa
+  m_EditorClassIdentifier: 
+  ArtefactName: Moa
+  ArtefactContent: Sub fossil, 1888 (coll). This moa skeleton is from Ben More on
+    the South Island of New Zealand. It was donated to the Perthshire Natural History
+    Museum in 1888. This specimen is in the collection of Perth Museum and Art Gallery.
+    On steel stand
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.31, y: 2.048}
+  PreviewImages:
+  - {fileID: 2800000, guid: 7b670789de1bede45b48f50058b151d2, type: 3}
+  PlacementType: 2
+  CategoryType: 5

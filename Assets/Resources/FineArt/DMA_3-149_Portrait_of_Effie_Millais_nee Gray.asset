@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_3-149_Portrait_of_Effie_Millais_nee Gray
+  m_EditorClassIdentifier: 
+  ArtefactName: Portrait of Effie Millais (nee Gray)
+  ArtefactContent: "Millais, John Everett, oil on canvas, 1873. Millais\u2019 association
+    with the Pre-Raphaelite Brotherhood brought him in contact with the art critic
+    and author, John Ruskin.  Ruskin was married to Euphemia Chalmers Gray.  In 1854
+    the marriage was annulled and in 1855 she and Millais were married in her family
+    home, Bowerswell House, in Perth.  This episode caused one of the greatest scandals
+    of the Victorian period. Effie was 45 when Millais began this portrait of her. 
+    In her lap is a copy of the Cornhill magazine, with harvesting scenes on the
+    cover.  Effie is pointing to a thresher.  This may be an in-joke between husband
+    and wife, as Effie managed Millais\u2019 work and often pushed him to complete
+    commissions and accept new ones."
+  ArtefactPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 1.12, y: 1.28}
+  PreviewImages:
+  - {fileID: 2800000, guid: 8d440f35ec5de5f4d86211fd77ff5037, type: 3}
+  PlacementType: 2
+  CategoryType: 5
