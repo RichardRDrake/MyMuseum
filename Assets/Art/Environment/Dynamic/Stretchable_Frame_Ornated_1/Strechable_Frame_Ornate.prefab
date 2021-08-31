@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 30137074602584212}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4252494050798496860}
   m_RootOrder: 4
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 949021d5ad05e9545bdec4068fa34b9a, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -505,6 +505,8 @@ GameObject:
   - component: {fileID: 4252494050798496860}
   - component: {fileID: 7432113754719243899}
   - component: {fileID: -579262213574035564}
+  - component: {fileID: -6859036000972981290}
+  - component: {fileID: -5285541909669507898}
   m_Layer: 0
   m_Name: Strechable_Frame_Ornate
   m_TagString: Untagged
@@ -548,7 +550,8 @@ MonoBehaviour:
   _TestImage: {fileID: 0}
   _CanvasTransform: {fileID: 6452897829961561497}
   _PixelDensity: 100
-  _ContractedSize: {x: 5.85, y: 5.1}
+  _ContractedSize: {x: 0.585, y: 0.51}
+  imageSizeInWorld: {x: 1, y: 1}
 --- !u!114 &-579262213574035564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +567,35 @@ MonoBehaviour:
   _ValidLayers:
     serializedVersion: 2
     m_Bits: 469762048
+--- !u!65 &-6859036000972981290
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985910288000809658}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &-5285541909669507898
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985910288000809658}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2638135590490534662
 GameObject:
   m_ObjectHideFlags: 0
