@@ -23,8 +23,6 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   PaintingPixelSize: {x: 0, y: 0}
   PreviewImages:
-  - {fileID: 2800000, guid: a7a252bce83f6864fbdbbf6866c07b44, type: 3}
-  - {fileID: 2800000, guid: d19edf0efa8944a41becb33f3d8987a8, type: 3}
-  - {fileID: 2800000, guid: adc16b3337f2a2847860012f108d7e24, type: 3}
-  - {fileID: 2800000, guid: d3fad43d42e95014b94d163783e26c86, type: 3}
+  - {fileID: 2800000, guid: c184a3866a6e5b542afa6a6c32bd61f4, type: 3}
   PlacementType: 0
+  CategoryType: 0
