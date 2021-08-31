@@ -1,0 +1,1 @@
+MyMuseumMaster.exe -Register
