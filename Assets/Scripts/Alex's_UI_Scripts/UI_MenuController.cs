@@ -40,7 +40,6 @@ public class UI_MenuController : MonoBehaviour
     //List of Main display buttons
     [SerializeField] private GameObject SaveButton;
     [SerializeField] private GameObject LoadButton;
-    [SerializeField] private GameObject UploadButton;
     [SerializeField] private GameObject OptionsButton;
     [SerializeField] private GameObject QuitButton;
     private List<Vector3> MainLocations = new List<Vector3>();
@@ -57,6 +56,8 @@ public class UI_MenuController : MonoBehaviour
     [SerializeField] private Sprite saveSprite;
     [SerializeField] private Sprite loadSprite;
     private bool isOverwriting;
+    [SerializeField] private GameObject Upload;
+    private string uploadFilename = "";
 
     //Allows save files to be independently hidden when loading a new page
     [SerializeField] private GameObject ObjectsHide;
@@ -103,6 +104,9 @@ public class UI_MenuController : MonoBehaviour
     [SerializeField] private GameObject HighlightSave;
     [SerializeField] private GameObject HighlightSaveHover;
     [SerializeField] private GameObject HighlightSaveNavHover;
+    [SerializeField] private GameObject HighlightDelete;
+    [SerializeField] private GameObject HighlightDeleteHover;
+    [SerializeField] private GameObject HighlightUploadHover;
 
     //Int changed by UI_SaveLoad. Mimics functionality of paneCurrent without overwriting it
     public int saveLoadIdentity = 0;
@@ -113,6 +117,15 @@ public class UI_MenuController : MonoBehaviour
 
     //Records the last save file accessed, in order to upload the current room to the online repo when this option is selected
     public int lastSaved;
+
+    //Variables pertaining to the delete save files button
+    private bool deleteSaveFiles = false;
+    [SerializeField] private GameObject DeleteButton;
+    private UI_Highlight ui_Highlight;
+    private bool uploadSaveFiles = false;
+    [SerializeField] private GameObject UploadButton;
+    private UI_Highlight ui_Highlight2;
+
     #endregion
 
     #region Confirm contents
@@ -216,7 +229,6 @@ public class UI_MenuController : MonoBehaviour
         //Sets the locations the highlights can occupy
         MainLocations.Add(SaveButton.transform.position);
         MainLocations.Add(LoadButton.transform.position);
-        MainLocations.Add(UploadButton.transform.position);
         MainLocations.Add(OptionsButton.transform.position);
         MainLocations.Add(QuitButton.transform.position); 
 
@@ -258,6 +270,11 @@ public class UI_MenuController : MonoBehaviour
         {
             Debug.Log("Failed to load room identity");
         }
+
+        // If no user token, disable the upload button
+        if (DC_NetworkManager.s_UserToken == "Not Found")
+            UploadButton.SetActive(false);
+
         #endregion
     }
 
@@ -836,6 +853,9 @@ public class UI_MenuController : MonoBehaviour
         audioManager.Play("Button_Pressed_SFX");
         DisableMainMenu();
         MenuSetup();
+
+        UploadButton.SetActive(DC_NetworkManager.s_UserToken != "Not Found");
+        DeleteButton.SetActive(true);
     }
 
     //Used by the load button
@@ -845,6 +865,9 @@ public class UI_MenuController : MonoBehaviour
         audioManager.Play("Button_Pressed_SFX");
         DisableMainMenu();
         MenuSetup();
+
+        UploadButton.SetActive(false);
+        DeleteButton.SetActive(false);
     }
 
     //Used by the options button
@@ -863,7 +886,33 @@ public class UI_MenuController : MonoBehaviour
         //if the game is set to save
         if(saveOrLoad==false)
         {
-            if (!isSaving)
+            if(uploadSaveFiles)
+            {
+                // Activate upload screen
+                Upload.SetActive(true);
+
+                // Save the filename wanting to be uploaded
+                uploadFilename = Saves.savesList[(saveLoadIdentity - 1) + (pageCurrent - 1) * 3];
+
+                // Disable the confirm screen
+                Confirm.SetActive(false);
+
+                // Reset sticky buttons
+                CancelStickyButtons();
+            }
+            else if (deleteSaveFiles)
+            {
+                Debug.Log(Saves.savesList[(saveLoadIdentity - 1) + (pageCurrent - 1) * 3]);
+
+                Saves.DeleteRoom(Saves.savesList[(saveLoadIdentity - 1) + (pageCurrent - 1) * 3]);
+
+                Confirm.SetActive(false);
+                MenuSetup();
+
+                // Reset sticky buttons
+                CancelStickyButtons();
+            }
+            else if (!isSaving)
             {
                 InputObject.SetActive(true);
                 inputField.ActivateInputField();
@@ -920,6 +969,62 @@ public class UI_MenuController : MonoBehaviour
             }
             saveLoadIdentity = 0;
         }
+    }
+
+    public void SetToDelete()
+    {
+        #region Sets the save files to a delete-able state. Also, locks down the highlight over that icon so it always shows as highlighted
+        if (!deleteSaveFiles)
+        {
+            deleteSaveFiles = true;
+            uploadSaveFiles = false;
+            HighlightDeleteHover.SetActive(true);
+            HighlightDeleteHover.transform.position = DeleteButton.transform.position;
+            HighlightUploadHover.SetActive(false);
+        }
+        else
+        {
+            deleteSaveFiles = false;
+            HighlightDeleteHover.SetActive(false);
+        }
+        #endregion
+    }
+
+    public void SetToUpload()
+    {
+        #region Sets the save files to an uploadable state. Also, locks down the highlight over that icon so it always shows as highlighted
+        if (!uploadSaveFiles)
+        {
+            deleteSaveFiles = false;
+            uploadSaveFiles = true;
+            HighlightUploadHover.SetActive(true);
+            HighlightUploadHover.transform.position = UploadButton.transform.position;
+            HighlightDeleteHover.SetActive(false);
+        }
+        else
+        {
+            uploadSaveFiles = false;
+            HighlightUploadHover.SetActive(false);
+        }
+        #endregion
+    }
+
+    private void CancelStickyButtons()
+    {
+        deleteSaveFiles = false;
+        uploadSaveFiles = false;
+        HighlightUploadHover.SetActive(false);
+        HighlightDeleteHover.SetActive(false);
+    }
+
+    public void ConfirmUploadPrivate()
+    {
+        Saves.UploadRoom(uploadFilename, true);
+    }
+
+    public void ConfirmUploadPublic()
+    {
+        Saves.UploadRoom(uploadFilename, false);
     }
 
     public void ReplaceSave(string original, string newString)
@@ -1005,6 +1110,14 @@ public class UI_MenuController : MonoBehaviour
                     ConfirmText.text = "Unsaved progress will be lost. Continue?";
                     saveFileSelected = saveLoadIdentity - 1 + ((pageCurrent - 1) * 3);
                 }
+            }
+            else if(uploadSaveFiles)
+            {
+                ConfirmText.text = "Upload this save file to server?";
+            }
+            else if(deleteSaveFiles)
+            {
+                ConfirmText.text = "Delete this save file?";
             }
             else
             {

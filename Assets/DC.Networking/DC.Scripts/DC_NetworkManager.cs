@@ -51,6 +51,9 @@ public class DC_NetworkManager : MonoBehaviour
     [Tooltip("Where instantiated Public Save/Load buttons are placed")]
     public Transform _PublicRoomListContentTransform;
 
+    [Header("Token Error information")]
+    public GameObject _TokenError;
+
     [Header("Testing")]
     public TextMeshProUGUI _LoginText;
 
@@ -224,6 +227,9 @@ public class DC_NetworkManager : MonoBehaviour
             {
                 // TODO: If not display a warning letting the user know that no list could be found
                 Debug.LogError("Could not find list of rooms from server @ " + URI.OriginalString);
+
+                if (_TokenError)
+                    _TokenError.SetActive(true);
             }
             else
             {

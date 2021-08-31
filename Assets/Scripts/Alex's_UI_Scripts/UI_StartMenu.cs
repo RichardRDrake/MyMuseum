@@ -1001,6 +1001,8 @@ public class UI_StartMenu : MonoBehaviour
                 Confirm.SetActive(false);
                 MenuSetup();
 
+                // Reset sticky buttons
+                CancelStickyButtons();
             }
             else if(uploadSaveFiles)
             {
@@ -1019,6 +1021,9 @@ public class UI_StartMenu : MonoBehaviour
 
                 // Disable the confirm screen
                 Confirm.SetActive(false);
+
+                // Reset sticky buttons
+                CancelStickyButtons();
             }
             else
             {
@@ -1073,6 +1078,14 @@ public class UI_StartMenu : MonoBehaviour
             HighlightUploadHover.SetActive(false);
         }
         #endregion
+    }
+
+    private void CancelStickyButtons()
+    {
+        deleteSaveFiles = false;
+        uploadSaveFiles = false;
+        HighlightUploadHover.SetActive(false);
+        HighlightDeleteHover.SetActive(false);
     }
 
     public void ConfirmUploadPrivate()
