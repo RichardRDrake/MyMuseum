@@ -19,10 +19,11 @@ public class RoomData
     public string roomString;
     public List<AssetData> Assets;
 
-    public RoomData(string assetString)
+    public RoomData(string assetString, string name)
     {
         roomString = assetString;
         Assets = new List<AssetData>();
+        saveName = name;
     }
 }
 
@@ -33,23 +34,26 @@ public class AssetData
     //public AssetPlacerScriptableObject scriptObject;
     public Vector3 assetPos;
     public Quaternion assetRot;
-    public Vector2 pixelSize;
+    public float pixelSizeX;
+    public float pixelSizeY;
+
+    //public Texture painting;
 
     public string assetName;
     public string assetContent;
     public ArtefactPlacementType assetPlacement;
-    public GameObject snapZone = null;
 
-    public AssetData(string GUID, Asset asset, Vector3 pos, Quaternion rot, GameObject snapzone)
+    public AssetData(string GUID, Asset asset, Vector3 pos, Quaternion rot/*, Texture paintin*/)
     {
         assetString = GUID;
         assetName = asset.Name;
         assetContent = asset.Content;
         assetPlacement = asset.placementType;
-        pixelSize = asset.pixelSize;
+        pixelSizeX = asset.pixelSize.x;
+        pixelSizeY = asset.pixelSize.y;
         assetPos = pos;
         assetRot = rot;
-        snapZone = snapzone;
+        //painting = paintin;
     }
 }
 

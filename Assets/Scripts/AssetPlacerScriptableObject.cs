@@ -71,7 +71,8 @@ public enum ArtefactCategory
     Frames,
     NaturalHistory,
     SocialHistory,
-    WorldCulture
+    WorldCulture,
+    Room
 }
 
 public class Asset
@@ -81,12 +82,11 @@ public class Asset
     public string AssRef;
     public Vector2 pixelSize;
     public ArtefactPlacementType placementType;
-    public GameObject snapZone = null;
-    public Texture2D painting = null;
+    //public Texture painting;
 
     public GameObject asset;
 
-    public Asset(string name, string content, string ar, ArtefactPlacementType apt, Vector2 pixels, GameObject _asset, GameObject snapzone = null)
+    public Asset(string name, string content, string ar, ArtefactPlacementType apt, Vector2 pixels, GameObject _asset/*, Texture paintin*/)
     {
         Name = name;
         Content = content;
@@ -94,7 +94,7 @@ public class Asset
         placementType = apt;
         pixelSize = pixels;
         asset = _asset;
-        snapZone = snapzone;
+        //painting = paintin;
     }
 }
 

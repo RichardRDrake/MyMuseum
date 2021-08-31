@@ -280,7 +280,7 @@ public class DC_EditObject : MonoBehaviour
                 m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().imageSizeInWorld = readFrom[panelNumber - 1].PaintingPixelSize;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[panelNumber - 1].ArtefactContent;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[panelNumber - 1].ArtefactName;
-                //m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.p = readFrom[panelNumber - 1].ArtefactName;
+               // m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.painting = readFrom[panelNumber - 1].PreviewImages[0];
             }
         }
         else
@@ -291,6 +291,7 @@ public class DC_EditObject : MonoBehaviour
                 m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().imageSizeInWorld = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].PaintingPixelSize;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].ArtefactContent;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].ArtefactName;
+               // m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.painting = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].PreviewImages[0];
             }
         }
     }

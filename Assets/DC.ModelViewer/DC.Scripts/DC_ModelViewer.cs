@@ -323,7 +323,8 @@ public class DC_ModelViewer : MonoBehaviour
 
         // Set the Sub header to match the name of the object
         // Replace Underscores with spaces for better readability
-        _SubHeader.text = model.name.Replace("_", " ");
+        model.name = model.name.Replace("_", " ");
+        _SubHeader.text = model.name.Replace("(Clone)", "");
 
         // Set it's initial rotation (Some objects look better at certain angles - so make that the default)
         _3DModelAnchor.rotation = Quaternion.AngleAxis(initialYRotation, Vector3.up);

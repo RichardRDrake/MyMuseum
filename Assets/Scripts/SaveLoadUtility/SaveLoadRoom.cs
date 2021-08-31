@@ -93,7 +93,7 @@ public class SaveLoadRoom : MonoBehaviour
         // Since Room selection isn't a thing yet, this will have to wait
         // Instead, we'll just pretend we found it lol
         string GUID = ARtoGuid(savedRoom);
-        RoomData savedRoomData = new RoomData(GUID);
+        RoomData savedRoomData = new RoomData(GUID, name);
 
         //Step 2 - Find all the Artefacts placed in the room, save their GUID and Position (and rotation)
         //Step 2.1 - Find the GridManager, it contains all the grids in the room, which in turn contain everything we'd want to save
@@ -356,14 +356,14 @@ public class SaveLoadRoom : MonoBehaviour
     {
         foreach (AssetData asset in assetData)
         {
-            MakeAsset(asset, placer);
+            MakeAsset(asset);
             //Spawned Asynchronously, wont be ready immidiately
             //spawnedObjects.Add(spawned);
             //AssetData assetData = data.Assets[i];
         }
     }
 
-    private void MakeAsset(AssetData assetData, AssetPlacer placer)
+    private void MakeAsset(AssetData assetData)
     {
         string GUID = assetData.assetString;
 
@@ -381,12 +381,13 @@ public class SaveLoadRoom : MonoBehaviour
                 spawnedAsset = op.Result;
                 if (spawnedAsset.GetComponent<DC_Placeable>())
                 {
-                    spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, assetData.pixelSize, op.Result, assetData.snapZone);
-                    spawnedAsset.GetComponent<DC_Placeable>().SetPlacing(false);
+                    spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, new Vector2(assetData.pixelSizeX, assetData.pixelSizeY), op.Result /*, assetData.painting*/);
+                    spawnedAsset.GetComponent<DC_Placeable>().SetPlacing(false, spawnedRoom);
+                    if(spawnedAsset.GetComponent<DC_PictureFraming>())
+                    {
+                       // spawnedAsset.GetComponent<DC_PictureFraming>()._TestImage = assetData.painting;
+                    }
                 }
-                    //Attach each object to the grid (closest point will be correct spot, or not make a difference)
-                    //GridPosition gPos = placer.PointToGrid(spawnedAsset.transform.position, spawnedAsset).gridPosition;                    
-                    //gPos.occupied = new Asset(assetData.assetName,assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result);
             }
         };
     }
@@ -414,9 +415,18 @@ public class SaveLoadRoom : MonoBehaviour
 
                 string GUID = assets.GetComponent<DC_Placeable>().asset.AssRef;
 
-                AssetData data = new AssetData(GUID, assets.GetComponent<DC_Placeable>().asset, assets.transform.position, assets.transform.rotation, assets.GetComponent<DC_Placeable>().asset.snapZone);
+                if (assets.GetComponent<DC_PictureFraming>())
+                {
+                    AssetData data = new AssetData(GUID, assets.GetComponent<DC_Placeable>().asset, assets.transform.position, assets.transform.rotation/*, assets.GetComponent<DC_PictureFraming>()._TestImage*/);
 
-                roomData.Assets.Add(data);
+                    roomData.Assets.Add(data);
+                }
+                else
+                {
+                    AssetData data = new AssetData(GUID, assets.GetComponent<DC_Placeable>().asset, assets.transform.position, assets.transform.rotation/*, null*/);
+
+                    roomData.Assets.Add(data);
+                }
             }
         }
     }

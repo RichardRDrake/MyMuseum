@@ -470,7 +470,19 @@ MonoBehaviour:
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1248457865}
+        m_TargetAssemblyTypeName: DC_ModelViewer, Assembly-CSharp
+        m_MethodName: UISetHeight
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8972636939991259307}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Scrollbar, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2039094343
 MonoBehaviour:
   m_ObjectHideFlags: 0

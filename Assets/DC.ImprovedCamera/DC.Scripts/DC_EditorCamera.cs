@@ -148,6 +148,7 @@ public class DC_EditorCamera : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
+            if(inspectedAsset == null)
             FirstPersonMode();
         }
 
@@ -347,6 +348,7 @@ public class DC_EditorCamera : MonoBehaviour
                         if (check == true)
                         {
                             toggle = false;
+                            if(inspectedAsset != null)
                             model_viewer.Activate(inspectedAsset.asset, inspectedAsset.Content);
                         }
                     }

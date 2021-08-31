@@ -28,7 +28,7 @@ public class UI_ShowDetail : MonoBehaviour
         iconImage = MyIcon.GetComponent<Image>();
         //First, checks that this panel contains details
         //If it doesn't, clicking this does nothing.
-        if (iconImage.sprite != null)
+        if (iconImage.sprite.name != "GUI2_ArtefactBrowser5_BlankPreviewBackdrop1_empty")
         {
             UI_Controller = UIControllerHost.GetComponent<UI_Controller>();
             //Sets the current window to "Catalogue" to allow NavigateDown to function correctly.

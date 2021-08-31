@@ -741,7 +741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ValidLayers:
     serializedVersion: 2
-    m_Bits: 2684354560
+    m_Bits: 1711276032
 --- !u!1 &3990946359699978488
 GameObject:
   m_ObjectHideFlags: 0

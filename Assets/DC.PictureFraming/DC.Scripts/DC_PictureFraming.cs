@@ -42,11 +42,6 @@ public class DC_PictureFraming : MonoBehaviour
 
     private void Apply(Texture image)
     {
-        // For the demo it is just calculating the size based on pixel width/height and a given pixel density (Pixels per meter)
-        // Vector2 imageSizeInPixels = new Vector2(image.width, image.height);
-       // imageSizeInWorld = imageSizeInPixels / _PixelDensity;
-
-
         // Using the size at the start in X/Y (So all Movable transforms are @(0,0,0))
         // Divided by 2 because both sides should go out by half etc.
         Vector2 offset = (imageSizeInWorld - _ContractedSize) / 2.0f;

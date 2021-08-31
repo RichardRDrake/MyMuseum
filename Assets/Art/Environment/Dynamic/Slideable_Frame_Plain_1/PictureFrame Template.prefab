@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _FrameType: 0
-  _SwapLeftRight: 0
+  _SwapLeftRight: 1
   _TestImage: {fileID: 0}
   _CanvasTransform: {fileID: 8373865678180210708}
   _PixelDensity: 100

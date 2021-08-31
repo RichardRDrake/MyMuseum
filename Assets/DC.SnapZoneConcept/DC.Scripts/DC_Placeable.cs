@@ -67,13 +67,58 @@ public class DC_Placeable : MonoBehaviour
     Ray m_Ray;
     RaycastHit[] m_Hits;
     RaycastHit m_Hit;
-   
+    private List<float> distances;
 
-    public void SetPlacing(bool placing)
+    public void SetPlacing(bool placing, GameObject spawnedRoom)
     {
         m_BeingPlaced = placing;
-        m_SnapZone = asset.snapZone.GetComponent<DC_SnapZone>();
-        m_SnapZone.SetValidity(false);
+        List<Transform> snapzones = new List<Transform>();
+       
+        foreach (Transform transformComponent in spawnedRoom.GetComponentsInChildren<Transform>())
+        {
+            if (transformComponent.gameObject.layer == LayerMask.NameToLayer("FloorSnap") || transformComponent.gameObject.layer == LayerMask.NameToLayer("FloorSnapDirectional") ||
+                transformComponent.gameObject.layer == LayerMask.NameToLayer("WallSnap"))
+            {
+                snapzones.Add(transformComponent);
+            }
+            
+           
+        }
+
+        if(snapzones.Count > 0)
+        {
+            distances = new List<float>();
+            Vector3 pos, pos2;
+            // For every object in the array,
+            for (int i = 0; i < snapzones.Count; i++)
+            {
+                // Get the object/camera positions
+                pos = snapzones[i].position;
+                pos2 = transform.position;
+
+                // Determine the total distance between the camera and object, add it to the distances list
+                distances.Add(Mathf.Sqrt(Mathf.Pow(pos2.x - pos.x, 2) + Mathf.Pow(pos2.z - pos.z, 2)));
+            }
+
+            // Get the minimum distance from the list
+            float min = distances.Min();
+
+            m_SnapZone = snapzones[distances.IndexOf(min)].GetComponent<DC_SnapZone>();
+            m_SnapZone.SetValidity(placing);
+        }
+                //m_SnapZone = snapZone.GetComponent<DC_SnapZone>();
+                //m_SnapZone.SetValidity(placing);
+
+    }
+
+    public bool GetPlacing()
+    {
+        return m_BeingPlaced;
+    }
+
+    public GameObject GetSnapZoneGO()
+    {
+        return m_SnapZone.gameObject;
     }
 
     private void Update()
@@ -90,7 +135,7 @@ public class DC_Placeable : MonoBehaviour
             if (m_SnapZone)
             {
                 m_SnapZone.SetValidity(false);
-                asset.snapZone = m_SnapZone.gameObject;
+                //asset.snapZone = m_SnapZone.gameObject;
             }
         }
 
