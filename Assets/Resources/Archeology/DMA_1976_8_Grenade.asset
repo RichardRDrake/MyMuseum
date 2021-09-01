@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1976_8_Grenade
+  m_EditorClassIdentifier: 
+  ArtefactName: DMA_1976_8_Grenade
+  ArtefactContent: DMA_1976_8_Grenade
+  ArtefactPrefab:
+    m_AssetGUID: e66b7db56933ee941aa5272f4edfa663
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0, y: 0}
+  PreviewImages:
+  - {fileID: 2800000, guid: e3dee800058907143bd96da016c442d7, type: 3}
+  PlacementType: 1
+  CategoryType: 0

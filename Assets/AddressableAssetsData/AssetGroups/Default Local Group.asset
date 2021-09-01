@@ -103,6 +103,10 @@ MonoBehaviour:
       Template.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e66b7db56933ee941aa5272f4edfa663
+    m_Address: Assets/ArtefactData/ArtefactPrefabs/DMA_1976_8_Grenade.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 275a04182d11bab4c904ba181bf491dc, type: 2}
   m_SchemaSet:
