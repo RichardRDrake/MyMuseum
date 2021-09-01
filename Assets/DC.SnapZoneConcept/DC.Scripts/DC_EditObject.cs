@@ -50,7 +50,7 @@ public class DC_EditObject : MonoBehaviour
     private int listLength;
     private int pageCount;
     private int pageCurrent;
-    private TextMeshProUGUI countText;
+    public TextMeshProUGUI countText;
 
     private int pageNumber;
 
@@ -242,7 +242,7 @@ public class DC_EditObject : MonoBehaviour
 
     void ShowList()
     {
-        //countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
+        countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
         for (int i = 0; i <= 3; i++)
         {
             //Debug.Log(pageCurrent);

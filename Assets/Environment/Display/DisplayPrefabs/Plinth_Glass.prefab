@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8075059622396992019}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6771302640716126581
 MeshFilter:
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6416210842788476867}
   m_Layer: 0
-  m_Name: Snap_Zone_Floor
+  m_Name: Snap_Zone_Plinth
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8075059622396992019}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8888855923295174825
 GameObject:
@@ -142,9 +142,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6416210842788476867}
   - {fileID: 1227477671079901759}
   - {fileID: 7606779603692878618}
+  - {fileID: 6416210842788476867}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -216,7 +216,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8242d0481880dd5489fdb646875343d3, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8242d0481880dd5489fdb646875343d3, type: 3}
       propertyPath: m_LocalPosition.x

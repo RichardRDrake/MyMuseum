@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1584335629616809660}
   - component: {fileID: 3824828498127767440}
   - component: {fileID: 2241385428158274644}
+  - component: {fileID: 2276602104836767046}
   m_Layer: 0
   m_Name: DMA_1987-55a_Perth-Toilet-Seat
   m_TagString: object
@@ -64,6 +65,19 @@ MonoBehaviour:
   _ValidLayers:
     serializedVersion: 2
     m_Bits: 503316480
+--- !u!65 &2276602104836767046
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522862063463661039}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1, z: 0.7}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &4286200896204373691
 GameObject:
   m_ObjectHideFlags: 0
