@@ -381,11 +381,12 @@ public class SaveLoadRoom : MonoBehaviour
                 spawnedAsset = op.Result;
                 if (spawnedAsset.GetComponent<DC_Placeable>())
                 {
-                    spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, new Vector2(assetData.pixelSizeX, assetData.pixelSizeY), op.Result /*, assetData.painting*/);
+                    spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, new Vector2(assetData.pixelSizeX, assetData.pixelSizeY), op.Result , assetData.paintingIndex);
                     spawnedAsset.GetComponent<DC_Placeable>().SetPlacing(false, spawnedRoom);
                     if(spawnedAsset.GetComponent<DC_PictureFraming>())
                     {
-                       // spawnedAsset.GetComponent<DC_PictureFraming>()._TestImage = assetData.painting;
+                        List<AssetPlacerScriptableObject> readFrom = GetComponent<TempListScript>().GetList(ArtefactCategory.Images, "Images");
+                        spawnedAsset.GetComponent<DC_PictureFraming>()._TestImage = readFrom[assetData.paintingIndex].PreviewImages[0];
                     }
                 }
             }
@@ -417,13 +418,13 @@ public class SaveLoadRoom : MonoBehaviour
 
                 if (assets.GetComponent<DC_PictureFraming>())
                 {
-                    AssetData data = new AssetData(GUID, assets.GetComponent<DC_Placeable>().asset, assets.transform.position, assets.transform.rotation/*, assets.GetComponent<DC_PictureFraming>()._TestImage*/);
+                    AssetData data = new AssetData(GUID, assets.GetComponent<DC_Placeable>().asset, assets.transform.position, assets.transform.rotation, assets.GetComponent<DC_Placeable>().asset.paintingIndex);
 
                     roomData.Assets.Add(data);
                 }
                 else
                 {
-                    AssetData data = new AssetData(GUID, assets.GetComponent<DC_Placeable>().asset, assets.transform.position, assets.transform.rotation/*, null*/);
+                    AssetData data = new AssetData(GUID, assets.GetComponent<DC_Placeable>().asset, assets.transform.position, assets.transform.rotation, 0);
 
                     roomData.Assets.Add(data);
                 }

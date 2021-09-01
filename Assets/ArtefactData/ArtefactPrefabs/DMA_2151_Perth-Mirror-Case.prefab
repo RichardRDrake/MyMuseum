@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 77137634388466908}
   - component: {fileID: 2802819556796631576}
   - component: {fileID: 4191161996046732649}
+  - component: {fileID: 2179819526954001830}
   m_Layer: 0
   m_Name: DMA_2151_Perth-Mirror-Case
   m_TagString: object
@@ -64,6 +65,19 @@ MonoBehaviour:
   _ValidLayers:
     serializedVersion: 2
     m_Bits: 503316480
+--- !u!65 &2179819526954001830
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745870108911044198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.5}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &8129069916175412887
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +89,6 @@ GameObject:
   - component: {fileID: 5034484076284359099}
   - component: {fileID: 4873129042207985212}
   - component: {fileID: 298660614351757490}
-  - component: {fileID: 4239228386283298690}
   m_Layer: 0
   m_Name: DMA_2151_Perth_Mirror_Case
   m_TagString: Untagged
@@ -146,16 +159,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4239228386283298690
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8129069916175412887}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.701827, y: 0.77615297, z: 0.015695}
-  m_Center: {x: -0.005951494, y: 0.3936565, z: 0.00020449981}

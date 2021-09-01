@@ -50,7 +50,7 @@ public class DC_EditObject : MonoBehaviour
     private int listLength;
     private int pageCount;
     private int pageCurrent;
-    private TextMeshProUGUI countText;
+    public TextMeshProUGUI countText;
 
     private int pageNumber;
 
@@ -188,6 +188,21 @@ public class DC_EditObject : MonoBehaviour
         if (menuItem.GetComponent<TempListScript>())
         {
             readFrom = menuItem.GetComponent<TempListScript>().GetList(ArtefactCategory.Images, "Images");
+           
+
+            if (m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._FrameType == DC_PictureFraming.FrameType.SLIDING)
+            {
+                for (int t = 0; t < readFrom.Count; t++)
+                {
+                    if (readFrom[t].PaintingPixelSize.x > m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MaxContractedSize.x ||
+                         readFrom[t].PaintingPixelSize.y > m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MaxContractedSize.y ||
+                         readFrom[t].PaintingPixelSize.x < m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MinContractedSize.x ||
+                         readFrom[t].PaintingPixelSize.y < m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MinContractedSize.y)
+                    {
+                        readFrom.RemoveAt(t);
+                    }
+                }
+            }
             listLength = readFrom.Count + 1;
             Debug.Log(listLength);
             pageCount = listLength / 4;
@@ -242,7 +257,7 @@ public class DC_EditObject : MonoBehaviour
 
     void ShowList()
     {
-        //countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
+        countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
         for (int i = 0; i <= 3; i++)
         {
             //Debug.Log(pageCurrent);
@@ -270,7 +285,6 @@ public class DC_EditObject : MonoBehaviour
      
     public void OnClickedAsset(int panelNumber)
     {
-        Asset asset;
       
         if (pageCurrent <= 1)
         {
@@ -280,7 +294,7 @@ public class DC_EditObject : MonoBehaviour
                 m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().imageSizeInWorld = readFrom[panelNumber - 1].PaintingPixelSize;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[panelNumber - 1].ArtefactContent;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[panelNumber - 1].ArtefactName;
-               // m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.painting = readFrom[panelNumber - 1].PreviewImages[0];
+                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.paintingIndex = panelNumber - 1;
             }
         }
         else
@@ -291,7 +305,7 @@ public class DC_EditObject : MonoBehaviour
                 m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().imageSizeInWorld = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].PaintingPixelSize;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].ArtefactContent;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].ArtefactName;
-               // m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.painting = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].PreviewImages[0];
+                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.paintingIndex = (panelNumber + (4 * (pageCurrent - 1)) - 1);
             }
         }
     }

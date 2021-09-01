@@ -20,6 +20,17 @@ public class DC_SnapZones : MonoBehaviour
     {
         foreach (Transform transformComponent in GetComponentsInChildren<Transform>())
         {
+            if (transformComponent.name.Contains("Snap_Zone_Plinth"))
+            {
+                GameObject temp = Instantiate(_NonDirectionalZoneSpritePrefab, transformComponent, false);
+                temp.name = transformComponent.name;
+                temp.transform.localScale = new Vector3(transformComponent.localScale.x / temp.transform.lossyScale.x,
+                                                        transformComponent.localScale.y / temp.transform.lossyScale.y,
+                                                        transformComponent.localScale.z / temp.transform.lossyScale.z);
+                temp.layer = LayerMask.NameToLayer("PlinthSnap");
+                DC_SnapZone script = temp.GetComponent<DC_SnapZone>();
+                script.Init(_Threshold, true);
+            }
             if (transformComponent.name.Contains("Snap_Zone_Floor_Directional"))
             {
                 GameObject temp = Instantiate(_DirectionalZoneSpritePrefab, transformComponent, false);

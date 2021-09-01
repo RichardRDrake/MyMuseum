@@ -106,7 +106,7 @@ public class UI_Controller : MonoBehaviour
     #endregion
 
     #region Script containing list of menu-specific placeable objects
-    private TempListScript Resources;
+    private List<AssetPlacerScriptableObject> Resources;
     int listLength;
 
     //Used to determine which list to read from
@@ -183,11 +183,11 @@ public class UI_Controller : MonoBehaviour
         }
 
         //This debug TempListScript is NECESSARY. 
-        Resources = GetComponent<TempListScript>();
-        if (!Resources)
-        {
-            Debug.Log("Resources - Something went wrong");
-        }
+        //Resources = GetComponent<TempListScript>().GetList(ArtefactCategory.Room, "Rooms");
+        //if (!Resources)
+        //{
+        //    Debug.Log("Resources - Something went wrong");
+        //}
 
 
         //Gets the (hopefully) single assetplacer in the scene
@@ -377,13 +377,13 @@ public class UI_Controller : MonoBehaviour
                     DetailPanel.SetActive(true);
                     detailImage = DetailImageField.GetComponent<Image>();
                     //Displays "Download" if the player presses on an icon beyond the length of the asset list
-                    if (((pageCurrent - 1) * 6) + paneCurrent > Resources.readFrom.Count)
+                    if (((pageCurrent - 1) * 6) + paneCurrent > Resources.Count)
                     {
                         detailImage.sprite = null;
                     }
                     else
                     {
-                        detailImage.sprite = Sprite.Create(Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[0], new Rect(0.0f, 0.0f, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[0].width, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[0].height), new Vector2(0.0f, 0.0f));
+                        detailImage.sprite = Sprite.Create(Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[0], new Rect(0.0f, 0.0f, Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[0].width, Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[0].height), new Vector2(0.0f, 0.0f));
                     }
                     windowCurrent = windowFinder.Detail;
                 }
@@ -517,7 +517,7 @@ public class UI_Controller : MonoBehaviour
                 #region Tabs backwards through panes in the current catalogue page
                 paneCurrent++;
                 //Checks that the next pane cycled to isn't greater than 6, or empty
-                if (paneCurrent > 6 || ((pageCurrent - 1) * 6) + (paneCurrent - 1) > Resources.readFrom.Count)
+                if (paneCurrent > 6 || ((pageCurrent - 1) * 6) + (paneCurrent - 1) > Resources.Count)
                 {
                     paneCurrent = 1;
                 }
@@ -613,11 +613,11 @@ public class UI_Controller : MonoBehaviour
                 {
                     paneCurrent = 6;
                     //Checks that the next pane cycled to isn't empty
-                    if (((pageCurrent - 1) * 6) + (paneCurrent - 1) > Resources.readFrom.Count)
+                    if (((pageCurrent - 1) * 6) + (paneCurrent - 1) > Resources.Count)
                     {
                         //If it is, cycles to the pane one higher than the remainder of the asset list divided by the number of full pages
                         Debug.Log(pageCurrent);
-                        paneCurrent = (Resources.readFrom.Count % ((pageCurrent - 1) * 6)) + 1;
+                        paneCurrent = (Resources.Count % ((pageCurrent - 1) * 6)) + 1;
                     }
                 }
                 //Moves the highlight over the appropriate pane
@@ -665,7 +665,7 @@ public class UI_Controller : MonoBehaviour
             detailImageCounter = 0;
         }
 
-        detailImage.sprite = Sprite.Create(Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter], new Rect(0.0f, 0.0f, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].width, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].height), new Vector2(0.0f, 0.0f));
+        detailImage.sprite = Sprite.Create(Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter], new Rect(0.0f, 0.0f, Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].width, Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].height), new Vector2(0.0f, 0.0f));
         #endregion
     }
 
@@ -678,7 +678,7 @@ public class UI_Controller : MonoBehaviour
             detailImageCounter = 3;
         }
 
-        detailImage.sprite = Sprite.Create(Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter], new Rect(0.0f, 0.0f, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].width, Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].height), new Vector2(0.0f, 0.0f));
+        detailImage.sprite = Sprite.Create(Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter], new Rect(0.0f, 0.0f, Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].width, Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)].PreviewImages[detailImageCounter].height), new Vector2(0.0f, 0.0f));
         #endregion
     }
     #endregion
@@ -718,7 +718,7 @@ public class UI_Controller : MonoBehaviour
     public void MenuInit(TempListScript list)
     {
         switchLists = true;
-        Resources = list;
+        Resources = list.readFrom;
     }
     private void MenuSetup()
     {
@@ -737,14 +737,14 @@ public class UI_Controller : MonoBehaviour
         //Then created a list of relevant assets from that record based on the catalogue category selected
         if (RoomSetup == true)
         {
-            Resources = Room.GetComponent<TempListScript>();
+            Resources = Room.GetComponent<TempListScript>().GetList(ArtefactCategory.Room, "Rooms");
         }
      
         #endregion
 
         //Creates a total page count based on number of objects in Resources.readFrom
         //Includes all full pages, plus a page for the remainder
-        listLength = Resources.readFrom.Count + 1;
+        listLength = Resources.Count + 1;
         //Debug.Log(listLength);
         pageCount = listLength / 6;
         if(listLength % 6 > 0)
@@ -784,18 +784,18 @@ public class UI_Controller : MonoBehaviour
             {
                 objectDisplay[i].sprite = emptyImage;
             }
-            else if (pageNumber > (Resources.readFrom.Count - 1))
+            else if (pageNumber > (Resources.Count - 1))
             {
                 objectDisplay[i].sprite = emptyImage;
             }
             else
             {
-                if (Resources.readFrom[pageNumber] == null)
+                if (Resources[pageNumber] == null)
                 {
                     continue;
                 }
                 //Debug.Log(Resources.readFrom[pageNumber].ArtefactName);
-                objectDisplay[i].sprite = Sprite.Create(Resources.readFrom[pageNumber].PreviewImages[0], new Rect(0.0f, 0.0f, Resources.readFrom[pageNumber].PreviewImages[0].width, Resources.readFrom[pageNumber].PreviewImages[0].height), new Vector2(0.0f, 0.0f));
+                objectDisplay[i].sprite = Sprite.Create(Resources[pageNumber].PreviewImages[0], new Rect(0.0f, 0.0f, Resources[pageNumber].PreviewImages[0].width, Resources[pageNumber].PreviewImages[0].height), new Vector2(0.0f, 0.0f));
             }
         }
         paneCurrent = 0;
@@ -865,7 +865,7 @@ public class UI_Controller : MonoBehaviour
         //Take the gameObject "referenced" from Alex's lists
         //Debug.Log(assetPlacer);
         //Need to work out where we are in the panels
-        AssetPlacerScriptableObject newArtefact = Resources.readFrom[((pageCurrent - 1) * 6) + (paneCurrent - 1)];
+        AssetPlacerScriptableObject newArtefact = Resources[((pageCurrent - 1) * 6) + (paneCurrent - 1)];
         // We're gonna do this in Assetplacer now// AssetReference newAsset = newArtefact.GetArtefact();
         Debug.Log(newArtefact.name);
         ReceiveFromUI(newArtefact);
@@ -891,7 +891,7 @@ public class UI_Controller : MonoBehaviour
         }
 
         //Confused on Addressables? Go here: https://www.youtube.com/watch?v=Zb9WchxZhvM
-        asset = new Asset(artefact.ArtefactName, artefact.ArtefactContent, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType(), artefact.PaintingPixelSize, null /*, null*/);
+        asset = new Asset(artefact.ArtefactName, artefact.ArtefactContent, artefact.GetAssetReference().AssetGUID, artefact.GetPlacementType(), artefact.PaintingPixelSize, null , 0);
         //The Addressable pathway to the asset (found on its scriptable object)
         AssetReference newAsset = artefact.GetArtefact();
         //Spawn the object. If you don't want to do anything to the object after it's spawned, ignore .Completed and everything after

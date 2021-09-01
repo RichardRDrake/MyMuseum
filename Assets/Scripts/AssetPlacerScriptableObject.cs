@@ -82,11 +82,11 @@ public class Asset
     public string AssRef;
     public Vector2 pixelSize;
     public ArtefactPlacementType placementType;
-    //public Texture painting;
+    public int paintingIndex;
 
     public GameObject asset;
 
-    public Asset(string name, string content, string ar, ArtefactPlacementType apt, Vector2 pixels, GameObject _asset/*, Texture paintin*/)
+    public Asset(string name, string content, string ar, ArtefactPlacementType apt, Vector2 pixels, GameObject _asset, int paintinIndex)
     {
         Name = name;
         Content = content;
@@ -94,7 +94,7 @@ public class Asset
         placementType = apt;
         pixelSize = pixels;
         asset = _asset;
-        //painting = paintin;
+        paintingIndex = paintinIndex;
     }
 }
 

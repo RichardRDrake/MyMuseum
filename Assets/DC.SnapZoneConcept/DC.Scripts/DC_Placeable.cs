@@ -61,6 +61,7 @@ public class DC_Placeable : MonoBehaviour
         m_WallLayerID = LayerMask.NameToLayer("Wall");
 
         cam =GameObject.Find("Editor Camera").GetComponent<DC_EditorCamera>();
+        cam.placingSomething = true;
     }
 
     // For optimisation
@@ -72,12 +73,13 @@ public class DC_Placeable : MonoBehaviour
     public void SetPlacing(bool placing, GameObject spawnedRoom)
     {
         m_BeingPlaced = placing;
+        cam.placingSomething = placing;
         List<Transform> snapzones = new List<Transform>();
        
         foreach (Transform transformComponent in spawnedRoom.GetComponentsInChildren<Transform>())
         {
             if (transformComponent.gameObject.layer == LayerMask.NameToLayer("FloorSnap") || transformComponent.gameObject.layer == LayerMask.NameToLayer("FloorSnapDirectional") ||
-                transformComponent.gameObject.layer == LayerMask.NameToLayer("WallSnap"))
+                transformComponent.gameObject.layer == LayerMask.NameToLayer("WallSnap") || transformComponent.gameObject.layer == LayerMask.NameToLayer("PlinthSnap"))
             {
                 snapzones.Add(transformComponent);
             }
@@ -135,6 +137,7 @@ public class DC_Placeable : MonoBehaviour
             if (m_SnapZone)
             {
                 m_SnapZone.SetValidity(false);
+                cam.placingSomething = false;
                 //asset.snapZone = m_SnapZone.gameObject;
             }
         }
@@ -144,9 +147,11 @@ public class DC_Placeable : MonoBehaviour
             // A ray from your mouse pointer to the world
             m_Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+            cam.placingSomething = true;
+
             // Get all the hits, and order them by distance
             m_Hits = Physics.RaycastAll(m_Ray, 100, _ValidLayers, QueryTriggerInteraction.Collide);// EDIT: no need to order, instead using if it has a Sphere Collider to take precedence.OrderBy(x => x.distance).ToArray();
-
+            Debug.Log(m_Hits.Length);
             // Check all hit points
             foreach (RaycastHit hit in m_Hits)
             {
@@ -155,12 +160,22 @@ public class DC_Placeable : MonoBehaviour
                 {
                     // This is probably a snap zone, save for later
                     m_SnapZone = hit.transform.GetComponent<DC_SnapZone>();
+                    if(m_SnapZone == null)
+                    {
+                        m_SnapZone = hit.transform.GetComponentInChildren<DC_SnapZone>();
+                    }
+                    Debug.Log(hit.transform.name);
+                    
 
                     // If it is a snap zone make sure it's still valid (Hasn't already got something placed there)
                     if (m_SnapZone && m_SnapZone._IsValid)
                     {
                         // If the name contains the word "Directional" Set the objects rotation and use directional offset
-                        if (hit.transform.name.Contains("Directional"))
+                        if (hit.transform.name.Contains("Plinth"))
+                        {
+                            transform.position = hit.transform.GetComponentInChildren<DC_SnapZone>().gameObject.transform.position;
+                        }
+                        else if (hit.transform.name.Contains("Directional"))
                         {
                             // Set the rotation to the snap zone + If X smaller than Z, rotate 90 degrees
                             transform.rotation = hit.transform.rotation * Quaternion.AngleAxis(m_DefaultToX ? 90.0f : 0.0f, Vector3.up);
@@ -289,12 +304,30 @@ public class DC_Placeable : MonoBehaviour
                 // This one is used to calculate it's current position and size on the screen for the GUI placement
                 // Updating the old one would mean the encapsulated bound would no longer be local to the object
                 // Update the encapsulated bounds to where the object is now
-                Bounds tempBound = GetComponentInChildren<Renderer>().bounds;
-                foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-                    tempBound.Encapsulate(renderer.bounds);
+                if (this.GetComponentInChildren<DC_SnapZone>())
+                {
+                    if (this.GetComponentInChildren<DC_SnapZone>()._IsValid == true)
+                    { 
+                        if (cam.placingSomething == false)
+                        {
+                            Bounds tempBound = GetComponentInChildren<Renderer>().bounds;
+                            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+                                tempBound.Encapsulate(renderer.bounds);
 
-                // Set the position and scale for the Edit Object toolbox
-                DC_EditObject.Instance.Init(tempBound, this.gameObject, asset.pixelSize);
+                            // Set the position and scale for the Edit Object toolbox
+                            DC_EditObject.Instance.Init(tempBound, this.gameObject, asset.pixelSize);
+                        }
+                    }
+                }
+                else
+                {
+                    Bounds tempBound = GetComponentInChildren<Renderer>().bounds;
+                    foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+                        tempBound.Encapsulate(renderer.bounds);
+
+                    // Set the position and scale for the Edit Object toolbox
+                    DC_EditObject.Instance.Init(tempBound, this.gameObject, asset.pixelSize);
+                }
             }
         }
     }
@@ -316,7 +349,10 @@ public class DC_Placeable : MonoBehaviour
             // Because some objects are thinner in X than they are in Z, when the object was created we worked out which is thinnest
             // So here we know if 90 and 270 is classed as X or Z
             // EDIT: The push out amount is now caculated using the current angle and is a percentage of X and Z so angles don't have to be in 90 degree increments :)
-            transform.position = m_SnapZone.transform.position + m_SnapZone.transform.forward * CalculatePushOutAmount(m_CurrentLocalAngle);
+            if (m_SnapZone.name != "Snap_Zone_Plinth")
+            {
+                transform.position = m_SnapZone.transform.position + m_SnapZone.transform.forward * CalculatePushOutAmount(m_CurrentLocalAngle);
+            }
         }
     }
 

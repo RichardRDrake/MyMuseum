@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 27850495306897611}
   m_Layer: 0
-  m_Name: Snap_Zone_Floor
+  m_Name: Snap_Zone_Plinth
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _NonDirectionalZoneSpritePrefab: {fileID: 5730095353733204792, guid: 6794bc7f3391091428db874228f0002c, type: 3}
   _DirectionalZoneSpritePrefab: {fileID: 5730095353733204792, guid: 20077b323e4becc43940a93f91028293, type: 3}
-  _Threshold: 0.445
+  _Threshold: 0.482
 --- !u!1001 &3505849670819893171
 PrefabInstance:
   m_ObjectHideFlags: 0

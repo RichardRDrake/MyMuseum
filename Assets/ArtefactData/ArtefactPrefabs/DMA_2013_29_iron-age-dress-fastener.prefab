@@ -47,7 +47,7 @@ CapsuleCollider:
   m_Radius: 0.1
   m_Height: 0.1
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.05, z: 0}
 --- !u!54 &-2612630373745851390
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ValidLayers:
     serializedVersion: 2
-    m_Bits: 3858759680
+    m_Bits: 3875536896
 --- !u!1001 &5863916095513933747
 PrefabInstance:
   m_ObjectHideFlags: 0
