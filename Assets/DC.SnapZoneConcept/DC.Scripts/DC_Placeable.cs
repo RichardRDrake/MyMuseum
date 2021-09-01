@@ -79,7 +79,7 @@ public class DC_Placeable : MonoBehaviour
         foreach (Transform transformComponent in spawnedRoom.GetComponentsInChildren<Transform>())
         {
             if (transformComponent.gameObject.layer == LayerMask.NameToLayer("FloorSnap") || transformComponent.gameObject.layer == LayerMask.NameToLayer("FloorSnapDirectional") ||
-                transformComponent.gameObject.layer == LayerMask.NameToLayer("WallSnap"))
+                transformComponent.gameObject.layer == LayerMask.NameToLayer("WallSnap") || transformComponent.gameObject.layer == LayerMask.NameToLayer("PlinthSnap"))
             {
                 snapzones.Add(transformComponent);
             }

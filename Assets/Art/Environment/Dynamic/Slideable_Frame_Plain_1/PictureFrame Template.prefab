@@ -538,6 +538,8 @@ MonoBehaviour:
   _CanvasTransform: {fileID: 8373865678180210708}
   _PixelDensity: 100
   _ContractedSize: {x: 0.45, y: 0.45}
+  MinContractedSize: {x: 1.12, y: 1.12}
+  MaxContractedSize: {x: 2.2, y: 2.2}
   imageSizeInWorld: {x: 1, y: 1}
 --- !u!114 &-4346652749973929095
 MonoBehaviour:

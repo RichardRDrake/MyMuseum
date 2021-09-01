@@ -29,6 +29,9 @@ public class DC_PictureFraming : MonoBehaviour
     // The size of the gap when all anchors are at 0,0,0
     public Vector2 _ContractedSize;
 
+    public Vector2 MinContractedSize;
+    public Vector2 MaxContractedSize;
+
     private float m_StretchHorizontalOS = 0;
     private float m_StretchVerticalOS = 0;
 

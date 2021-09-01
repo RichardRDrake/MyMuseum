@@ -37,13 +37,13 @@ public class AssetData
     public float pixelSizeX;
     public float pixelSizeY;
 
-    //public Texture painting;
+    public int paintingIndex;
 
     public string assetName;
     public string assetContent;
     public ArtefactPlacementType assetPlacement;
 
-    public AssetData(string GUID, Asset asset, Vector3 pos, Quaternion rot/*, Texture paintin*/)
+    public AssetData(string GUID, Asset asset, Vector3 pos, Quaternion rot, int paintinIndex)
     {
         assetString = GUID;
         assetName = asset.Name;
@@ -53,7 +53,7 @@ public class AssetData
         pixelSizeY = asset.pixelSize.y;
         assetPos = pos;
         assetRot = rot;
-        //painting = paintin;
+        paintingIndex = paintinIndex;
     }
 }
 
