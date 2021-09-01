@@ -77,7 +77,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ValidLayers:
     serializedVersion: 2
-    m_Bits: 3858759680
+    m_Bits: 3875536896
 --- !u!1001 &4036734881516341817
 PrefabInstance:
   m_ObjectHideFlags: 0

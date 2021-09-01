@@ -94,6 +94,7 @@ public class DC_EditorCamera : MonoBehaviour
     public DC_ModelViewer model_viewer;
 
     private bool toggle = true;
+    public bool placingSomething = false;
 
     // The following is public just for testing
     public enum CurrentMode
@@ -289,8 +290,11 @@ public class DC_EditorCamera : MonoBehaviour
                     m_CurrentMode = CurrentMode.PERSPECTIVE;
                     if (!UI_MainMenu.activeInHierarchy)
                     {
-                        UI_BuildMode.SetActive(false);
-                        UI_ViewMode.SetActive(true);
+                        if (inspectedAsset == null)
+                        {
+                            UI_BuildMode.SetActive(false);
+                            UI_ViewMode.SetActive(true);
+                        }
                     }
                     // Use the pivot rotation in X and Y as the starting rotation for free look
                     m_PerspectiveViewEulerAngles.x = _PivotTransform.localRotation.eulerAngles.x;
@@ -317,8 +321,16 @@ public class DC_EditorCamera : MonoBehaviour
             m_CurrentMode = CurrentMode.PERSPECTIVE;
             if (!UI_MainMenu.activeInHierarchy)
             {
-                UI_BuildMode.SetActive(false);
-                UI_ViewMode.SetActive(true);
+                if (inspectedAsset == null)
+                {
+                    UI_BuildMode.SetActive(false);
+                    UI_ViewMode.SetActive(true);
+                }
+                else 
+                {
+                    UI_BuildMode.SetActive(false);
+                    UI_ViewMode.SetActive(false);
+                }
             }
             bool check = CheckSurround();
             if (check == true)
