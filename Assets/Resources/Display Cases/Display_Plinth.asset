@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
-  m_Name: Display_Case
+  m_Name: Display_Plinth
   m_EditorClassIdentifier: 
-  ArtefactName: Large Display Case
+  ArtefactName: Large Display Plinth
   ArtefactContent: Artefacts can be stored inside
   ArtefactPrefab:
     m_AssetGUID: 2c3fdc602d05db44aaff27ee2ed36f45

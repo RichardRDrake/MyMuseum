@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 3580314816613907655}
   - component: {fileID: 4535224381410276676}
   m_Layer: 0
-  m_Name: Display_Case
+  m_Name: Display_Plinth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

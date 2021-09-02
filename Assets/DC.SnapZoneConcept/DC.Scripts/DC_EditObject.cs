@@ -65,8 +65,8 @@ public class DC_EditObject : MonoBehaviour
             if (m_ShuttingDown)
             {
                 Debug.LogWarning("[Singleton] Instance '" + typeof(DC_EditObject) +
-                    "' already destroyed. Returning null.");
-                return null;
+                    "' already destroyed. Making new one.");
+                m_ShuttingDown = false;
             }
 
             lock (m_Lock)
@@ -86,7 +86,7 @@ public class DC_EditObject : MonoBehaviour
         m_ShuttingDown = true;
     }
 
-    public void Init(Bounds encapsulatedBounds, GameObject placeableObjectToEdit, Vector2 pixelSize)
+    public void Init(Bounds encapsulatedBounds, GameObject placeableObjectToEdit)
     {
         // Enable the Edit HUD
         _Canvas.enabled = true;
@@ -295,6 +295,7 @@ public class DC_EditObject : MonoBehaviour
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[panelNumber - 1].ArtefactContent;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[panelNumber - 1].ArtefactName;
                 m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.paintingIndex = panelNumber - 1;
+
             }
         }
         else

@@ -31,11 +31,8 @@ public class RoomData
 public class AssetData
 {
     public string assetString;
-    //public AssetPlacerScriptableObject scriptObject;
     public Vector3 assetPos;
     public Quaternion assetRot;
-    public float pixelSizeX;
-    public float pixelSizeY;
 
     public int paintingIndex;
 
@@ -49,8 +46,6 @@ public class AssetData
         assetName = asset.Name;
         assetContent = asset.Content;
         assetPlacement = asset.placementType;
-        pixelSizeX = asset.pixelSize.x;
-        pixelSizeY = asset.pixelSize.y;
         assetPos = pos;
         assetRot = rot;
         paintingIndex = paintinIndex;

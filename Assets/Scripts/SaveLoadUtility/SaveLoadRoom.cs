@@ -354,12 +354,10 @@ public class SaveLoadRoom : MonoBehaviour
 
     private void SpawnAssets(List<AssetData> assetData)
     {
+      
         foreach (AssetData asset in assetData)
         {
             MakeAsset(asset);
-            //Spawned Asynchronously, wont be ready immidiately
-            //spawnedObjects.Add(spawned);
-            //AssetData assetData = data.Assets[i];
         }
     }
 
@@ -381,12 +379,19 @@ public class SaveLoadRoom : MonoBehaviour
                 spawnedAsset = op.Result;
                 if (spawnedAsset.GetComponent<DC_Placeable>())
                 {
-                    spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, new Vector2(assetData.pixelSizeX, assetData.pixelSizeY), op.Result , assetData.paintingIndex);
-                    spawnedAsset.GetComponent<DC_Placeable>().SetPlacing(false, spawnedRoom);
+                    spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result , assetData.paintingIndex);
+                    if (spawnedAsset.name.Contains("Plinth"))
+                        spawnedAsset.GetComponent<DC_Placeable>().SetPlacing(false, spawnedRoom);
+                    else
+                    {
+                        spawnedAsset.GetComponent<Collider>().isTrigger = true;
+                    }
                     if(spawnedAsset.GetComponent<DC_PictureFraming>())
                     {
                         List<AssetPlacerScriptableObject> readFrom = GetComponent<TempListScript>().GetList(ArtefactCategory.Images, "Images");
                         spawnedAsset.GetComponent<DC_PictureFraming>()._TestImage = readFrom[assetData.paintingIndex].PreviewImages[0];
+                        spawnedAsset.GetComponent<DC_PictureFraming>().imageSizeInWorld = readFrom[assetData.paintingIndex].PaintingPixelSize;
+                    
                     }
                 }
             }

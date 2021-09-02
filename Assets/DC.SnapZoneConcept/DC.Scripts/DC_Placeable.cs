@@ -70,11 +70,28 @@ public class DC_Placeable : MonoBehaviour
     RaycastHit m_Hit;
     private List<float> distances;
 
-    public void SetPlacing(bool placing, GameObject spawnedRoom)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<DC_SnapZone>())
+        {
+            m_BeingPlaced = false;
+            cam.placingSomething = false;
+
+            m_SnapZone = other.gameObject.GetComponent<DC_SnapZone>();
+            m_SnapZone.SetValidity(false);
+
+            this.GetComponent<Collider>().isTrigger = false;
+            
+        }
+    }
+
+        public void SetPlacing(bool placing, GameObject spawnedRoom)
     {
         m_BeingPlaced = placing;
         cam.placingSomething = placing;
         List<Transform> snapzones = new List<Transform>();
+
+        
        
         foreach (Transform transformComponent in spawnedRoom.GetComponentsInChildren<Transform>())
         {
@@ -83,8 +100,6 @@ public class DC_Placeable : MonoBehaviour
             {
                 snapzones.Add(transformComponent);
             }
-            
-           
         }
 
         if(snapzones.Count > 0)
@@ -108,14 +123,15 @@ public class DC_Placeable : MonoBehaviour
             m_SnapZone = snapzones[distances.IndexOf(min)].GetComponent<DC_SnapZone>();
             m_SnapZone.SetValidity(placing);
         }
-                //m_SnapZone = snapZone.GetComponent<DC_SnapZone>();
-                //m_SnapZone.SetValidity(placing);
-
     }
 
     public bool GetPlacing()
     {
         return m_BeingPlaced;
+    }
+    public void placing(bool place)
+    {
+        m_BeingPlaced = place;
     }
 
     public GameObject GetSnapZoneGO()
@@ -125,8 +141,6 @@ public class DC_Placeable : MonoBehaviour
 
     private void Update()
     {
-      
-        
         // Place object
         // RD EXT: Only if a valid placement
         if (Input.GetMouseButtonDown(0) && !m_InvalidLocation)
@@ -138,7 +152,6 @@ public class DC_Placeable : MonoBehaviour
             {
                 m_SnapZone.SetValidity(false);
                 cam.placingSomething = false;
-                //asset.snapZone = m_SnapZone.gameObject;
             }
         }
 
@@ -174,10 +187,22 @@ public class DC_Placeable : MonoBehaviour
                         if (hit.transform.name.Contains("Plinth"))
                         {
                             transform.position = hit.transform.GetComponentInChildren<DC_SnapZone>().gameObject.transform.position;
+                            break;
+                        }
+                        else if (hit.transform.name.Contains("Wall"))
+                        {
+                            transform.rotation = hit.transform.rotation;
+                            // Set the position to the snap zone + If X smaller push out in the direction of the snap zone by X extents, otherwise Z is used
+                            transform.position = hit.transform.position + hit.transform.forward * (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
+
+                            //Testing
+                            m_PushOutAmount = (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
+                            break;
                         }
                         else if (hit.transform.name.Contains("Directional"))
                         {
                             // Set the rotation to the snap zone + If X smaller than Z, rotate 90 degrees
+                            
                             transform.rotation = hit.transform.rotation * Quaternion.AngleAxis(m_DefaultToX ? 90.0f : 0.0f, Vector3.up);
 
                             // Set the position to the snap zone + If X smaller push out in the direction of the snap zone by X extents, otherwise Z is used
@@ -315,7 +340,7 @@ public class DC_Placeable : MonoBehaviour
                                 tempBound.Encapsulate(renderer.bounds);
 
                             // Set the position and scale for the Edit Object toolbox
-                            DC_EditObject.Instance.Init(tempBound, this.gameObject, asset.pixelSize);
+                            DC_EditObject.Instance.Init(tempBound, this.gameObject);
                         }
                     }
                 }
@@ -326,7 +351,11 @@ public class DC_Placeable : MonoBehaviour
                         tempBound.Encapsulate(renderer.bounds);
 
                     // Set the position and scale for the Edit Object toolbox
-                    DC_EditObject.Instance.Init(tempBound, this.gameObject, asset.pixelSize);
+                    if (DC_EditObject.Instance)
+                    {
+                        DC_EditObject.Instance.Init(tempBound, this.gameObject);
+                    }
+                  
                 }
             }
         }
