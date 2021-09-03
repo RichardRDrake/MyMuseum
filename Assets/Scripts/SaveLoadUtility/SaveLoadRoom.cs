@@ -20,8 +20,6 @@ public class SaveLoadRoom : MonoBehaviour
     [Header("Popup to delete file from server")]
     public GameObject _DeleteFromServerPopup;
 
-    private AssetPlacer placer;
-
     [SerializeField] private bool isMainMenu = false;    
 
     private void Awake()
@@ -40,15 +38,10 @@ public class SaveLoadRoom : MonoBehaviour
 
     private void Start()
     {
-        //save();
-        //load();
-        //MakeRoom(savedRoom.AssetGUID, null, false);
         if (isMainMenu)
         {
             return;
         }
-
-        placer = FindObjectOfType<AssetPlacer>();
 
         //If the player choose to load a room from the start menu, load that here
         if (PlayerPrefs.GetInt("RoomSetup") == 0)
@@ -96,22 +89,9 @@ public class SaveLoadRoom : MonoBehaviour
         RoomData savedRoomData = new RoomData(GUID, name);
 
         //Step 2 - Find all the Artefacts placed in the room, save their GUID and Position (and rotation)
-        //Step 2.1 - Find the GridManager, it contains all the grids in the room, which in turn contain everything we'd want to save
-        
-        //Step 2.2 - Go through each grid and extract the data we need
-        //Step 2.3 - Then bundle each of those into a AssetData class (see RoomData.cs)
-        //int numberOfGrids = gridManager.GetGridCount();
-
-        //for (int i = 0; i < numberOfGrids; i++)
-        //{
-        //    PlacementGrid grid = gridManager.GetGrid(i);
-            //foreach (GridPosition pos in grid.gridPositions)
-        //    {
-                ProcessContent(savedRoomData);
-        //    }
-        //}
-
-
+        ProcessContent(savedRoomData);
+       
+        //step 3 - prepare formatters and serializers and save as a file
         BinaryFormatter formatter = GetBinaryFormatter();
         string filepath = Application.persistentDataPath +"/" + name + ".save";
 
@@ -130,19 +110,7 @@ public class SaveLoadRoom : MonoBehaviour
 
     public void Load(string name)
     {
-        //When room placement's sorted we'll clear out the room here
-        //Clear out all current objects
-        //GridManager gridManager = FindObjectOfType<GridManager>();
-        //if (!gridManager)
-        //{
-        //    Debug.Log("Could not find Grid Manager in scene!");
-        //}
-
-        //Clean up
-        //gridManager.ClearGrids();
-
         Destroy(spawnedRoom);
-        //spawnedObjects.Clear();
 
         string filepath = Application.persistentDataPath + "/" + name;
         if (File.Exists(filepath))
@@ -319,18 +287,7 @@ public class SaveLoadRoom : MonoBehaviour
     public void MakeRoom(string GUID, List<AssetData> assetData, bool b)
     {
         AssetReference asset = new AssetReference(GUID);
-        //GameObject spawnedAsset;
-
-        //Clear out all current objects
-        //GridManager gridManager = FindObjectOfType<GridManager>();
-        //if (!gridManager)
-        //{
-        //    Debug.Log("Could not find Grid Manager in scene!");
-        //}
-
-        //Clean up
-        //gridManager.ClearGrids();
-
+        
         if (spawnedRoom != null)
         {
             Destroy(spawnedRoom);
@@ -371,7 +328,6 @@ public class SaveLoadRoom : MonoBehaviour
         AssetReference asset = new AssetReference(GUID);
         GameObject spawnedAsset;
 
-        //asset.LoadAssetAsync<GameObject>();
         asset.InstantiateAsync(pos, rot).Completed += op =>
         {
             if (op.Status == AsyncOperationStatus.Succeeded)
@@ -380,12 +336,13 @@ public class SaveLoadRoom : MonoBehaviour
                 if (spawnedAsset.GetComponent<DC_Placeable>())
                 {
                     spawnedAsset.GetComponent<DC_Placeable>().asset = new Asset(assetData.assetName, assetData.assetContent, assetData.assetString, assetData.assetPlacement, op.Result , assetData.paintingIndex);
-                    if (spawnedAsset.name.Contains("Plinth"))
-                        spawnedAsset.GetComponent<DC_Placeable>().SetPlacing(false, spawnedRoom);
-                    else
-                    {
-                        spawnedAsset.GetComponent<Collider>().isTrigger = true;
-                    }
+                    
+                    //set the new assets collider to be a trigger
+                    //this will activate the OnTrigger function in DC_Placeable to react to the 
+                    //snap zone collider the object is on and set its validity as false
+                    spawnedAsset.GetComponent<Collider>().isTrigger = true;
+                    
+                    //we used the index of the list of paintings to find it again when loading and reset it to the frame
                     if(spawnedAsset.GetComponent<DC_PictureFraming>())
                     {
                         List<AssetPlacerScriptableObject> readFrom = GetComponent<TempListScript>().GetList(ArtefactCategory.Images, "Images");

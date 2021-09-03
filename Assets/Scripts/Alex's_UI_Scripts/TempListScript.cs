@@ -12,22 +12,15 @@ public class TempListScript : MonoBehaviour
     void Awake()
     {
         readFrom = GetList(Category, folderName);
-        //var objects = Resources.LoadAll(FolderName);
-
-        //foreach (AssetPlacerScriptableObject t in objects)
-        //{
-        //    readFrom.Add(t);
-        //    Debug.Log(objects[0].name);
-        //}
-
     }
+    //searches through the resources folder to find the asset scriptable objects by folder name and by category
     public List<AssetPlacerScriptableObject> GetList(ArtefactCategory category, string Foldername)
     {
-        Object[] textureList = Resources.LoadAll(Foldername, typeof(AssetPlacerScriptableObject));
+        Object[] objectList = Resources.LoadAll(Foldername, typeof(AssetPlacerScriptableObject));
 
         List<AssetPlacerScriptableObject> list = new List<AssetPlacerScriptableObject>();
 
-        foreach (AssetPlacerScriptableObject t in textureList)
+        foreach (AssetPlacerScriptableObject t in objectList)
         {
             if (t.CategoryType == category)
             {

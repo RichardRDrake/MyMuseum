@@ -147,6 +147,7 @@ public class DC_EditorCamera : MonoBehaviour
 
     private void Update()
     {
+        //menu controls 
         if(Input.GetKeyDown(KeyCode.Return))
         {
             if(inspectedAsset == null)
@@ -321,6 +322,7 @@ public class DC_EditorCamera : MonoBehaviour
             m_CurrentMode = CurrentMode.PERSPECTIVE;
             if (!UI_MainMenu.activeInHierarchy)
             {
+                //make sure some ui are switched off
                 if (inspectedAsset == null)
                 {
                     UI_BuildMode.SetActive(false);
@@ -332,6 +334,8 @@ public class DC_EditorCamera : MonoBehaviour
                     UI_ViewMode.SetActive(false);
                 }
             }
+
+            //check for assets that have the objects tag
             bool check = CheckSurround();
             if (check == true)
                 img.gameObject.SetActive(true);
@@ -351,17 +355,18 @@ public class DC_EditorCamera : MonoBehaviour
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
 
-                    // ROMAIN: This is where you could enable the Model viewer if you are looking at an object
-                    //
                     // Toggle variable is checked to determine whether we are currently inspecting an object,
                     if (toggle == true) // If an object isn't currently being inspected,
                     {
-                        // Call CheckSurround 
+
                         if (check == true)
                         {
                             toggle = false;
-                            if(inspectedAsset != null)
-                            model_viewer.Activate(inspectedAsset.asset, inspectedAsset.Content);
+                            if (inspectedAsset != null)
+                            {
+                                //activate the model viewer 
+                                model_viewer.Activate(inspectedAsset.asset, inspectedAsset.Content);
+                            }
                         }
                     }
 

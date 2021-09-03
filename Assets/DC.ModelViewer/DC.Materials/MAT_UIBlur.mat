@@ -69,7 +69,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_6ca810012ce5473a817a77394d53a3c3: 0
-    - _AlphaStrength: -0.0018517962
+    - _AlphaStrength: -0.00033344328
     - _BlurRadius: 15.091638
     - _BumpScale: 1
     - _Cutoff: 0.5

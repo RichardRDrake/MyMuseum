@@ -91,6 +91,7 @@ public class DC_EditObject : MonoBehaviour
         // Enable the Edit HUD
         _Canvas.enabled = true;
 
+        //we change the menu depending if the object is a frame or normal object
         if(placeableObjectToEdit.GetComponent<DC_PictureFraming>())
         {
             _PaintingButton.SetActive(true);
@@ -102,6 +103,14 @@ public class DC_EditObject : MonoBehaviour
             _PaintingButton.SetActive(false);
             _RotateClockwiseButton.SetActive(true);
             _RotateAntiClockwiseButton.SetActive(true);
+
+            if(menuItem)
+            {
+                if(menuItem.active == true)
+                {
+                    menuItem.SetActive(false);
+                }
+            }
         }
 
         // Save the bounds and forward direction
@@ -174,57 +183,60 @@ public class DC_EditObject : MonoBehaviour
 
     public void OpenMenu(GameObject menu)
     {
+        //enables the menu for paintings and photographs
         if (menu.activeSelf == false)
         {
             menuItem = menu;
             menuItem.SetActive(true);
+
+            if (menuItem.GetComponent<TempListScript>())
+            {
+                //gets the list of assets from the folders
+                readFrom = menuItem.GetComponent<TempListScript>().GetList(ArtefactCategory.Images, "Images");
+
+                //some paintings are too big or small to be used on sliding frames so we filter out those paintings from the list
+                if (m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._FrameType == DC_PictureFraming.FrameType.SLIDING)
+                {
+                    for (int t = 0; t < readFrom.Count; t++)
+                    {
+                        if(readFrom[t].name.Contains("Cottages"))
+                            { Debug.Log("here"); }
+
+                        if (readFrom[t].PaintingPixelSize.x > m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MaxContractedSize.x ||
+                             readFrom[t].PaintingPixelSize.y > m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MaxContractedSize.y ||
+                             readFrom[t].PaintingPixelSize.x < m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MinContractedSize.x ||
+                             readFrom[t].PaintingPixelSize.y < m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MinContractedSize.y)
+                        {
+                            
+                            readFrom.RemoveAt(t);
+                            t = 0;
+                        }
+                    }
+                }
+
+                //calculate the page count
+                listLength = readFrom.Count + 1;
+                Debug.Log(listLength);
+
+                pageCount = listLength / 4;
+
+                if (listLength % 4 > 0)
+                {
+                    pageCount++;
+                }
+                //Makes sure there is always one page
+                else if (listLength <= 0)
+                {
+                    pageCount = 1;
+                }
+
+                //set the current page and display the list
+                pageCurrent = 1;
+                ShowList();
+            }
         }
         else
             menuItem.SetActive(false);
-    }
-
-    public void SetAssetList()
-    {
-        if (menuItem.GetComponent<TempListScript>())
-        {
-            readFrom = menuItem.GetComponent<TempListScript>().GetList(ArtefactCategory.Images, "Images");
-           
-
-            if (m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._FrameType == DC_PictureFraming.FrameType.SLIDING)
-            {
-                for (int t = 0; t < readFrom.Count; t++)
-                {
-                    if (readFrom[t].PaintingPixelSize.x > m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MaxContractedSize.x ||
-                         readFrom[t].PaintingPixelSize.y > m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MaxContractedSize.y ||
-                         readFrom[t].PaintingPixelSize.x < m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MinContractedSize.x ||
-                         readFrom[t].PaintingPixelSize.y < m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().MinContractedSize.y)
-                    {
-                        readFrom.RemoveAt(t);
-                    }
-                }
-            }
-            listLength = readFrom.Count + 1;
-            Debug.Log(listLength);
-            pageCount = listLength / 4;
-            if (listLength % 4 > 0)
-            {
-                pageCount++;
-            }
-
-            //Makes sure there is always one page
-            if (listLength == 0)
-            {
-                pageCount = 1;
-            }
-
-            for (int i = 0; i < objectDisplay.Count; i++)
-                objectDisplay[i].SetActive(false);
-            pageCurrent = 1;
-            ShowList();
-            for (int i = 0; i < objectDisplay.Count; i++)
-                objectDisplay[i].SetActive(true);
-        }
-       
     }
     public void IncrementPage()
     {
@@ -258,9 +270,10 @@ public class DC_EditObject : MonoBehaviour
     void ShowList()
     {
         countText.text = pageCurrent.ToString() + " / " + pageCount.ToString();
+
+        //cycles through the ui buttons by page number and gives ui the correct thumbnails
         for (int i = 0; i <= 3; i++)
         {
-            //Debug.Log(pageCurrent);
             pageNumber = ((pageCurrent - 1) * 4) + i;
             if (pageNumber == (listLength - 1))
             {
@@ -276,7 +289,7 @@ public class DC_EditObject : MonoBehaviour
                 {
                     continue;
                 }
-                //Debug.Log(Resources.readFrom[pageNumber].ArtefactName);
+                
                 objectDisplay[i].GetComponent<Image>().sprite = Sprite.Create(readFrom[pageNumber].PreviewImages[0], new Rect(0.0f, 0.0f, readFrom[pageNumber].PreviewImages[0].width,
               readFrom[pageNumber].PreviewImages[0].height), new Vector2(0.0f, 0.0f));
             }
@@ -285,30 +298,35 @@ public class DC_EditObject : MonoBehaviour
      
     public void OnClickedAsset(int panelNumber)
     {
-      
+      //this function is tied to the ui button, the button inputs a number from 1 to 4
+      //if the button is in the first page we use the buttons input number
         if (pageCurrent <= 1)
         {
             if (panelNumber - 1 < readFrom.Count)
             {
-                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._TestImage = readFrom[panelNumber - 1].PreviewImages[0];
-                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().imageSizeInWorld = readFrom[panelNumber - 1].PaintingPixelSize;
-                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[panelNumber - 1].ArtefactContent;
-                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[panelNumber - 1].ArtefactName;
-                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.paintingIndex = panelNumber - 1;
+                SendInfoToAsset(panelNumber - 1);
 
             }
         }
+        //if its not on the first page, we will have to use the number of the current page to find the index of the list
         else
         {
             if ((panelNumber + (4 * (pageCurrent - 1)) - 1) < readFrom.Count)
             {
-                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._TestImage = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].PreviewImages[0];
-                m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().imageSizeInWorld = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].PaintingPixelSize;
-                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].ArtefactContent;
-                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[(panelNumber + (4 * (pageCurrent - 1)) - 1)].ArtefactName;
-                m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.paintingIndex = (panelNumber + (4 * (pageCurrent - 1)) - 1);
+                SendInfoToAsset((panelNumber + (4 * (pageCurrent - 1)) - 1));
             }
         }
+    }
+
+    private void SendInfoToAsset(int panelNumber)
+    {
+        //give picture frame all the information it needs to properly resize and place the painting
+        //we also give the frame the paintings information so that when it is reloaded it already has all the information
+        m_CurrentGAmeObject.GetComponent<DC_PictureFraming>()._TestImage = readFrom[panelNumber].PreviewImages[0];
+        m_CurrentGAmeObject.GetComponent<DC_PictureFraming>().imageSizeInWorld = readFrom[panelNumber].PaintingPixelSize;
+        m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Content = readFrom[panelNumber].ArtefactContent;
+        m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.Name = readFrom[panelNumber].ArtefactName;
+        m_CurrentGAmeObject.GetComponent<DC_Placeable>().asset.paintingIndex = panelNumber;
     }
 
     /// <summary>
@@ -351,8 +369,6 @@ public class DC_EditObject : MonoBehaviour
         return new Rect(center, scale);
     }
 
-    
-
     /// <summary>
     /// During update check if the user has presssed down anywhere other than a button
     /// Disable the canvas if it wasn't just enabled by clicking a placeable object
@@ -368,10 +384,10 @@ public class DC_EditObject : MonoBehaviour
                 _Canvas.enabled = false;
         }
         else
-            m_EnabledThisFrame = false;
+           m_EnabledThisFrame = false;
 
         // If 'F' button pressed, focus the camera on the object
-        if(Input.GetKeyDown(KeyCode.F) && m_CurrentSelectedBounds != null && _EditorCamera)
+        if(Input.GetKeyDown(KeyCode.F) && m_CurrentPlaceableObject != null && _EditorCamera)
         {
             _EditorCamera.FocusOnObject(m_CurrentPlaceableObject.gameObject);
         }

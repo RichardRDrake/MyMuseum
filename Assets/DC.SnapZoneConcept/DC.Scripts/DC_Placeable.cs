@@ -70,6 +70,7 @@ public class DC_Placeable : MonoBehaviour
     RaycastHit m_Hit;
     private List<float> distances;
 
+    //the trigger function saves the snapzone that the object is colliding with 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<DC_SnapZone>())
@@ -81,50 +82,9 @@ public class DC_Placeable : MonoBehaviour
             m_SnapZone.SetValidity(false);
 
             this.GetComponent<Collider>().isTrigger = false;
-            
+
         }
     }
-
-        public void SetPlacing(bool placing, GameObject spawnedRoom)
-    {
-        m_BeingPlaced = placing;
-        cam.placingSomething = placing;
-        List<Transform> snapzones = new List<Transform>();
-
-        
-       
-        foreach (Transform transformComponent in spawnedRoom.GetComponentsInChildren<Transform>())
-        {
-            if (transformComponent.gameObject.layer == LayerMask.NameToLayer("FloorSnap") || transformComponent.gameObject.layer == LayerMask.NameToLayer("FloorSnapDirectional") ||
-                transformComponent.gameObject.layer == LayerMask.NameToLayer("WallSnap") || transformComponent.gameObject.layer == LayerMask.NameToLayer("PlinthSnap"))
-            {
-                snapzones.Add(transformComponent);
-            }
-        }
-
-        if(snapzones.Count > 0)
-        {
-            distances = new List<float>();
-            Vector3 pos, pos2;
-            // For every object in the array,
-            for (int i = 0; i < snapzones.Count; i++)
-            {
-                // Get the object/camera positions
-                pos = snapzones[i].position;
-                pos2 = transform.position;
-
-                // Determine the total distance between the camera and object, add it to the distances list
-                distances.Add(Mathf.Sqrt(Mathf.Pow(pos2.x - pos.x, 2) + Mathf.Pow(pos2.z - pos.z, 2)));
-            }
-
-            // Get the minimum distance from the list
-            float min = distances.Min();
-
-            m_SnapZone = snapzones[distances.IndexOf(min)].GetComponent<DC_SnapZone>();
-            m_SnapZone.SetValidity(placing);
-        }
-    }
-
     public bool GetPlacing()
     {
         return m_BeingPlaced;
@@ -164,7 +124,7 @@ public class DC_Placeable : MonoBehaviour
 
             // Get all the hits, and order them by distance
             m_Hits = Physics.RaycastAll(m_Ray, 100, _ValidLayers, QueryTriggerInteraction.Collide);// EDIT: no need to order, instead using if it has a Sphere Collider to take precedence.OrderBy(x => x.distance).ToArray();
-            Debug.Log(m_Hits.Length);
+            
             // Check all hit points
             foreach (RaycastHit hit in m_Hits)
             {
@@ -177,18 +137,18 @@ public class DC_Placeable : MonoBehaviour
                     {
                         m_SnapZone = hit.transform.GetComponentInChildren<DC_SnapZone>();
                     }
-                    Debug.Log(hit.transform.name);
                     
-
                     // If it is a snap zone make sure it's still valid (Hasn't already got something placed there)
                     if (m_SnapZone && m_SnapZone._IsValid)
                     {
-                        // If the name contains the word "Directional" Set the objects rotation and use directional offset
+                        // different layers require different rotations and positions
+                        //plinths need to be placed on the transform of the snap zone whioch is a child of the display object
                         if (hit.transform.name.Contains("Plinth"))
                         {
                             transform.position = hit.transform.GetComponentInChildren<DC_SnapZone>().gameObject.transform.position;
                             break;
                         }
+                        //for walls, we make sure the object has the same rotation as the snap zone and pushes out the object to prevent clipping 
                         else if (hit.transform.name.Contains("Wall"))
                         {
                             transform.rotation = hit.transform.rotation;
@@ -199,6 +159,7 @@ public class DC_Placeable : MonoBehaviour
                             m_PushOutAmount = (m_DefaultToX ? m_EncapsulatedBounds.extents.x : m_EncapsulatedBounds.extents.z);
                             break;
                         }
+                        //smiliar to the wall layer except this time we rotate 90 
                         else if (hit.transform.name.Contains("Directional"))
                         {
                             // Set the rotation to the snap zone + If X smaller than Z, rotate 90 degrees
@@ -329,36 +290,34 @@ public class DC_Placeable : MonoBehaviour
                 // This one is used to calculate it's current position and size on the screen for the GUI placement
                 // Updating the old one would mean the encapsulated bound would no longer be local to the object
                 // Update the encapsulated bounds to where the object is now
+
+                //when the object is a plinth, we make sure there is no object on its snap zone before we allow the edit object to appear
                 if (this.GetComponentInChildren<DC_SnapZone>())
                 {
                     if (this.GetComponentInChildren<DC_SnapZone>()._IsValid == true)
                     { 
                         if (cam.placingSomething == false)
                         {
-                            Bounds tempBound = GetComponentInChildren<Renderer>().bounds;
-                            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-                                tempBound.Encapsulate(renderer.bounds);
-
-                            // Set the position and scale for the Edit Object toolbox
-                            DC_EditObject.Instance.Init(tempBound, this.gameObject);
+                            createEditUI();
                         }
                     }
                 }
                 else
                 {
-                    Bounds tempBound = GetComponentInChildren<Renderer>().bounds;
-                    foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-                        tempBound.Encapsulate(renderer.bounds);
-
-                    // Set the position and scale for the Edit Object toolbox
-                    if (DC_EditObject.Instance)
-                    {
-                        DC_EditObject.Instance.Init(tempBound, this.gameObject);
-                    }
-                  
+                    createEditUI();
                 }
             }
         }
+    }
+
+    private void createEditUI()
+    {
+        Bounds tempBound = GetComponentInChildren<Renderer>().bounds;
+        foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+            tempBound.Encapsulate(renderer.bounds);
+
+        // Set the position and scale for the Edit Object toolbox
+        DC_EditObject.Instance.Init(tempBound, this.gameObject);
     }
 
     /// <summary>

@@ -177,11 +177,11 @@ public class DC_PictureFraming : MonoBehaviour
 
     private void Update()
     {
-        // Just for testing, usually just use the function Apply
+        //tried making the canvas use a transparent texture but the prefab struggles to accept the texture so only one frame has that
+        //if someone manages to get all frames to accept the transparent texture this would set the colour to be white and turn opaque
         if(_TestImage == null)
         {
             oldColour = _CanvasTransform.gameObject.GetComponent<Renderer>().material.color;
-            _CanvasTransform.gameObject.GetComponent<Renderer>().material.color = new Color(oldColour.r, oldColour.g, oldColour.b, 0.0f); 
         }
         else 
         {
