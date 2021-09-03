@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ce0b1723615e418ee9d5be2fcb454, type: 3}
+  m_Name: DMA_1983-9_Royal_Perthshire_Militia_Unifrom
+  m_EditorClassIdentifier: 
+  ArtefactName: Royal Perthshire Militia Sergeant's Uniform
+  ArtefactContent: Sergeant's uniform jacket of the Royal Perthshire Militia. Black
+    collar, with cream binding, scarlet wool body and arms with cream strips. Black
+    shoulders with diagonal cream bands, finished with sheep's wool. Three horizontal
+    stripes indicating sergeant on right arm, Black cuffs with cream stripes and
+    silver coloured buttons bearing the insigina of the Royal Perthshire Militia.
+    This jacket has a black ribbon or 'flash' at the centre back neck which protected
+    the coat from grease and flour on the wearer's pigtail. Sergeant James Wingate,
+    the wearer, may have been a band sergeant or a sergeant in a flank company, either
+    the Grenadier Company or the Light Company.
+  ArtefactPrefab:
+    m_AssetGUID: 42306146bb140ae4c88a6948076cfee4
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  PaintingPixelSize: {x: 0, y: 0}
+  PreviewImages:
+  - {fileID: 2800000, guid: efbd22229e067404fa026f66052a4162, type: 3}
+  PlacementType: 2
+  CategoryType: 8
