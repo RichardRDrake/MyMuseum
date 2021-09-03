@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: -5285541909669507898}
   m_Layer: 0
   m_Name: Strechable_Frame_Ornate
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -551,6 +551,8 @@ MonoBehaviour:
   _CanvasTransform: {fileID: 6452897829961561497}
   _PixelDensity: 100
   _ContractedSize: {x: 0.585, y: 0.51}
+  MinContractedSize: {x: 0, y: 0}
+  MaxContractedSize: {x: 0, y: 0}
   imageSizeInWorld: {x: 1, y: 1}
 --- !u!114 &-579262213574035564
 MonoBehaviour:

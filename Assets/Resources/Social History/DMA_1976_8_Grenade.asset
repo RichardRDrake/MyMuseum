@@ -23,4 +23,4 @@ MonoBehaviour:
   PreviewImages:
   - {fileID: 2800000, guid: e3dee800058907143bd96da016c442d7, type: 3}
   PlacementType: 1
-  CategoryType: 0
+  CategoryType: 8
