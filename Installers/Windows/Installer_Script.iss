@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MyMuseum"
-#define MyAppVersion "0.1.4 (Alpha)"
+#define MyAppVersion "0.1.5 (Alpha)"
 #define MyAppPublisher "CPK"
 #define MyAppURL "https://mymuseum.dorsetcreative.tech/"
 #define MyAppExeName "MyMuseumMaster.exe"
