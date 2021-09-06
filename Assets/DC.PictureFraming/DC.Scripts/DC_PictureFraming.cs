@@ -35,12 +35,13 @@ public class DC_PictureFraming : MonoBehaviour
     private float m_StretchHorizontalOS = 0;
     private float m_StretchVerticalOS = 0;
 
-    private Color oldColour;
+    public Material m_CanvasMaterial;
+    public Material _TransparentPlaceholderMaterial;
     public Vector2 imageSizeInWorld = new Vector2(1.0f, 1.0f);
 
     private void Start()
     {
-        
+        ResetFrame();
     }
 
     private void Apply(Texture image)
@@ -76,7 +77,11 @@ public class DC_PictureFraming : MonoBehaviour
                     // Adjust tilling in X
                     foreach(Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
+#if UNITY_EDITOR
                         rend.sharedMaterial.mainTextureScale = new Vector2(imageSizeInWorld.x / _ContractedSize.x, 1.0f);
+#else
+                        rend.material.mainTextureScale = new Vector2(imageSizeInWorld.x / _ContractedSize.x, 1.0f);
+#endif
                     }
                 }
                 else if(anchor.name.Equals("Vertical"))
@@ -91,7 +96,11 @@ public class DC_PictureFraming : MonoBehaviour
                     // Adjust tilling in Y
                     foreach (Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
+#if UNITY_EDITOR
                         rend.sharedMaterial.mainTextureScale = new Vector2(1.0f, imageSizeInWorld.y / _ContractedSize.y);
+#else
+                        rend.material.mainTextureScale = new Vector2(1.0f, imageSizeInWorld.y / _ContractedSize.y);
+#endif
                     }
                 }
             }
@@ -102,24 +111,18 @@ public class DC_PictureFraming : MonoBehaviour
         // Set the Canvas size (Quad)
         _CanvasTransform.localScale = new Vector3(imageSizeInWorld.x, imageSizeInWorld.y, 1.0f);
 
-        // Extract the Material
+        // Apply image
         Renderer renderer = _CanvasTransform.GetComponent<Renderer>();
-        if (renderer)
+        if (renderer && m_CanvasMaterial)
         {
-            // Note: You don't want to actually do this in Edit mode as it will leak instances
-            // But in real-time you want the instanced material otherwise changing on texture would change it for all paintings in the scene
-            Material canvasMaterial;
-            if (_FrameType == FrameType.STRETCHING)
-            {
-               canvasMaterial = renderer.sharedMaterial;
-            }
-            else
-            {
-               canvasMaterial = renderer.sharedMaterial; // So shared material for in Editor (Will apply it to all in the scene)
-            }
-            // Apply the image to the Quads material
-            if (canvasMaterial)
-                canvasMaterial.mainTexture = image;
+            m_CanvasMaterial.mainTexture = image;
+
+#if UNITY_EDITOR
+            renderer.sharedMaterial = m_CanvasMaterial;
+#else
+            renderer.material = m_CanvasMaterial;
+#endif
+               
         }
     }
 
@@ -147,7 +150,11 @@ public class DC_PictureFraming : MonoBehaviour
                     // Adjust tilling in X
                     foreach (Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
+#if UNITY_EDITOR
                         rend.sharedMaterial.mainTextureScale = Vector2.one;
+#else
+                        rend.material.mainTextureScale = Vector2.one;
+#endif
                     }
                 }
                 else if (anchor.name.Equals("Vertical"))
@@ -158,7 +165,11 @@ public class DC_PictureFraming : MonoBehaviour
                     // Adjust tilling in Y
                     foreach (Renderer rend in anchor.GetComponentsInChildren<Renderer>())
                     {
+#if UNITY_EDITOR
                         rend.sharedMaterial.mainTextureScale = Vector2.one;
+#else
+                        rend.material.mainTextureScale = Vector2.one;
+#endif
                     }
                 }
             }
@@ -167,6 +178,18 @@ public class DC_PictureFraming : MonoBehaviour
 
         // Set the Canvas size (Quad)
         _CanvasTransform.localScale = Vector3.one;
+
+        // Extract the Material
+        Renderer renderer = _CanvasTransform.GetComponent<Renderer>();
+        if (renderer)
+        {
+            // Set it to the placeholder
+#if UNITY_EDITOR
+            renderer.sharedMaterial = _TransparentPlaceholderMaterial;
+#else
+            renderer.material = _TransparentPlaceholderMaterial;
+#endif
+        }
     }
 
     // Draw a simple gizmo to confirm contracted size
@@ -177,18 +200,6 @@ public class DC_PictureFraming : MonoBehaviour
 
     private void Update()
     {
-        //tried making the canvas use a transparent texture but the prefab struggles to accept the texture so only one frame has that
-        //if someone manages to get all frames to accept the transparent texture this would set the colour to be white and turn opaque
-        if(_TestImage == null)
-        {
-            oldColour = _CanvasTransform.gameObject.GetComponent<Renderer>().material.color;
-        }
-        else 
-        {
-            Color newColour = new Color(1, 1, 1, 1.0f);
-            _CanvasTransform.gameObject.GetComponent<Renderer>().material.color = newColour;
-        }
-
         if(_TestImage != m_SavedImage)
         {
             m_SavedImage = _TestImage;

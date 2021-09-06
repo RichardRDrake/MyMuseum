@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 30137074602584212}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 1}
   m_Children: []
   m_Father: {fileID: 4252494050798496860}
   m_RootOrder: 4
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d2b8b0cbb144440448196082635893ee, type: 2}
+  - {fileID: 2100000, guid: 00aed8d7d387d4a478342d9dd6549d33, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -551,6 +551,11 @@ MonoBehaviour:
   _CanvasTransform: {fileID: 6452897829961561497}
   _PixelDensity: 1000
   _ContractedSize: {x: 0.55, y: 0.55}
+  MinContractedSize: {x: 0, y: 0}
+  MaxContractedSize: {x: 0, y: 0}
+  m_CanvasMaterial: {fileID: 2100000, guid: 35ae1322cdaf9334aa89e3a310c73fdc, type: 2}
+  _TransparentPlaceholderMaterial: {fileID: 2100000, guid: 00aed8d7d387d4a478342d9dd6549d33, type: 2}
+  imageSizeInWorld: {x: 1, y: 1}
 --- !u!54 &-799188998241933078
 Rigidbody:
   m_ObjectHideFlags: 0

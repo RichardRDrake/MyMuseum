@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 30137074602584212}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.585, y: 0.51, z: 1}
   m_Children: []
   m_Father: {fileID: 4252494050798496860}
   m_RootOrder: 4
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 57ea031372c4b744480f1d3977cf5076, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -553,6 +553,8 @@ MonoBehaviour:
   _ContractedSize: {x: 0.585, y: 0.51}
   MinContractedSize: {x: 0, y: 0}
   MaxContractedSize: {x: 0, y: 0}
+  m_CanvasMaterial: {fileID: 2100000, guid: 74d984b6d1a206a4ea3dfc69724219f5, type: 2}
+  _TransparentPlaceholderMaterial: {fileID: 2100000, guid: 57ea031372c4b744480f1d3977cf5076, type: 2}
   imageSizeInWorld: {x: 1, y: 1}
 --- !u!114 &-579262213574035564
 MonoBehaviour:

@@ -702,6 +702,8 @@ MonoBehaviour:
   _ContractedSize: {x: 1.12, y: 1.12}
   MinContractedSize: {x: 1.12, y: 1.12}
   MaxContractedSize: {x: 2.2, y: 2.2}
+  m_CanvasMaterial: {fileID: 2100000, guid: 10c6e7030cd556b43becc4140de4df93, type: 2}
+  _TransparentPlaceholderMaterial: {fileID: 2100000, guid: 3002a7eec18552e49be2d12733beeadd, type: 2}
   imageSizeInWorld: {x: 1, y: 1}
 --- !u!114 &-3211127207500101531
 MonoBehaviour:
@@ -1018,7 +1020,7 @@ PrefabInstance:
     - target: {fileID: 2374191154315566023, guid: ae9453bb66c2bbb4d94b7683185ec378, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: 3002a7eec18552e49be2d12733beeadd, type: 2}
     - target: {fileID: 8917847432545389503, guid: ae9453bb66c2bbb4d94b7683185ec378, type: 3}
       propertyPath: m_RootOrder
       value: 4

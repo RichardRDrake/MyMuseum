@@ -540,6 +540,8 @@ MonoBehaviour:
   _ContractedSize: {x: 0.75, y: 0.75}
   MinContractedSize: {x: 0.75, y: 0.75}
   MaxContractedSize: {x: 1.4, y: 1.4}
+  m_CanvasMaterial: {fileID: 2100000, guid: 5cd021fd42fca2b42965c6fb76f541c5, type: 2}
+  _TransparentPlaceholderMaterial: {fileID: 2100000, guid: c6a4c43ef734c2b49bc70b3fe5e38436, type: 2}
   imageSizeInWorld: {x: 1, y: 1}
 --- !u!114 &-4346652749973929095
 MonoBehaviour:
@@ -888,7 +890,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: c6a4c43ef734c2b49bc70b3fe5e38436, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
