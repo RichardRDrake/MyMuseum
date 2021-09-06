@@ -18,6 +18,7 @@ public class UI_Controller : MonoBehaviour
     #region GameObjects and relevant components
     //Main menu
     [SerializeField] private GameObject MainMenu;
+    [SerializeField] private GameObject comingSoon;
     private UI_MenuController UI_MenuController;
 
     //Window showing main menu options
@@ -439,12 +440,15 @@ public class UI_Controller : MonoBehaviour
                         paneCurrent = 0;
                         HighlightCatalogue.SetActive(false);
                         windowCurrent = (windowFinder)windowInt;
+
+                        comingSoon.SetActive(false);
                     }
                     break;
                     #endregion
                 case 3:
                     #region Moves the player up from the detail pane to the catalogue
                     DetailPanel.SetActive(false);
+                    comingSoon.SetActive(false);
                     detailImageCounter = 0;
                     HighlightDetail.SetActive(false);
                     HighlightAccept.SetActive(false);
@@ -739,35 +743,44 @@ public class UI_Controller : MonoBehaviour
         {
             Resources = Room.GetComponent<TempListScript>().GetList(ArtefactCategory.Room, "Rooms");
         }
-     
+
         #endregion
 
         //Creates a total page count based on number of objects in Resources.readFrom
         //Includes all full pages, plus a page for the remainder
-        listLength = Resources.Count + 1;
-        //Debug.Log(listLength);
-        pageCount = listLength / 6;
-        if(listLength % 6 > 0)
+        if (Resources.Count > 0)
         {
-            pageCount++;
+            listLength = Resources.Count + 1;
+            //Debug.Log(listLength);
+            pageCount = listLength / 6;
+            if (listLength % 6 > 0)
+            {
+                pageCount++;
+            }
+
+            //Makes sure there is always one page
+            if (listLength == 0)
+            {
+                pageCount = 1;
+            }
+
+            pageCurrent = 1;
+            DisplayPageDetails();
+
+            //Displays the AssetsRepository
+            //(And 6 assets panes, if they were independently set inactive for any reason)
+            AssetRepository.SetActive(true);
+            ObjectsHide.SetActive(true);
+
+            //Updates the player's current window. Permits use of arrow keys to scroll menus
+            windowCurrent = windowFinder.Catalogue;
+        }
+        else if(Resources.Count == 0)
+        {
+            comingSoon.SetActive(true);
+            windowCurrent = windowFinder.Catalogue;
         }
 
-        //Makes sure there is always one page
-        if(listLength == 0)
-        {
-            pageCount = 1;
-        }
-
-        pageCurrent = 1;
-        DisplayPageDetails();
-        
-        //Displays the AssetsRepository
-        //(And 6 assets panes, if they were independently set inactive for any reason)
-        AssetRepository.SetActive(true);
-        ObjectsHide.SetActive(true);
-
-        //Updates the player's current window. Permits use of arrow keys to scroll menus
-        windowCurrent = windowFinder.Catalogue;
         #endregion
     }
 
