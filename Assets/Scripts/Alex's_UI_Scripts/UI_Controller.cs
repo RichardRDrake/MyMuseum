@@ -50,15 +50,7 @@ public class UI_Controller : MonoBehaviour
     #region submenu objects
     //List of buttons relating to each category
     //(This form of sorting is for testing's sake and is definitely not considered final)
-    [SerializeField] private GameObject FloorBased;
-    [SerializeField] private GameObject FloorOrWall;
-    [SerializeField] private GameObject Small;
-    [SerializeField] private GameObject Planar;
     [SerializeField] private GameObject Room;
-    [SerializeField] private GameObject Plinth;
-    [SerializeField] private GameObject Stand;
-    [SerializeField] private GameObject Frame;
-    private List<Vector3> menuLocationList = new List<Vector3>();
     #endregion
 
     #region catalogue objects
@@ -72,7 +64,6 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private GameObject Object6;
     private List<Vector3> panelLocationList = new List<Vector3>();
 
-    [SerializeField] private Sprite downloadImage;
     [SerializeField] private Sprite emptyImage;
     #endregion
 
@@ -188,11 +179,6 @@ public class UI_Controller : MonoBehaviour
 
         #region Sets possible highlight positions
         //Sets the locations the highlights can occupy
-        menuLocationList.Add(FloorBased.transform.position);
-        menuLocationList.Add(FloorOrWall.transform.position);
-        menuLocationList.Add(Small.transform.position);
-        menuLocationList.Add(Planar.transform.position);
-
         panelLocationList.Add(Object1.transform.position);
         panelLocationList.Add(Object2.transform.position);
         panelLocationList.Add(Object3.transform.position);
