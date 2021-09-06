@@ -45,8 +45,6 @@ public class UI_MenuController : MonoBehaviour
     private List<Vector3> MainLocations = new List<Vector3>();
 
     //Main display highlights
-    [SerializeField] private GameObject HighlightTop;
-    [SerializeField] private GameObject HighlightTopHover;
     #endregion
 
     #region Save/load contents
@@ -366,7 +364,6 @@ public class UI_MenuController : MonoBehaviour
         ObjectsHide.SetActive(true);
         //Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
         //Sets highlighted pane to 0
-        HighlightSave.SetActive(false);
         paneCurrent = 0;
     }
 
@@ -379,7 +376,6 @@ public class UI_MenuController : MonoBehaviour
         ObjectsHide.SetActive(true);
         //Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
         //Sets highlighted pane to 0
-        HighlightSave.SetActive(false);
         paneCurrent = 0;
     }
     #endregion
@@ -520,8 +516,6 @@ public class UI_MenuController : MonoBehaviour
                     mainInt = 1;
                 }
                 mainCurrent = (MainFinder)mainInt;
-                HighlightTop.SetActive(true);
-                HighlightTop.transform.position = MainLocations[mainInt - 1];
                 break;
                 #endregion
             case 2:
@@ -627,8 +621,6 @@ public class UI_MenuController : MonoBehaviour
                     mainInt = 5;
                 }
                 mainCurrent = (MainFinder)mainInt;
-                HighlightTop.SetActive(true);
-                HighlightTop.transform.position = MainLocations[mainInt - 1];
                 break;
                 #endregion
             case 2:
@@ -1075,8 +1067,6 @@ public class UI_MenuController : MonoBehaviour
         //Resets variables therein
         Main.SetActive(false);
         mainCurrent = MainFinder.Null;
-        HighlightTop.SetActive(false);
-        HighlightTopHover.SetActive(false);
         #endregion
     }
 
@@ -1187,7 +1177,6 @@ public class UI_MenuController : MonoBehaviour
         #region Sets other UI menus inactive once activated
         BuildMenu.SetActive(false);
         mainCurrent = MainFinder.Null;
-        HighlightTop.SetActive(false);
         #endregion
     }
 
