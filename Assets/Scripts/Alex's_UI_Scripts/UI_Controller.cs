@@ -91,19 +91,6 @@ public class UI_Controller : MonoBehaviour
     //Page number object and text
     [SerializeField] private GameObject PageCounter;
     private TextMeshProUGUI countText;
-
-    //menu highlight icons
-    [SerializeField] private GameObject HighlightMenuTop;
-    [SerializeField] private GameObject HighlightMainMenu;
-    [SerializeField] private GameObject HighlightCatalogue;
-    [SerializeField] private GameObject HighlightDetail;
-    [SerializeField] private GameObject HighlightAccept;
-    [SerializeField] private GameObject HighlightFirst;
-
-    //hover highlight icons
-    //Note that these are here to be disabled, not utilised
-    [SerializeField] private GameObject HighlightMenuTopHover;
-    [SerializeField] private GameObject HighlightCatalogueHover;
     #endregion
 
     #region Script containing list of menu-specific placeable objects
@@ -216,7 +203,6 @@ public class UI_Controller : MonoBehaviour
         //rotateLocationList.Add(RotateLeft.transform.position);
         //rotateLocationList.Add(RotateRight.transform.position);
 
-        HighlightMainMenu.transform.position = MainMenuButton.transform.position;
         #endregion
 
         #region First-time setup variables
@@ -282,17 +268,7 @@ public class UI_Controller : MonoBehaviour
             MenuSetup();
         }
 
-        //Determines what to do if the player hits tab or down
-        if (Input.GetKeyDown("tab") || Input.GetKeyDown("down"))
-        {
-            CycleThrough();
-        }
-
-        //Determines what to do if the player hits left
-        if (Input.GetKeyDown("up"))
-        {
-            CycleBack();
-        }
+        
         #endregion
 
         #region catalogue scrolling
@@ -354,7 +330,6 @@ public class UI_Controller : MonoBehaviour
                         //SwitchToMain();
                         break;
                     case 6:
-                        HighlightFirst.SetActive(false);
                         break;
                 }
                 break;
@@ -438,7 +413,6 @@ public class UI_Controller : MonoBehaviour
                     {
                         AssetRepository.SetActive(false);
                         paneCurrent = 0;
-                        HighlightCatalogue.SetActive(false);
                         windowCurrent = (windowFinder)windowInt;
 
                         comingSoon.SetActive(false);
@@ -450,8 +424,6 @@ public class UI_Controller : MonoBehaviour
                     DetailPanel.SetActive(false);
                     comingSoon.SetActive(false);
                     detailImageCounter = 0;
-                    HighlightDetail.SetActive(false);
-                    HighlightAccept.SetActive(false);
                     detailCurrent = detailFinder.Null;
                     windowCurrent = (windowFinder)windowInt;
                     break;
@@ -469,196 +441,7 @@ public class UI_Controller : MonoBehaviour
         #endregion
     }
 
-    private void CycleThrough()
-    {
-        #region Cycles forward through options in the currently displayed window
-        int windowInt = (int)windowCurrent;
-        switch (windowInt)
-        {
-            case 1:
-                #region Cycles through the enum of available menu options
-                int topInt = (int)topCurrent + 1;
-                //If it goes beyond the limit of this enum, resets to the start.
-                if (topInt > 6)
-                {
-                    topInt = 1;
-                }
-                topCurrent = (topFinder)topInt;
-                //If it's within the list but not the main menu, moves the highlight over the appropriate icon
-                if (topInt < 5)
-                {
-                    HighlightFirst.SetActive(false);
-                    HighlightMenuTop.SetActive(true);
-                    HighlightMenuTop.transform.position = menuLocationList[topInt - 1];
-                }
-                //Otherwise, hides the generic highlight and puts a unique highlight over the main menu icon
-                else if (topInt == 5)
-                {
-                    HighlightMenuTop.SetActive(false);
-                    HighlightMainMenu.SetActive(true);
-                }
-                //The last option is the first person camera
-                else
-                {
-                    HighlightMainMenu.SetActive(false);
-                    HighlightFirst.SetActive(true);
-                }
-                break;
-                #endregion
-            case 2:
-                #region Much the same as the high-level menu above, only without the unique highlight.
-                int subInt = (int)subCurrent + 1;
-                if (subInt > 4)
-                {
-                    subInt = 1;
-                }
-                subCurrent = (subFinder)subInt;
-                HighlightMenuTop.SetActive(true);
-                HighlightMenuTop.transform.position = menuLocationList[subInt - 1];
-                break;
-                #endregion
-            case 3:
-                #region Tabs backwards through panes in the current catalogue page
-                paneCurrent++;
-                //Checks that the next pane cycled to isn't greater than 6, or empty
-                if (paneCurrent > 6 || ((pageCurrent - 1) * 6) + (paneCurrent - 1) > Resources.Count)
-                {
-                    paneCurrent = 1;
-                }
-                //Moves the highlight over the appropriate pane
-                HighlightCatalogue.SetActive(true);
-                HighlightCatalogue.transform.position = panelLocationList[paneCurrent - 1];
-                break;
-                #endregion
-            case 4:
-                #region Cycles through options in the detail menu
-                //Similar to the top level menu.
-                //Int 1 or 2 correlates to the rotation buttons
-                //If it's 3, it correlates to the accept button
-                int detailInt = (int)detailCurrent + 1;
-                if (detailInt > 3)
-                {
-                    detailInt = 1;
-                }
-                detailCurrent = (detailFinder)detailInt;
-                if (detailInt < 3)
-                {
-                    HighlightAccept.SetActive(false);
-                    HighlightDetail.SetActive(true);
-                    HighlightDetail.transform.position = rotateLocationList[detailInt - 1];
-                }
-                else
-                {
-                    HighlightDetail.SetActive(false);
-                    HighlightAccept.SetActive(true);
-                    HighlightAccept.transform.position = ConfirmButton.transform.position;
-                }
-                break;
-                #endregion
-            default:
-                break;
-        }
-        #endregion
-    }
 
-    private void CycleBack()
-    {
-        #region Cycles backward through options in the currently displayed window
-        int windowInt = (int)windowCurrent;
-        switch (windowInt)
-        {
-            case 1:
-                #region Cycles through the enum of available menu options
-                int topInt = (int)topCurrent - 1;
-                //If it goes beyond the limit of this enum, resets to the end.
-                if (topInt < 1)
-                {
-                    topInt = 6;
-                }
-                topCurrent = (topFinder)topInt;
-                //If that's the first person button, highlights it appropriately
-                if (topInt == 6)
-                {
-                    HighlightMenuTop.SetActive(false);
-                    HighlightFirst.SetActive(true);
-                }
-                //If it's within the list but not the main menu, moves the highlight over the appropriate icon
-                else if (topInt < 5)
-                {
-                    HighlightMainMenu.SetActive(false);
-                    HighlightMenuTop.SetActive(true);
-                    HighlightMenuTop.transform.position = menuLocationList[topInt - 1];
-                }
-                //Otherwise, hides the generic highlight and puts a unique highlight over the main menu icon
-                else
-                {
-                    HighlightFirst.SetActive(false);
-                    HighlightMainMenu.SetActive(true);
-                }
-                break;
-                #endregion
-            case 2:
-                #region Much the same as the high-level menu above, only without the unique highlights.
-                int subInt = (int)subCurrent - 1;
-                if (subInt < 1)
-                {
-                    subInt = 4;
-                }
-                subCurrent = (subFinder)subInt;
-                HighlightMenuTop.SetActive(true);
-                HighlightMenuTop.transform.position = menuLocationList[subInt - 1];
-                break;
-                #endregion
-            case 3:
-                #region Tabs through panes in the current catalogue page
-                paneCurrent--;
-                //Checks that the next pane cycled to isn't less than 1
-                if (paneCurrent < 1)
-                {
-                    paneCurrent = 6;
-                    //Checks that the next pane cycled to isn't empty
-                    if (((pageCurrent - 1) * 6) + (paneCurrent - 1) > Resources.Count)
-                    {
-                        //If it is, cycles to the pane one higher than the remainder of the asset list divided by the number of full pages
-                        Debug.Log(pageCurrent);
-                        paneCurrent = (Resources.Count % ((pageCurrent - 1) * 6)) + 1;
-                    }
-                }
-                //Moves the highlight over the appropriate pane
-                HighlightCatalogue.SetActive(true);
-                HighlightCatalogue.transform.position = panelLocationList[paneCurrent - 1];
-                break;
-                #endregion
-            case 4:
-                #region Cycles through options in the detail menu
-                //Similar to the top level menu.
-                //Int 1 or 2 correlates to the rotation buttons
-                //If it's 3, it correlates to the accept button
-                int detailInt = (int)detailCurrent - 1;
-                if (detailInt < 1)
-                {
-                    detailInt = 3;
-                }
-                detailCurrent = (detailFinder)detailInt;
-                if (detailInt < 3)
-                {
-                    HighlightAccept.SetActive(false);
-                    HighlightDetail.SetActive(true);
-                    HighlightDetail.transform.position = rotateLocationList[detailInt - 1];
-                }
-                else
-                {
-                    HighlightDetail.SetActive(false);
-                    HighlightAccept.SetActive(true);
-                    HighlightAccept.transform.position = ConfirmButton.transform.position;
-                }
-                break;
-                #endregion
-            default:
-                break;
-        }
-        #endregion
-    }
 
     public void DetailCycle()
     {
@@ -698,7 +481,6 @@ public class UI_Controller : MonoBehaviour
         ObjectsHide.SetActive(true);
         Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
         //Sets currently selected pane to 0
-        HighlightCatalogue.SetActive(false);
         paneCurrent = 0;
     }
 
@@ -712,7 +494,6 @@ public class UI_Controller : MonoBehaviour
         ObjectsHide.SetActive(true);
         Debug.Log("Current page is: " + pageCurrent.ToString() + ". Max page is: " + pageCount.ToString() + ".");
         //Sets currently selected pane to 0
-        HighlightCatalogue.SetActive(false);
         paneCurrent = 0;
     }
     #endregion
@@ -813,7 +594,6 @@ public class UI_Controller : MonoBehaviour
         }
         paneCurrent = 0;
         detailCurrent = detailFinder.Null;
-        HighlightCatalogue.SetActive(false);
         #endregion
     }
 
@@ -821,8 +601,6 @@ public class UI_Controller : MonoBehaviour
     {
         #region Leaves the highlight in the appropriate place if it was selected by mouse
         //Called by UI_Showdetail
-        HighlightCatalogue.SetActive(true);
-        HighlightCatalogue.transform.position = panelLocationList[paneCurrent - 1];
         #endregion
     }
     #endregion
@@ -943,11 +721,6 @@ public class UI_Controller : MonoBehaviour
     private void ResetHighlight()
     {
         #region Disables and resets all highlights
-        HighlightMainMenu.SetActive(false);
-        HighlightMenuTop.SetActive(false);
-        HighlightCatalogue.SetActive(false);
-        HighlightDetail.SetActive(false);
-        HighlightAccept.SetActive(false);
         topCurrent = topFinder.Null;
         subCurrent = subFinder.Null;
         paneCurrent = 0;
@@ -963,13 +736,6 @@ public class UI_Controller : MonoBehaviour
         BuildCategories.SetActive(false);
         AssetRepository.SetActive(false);
         DetailPanel.SetActive(false);
-        HighlightMainMenu.SetActive(false);
-        HighlightMenuTop.SetActive(false);
-        HighlightCatalogue.SetActive(false);
-        HighlightMenuTopHover.SetActive(false);
-        HighlightCatalogueHover.SetActive(false);
-        HighlightAccept.SetActive(false);
-        HighlightDetail.SetActive(false);
         windowCurrent = windowFinder.Menu_Top;
         topCurrent = topFinder.Null;
         MainMenu.SetActive(false);

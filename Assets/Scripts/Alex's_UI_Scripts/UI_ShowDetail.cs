@@ -35,8 +35,6 @@ public class UI_ShowDetail : MonoBehaviour
             UI_Controller.windowCurrent = UI_Controller.windowFinder.Catalogue;
             //Sets paneCurrent to the button's identifier
             UI_Controller.paneCurrent = panelNumber;
-            //Then sets the highlight over this object
-            UI_Controller.CataloguePaneHighlight();
             //Then prompts UI_Controller to behave as if this button was selected by keyboard command
             UI_Controller.NavigateDown();
         }
