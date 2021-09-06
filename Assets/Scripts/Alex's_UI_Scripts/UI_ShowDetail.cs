@@ -16,10 +16,13 @@ public class UI_ShowDetail : MonoBehaviour
     //Used to centre the highlight over the relevant panel
     [SerializeField] private int panelNumber;
 
+    private AudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
         UI_Controller = UIControllerHost.GetComponent<UI_Controller>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void OnPress()
@@ -28,6 +31,7 @@ public class UI_ShowDetail : MonoBehaviour
         iconImage = MyIcon.GetComponent<Image>();
         //First, checks that this panel contains details
         //If it doesn't, clicking this does nothing.
+        audioManager.Play("Button_Pressed_SFX");
         if (iconImage.sprite.name != "GUI2_ArtefactBrowser5_BlankPreviewBackdrop1_empty")
         {
             UI_Controller = UIControllerHost.GetComponent<UI_Controller>();

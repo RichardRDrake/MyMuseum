@@ -96,6 +96,8 @@ public class DC_EditorCamera : MonoBehaviour
     private bool toggle = true;
     public bool placingSomething = false;
 
+    private AudioManager audioManager;
+
     // The following is public just for testing
     public enum CurrentMode
     {
@@ -143,6 +145,7 @@ public class DC_EditorCamera : MonoBehaviour
             m_TargetZoom = m_Initial_TargetZoom = _ZoomTransform.localPosition.z;
 
         img = UI.GetComponent<Transform>().Find("objectPrompt").GetComponent<Image>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -424,6 +427,7 @@ public class DC_EditorCamera : MonoBehaviour
     {
         if (!_SwitchingToPerspective)
         {
+            audioManager.Play("Button_Pressed_SFX");
             // RD EDIT: Added so that the camera zoom and pitch go back to where you had it in Edit mode
             // But from your new position (Because you may have moved around)
             // However all is saved just incase you decide to exit perspective mode before the camera even made it to perspective mode
@@ -599,6 +603,7 @@ public class DC_EditorCamera : MonoBehaviour
     {
         // Change the target rotation to the nearest 90 degree angle
         // If the value is negative (due to gimbol lock, add 360)
+        audioManager.Play("Button_Pressed_SFX");
         if (m_CurrentEulerAngles.y < 0)
             m_CurrentEulerAngles.y += 360.0f;
 
@@ -619,6 +624,7 @@ public class DC_EditorCamera : MonoBehaviour
     {
         // Change the target rotation to the nearest 90 degree angle
         // If the value is negative (due to gimbol lock, add 360)
+        audioManager.Play("Button_Pressed_SFX");
         if (m_CurrentEulerAngles.y < 0)
             m_CurrentEulerAngles.y += 360.0f;
 

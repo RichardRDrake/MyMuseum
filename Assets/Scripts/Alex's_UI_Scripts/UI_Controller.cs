@@ -490,6 +490,7 @@ public class UI_Controller : MonoBehaviour
     {
         switchLists = true;
         Resources = list.readFrom;
+        audioManager.Play("Button_Pressed_SFX");
     }
     private void MenuSetup()
     {
@@ -598,6 +599,7 @@ public class UI_Controller : MonoBehaviour
         //Hides existing highlights
         ResetHighlight();
         //Enters the artefact placement menus.
+        audioManager.Play("Button_Pressed_SFX");
         HudDefault.SetActive(false);
         ArtefactCategories.SetActive(true);
         windowCurrent = windowFinder.Menu_Sub;
@@ -611,6 +613,7 @@ public class UI_Controller : MonoBehaviour
         //Hides existing highlights
         ResetHighlight();
         //Enters the build menus.
+        audioManager.Play("Button_Pressed_SFX");
         HudDefault.SetActive(false);
         BuildCategories.SetActive(true);
         windowCurrent = windowFinder.Menu_Sub;
@@ -622,6 +625,7 @@ public class UI_Controller : MonoBehaviour
     {
         #region Sets the main menu active, then instructs the main menu to disable this menu
         MainMenu.SetActive(!MainMenu.active);
+        audioManager.Play("Button_Pressed_SFX");
         UI_MenuController.Activate();
         #endregion
     }
