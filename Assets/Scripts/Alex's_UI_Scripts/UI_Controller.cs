@@ -683,6 +683,7 @@ public class UI_Controller : MonoBehaviour
             objectToBePlaced = asyncOperationHandle.Result;
             asset.asset = objectToBePlaced; 
 
+            //assign the asset to the object
             if(objectToBePlaced.GetComponent<DC_Placeable>())
             {
                 objectToBePlaced.GetComponent<DC_Placeable>().asset = asset;
