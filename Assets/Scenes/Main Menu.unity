@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -623,8 +623,6 @@ GameObject:
   - component: {fileID: 203085421}
   - component: {fileID: 203085420}
   - component: {fileID: 203085419}
-  - component: {fileID: 203085423}
-  - component: {fileID: 203085422}
   m_Layer: 5
   m_Name: Button_Quit
   m_TagString: Untagged
@@ -746,64 +744,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203085417}
   m_CullTransparentMesh: 0
---- !u!114 &203085422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203085417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 203085423}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverIn
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 203085423}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverOut
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &203085423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203085417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c543429a24c0cc48bebf71fba75f39a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Highlight: {fileID: 198494260}
 --- !u!1 &214467047
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,6 +2577,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 649104837}
     m_Modifications:
+    - target: {fileID: 768545934, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+      propertyPath: Highlight
+      value: 
+      objectReference: {fileID: 1838513854}
     - target: {fileID: 768545935, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2653,6 +2597,10 @@ PrefabInstance:
       propertyPath: Tooltip
       value: 
       objectReference: {fileID: 1017575127}
+    - target: {fileID: 1582860154, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+      propertyPath: Highlight
+      value: 
+      objectReference: {fileID: 599238558}
     - target: {fileID: 1582860155, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2757,6 +2705,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d5dfc7310b6517e468f4bad0e36df7c4, type: 3}
+    - target: {fileID: 6651692453234884809, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+      propertyPath: Highlight
+      value: 
+      objectReference: {fileID: 1348835695}
     - target: {fileID: 6651692453900676328, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2769,7 +2721,21 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b8ae3704091fb154fb4f5412690dd679, type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 6651692454062135517, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+      propertyPath: Highlight
+      value: 
+      objectReference: {fileID: 1348835695}
+    m_RemovedComponents:
+    - {fileID: 6651692454062135516, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+    - {fileID: 6651692454062135517, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+    - {fileID: 6651692453234884809, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+    - {fileID: 6651692453234884808, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+    - {fileID: 6651692452450954826, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+    - {fileID: 6651692452450954828, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+    - {fileID: 6651692453095835876, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+    - {fileID: 6651692453095835874, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+    - {fileID: 6651692453900676332, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
+    - {fileID: 6651692453900676330, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
 --- !u!4 &925422719 stripped
 Transform:
@@ -2873,8 +2839,6 @@ GameObject:
   - component: {fileID: 927642592}
   - component: {fileID: 927642591}
   - component: {fileID: 927642590}
-  - component: {fileID: 927642593}
-  - component: {fileID: 927642594}
   m_Layer: 5
   m_Name: Button_Build
   m_TagString: Untagged
@@ -2996,64 +2960,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927642588}
   m_CullTransparentMesh: 0
---- !u!114 &927642593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927642588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c543429a24c0cc48bebf71fba75f39a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Highlight: {fileID: 1520370990}
---- !u!114 &927642594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927642588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 927642593}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverIn
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 927642593}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverOut
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &935000414 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7598899047818106905, guid: 0a8d12bd1ed66db4a88959dcf77e39ea, type: 3}
@@ -3789,8 +3695,6 @@ GameObject:
   - component: {fileID: 1284556276}
   - component: {fileID: 1284556275}
   - component: {fileID: 1284556274}
-  - component: {fileID: 1284556277}
-  - component: {fileID: 1284556278}
   m_Layer: 5
   m_Name: Button_Explore
   m_TagString: Untagged
@@ -3912,64 +3816,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284556272}
   m_CullTransparentMesh: 0
---- !u!114 &1284556277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1284556272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c543429a24c0cc48bebf71fba75f39a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Highlight: {fileID: 1520370990}
---- !u!114 &1284556278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1284556272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1284556277}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverIn
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1284556277}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverOut
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1286328635
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,8 +4158,6 @@ GameObject:
   - component: {fileID: 1546304186}
   - component: {fileID: 1546304185}
   - component: {fileID: 1546304184}
-  - component: {fileID: 1546304188}
-  - component: {fileID: 1546304187}
   m_Layer: 5
   m_Name: Button_Back
   m_TagString: Untagged
@@ -4435,64 +4279,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546304182}
   m_CullTransparentMesh: 0
---- !u!114 &1546304187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1546304182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1546304188}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverIn
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1546304188}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverOut
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &1546304188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1546304182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c543429a24c0cc48bebf71fba75f39a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Highlight: {fileID: 1095294348}
 --- !u!1 &1582860151 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1582860151, guid: d8dbf8ca1680197429ce7fb00bfeb538, type: 3}
@@ -5579,8 +5365,6 @@ GameObject:
   - component: {fileID: 1939831219}
   - component: {fileID: 1939831218}
   - component: {fileID: 1939831217}
-  - component: {fileID: 1939831221}
-  - component: {fileID: 1939831220}
   m_Layer: 5
   m_Name: Button_Options
   m_TagString: Untagged
@@ -5702,64 +5486,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939831215}
   m_CullTransparentMesh: 0
---- !u!114 &1939831220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939831215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1939831221}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverIn
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1939831221}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverOut
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &1939831221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939831215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c543429a24c0cc48bebf71fba75f39a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Highlight: {fileID: 198494260}
 --- !u!1 &1947690544
 GameObject:
   m_ObjectHideFlags: 0
@@ -6079,8 +5805,6 @@ GameObject:
   - component: {fileID: 2007621467}
   - component: {fileID: 2007621466}
   - component: {fileID: 2007621465}
-  - component: {fileID: 2007621469}
-  - component: {fileID: 2007621468}
   m_Layer: 5
   m_Name: Button_Back
   m_TagString: Untagged
@@ -6201,64 +5925,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007621463}
   m_CullTransparentMesh: 0
---- !u!114 &2007621468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007621463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2007621469}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverIn
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2007621469}
-          m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
-          m_MethodName: HoverOut
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &2007621469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007621463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c543429a24c0cc48bebf71fba75f39a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Highlight: {fileID: 1348835695}
 --- !u!1 &2013851120
 GameObject:
   m_ObjectHideFlags: 0
@@ -6625,7 +6291,11 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d971da8a65e416e4c99827f7fb533453, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2377757372179293006, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
+    - {fileID: 2377757372179293005, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
+    - {fileID: 2377757372327114398, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
+    - {fileID: 2377757372327114397, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3291c1a39cf244f49a1ae39d88dfcd9c, type: 3}
 --- !u!1001 &836068376002592680
 PrefabInstance:
