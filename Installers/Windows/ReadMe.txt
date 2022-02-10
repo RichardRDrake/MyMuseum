@@ -1,4 +1,4 @@
-Use Inno Setup Compiler
+Use Inno Setup Compiler https://jrsoftware.org/isdl.php
 
 Load Installer_Script
 

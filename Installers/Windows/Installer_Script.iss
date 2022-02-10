@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MyMuseum"
-#define MyAppVersion "0.1.5 (Alpha)"
+#define MyAppVersion "0.1.8 (Beta)"
 #define MyAppPublisher "CPK"
 #define MyAppURL "https://mymuseum.dorsetcreative.tech/"
 #define MyAppExeName "MyMuseumMaster.exe"
@@ -35,8 +35,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\Concepts\MyMuseum - Live\Builds\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Concepts\MyMuseum - Live\Builds\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\Dorset Creative\MyMuseum\Builds\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\Dorset Creative\MyMuseum\Builds\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

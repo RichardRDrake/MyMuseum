@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 508689937}
-  m_IndirectSpecularColor: {r: 0.4511279, g: 0.50091654, b: 0.5739524, a: 1}
+  m_IndirectSpecularColor: {r: 0.4412985, g: 0.4901018, b: 0.5701531, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -214,6 +214,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
   m_Antialiasing: 2
   m_AntialiasingQuality: 2
@@ -543,13 +544,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262341476}
-  m_LocalRotation: {x: 0.88482976, y: 0.23377283, z: -0.3633166, w: 0.17443542}
+  m_LocalRotation: {x: -0.044943437, y: 0.95125127, z: -0.25488704, w: -0.16773117}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 813607873}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 28.591, y: 219.744, z: 160.925}
+  m_LocalEulerAnglesHint: {x: 30, y: 200, z: 0}
 --- !u!108 &262341478
 Light:
   m_ObjectHideFlags: 0
@@ -562,7 +563,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.90380555, b: 0.645283, a: 1}
-  m_Intensity: 0.8
+  m_Intensity: 0.85
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -682,7 +683,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Archeology
+  m_Text: Archaeology
 --- !u!222 &269158964
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1352,7 +1353,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Costumes
+  m_Text: Costume
 --- !u!222 &388726093
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1416,7 +1417,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.990566, g: 0.9288893, b: 0.76067996, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.6
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1426,8 +1427,8 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 0.6
-    m_Bias: 1.75
-    m_NormalBias: 0
+    m_Bias: 0.25
+    m_NormalBias: 0.1
     m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
@@ -1473,13 +1474,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508689936}
-  m_LocalRotation: {x: 0.33829424, y: 0.123717114, z: 0.2536287, w: 0.8977325}
+  m_LocalRotation: {x: 0.50489646, y: 0.28845683, z: -0.18376724, w: 0.79252875}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 813607873}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 33, y: 28, z: 40}
+  m_LocalEulerAnglesHint: {x: 65, y: 40, z: 0}
 --- !u!114 &508689939
 MonoBehaviour:
   m_ObjectHideFlags: 0
